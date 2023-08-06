@@ -1,0 +1,62 @@
+@import '~@/theme/classic/theme.scss';
+
+.container {
+  position: relative;
+  min-height: calc(100vh * 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .background {
+    img {
+      filter: brightness(40%);
+    }
+  }
+
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    color: color($colors, light);
+    font-weight: 500;
+    font-size: 1.2rem;
+
+    .picture {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 20px solid color($colors, light);
+      border-radius: 5px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      .picture {
+        display: none;
+      }
+    }
+
+    .content__text {
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      flex: 2;
+      padding: 30px;
+    }
+
+  }
+
+  >div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

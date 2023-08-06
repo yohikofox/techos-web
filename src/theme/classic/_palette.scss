@@ -1,0 +1,33 @@
+$colors: (
+  // French Blue
+  primary: #1c77c3,
+  // Picton Blue
+  secondary: #39a9db,
+  // Aero
+  tertiary: #40bcd8,
+  // Carrot Orange
+  accent: #f39237,
+  // Persian Red
+  danger: #d63230,
+  // Emerald
+  success: #4caf50,
+  // Sunglow
+  warning: #fbc02d,
+  // White
+  light: #ffffff,
+  // Black
+  dark: lighten(#000000, 25%),
+);
+
+$default--colors: (
+  foreground: lighten(#000000, 25%),
+  background-start: lighten(map-get($colors, tertiary), 35%),
+  background-end: #ffffff,
+  foreground-dark: #ffffff,
+  background-start-dark: #000000,
+  background-end-dark: #000000,
+  bg-secondary: lighten(map-get($colors, secondary), 15%),
+  bg-primary: lighten(map-get($colors, light), 15%),
+);
+
+$colors: map-merge($colors, $default--colors);

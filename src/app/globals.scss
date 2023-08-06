@@ -1,0 +1,24 @@
+@import '~@/theme/classic/theme.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: #{map-get($light, color)};
+  --background-start-rgb: #{color($light, (bg, start))};
+  --background-end-rgb: #{color($light, (bg, end))};
+  --bg-secondary: #{color($colors, bg-secondary)};
+  --bg-primary: #{color($colors, bg-primary)};
+  --tertiary: #{color($colors, dark)};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: #{map-get($dark, color)};
+    --background-start-rgb: #{map-get(map-get($dark, bg), start)};
+    --background-end-rgb: #{map-get(map-get($dark, bg), start)};
+    --bg-secondary: #{color($dark, bg-secondary)};
+    --bg-primary: #{color($dark, bg-primary)};
+  }
+}

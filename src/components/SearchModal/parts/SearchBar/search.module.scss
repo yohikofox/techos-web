@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+
+  .search__input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+  }
+
+  .label {
+    @apply sr-only;
+  }
+}

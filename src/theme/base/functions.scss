@@ -1,0 +1,9 @@
+@function color($collection, $steps) {
+  @debug $steps;
+  $result: $collection;
+  @each $level in $steps {
+    $result: map-get($result, $level);
+  }
+
+  @return $result;
+}

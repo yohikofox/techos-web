@@ -1,0 +1,13 @@
+$light: (
+  color: rgb(color($colors, foreground), 100%),
+  bg: (start: rgb(color($colors, background-start), 100%),
+    end: rgb(color($colors, background-end), 100%))
+);
+
+$dark: (
+  color: rgb(color($colors, foreground-dark), 100%),
+  bg: (start: rgb(color($colors, background-start-dark), 100%),
+    end: rgb(color($colors, background-end-dark), 100%)),
+  bg-secondary: rgb(darken(color($colors, bg-secondary), 25%), 100%),
+  bg-primary: rgb(darken(color($colors, bg-primary), 25%), 100%),
+);
