@@ -1,3 +1,5 @@
+@import '~@/theme/classic/theme.scss';
+
 .container {
   width: 100%;
 
@@ -6,7 +8,8 @@
     outline: none;
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #c6c6c6;
+    border: 1px solid var(--color-dark);
+    background-color: var(--color-light);
     border-radius: 5px;
   }
 

@@ -22,7 +22,9 @@ export default function Post({ post }: PostCardProps) {
           alt={post.title || ''}
           src={`http://localhost:1337${src}`}
           fill
-          objectFit={'cover'}
+          style={{
+            objectFit: 'cover',
+          }}
         />
       </figure>
 
@@ -36,10 +38,10 @@ export default function Post({ post }: PostCardProps) {
           <span className={styles.reading__time}><Clock className={styles.clock} />{getReadingTime(post.content || "")} min de lecture</span>
         </section>
         {post.extract && (
-          <p dangerouslySetInnerHTML={{ __html: md().render(post.extract) }} ></p>
+          <div dangerouslySetInnerHTML={{ __html: md().render(post.extract) }} />
         )}
       </section>
-      <Link href={`/post/${post.slug}`} className={styles.link} />
+      <Link href={`/post/${post.slug}`} className={styles.inset__link} />
     </article >
   )
 }

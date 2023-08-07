@@ -6,13 +6,13 @@
   &:focus {
     .label {
       position: relative;
-      color: #{map-get($colors, primary)};
-      background-color: var(--bg-primary);
-      transition: border-radius 3s ease-out;
+      color: var(--color-primary);
+      background-color: var(--color-background);
+      transition: border-radius .8s ease-out;
       border-radius: 15px 15px 0 0;
       z-index: 200;
-      border: 1px solid color($colors, primary);
-      border-bottom: 1px solid color($colors, light);
+      border: 1px solid var(--color-primary);
+      border-bottom: 1px solid var(--color-light);
     }
 
     .menu {
@@ -24,7 +24,7 @@
 
   .label {
     padding: 10px 20px 16px 20px;
-    color: var(--foreground-rgb);
+    color: var(--color-foreground);
     font-weight: bold;
   }
 }
@@ -38,9 +38,9 @@
   left: 0;
   transform: translateY(12px);
   // box-shadow: 0 0px 18px 0 rgba(0, 0, 0, 0.3);
-  border: 1px solid color($colors, primary);
+  border: 1px solid var(--color-primary);
   overflow: hidden;
-  background-color: var(--bg-primary);
+  background-color: var(--color-background);
   z-index: 1;
 
   .menu__card {
@@ -51,33 +51,9 @@
       inset: 0;
       top: 50%;
       text-align: center;
-      text-shadow: 0 0 2px color($colors, primary),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%),
-        0 0 2px lighten(color($colors, primary), 55%);
+      text-shadow: 0 0 2px var(--color-primary),
+        0 0 2px var(--color-primary);
     }
-  }
-
-  a.link {
-    position: absolute;
-    inset: 0;
-
   }
 
   &:hover {

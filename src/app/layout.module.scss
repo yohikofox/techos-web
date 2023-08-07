@@ -4,16 +4,12 @@
 
 .container {
   width: 100%;
-  color: var(--foreground-rgb);
-  background: linear-gradient(to bottom,
-      transparent 50%,
-      var(--background-end-rgb)) var(--background-start-rgb) 75%;
+  color: var(--color-foreground);
+  background: var(--color-background);
 
   aside {
     width: 15%;
     float: right;
-    box-shadow: inset 5px 0 5px -5px #29627e;
-    color: #29627e;
     padding-left: 0.5rem;
 
     >p {

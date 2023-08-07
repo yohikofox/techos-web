@@ -8,8 +8,8 @@
   margin-top: 80px;
   gap: 2rem;
 
-  background-color: var(--tertiary);
-  color: color($colors, light);
+  background-color: var(--color-alternate-background);
+  color: var(--color-alternate-foreground);
 
   .section__list {
     width: 100%;
@@ -18,7 +18,7 @@
     justify-content: space-between;
 
     .logo {
-      fill: color($colors, light);
+      fill: var(--color-alternate-foreground);
     }
 
     .title {
@@ -69,10 +69,4 @@
       flex-direction: column;
     }
   }
-}
-
-
-.link {
-  position: absolute;
-  inset: 0;
 }

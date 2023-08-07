@@ -1,0 +1,24 @@
+.inset__link {
+  position: absolute;
+  inset: 0;
+}
+
+.custom__scrollbar {
+  width: .1em;
+  height: .25em;
+}
+
+.custom__scrollbar__track {
+  background: var(--color-background);
+  border-radius: var(--metric-radius-small);
+  margin-block: .5em;
+}
+
+.custom__scrollbar__thumb {
+  background: var(--color-primary);
+  border-radius: var(--metric-radius-small);
+
+  &:hover {
+    background: var(--color-secondary);
+  }
+}

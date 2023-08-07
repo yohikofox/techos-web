@@ -7,6 +7,7 @@ export enum UseCaseOption {
   GET_HEADER_DATA = 'GetHeaderData',
   GET_POST_LIST = 'GetPostList',
   GET_SEARCH_DATA = 'GetSearchData',
+  GET_POST_DETAILS = 'GetPostDetails',
 }
 
 export interface IUseCase<TRequest, TResult> {

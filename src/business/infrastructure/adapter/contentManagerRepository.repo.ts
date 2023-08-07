@@ -14,6 +14,7 @@ export enum GraphQLQueries {
   GET_HOME_DATA = 'getHomeData',
   GET_HEADER_DATA = 'getHeaderData',
   GET_POST_LIST = 'getPostList',
+  GET_POST_DETAILS = 'getPostDetails',
 }
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {

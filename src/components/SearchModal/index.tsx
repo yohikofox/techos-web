@@ -28,7 +28,7 @@ export default function SearchModal({ placeholder, title }: SearchModalProps) {
         closeHandler={setShowModal}
         title={title}
       >
-        <SearchResults />
+        <SearchResults handleSelectedItem={setShowModal} />
       </Modal>}
     </SearchDataProvider>
   )

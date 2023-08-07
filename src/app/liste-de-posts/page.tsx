@@ -1,22 +1,34 @@
 import HomeData from "@/business/model/homeData";
-import PostList from "@/business/model/postList";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { HomeDataResult } from "@/business/useCases/getHomeData";
-import { PostListResult } from "@/business/useCases/getPostList";
 import Hero from "@/components/Hero";
 import Layout, { SlotNames } from "@/components/MainLayout";
 import PostCardList from "@/components/PostList";
 import { redirect } from 'next/navigation'
 
-async function Page() {
+
+
+export interface PageProps {
+  params: {
+    page: string
+  }
+  searchParams: {
+    page: string
+  }
+}
+
+async function Page({ params, searchParams }: PageProps) {
+  const { page } = searchParams;
+
+  let pageInt = 0;
+  if (page) {
+    pageInt = parseInt(page) || 0;
+  }
 
   const useCase = await UseCaseFactory.Instance.get<any, HomeData, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
-  const postListUseCase = await UseCaseFactory.Instance.get<any, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
-
   const response = await useCase?.execute();
-  const postListResponse = await postListUseCase?.execute();
 
-  if (response.IsError || postListResponse.IsError) {
+  if (response.IsError) {
     redirect('/error/400')
   }
 
@@ -34,7 +46,7 @@ async function Page() {
           )}
         </Layout.Slot>
         <main>
-          <PostCardList posts={postListResponse.Value.posts} title="Derniers articles" />
+          <PostCardList title="Derniers articles" page={pageInt} />
         </main>
       </Layout>
     </>

@@ -17,9 +17,11 @@ export default function Hero({ title, background, picture, content }: HeroProps)
         <div className={styles.background}>
           <Image
             fill
-            objectFit={'cover'}
             src={`http://localhost:1337${background.src}`}
             alt={background.name || ''}
+            style={{
+              objectFit: 'cover',
+            }}
           />
         </div>
       )}
@@ -43,7 +45,7 @@ export default function Hero({ title, background, picture, content }: HeroProps)
         )}
         <div className={styles.content__text}>
           <h1>{title}</h1>
-          {content && <p dangerouslySetInnerHTML={{ __html: md().render(content) }}></p>}
+          {content && <div dangerouslySetInnerHTML={{ __html: md().render(content) }} />}
         </div>
       </section>
     </section>

@@ -10,6 +10,19 @@ const nextConfig = {
       port: "1337",
       pathname: '/**',
     }],
+  },
+  headers: async () => {
+    return [
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
+    ]
   }
 }
 

@@ -1,0 +1,25 @@
+@import '~@/theme/classic/theme.scss';
+
+.container {
+  display: flex;
+  gap: 10px;
+
+  width: 100%;
+  justify-content: center;
+
+  .item {
+    position: relative;
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--metric-radius-medium);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .caret {
+    width: 20px;
+    fill: var(--color-foreground);
+  }
+}

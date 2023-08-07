@@ -1,4 +1,6 @@
+@import '~@/theme/classic/theme.scss';
+
 .path {
-  fill: #000000;
+  fill: var(--color-foreground);
   stroke-width: 0.264583;
 }

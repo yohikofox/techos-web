@@ -26,4 +26,8 @@ export const ResourceMapping: {
     resolve: async () => import('@biz/useCases/getSearchData'),
     dependencies: ['Repo/SearchEngine']
   },
+  'UseCase/GetPostDetails': {
+    resolve: async () => import('@biz/useCases/getPostDetails'),
+    dependencies: ['Repo/ContentManagerSystem']
+  },
 }

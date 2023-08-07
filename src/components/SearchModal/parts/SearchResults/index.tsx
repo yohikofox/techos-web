@@ -1,4 +1,4 @@
-import { Suspense, useContext } from "react"
+import { MouseEventHandler, Suspense, useContext } from "react"
 import styles from "./search-results.module.scss"
 import { SearchDataContext } from "../context"
 import Image from "next/image"
@@ -24,52 +24,59 @@ const Loading = async () => {
   )
 }
 
+export interface SearchResultsProps {
+  handleSelectedItem: any
+}
 
-export default function SearchResults() {
+
+export default function SearchResults({ handleSelectedItem }: SearchResultsProps) {
   const [searchResults] = useContext(SearchDataContext) || []
-  let test = false
 
+  const handleLinkClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    console.log('click')
+    handleSelectedItem()
+  }
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        {searchResults?.hits ? searchResults.hits?.map((it, index) => {
+      {searchResults?.hits ? searchResults.hits?.map((it, index) => {
 
-          const readingTime = getReadingTime(it.content);
+        const readingTime = getReadingTime(it.content);
 
-          return (
-            <>
-              <section key={index} className={styles.container}>
-                <div className={styles.image}>
-                  <Image
-                    src={`http://localhost:1337${it.picture.src}`}
-                    alt={it.picture.name}
-                    fill
-                    objectFit="cover"
-                  />
-                </div>
-                <div className={styles.content}>
-                  <h2>{it.title}</h2>
-                  <div className={styles.meta}>
-                    <span>
-                      <span>écrit par {it.author?.username}, </span>
-                      <span>le {dayjs(it.start_at).format("dddd Do MMMM YYYY")}</span>
-                    </span>
-                    <span className={styles.reading__time}><Clock className={styles.clock} />{readingTime} min de lecture</span>
-                  </div>
-                  <p dangerouslySetInnerHTML={{ __html: md().render(it.extract) }} />
-                </div>
-                <Link href={`/post/${it.slug}`} className={styles.link} />
-              </section>
-            </>
-          )
-        }) :
-          (<section className={styles.empty__data}>
-            <Logo className={styles.logo} />
-            <h2 className={styles.no__result}>Aucun résultat</h2>
-          </section>)
-        }
-      </Suspense>
+        return (
+          <section key={`search-result-item-${index}`} className={styles.container}>
+            <div className={styles.image}>
+              <Image
+                src={`http://localhost:1337${it.picture.src}`}
+                alt={it.picture.name}
+                fill
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+            <div className={styles.content}>
+              <h2>{it.title}</h2>
+              <div className={styles.meta}>
+                <span>
+                  <span>écrit par {it.author?.username}, </span>
+                  <span>le {dayjs(it.start_at).format("dddd Do MMMM YYYY")}</span>
+                </span>
+                <span className={styles.reading__time}><Clock className={styles.clock} />{readingTime} min de lecture</span>
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: md().render(it.extract) }} />
+            </div>
+            <Link href={`/post/${it.slug}`} legacyBehavior >
+              <a className={styles.inset__link} onClick={handleLinkClick} />
+            </Link>
+          </section>
+        )
+      }) :
+        (<section className={styles.empty__data}>
+          <Logo className={styles.logo} />
+          <h2 className={styles.no__result}>Aucun résultat</h2>
+        </section>)
+      }
     </>
   )
 }

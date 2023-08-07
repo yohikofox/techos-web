@@ -4,17 +4,14 @@
   position: relative;
   min-height: 400px;
   max-height: 600px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid var(--color-border);
+  border-radius: var(--metric-radius-medium);
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
 
   width: 100%;
-
-  .link {
-    position: absolute;
-    inset: 0;
-  }
 
   .figure {
     position: relative;
@@ -35,10 +32,11 @@
 
     max-height: 50%;
 
-    >p {
+    >div {
       overflow-y: auto;
       z-index: 1;
       text-align: justify;
+      margin-bottom: 15px;
     }
 
     >h2 {
@@ -64,21 +62,20 @@
     }
 
     .clock {
-      fill: color($colors, primary);
+      fill: var(--color-primary);
       width: 1rem;
     }
   }
 }
 
 @media screen and (min-width: 760px) {
-  .container {
-    width: calc(50% - 10px);
-  }
+  .container {}
 }
 
 @media screen and (min-width: 1024px) {
   .container {
     min-height: 600px;
+    width: calc(50% - 10px);
   }
 }
 

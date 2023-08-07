@@ -5,20 +5,102 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: #{map-get($light, color)};
-  --background-start-rgb: #{color($light, (bg, start))};
-  --background-end-rgb: #{color($light, (bg, end))};
-  --bg-secondary: #{color($colors, bg-secondary)};
-  --bg-primary: #{color($colors, bg-primary)};
-  --tertiary: #{color($colors, dark)};
+
+  --icon-chip: url("#{$chip-svg-icon}");
+
+  @each $color,
+  $value in $colors {
+    @if(type-of($value)=='map') {
+
+      @each $sub-color,
+      $sub-value in $value {
+        --color-#{$color}-#{$sub-color}: #{$sub-value};
+
+        @each $opac,
+        $opac-value in $opacity {
+          --color-#{$color}-#{$sub-color}-#{$opac}: #{$value}#{$opac-value};
+        }
+      }
+    }
+
+    @else {
+      --color-#{$color}: #{$value};
+
+      @each $opac,
+      $opac-value in $opacity {
+        --color-#{$color}-#{$opac}: #{$value}#{$opac-value};
+      }
+    }
+  }
+
+  @each $metric,
+  $value in $metrics {
+    @if(type-of($value)=='map') {
+
+      @each $sub-metric,
+      $sub-value in $value {
+        --metric-#{$metric}-#{$sub-metric}: #{$sub-value};
+      }
+    }
+
+    @else {
+      --metric-#{$metric}: #{$value};
+    }
+  }
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: #{map-get($dark, color)};
-    --background-start-rgb: #{map-get(map-get($dark, bg), start)};
-    --background-end-rgb: #{map-get(map-get($dark, bg), start)};
-    --bg-secondary: #{color($dark, bg-secondary)};
-    --bg-primary: #{color($dark, bg-primary)};
+    --icon-chip: url("#{$chip-svg-icon-dark}");
+
+    @each $color,
+    $value in $dark-colors {
+      @if(type-of($value)=='map') {
+
+        @each $sub-color,
+        $sub-value in $value {
+          --color-#{$color}-#{$sub-color}: #{$sub-value};
+
+          @each $opac,
+          $opac-value in $opacity {
+            --color-#{$color}-#{$sub-color}-#{$opac}: #{$value}#{$opac-value};
+          }
+        }
+      }
+
+      @else {
+        --color-#{$color}: #{$value};
+
+        @each $opac,
+        $opac-value in $opacity {
+          --color-#{$color}-#{$opac}: #{$value}#{$opac-value};
+        }
+      }
+    }
+
   }
+}
+
+::-webkit-scrollbar {
+  @extend .custom__scrollbar;
+
+  &-track {
+    @extend .custom__scrollbar__track;
+  }
+
+  &-thumb {
+    @extend .custom__scrollbar__thumb;
+  }
+}
+
+@supports (scrollbar-color: red blue) {
+  * {
+    scrollbar-color: var(--color-background) var(--color-background);
+    scrollbar-width: thin;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }

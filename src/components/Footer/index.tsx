@@ -34,7 +34,7 @@ export default async function Footer() {
         <section className={classNames(styles.section)}>
           <Logo className={styles.logo} />
           <span className={styles.title}>Techos.com</span>
-          <Link href="/" className={styles.link} />
+          <Link href="/" className={styles.inset__link} />
         </section>
         <section className={classNames(styles.section)}>
           <h4 className={styles.section__header}>Sections</h4>

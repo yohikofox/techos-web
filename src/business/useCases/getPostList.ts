@@ -10,9 +10,14 @@ export enum PostListResult {
   ERROR = 'error',
 }
 
-export default class GetPostListUseCase implements IUseCase<any, Result<PostList, PostListResult>> {
+export type PostListRequest = {
+  index?: number,
+  limit?: number
+}
+
+export default class GetPostListUseCase implements IUseCase<PostListRequest, Result<PostList, PostListResult>> {
   constructor(private cmsRepository: IContentManagerSystemRepository) { }
-  async execute(request?: any): Promise<Result<PostList, PostListResult>> {
+  async execute(request?: PostListRequest): Promise<Result<PostList, PostListResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_LIST, request)
 
     if (response.IsError) {
@@ -38,7 +43,15 @@ export default class GetPostListUseCase implements IUseCase<any, Result<PostList
             name: post.attributes.picture.data.attributes.name,
           }
         }
-      })
+      }),
+      meta: {
+        pagination: {
+          page: response.Value.posts.meta.pagination.page,
+          pageSize: response.Value.posts.meta.pagination.pageSize,
+          pageCount: response.Value.posts.meta.pagination.pageCount,
+          total: response.Value.posts.meta.pagination.total,
+        }
+      }
     }
 
     return Result.ok(result)

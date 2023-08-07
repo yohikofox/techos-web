@@ -1,3 +1,2 @@
-* refacto readingTime
+* Refaire le logo
 * refacto configs (hosts)
-* refactor css (styles.link)
