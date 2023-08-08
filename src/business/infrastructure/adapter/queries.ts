@@ -69,6 +69,16 @@ query postList($index: Int!, $limit: Int!) {
             }
           }
         }
+        tags {
+          data {
+            attributes {
+              label
+              background_color
+              color
+              slug
+            }
+          }
+        }
         title
         slug
         content
@@ -119,6 +129,99 @@ query postList($index: Int!, $limit: Int!) {
       }
     }
   }
+  `,
+  getTagPostList: `
+query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
+  posts(
+    filters: { tags: { slug: $tag } }
+    sort: "start_at:desc"
+    pagination: { start: $index, limit: $limit }
+  ) {
+    data {
+      attributes {
+        author {
+          data {
+            attributes {
+              username
+            }
+          }
+        }
+        tags {
+          data {
+            attributes {
+              label
+              background_color
+              color
+              slug
+            }
+          }
+        }
+        title
+        slug
+        content
+        extract
+        start_at
+        picture {
+          data {
+            attributes {
+              name
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}
+
+  `,
+  getTagInfos: `
+  query tagInfos($slug: StringFilterInput!) {
+  tags(filters: { slug: $slug }) {
+    data {
+      attributes {
+        label
+        background_color
+        color
+        hero {
+          title
+          background {
+            data {
+              attributes {
+                name
+                url
+                width
+                height
+              }
+            }
+          }
+          content
+          picture {
+            data {
+              attributes {
+                name
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
   `
 }
 export default queries  

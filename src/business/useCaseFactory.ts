@@ -8,6 +8,8 @@ export enum UseCaseOption {
   GET_POST_LIST = 'GetPostList',
   GET_SEARCH_DATA = 'GetSearchData',
   GET_POST_DETAILS = 'GetPostDetails',
+  GET_TAG_POST_LIST = 'GetTagPostList',
+  GET_TAG_INFOS = 'GetTagInfos',
 }
 
 export interface IUseCase<TRequest, TResult> {

@@ -1,11 +1,13 @@
 import PostCard from "../PostCard"
-import styles from "./post-list.module.scss"
+import styles from "./tag-post-list.module.scss"
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { PostListRequest, PostListResult } from "@/business/useCases/getPostList";
 import PostList from "@/business/model/postList";
 import { redirect } from "next/navigation";
-import Pagination from "./parts/Pagination";
 import { PostType } from "@/business/model/post";
+import Pagination from "../PostList/parts/Pagination";
+import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
+import { TagInfosRequest, TagInfosResult } from "@/business/useCases/getTagInfos";
+import Tag from "@/business/model/tag";
 
 const ADS_POSITION_LIST = [3, 13];
 const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
@@ -25,17 +27,23 @@ const AD_DEFAULT = {
   updatedAt: new Date(),
 }
 
-export interface PostListProps {
+export interface TagPostListProps {
+  tag: string
   title?: string
   page?: number
 }
 
-export default async function PostListRender({ title, page }: PostListProps) {
+export default async function PostListRender({ title, page, tag }: TagPostListProps) {
   const validatedPage = page && page > 0 ? page - 1 : DEFAULT_PAGE_INDEX
   const index = validatedPage * DEFAULT_PAGE_SIZE
   const limit = DEFAULT_PAGE_SIZE
-  const postListUseCase = await UseCaseFactory.Instance.get<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
-  const postListResponse = await postListUseCase?.execute({ index, limit });
+  const postListUseCase = await UseCaseFactory.Instance.get<TagPostListRequest, PostList, TagPostListResult>(UseCaseOption.GET_TAG_POST_LIST);
+
+  const postListResponse = await postListUseCase?.execute({
+    index, limit, tag: {
+      "eq": tag
+    }
+  });
 
   if (postListResponse.IsError) {
     redirect('/error/400')

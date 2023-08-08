@@ -1,5 +1,5 @@
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
-import Post from "../model/post";
+import Post, { PostType } from "../model/post";
 import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
 
@@ -25,6 +25,7 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
       content: response.Value.posts.data[0].attributes.content,
       extract: response.Value.posts.data[0].attributes.extract,
       start_at: response.Value.posts.data[0].attributes.start_at,
+      type: PostType.Article,
       author: {
         username: response.Value.posts.data[0].attributes.author.data.attributes.username
       },

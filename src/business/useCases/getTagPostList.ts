@@ -6,23 +6,24 @@ import { IUseCase } from "../useCaseFactory";
 
 
 
-export enum PostListResult {
+export enum TagPostListResult {
   SUCCESS = 'success',
   ERROR = 'error',
 }
 
-export type PostListRequest = {
-  index?: number,
+export type TagPostListRequest = {
+  tag: any
+  index?: number
   limit?: number
 }
 
-export default class GetPostListUseCase implements IUseCase<PostListRequest, Result<PostList, PostListResult>> {
+export default class GetTagPostListUseCase implements IUseCase<TagPostListRequest, Result<PostList, TagPostListResult>> {
   constructor(private cmsRepository: IContentManagerSystemRepository) { }
-  async execute(request?: PostListRequest): Promise<Result<PostList, PostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_LIST, request)
+  async execute(request?: TagPostListRequest): Promise<Result<PostList, TagPostListResult>> {
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request)
 
     if (response.IsError) {
-      return response.transferError(PostListResult.ERROR)
+      return response.transferError(TagPostListResult.ERROR)
     }
 
     const result: PostList = {

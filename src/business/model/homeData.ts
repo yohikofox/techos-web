@@ -1,12 +1,8 @@
+import Hero from "./hero"
 import ImageSet from "./image"
 
 type HomeData = {
-  hero?: {
-    title: string
-    content: string
-    background: ImageSet
-    picture: ImageSet
-  },
+  hero?: Hero,
   search?: {
     placeholder: string
   }

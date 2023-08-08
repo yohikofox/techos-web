@@ -30,4 +30,12 @@ export const ResourceMapping: {
     resolve: async () => import('@biz/useCases/getPostDetails'),
     dependencies: ['Repo/ContentManagerSystem']
   },
+  'UseCase/GetTagPostList': {
+    resolve: async () => import('@biz/useCases/getTagPostList'),
+    dependencies: ['Repo/ContentManagerSystem']
+  },
+  'UseCase/GetTagInfos': {
+    resolve: async () => import('@biz/useCases/getTagInfos'),
+    dependencies: ['Repo/ContentManagerSystem']
+  }
 }
