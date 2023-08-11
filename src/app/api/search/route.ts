@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   const response = await useCase.execute({ payload })
 
   if (response.IsError) {
-    console.log('response.Error:', response)
+    console.error('response.Error:', response)
     return badRequest()
   }
 

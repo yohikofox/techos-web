@@ -1,6 +1,36 @@
 @import '~@/theme/classic/theme.scss';
 
+.logo {
+  aspect-ratio: 164.28389 / 181.94366;
+}
+
 .path {
   fill: var(--color-foreground);
   stroke-width: 0.264583;
+
+  &__ {
+    &* {
+      stroke-width: 0.264583;
+    }
+
+    &eye {
+      fill: var(--color-accent);
+    }
+
+    &logo__thin {
+      fill: var(--color-secondary);
+    }
+
+    &logo__fat {
+      fill: var(--color-primary);
+    }
+
+    &contour {
+      fill: var(--color-foreground);
+    }
+
+    &fill {
+      fill: var(--color-black);
+    }
+  }
 }

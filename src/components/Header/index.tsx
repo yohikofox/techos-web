@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import styles from './header.module.scss'
-import Image from "next/image"
 import MenuList from '../MenuList'
 import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory'
 import { HeaderDataResult } from '@/business/useCases/getHeaderData'
 import { redirect } from 'next/navigation'
 import HeaderData from '@/business/model/headerData'
 import SearchModal from '../SearchModal'
-import Logo from '../Icon/Logo'
+import { MainLogo } from '../Icon/Logo'
+import HamburgerMenu from './parts/HamburgerMenu'
 
 export interface HeaderProps {
   title: string
@@ -24,27 +24,32 @@ export default async function Header({ title }: HeaderProps) {
 
   return (
     <header className={styles.container}>
+      <span className={styles.hamburger__menu}><HamburgerMenu /></span>
+      <section className={styles.logo}>
+        {/* <Image src="/logo.png" alt="logo" width={50} height={50} /> */}
+        {/* <Image src="/logo.png" alt="logo" fill /> */}
+        {/* <Logo className={styles.logo__svg} /> */}
+        <MainLogo className={styles.logo__svg} />
+        <Link href="/" />
+      </section>
+      <span className={styles.title}>{process.env.DOMAIN_NAME}<Link href={"/"} className={styles.inset__link} /></span>
       <nav>
-        <ul>
-          <li>
-            <section className={styles.logo}>
-              <Logo className={styles.logo__svg} />
-              <Link href="/" />
-            </section>
-          </li>
+        <ul className={styles.nav__menu}>
           <li className={styles.menu__link}>
             <Link href="/formations">Formations</Link>
           </li>
           {response.Value.trainings && <li><MenuList name={response.Value.trainings.title || ""} items={response.Value.trainings.items} /></li>}
-          <li className={styles.push__right}>
-            {/* Search <mark>articles</mark> */}
-            <SearchModal
-              placeholder={response.Value.search?.placeholder || ""}
-              title={response.Value.search?.search_title || ""}
-            />
-          </li>
+          {/* <li className={styles.push__right}>
+            
+            
+          </li> */}
         </ul>
       </nav>
+      <SearchModal
+        className={styles.search__modal}
+        placeholder={response.Value.search?.placeholder || ""}
+        title={response.Value.search?.search_title || ""}
+      />
     </header>
   )
 }

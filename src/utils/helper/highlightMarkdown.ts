@@ -22,7 +22,6 @@ hljs.registerLanguage('xml', xml);
 
 
 export default function highlightMarkdown(text: string, lang: string, attrs: string): string {
-  console.log('lang:', lang)
   if (lang && hljs.getLanguage(lang)) {
     try {
       return `<pre class="hljs"><code class="language-${lang}">${hljs.highlight(text, { language: lang }).value}</code></pre>`;

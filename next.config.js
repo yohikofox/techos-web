@@ -9,6 +9,18 @@ const nextConfig = {
       hostname: 'localhost',
       port: "1337",
       pathname: '/**',
+    },
+    {
+      protocol: 'https',
+      hostname: 'i.pravatar.cc',
+      pathname: '/**',
+      port: '',
+    },
+    {
+      protocol: 'https',
+      hostname: 'eu.ui-avatars.com',
+      pathname: '/**',
+      port: '',
     }],
   },
   headers: async () => {

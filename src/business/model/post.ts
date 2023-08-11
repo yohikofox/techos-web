@@ -1,5 +1,6 @@
 import Author from "./author"
 import ImageSet from "./image"
+import PostStats from "./postStats"
 import Tag from "./tag"
 
 export enum PostType {
@@ -19,8 +20,10 @@ type Post = {
   end_at?: string
   picture?: Partial<ImageSet>
   author: Author
-  type: PostType,
+  type: PostType
   tags?: Tag[]
+  stats?: PostStats
+  level?: string
 }
 
 export default Post

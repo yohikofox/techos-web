@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 import Pagination from "./parts/Pagination";
 import { PostType } from "@/business/model/post";
 
-const ADS_POSITION_LIST = [3, 13];
-const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
+const ADS_POSITION_LIST: number[] = []; //3, 13
+const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
 const DEFAULT_PAGE_INDEX = 0;
 
 const AD_DEFAULT = {

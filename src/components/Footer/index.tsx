@@ -4,9 +4,10 @@ import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory';
 import HeaderData from '@/business/model/headerData';
 import { HeaderDataResult } from '@/business/useCases/getHeaderData';
 import { redirect } from 'next/navigation';
-import Logo from '../Icon/Logo';
+import Logo, { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 
 export default async function Footer() {
 
@@ -30,10 +31,17 @@ export default async function Footer() {
 
   return (
     <footer className={classNames(styles.container)}>
+      <Image src={"/logo.png"} className={styles.test} alt="" fill />
+
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
-          <Logo className={styles.logo} />
-          <span className={styles.title}>Techos.com</span>
+          {/* <Logo className={styles.logo} /> */}
+          <MainLogo className={styles.logo} />
+          {/* <img src="/logo.png" alt="logo" width={150} height={150} style={{
+            borderRadius: '12px',
+
+          }} /> */}
+          <span className={styles.title}>{process.env.DOMAIN_NAME}</span>
           <Link href="/" className={styles.inset__link} />
         </section>
         <section className={classNames(styles.section)}>
@@ -68,7 +76,9 @@ export default async function Footer() {
         </section>
       </section>
       <section className={styles.watermark}>
-        @Techos.com, since <time dateTime={now.format('YYYY-MM-DD')}>&nbsp;{now.year()}</time></section>
+        @Techos.com, since <time dateTime={now.format('YYYY-MM-DD')}>&nbsp;{now.year()}</time>
+      </section>
     </footer>
   )
 }
+

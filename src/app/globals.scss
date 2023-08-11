@@ -2,6 +2,10 @@
 
 @tailwind base;
 
+>* {
+  border: solid 5px red;
+}
+
 :root {
 
   --icon-chip: url("#{$chip-svg-icon}");

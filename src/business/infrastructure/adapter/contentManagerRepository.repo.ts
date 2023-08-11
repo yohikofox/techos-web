@@ -17,6 +17,9 @@ export enum GraphQLQueries {
   GET_POST_DETAILS = 'getPostDetails',
   GET_TAG_POST_LIST = 'getTagPostList',
   GET_TAG_INFOS = 'getTagInfos',
+  GET_POST_STATS = 'getPostStats',
+  UPDATE_POST_STATS = 'updatePostStats',
+  CREATE_POST_STATS = 'createPostStats',
 }
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {

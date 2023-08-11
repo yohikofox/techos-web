@@ -6,8 +6,6 @@ import { redirect } from "next/navigation";
 import { PostType } from "@/business/model/post";
 import Pagination from "../PostList/parts/Pagination";
 import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
-import { TagInfosRequest, TagInfosResult } from "@/business/useCases/getTagInfos";
-import Tag from "@/business/model/tag";
 
 const ADS_POSITION_LIST = [3, 13];
 const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;

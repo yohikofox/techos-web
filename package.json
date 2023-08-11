@@ -21,6 +21,7 @@
     "highlight.js": "^11.8.0",
     "markdown-it": "^13.0.1",
     "next": "13.4.12",
+    "parse5": "^7.1.2",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "vitest": "^0.34.1"
   }
 }

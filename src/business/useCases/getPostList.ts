@@ -1,3 +1,4 @@
+import PostHelper from "@/utils/helper/postHelper";
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
 import { PostType } from "../model/post";
 import PostList from "../model/postList";
@@ -29,6 +30,7 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
       posts: response.Value.posts.data.map((post: any) => {
 
         return {
+          level: PostHelper.getLevel(post.attributes.level),
           title: post.attributes.title,
           slug: post.attributes.slug,
           content: post.attributes.content,
@@ -51,7 +53,11 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
               color: tag.attributes.color,
               backgroundColor: tag.attributes.background_color
             }
-          })
+          }),
+          stats: post.attributes.post_stat_list?.data && {
+            slug: post.attributes.slug,
+            viewCount: post.attributes.post_stat_list.data.attributes.view_count,
+          }
         }
       }),
       meta: {

@@ -45,7 +45,15 @@ $base-metric: 4px;
 $opacity-step : 25;
 
 $opacity: (
-  0: 0,
+  0: 00,
+  1: 02,
+  2: 04,
+  3: 08,
+  5: 0A,
+  6: 0C,
+  7: 0E,
+  8: 10,
+  9: 12,
   10: 19,
   20: 32,
   30: 4B,
@@ -65,12 +73,15 @@ $metrics: (
   )
 );
 
+$constant-black: lighten(#000, 5%);
+
 $default--colors: (
   foreground: map-get($colors, dark),
   alternate-foreground: map-get($colors, light),
   background: map-get($colors, light),
   alternate-background: map-get($colors, dark),
   border: map-get($colors, dark),
+  black: $constant-black,
 );
 
 $colors: map-merge($colors, $default--colors);
@@ -79,6 +90,7 @@ $default--dark--colors: (
   foreground: map-get($dark-colors, dark),
   background: map-get($dark-colors, light),
   border: map-get($colors, dark),
+  black: $constant-black,
 );
 
 $dark-colors: map-merge($dark-colors, $default--dark--colors);

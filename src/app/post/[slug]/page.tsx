@@ -6,6 +6,7 @@ import Layout, { SlotNames } from "@/components/MainLayout";
 import Hero from "@/components/Hero";
 import ImageSet from "@/business/model/image";
 import PostDetails from "@/components/PostDetails";
+import TrackingWorker from "@/components/TrackingWorker";
 
 export interface PostPageProps { params: { slug: string } }
 

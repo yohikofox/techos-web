@@ -1,10 +1,9 @@
 .container {
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
-  margin: 10px 0;
-  gap: 10px;
+  gap: 20px;
 }
 
 @media screen and (min-width: 768px) {

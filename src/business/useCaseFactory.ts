@@ -10,6 +10,7 @@ export enum UseCaseOption {
   GET_POST_DETAILS = 'GetPostDetails',
   GET_TAG_POST_LIST = 'GetTagPostList',
   GET_TAG_INFOS = 'GetTagInfos',
+  UPDATE_POST_STATS = 'UpdatePostStats',
 }
 
 export interface IUseCase<TRequest, TResult> {

@@ -53,12 +53,10 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
     }
   }
 
-
-
   return (
     <section className={styles.container}>
       <label htmlFor="default-search" className={styles.label}>Search</label>
-      <input name="default-search" type="search" onChange={handleSearch} placeholder={placeholder} className={styles.search__input} />
+      <input autoFocus name="default-search" type="search" onChange={handleSearch} placeholder={placeholder} className={styles.search__input} />
     </section>
   )
 }

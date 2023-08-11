@@ -1,13 +1,12 @@
 @import '~@/theme/classic/theme.scss';
+$card-gap: 20px;
 
 .container {
   position: relative;
-  min-height: 400px;
-  max-height: 600px;
+  height: 600px;
+  overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--metric-radius-medium);
-  overflow: hidden;
-
   display: flex;
   flex-direction: column;
 
@@ -26,106 +25,170 @@
 
   .details {
     padding: 10px 20px;
+
+    height: 50%;
+
     display: flex;
     flex-direction: column;
-    height: 50%;
     justify-content: space-between;
 
-    max-height: 50%;
+  }
 
-    >div {
-      overflow-y: auto;
-      z-index: 1;
-      text-align: justify;
-      margin-bottom: 15px;
-    }
+  .details__top,
+  .details__bottom {
+    height: 50%;
+  }
 
-    >h2 {
-      height: 25%;
-      width: 100%;
-      text-align: center;
-      font-weight: 500;
-      font-size: 1.1rem;
-    }
+  .details__top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-    .metadata {
-      height: 20%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
 
-      .metadata__edito {
-        height: 50%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        font-size: .8rem;
-        font-weight: 500;
-      }
+  .title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1rem;
+  }
 
-      .metadata__tags {
-        height: 50%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        font-size: .8rem;
-        font-weight: 500;
-      }
-    }
+  .reading__time {
+    display: flex;
+    gap: 10px;
+    font-size: .8rem;
+    white-space: nowrap;
+  }
 
-    .abstract {
-      height: 55%;
-    }
+  .reading__effective_time {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-end;
+  }
 
-    .reading__time {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
 
-    .clock {
-      fill: var(--color-primary);
-      width: 1rem;
-    }
+  .metadata__author {
+    font-size: .8rem;
+  }
+
+  .metadata__count {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: .8rem;
+    flex: 1;
+  }
+
+  .clock {
+    fill: var(--color-accent);
+    width: 1rem;
+  }
+
+
+  .metadata__tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .8rem;
+    font-weight: 500;
+    margin: 2px 0;
+  }
+
+  .metadata__tags__item {
+    font-size: .7rem;
+    padding: 2px 5px;
+  }
+
+  .metadata__level {
+    border: 1px solid var(--color-border);
+    border-radius: var(--metric-radius-small);
+  }
+
+
+
+  .details__bottom {
+    // z-index: 1;
+    margin-bottom: 10px;
+  }
+
+
+  .abstract {
+    text-align: justify;
+    overflow: hidden;
+    height: 100%;
   }
 }
 
 @media screen and (min-width: 760px) {
-  .container {}
+  .container {
+    .title {
+      font-size: 1.2rem;
+    }
+
+    .reading__time {}
+
+    .metadata__count {}
+
+    .reading__effective_time {}
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .container {
-    min-height: 600px;
-    width: calc(50% - 10px);
+    width: calc(50% - $card-gap);
+
+    .details__top {
+      gap: unset;
+      justify-content: space-between;
+    }
   }
 }
 
 @media screen and (min-width: 1440px) {
   .container {
-    width: calc(33% - 5px);
+    width: calc(33% - $card-gap);
 
-    .details {
-      gap: 20px;
+    .title {
+      font-size: 1.1em;
+      font-weight: 700;
+      height: 50%;
+    }
 
-      >p {}
+    .details__top {}
+  }
+}
 
-      >h2 {
-        font-weight: 700;
-        font-size: 1.3rem;
-      }
+@media screen and (min-width: 2560px) {
+  $font-size: 1.2rem;
 
-      .metadata {
-        .metadata__edito {
-          font-size: 1rem;
-        }
-      }
+  .container {
+    width: calc(25% - $card-gap);
+    height: 800px;
 
-      .reading__time {}
+    .title {
+      font-size: 1.5em;
+      font-weight: 700;
+      height: 50%;
+    }
 
-      .clock {}
+    .reading__time,
+    .metadata__author,
+    .metadata__count {
+      font-size: $font-size;
+    }
+
+    .metadata__tags__item {
+      font-size: 1rem;
+    }
+
+    .abstract {
+      font-size: $font-size;
+    }
+
+    .clock {
+      width: $font-size;
     }
   }
 }

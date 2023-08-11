@@ -10,6 +10,7 @@ import Footer from '@/components/Footer'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
+import TrackingWorker from '@/components/TrackingWorker'
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)

@@ -1,17 +1,18 @@
 @import '~@/theme/classic/theme.scss';
 
 .container {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 50px;
   margin-top: 80px;
   gap: 2rem;
-
-  background-color: var(--color-alternate-background);
-  color: var(--color-alternate-foreground);
+  height: 500px;
 
   .section__list {
+    flex: 5;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -19,12 +20,19 @@
 
     .logo {
       fill: var(--color-alternate-foreground);
+      width: 30%;
+    }
+
+    >:first-child {
+      display: flex;
+      justify-content: center;
     }
 
     .title {
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
+      text-transform: capitalize;
     }
 
     >section {
@@ -52,6 +60,7 @@
   }
 
   .watermark {
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -69,4 +78,11 @@
       flex-direction: column;
     }
   }
+}
+
+
+.test {
+  object-fit: cover;
+  object-position: center 35%;
+  filter: opacity(.15) brightness(3);
 }

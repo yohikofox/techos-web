@@ -1,0 +1,7 @@
+@import '~@/theme/classic/theme.scss';
+
+.container {
+  >path {
+    stroke: var(--color-foreground);
+  }
+}

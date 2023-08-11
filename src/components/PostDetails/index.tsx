@@ -2,6 +2,11 @@ import Post from '@/business/model/post'
 import styles from './post-details.module.scss'
 import md from "markdown-it";
 import highlightMarkdown from '@/utils/helper/highlightMarkdown';
+import TrackingWorker from '../TrackingWorker';
+import Author from './parts/Author';
+import PostDate from './parts/PostDate';
+import Metadata from './parts/Metadata';
+import getReadingTime from '@/utils/helper/getReadingTime';
 
 
 
@@ -30,10 +35,15 @@ export default function PostDetails({ post }: PostDetailsProps) {
     }
     return ''
   }
+  const readingTime = getReadingTime(post.content)
   return (
     <>
       <section className={styles.container}>
-        <section className={styles.metadata}></section>
+        <Metadata
+          author={post.author}
+          slug={post.slug}
+          start_at={post.start_at}
+          readingTime={readingTime} />
         <div className={styles.content} dangerouslySetInnerHTML={{ __html: m.render(post.content) }} />
       </section>
     </>

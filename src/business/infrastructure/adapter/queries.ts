@@ -62,6 +62,7 @@ query postList($index: Int!, $limit: Int!) {
   posts(sort: "start_at:desc", pagination: { start: $index, limit: $limit }) {
     data {
       attributes {
+        level
         author {
           data {
             attributes {
@@ -94,6 +95,13 @@ query postList($index: Int!, $limit: Int!) {
             }
           }
         }
+        post_stat_list {
+          data {
+            attributes {
+              view_count
+            }
+          }
+        }
       }
     }
     meta {
@@ -109,26 +117,51 @@ query postList($index: Int!, $limit: Int!) {
   `,
   getPostDetails: `
   query postDetails($slug: StringFilterInput!) {
-    posts(filters:{slug: $slug}) {
-      data {
-        attributes {        
-          author{data{attributes{username}}}
-          title        
-          slug
-          content
-          start_at
-          picture {
-            data {
-              attributes {
-                name
-                url
+  posts(filters: { slug: $slug }) {
+    data {
+      id
+      attributes {
+        author {
+          data {
+            attributes {
+              username
+              avatar {
+                data {
+                  attributes {
+                    name
+                    url
+                    width
+                    height
+                  }
+                }
               }
+            }
+          }
+        }
+        title
+        slug
+        content
+        start_at
+        picture {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+        post_stat_list {
+          data {
+            attributes {
+              view_count
             }
           }
         }
       }
     }
   }
+}
+
   `,
   getTagPostList: `
 query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
@@ -139,6 +172,7 @@ query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
   ) {
     data {
       attributes {
+        level
         author {
           data {
             attributes {
@@ -217,6 +251,42 @@ query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
             }
           }
         }
+      }
+    }
+  }
+}
+
+  `,
+  getPostStats: `
+query getPostStats($slug: StringFilterInput!) {
+  postStatLists(filters: { post: { slug: $slug } }) {
+    data {
+      id
+      attributes {
+        view_count
+      }
+    }
+  }
+}
+
+  `,
+  createPostStats: `
+mutation createPostStats ($count: Int!, $post:ID!){
+  createPostStatList(data: {view_count: $count,post:$post}) {
+    data {
+      attributes {
+        view_count
+      }
+    }
+  }
+}
+  `,
+  updatePostStats: `
+mutation updatePostStats ($id:ID!, $count: Int!){
+  updatePostStatList(id:$id,data: {view_count: $count}) {
+    data {
+      attributes {
+        view_count
       }
     }
   }
