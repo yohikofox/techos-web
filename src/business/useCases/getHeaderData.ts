@@ -1,7 +1,8 @@
+import { IUseCase } from "../useCaseFactory";
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
 import HeaderData from "../model/headerData";
 import { Result } from "../result";
-import { IUseCase } from "../useCaseFactory";
+import { IImageSetService } from "../services/imageSet.service";
 
 export enum HeaderDataResult {
   SUCCESS = 'success',
@@ -9,14 +10,16 @@ export enum HeaderDataResult {
 }
 
 export default class GetHeaderDataUseCase implements IUseCase<any, Result<HeaderData, HeaderDataResult>> {
-  constructor(private cmsRepository: IContentManagerSystemRepository) { }
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+    private imageSetService: IImageSetService
+  ) { }
   async execute(request?: any): Promise<Result<HeaderData, HeaderDataResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request)
 
     if (response.IsError) {
       return response.transferError(HeaderDataResult.ERROR)
     }
-
 
     const result: HeaderData = {
       search: {
@@ -25,19 +28,13 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
       },
       trainings: {
         title: response.Value.header.data.attributes.trainings,
-        items: response.Value.trainings.data.map((training: any) => {
-
+        items: await Promise.all(response.Value.trainings.data.map(async (training: any) => {
           return {
             title: training.attributes.title,
-            link: training.attributes.link,
-            background: {
-              src: training.attributes.background.data.attributes.url,
-              width: training.attributes.background.data.attributes.width,
-              height: training.attributes.background.data.attributes.height,
-              name: training.attributes.background.data.attributes.name,
-            }
+            link: `/formation${training.attributes.link}`,
+            background: await this.imageSetService.mapImageSet(training.attributes.background.data.attributes)
           }
-        })
+        }))
       }
     }
 
@@ -57,4 +54,10 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
                     height: image.attributes.formats[key].height,
                   }
                 })
-              }).flat() */
+              }).flat() 
+              
+              
+                let avatarSrc = data.avatar?.src //'https://i.pravatar.cc/400'
+  if (!avatarSrc) avatarSrc = `https://eu.ui-avatars.com/api/?background=random&color=random&name=${encodeURIComponent(data.username)}&size=400`
+
+  */

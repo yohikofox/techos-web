@@ -4,7 +4,6 @@ import PostDate from "../PostDate";
 import styles from "./metadata.module.scss"
 import Author from "@/business/model/author";
 import classNames from "classnames";
-import getReadingTime from "@/utils/helper/getReadingTime";
 
 export interface MetadataProps {
   author: Author

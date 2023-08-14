@@ -8,17 +8,14 @@ export interface AuthorProps {
   className?: string
 }
 
-export default function Author({ data, className }: AuthorProps) {
-  let avatarSrc = `http://localhost:1337${data.avatar?.src}`//'https://i.pravatar.cc/400'
-  if (!avatarSrc) avatarSrc = `https://eu.ui-avatars.com/api/?background=random&color=random&name=${encodeURIComponent(data.username)}&size=400`
-
+export default async function Author({ data, className }: AuthorProps) {
   return (
     <>
       <section className={classNames(styles.container, className)}>
         <section className={styles.avatar__container}>
           <div className={styles.avatar}>
             <Image
-              src={avatarSrc}
+              src={data.avatar?.src || ''}
               alt='avatar'
               fill
               style={{

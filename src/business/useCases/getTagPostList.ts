@@ -1,10 +1,8 @@
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
-import { PostType } from "../model/post";
 import PostList from "../model/postList";
 import { Result } from "../result";
+import { IPostService } from "../services/post.service";
 import { IUseCase } from "../useCaseFactory";
-
-
 
 export enum TagPostListResult {
   SUCCESS = 'success',
@@ -18,7 +16,10 @@ export type TagPostListRequest = {
 }
 
 export default class GetTagPostListUseCase implements IUseCase<TagPostListRequest, Result<PostList, TagPostListResult>> {
-  constructor(private cmsRepository: IContentManagerSystemRepository) { }
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+    private postService: IPostService
+  ) { }
   async execute(request?: TagPostListRequest): Promise<Result<PostList, TagPostListResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request)
 
@@ -27,34 +28,7 @@ export default class GetTagPostListUseCase implements IUseCase<TagPostListReques
     }
 
     const result: PostList = {
-      posts: response.Value.posts.data.map((post: any) => {
-
-        return {
-          title: post.attributes.title,
-          slug: post.attributes.slug,
-          content: post.attributes.content,
-          extract: post.attributes.extract,
-          start_at: post.attributes.start_at,
-          type: PostType.Article,
-          author: {
-            username: post.attributes.author.data.attributes.username
-          },
-          picture: {
-            src: post.attributes.picture.data.attributes.url,
-            width: post.attributes.picture.data.attributes.width,
-            height: post.attributes.picture.data.attributes.height,
-            name: post.attributes.picture.data.attributes.name,
-          },
-          tags: post.attributes.tags.data.map((tag: any) => {
-            return {
-              label: tag.attributes.label,
-              slug: tag.attributes.slug,
-              color: tag.attributes.color,
-              backgroundColor: tag.attributes.background_color
-            }
-          })
-        }
-      }),
+      posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post))),
       meta: {
         pagination: {
           page: response.Value.posts.meta.pagination.page,

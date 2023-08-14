@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/notification/notify HTTP/1.1
+Accept: application/json, text/plain, */*
+Content-Type: application/json;charset=UTF-8
+
+
+{
+  "notification": {
+    "message": "Hello World",
+    "subject": "Test"
+  }
+}

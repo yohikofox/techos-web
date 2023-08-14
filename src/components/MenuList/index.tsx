@@ -1,5 +1,3 @@
-'use client'
-
 import Image from "next/image"
 import styles from "./menuList.module.scss"
 import Link from "next/link"
@@ -15,12 +13,13 @@ export interface MenuListProps {
 }
 
 
-const MenuCard = ({ item }: any) => {
+
+const MenuCard = async ({ item, }: any) => {
   return (
     <div className={styles.menu__card}>
       {item.background && <Image
         alt={item.title}
-        src={`http://localhost:1337${item.background.src}`}
+        src={item.background.src}
         width={100}
         height={100}
       />}

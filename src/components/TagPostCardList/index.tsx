@@ -7,7 +7,7 @@ import { PostType } from "@/business/model/post";
 import Pagination from "../PostList/parts/Pagination";
 import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
 
-const ADS_POSITION_LIST = [3, 13];
+const ADS_POSITION_LIST: number[] = [];
 const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
 const DEFAULT_PAGE_INDEX = 0;
 
@@ -19,7 +19,7 @@ const AD_DEFAULT = {
   type: PostType.Ad,
   picture: {
     name: 'Ads',
-    src: '/uploads/ads_9ee4df27b1.png',
+    src: 'http://localhost:1337/uploads/ads_9ee4df27b1.png',
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -35,7 +35,7 @@ export default async function PostListRender({ title, page, tag }: TagPostListPr
   const validatedPage = page && page > 0 ? page - 1 : DEFAULT_PAGE_INDEX
   const index = validatedPage * DEFAULT_PAGE_SIZE
   const limit = DEFAULT_PAGE_SIZE
-  const postListUseCase = await UseCaseFactory.Instance.get<TagPostListRequest, PostList, TagPostListResult>(UseCaseOption.GET_TAG_POST_LIST);
+  const postListUseCase = await UseCaseFactory.Instance.getUseCase<TagPostListRequest, PostList, TagPostListResult>(UseCaseOption.GET_TAG_POST_LIST);
 
   const postListResponse = await postListUseCase?.execute({
     index, limit, tag: {

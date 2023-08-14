@@ -3,6 +3,7 @@ import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructu
 import Post, { PostType } from "../model/post";
 import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
+import { IImageSetService } from "../services/imageSet.service";
 
 export enum PostDetailsResult {
   SUCCESS = 'success',
@@ -10,7 +11,10 @@ export enum PostDetailsResult {
 }
 
 export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post, PostDetailsResult>> {
-  constructor(private cmsRepository: IContentManagerSystemRepository) { }
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+    private imageSetService: IImageSetService
+  ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request)
 
@@ -28,19 +32,10 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
       type: PostType.Article,
       author: {
         username: response.Value.posts.data[0].attributes.author.data.attributes.username,
-        avatar: response.Value.posts.data[0].attributes.author.data.attributes.avatar?.data && {
-          src: response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes.url,
-          width: response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes.width,
-          height: response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes.height,
-          name: response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes.name,
-        }
+        avatar: response.Value.posts.data[0].attributes.author.data.attributes.avatar?.data &&
+          await this.imageSetService.mapImageSet(response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes)
       },
-      picture: {
-        src: response.Value.posts.data[0].attributes.picture.data.attributes.url,
-        width: response.Value.posts.data[0].attributes.picture.data.attributes.width,
-        height: response.Value.posts.data[0].attributes.picture.data.attributes.height,
-        name: response.Value.posts.data[0].attributes.picture.data.attributes.name,
-      },
+      picture: await this.imageSetService.mapImageSet(response.Value.posts.data[0].attributes.picture.data.attributes),
       stats: response.Value.posts.data[0].attributes.post_stat_list?.data && {
         slug: response.Value.posts.data[0].attributes.post_stat_list.data.attributes.slug,
         viewCount: response.Value.posts.data[0].attributes.post_stat_list.data.attributes.view_count,

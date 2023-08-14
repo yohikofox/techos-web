@@ -1,4 +1,4 @@
-import { parseFragment, parse } from "parse5"
+import { parseFragment } from "parse5"
 
 const levelMapping: { [key: string]: string } = {
   'beginner': 'Débutant',
@@ -25,8 +25,6 @@ export default class PostHelper {
     } else {
       switch (parent.nodeName) {
         case '#text':
-          // if (parent.value === '\n') break
-          // if (!parent.value.trim()) break
           result.push(parent.value)
         default:
           break
@@ -55,8 +53,6 @@ export default class PostHelper {
         res += part + ' ';
         continue;
       }
-
-      // res += '\n';
     }
 
     res = res.trim()

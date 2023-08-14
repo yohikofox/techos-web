@@ -1,5 +1,5 @@
-import PostStats from "@/business/model/postStats";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
+import PostStats from "@/business/model/postStats";
 import { PostStatsResult } from "@/business/useCases/updatePostStats";
 import { NextRequest, NextResponse } from "next/server"
 
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     return badRequest();
   }
 
-  const useCase = await UseCaseFactory.Instance.get<any, PostStats, PostStatsResult>(UseCaseOption.UPDATE_POST_STATS);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, PostStats, PostStatsResult>(UseCaseOption.UPDATE_POST_STATS);
 
   const response = await useCase?.execute({ slug: { "eq": data.slug } });
 

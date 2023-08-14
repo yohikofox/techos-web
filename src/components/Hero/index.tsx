@@ -10,14 +10,14 @@ export interface HeroProps {
   content?: string
 }
 
-export default function Hero({ title, background, picture, content }: HeroProps) {
+export default async function Hero({ title, background, picture, content }: HeroProps) {
   return (
     <section className={styles.container}>
       {background && (
         <div className={styles.background}>
           <Image
             fill
-            src={`http://localhost:1337${background.src}`}
+            src={background.src}
             alt={background.name || ''}
             style={{
               objectFit: 'cover',
@@ -26,14 +26,13 @@ export default function Hero({ title, background, picture, content }: HeroProps)
         </div>
       )}
 
-
       <section className={styles.content}>
         {picture && (
           <div className={styles.picture}>
             <Image
               width={picture.width}
               height={picture.height}
-              src={`http://localhost:1337${picture.src}`}
+              src={picture.src}
               alt={picture.name || ''}
               style={{
                 width: 'auto',

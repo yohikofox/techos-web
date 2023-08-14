@@ -39,7 +39,7 @@ export default function TrackingWorker({ data, className, title, initialData }: 
     return () => {
       worker.terminate();
     };
-  }, [setCounter])
+  }, [setCounter, data])
 
 
   return (

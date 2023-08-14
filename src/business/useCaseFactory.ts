@@ -1,6 +1,5 @@
-import { ResourceMapping } from "./dependencies"
-import { Result } from "./result"
-
+import Container from "./dependencyFactory";
+import { Result } from "./result";
 
 export enum UseCaseOption {
   GET_HOME_DATA = 'GetHomeData',
@@ -11,54 +10,43 @@ export enum UseCaseOption {
   GET_TAG_POST_LIST = 'GetTagPostList',
   GET_TAG_INFOS = 'GetTagInfos',
   UPDATE_POST_STATS = 'UpdatePostStats',
+  SAVE_WEB_PUSH_SUBSCRIPTION = 'SaveSubscription',
+  GET_WEB_PUSH_SUBSCRIPTION_LIST = 'GetSubscriptionList',
+  GET_NOTIFICATION = 'GetNotification',
 }
 
 export interface IUseCase<TRequest, TResult> {
   execute(request?: TRequest): Promise<TResult>
 }
 
+
 type UseCaseStore = {
   [key in UseCaseOption]?: IUseCase<any, any>
 }
 
-type Container = {
-  [key: string]: any
-}
-
 export default class UseCaseFactory {
-
-  private static _instance: UseCaseFactory
   private _useCases: UseCaseStore = {}
-  private _container: Container = {}
+  private containerFactory: Container
+  private static _instances: UseCaseFactory;
 
-  public static get Instance() {
-    if (!this._instance) {
-      this._instance = new UseCaseFactory()
-    }
-
-    return this._instance
+  constructor() {
+    this.containerFactory = Container.Instance
   }
 
-  public async get<TRequest, TResult, TEnum extends string>(option: UseCaseOption) {
+  public static get Instance() {
+    if (!this._instances) {
+      console.warn('UseCaseFactory not initialized')
+      this._instances = new UseCaseFactory()
+    }
+
+    return this._instances
+  }
+
+  public async getUseCase<TRequest, TResult, TEnum extends string>(option: UseCaseOption) {
     if (!this._useCases[option]) {
-      const UseCase = await this.getResource('UseCase/' + option);
+      const UseCase = await this.containerFactory.resolve('UseCase/' + option);
       this._useCases[option] = UseCase
     }
     return this._useCases[option] as IUseCase<TRequest, Result<TResult, TEnum>>
-  }
-
-  private async getResource(key: string, missingHandler?: (key: string) => any) {
-    if (!this._container[key]) {
-      if (missingHandler) {
-        this._container[key] = missingHandler(key)
-      } else {
-        const dependenciesRequests = ResourceMapping[key].dependencies?.map(async (dependency: string) => {
-          return await this.getResource(dependency)
-        })
-        const dependencies = await Promise.all(dependenciesRequests || [])
-        this._container[key] = new (await ResourceMapping[key].resolve()).default(...dependencies)
-      }
-    }
-    return this._container[key]
   }
 }

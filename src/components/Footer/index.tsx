@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './footer.module.scss'
 import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory';
+import Container from '@/business/dependencyFactory'
 import HeaderData from '@/business/model/headerData';
 import { HeaderDataResult } from '@/business/useCases/getHeaderData';
 import { redirect } from 'next/navigation';
@@ -8,10 +9,12 @@ import Logo, { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
+import { IConfigManager } from '@/business/infrastructure/adapter/configManager';
 
 export default async function Footer() {
 
-  const useCase = await UseCaseFactory.Instance.get<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager");
 
   const now = dayjs('2019-01-01');
 
@@ -41,7 +44,7 @@ export default async function Footer() {
             borderRadius: '12px',
 
           }} /> */}
-          <span className={styles.title}>{process.env.DOMAIN_NAME}</span>
+          <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}</span>
           <Link href="/" className={styles.inset__link} />
         </section>
         <section className={classNames(styles.section)}>

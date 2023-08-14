@@ -1,9 +1,8 @@
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
 import Tag from "../model/tag";
 import { Result } from "../result";
+import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
-
-
 
 export enum TagInfosResult {
   SUCCESS = 'success',
@@ -15,7 +14,10 @@ export type TagInfosRequest = {
 }
 
 export default class GetTagInfosUseCase implements IUseCase<TagInfosRequest, Result<Tag, TagInfosResult>> {
-  constructor(private cmsRepository: IContentManagerSystemRepository) { }
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+    private imageSetService: IImageSetService
+  ) { }
   async execute(request?: TagInfosRequest): Promise<Result<Tag, TagInfosResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_INFOS, request)
 
@@ -33,21 +35,12 @@ export default class GetTagInfosUseCase implements IUseCase<TagInfosRequest, Res
       hero: tag.attributes.hero && {
         title: tag.attributes.hero.title,
         content: tag.attributes.hero.content,
-        background: tag.attributes.hero.background?.data && {
-          name: tag.attributes.hero.background.data.attributes.name,
-          src: tag.attributes.hero.background.data.attributes.url,
-          width: tag.attributes.hero.background.data.attributes.width,
-          height: tag.attributes.hero.background.data.attributes.height,
-        },
-        picture: tag.attributes.hero.picture?.data && {
-          name: tag.attributes.hero.picture.data.attributes.name,
-          src: tag.attributes.hero.picture.data.attributes.url,
-          width: tag.attributes.hero.picture.data.attributes.width,
-          height: tag.attributes.hero.picture.data.attributes.height,
-        }
+        background: tag.attributes.hero.background?.data &&
+          await this.imageSetService.mapImageSet(tag.attributes.hero.background.data.attributes),
+        picture: tag.attributes.hero.picture?.data &&
+          await this.imageSetService.mapImageSet(tag.attributes.hero.picture.data.attributes)
       }
     }
-
 
     return Result.ok(result)
   }

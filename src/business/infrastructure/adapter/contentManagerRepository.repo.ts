@@ -1,5 +1,6 @@
 import { Result } from "@/business/result";
 import queries from "./queries";
+import { IConfigManager } from "./configManager";
 
 export enum ContentManagerSystemResult {
   SUCCESS = 'success',
@@ -20,13 +21,18 @@ export enum GraphQLQueries {
   GET_POST_STATS = 'getPostStats',
   UPDATE_POST_STATS = 'updatePostStats',
   CREATE_POST_STATS = 'createPostStats',
+  CREATE_WEB_PUSH_SUBSCRIPTION = 'createWebPushSubscription',
+  GET_WEB_PUSH_SUBSCRIPTION_LIST = 'getWebPushSubscriptionList',
+  GET_WEB_PUSH_NOTIFICATION = 'getWebPushNotification',
 }
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {
+  constructor(private configManager: IConfigManager) { }
+
   async get<T>(query: GraphQLQueries, variables?: any): Promise<Result<T, ContentManagerSystemResult>> {
     const q = queries[query]
 
-    const response = await fetch('http://localhost:1337/graphql', {
+    const response = await fetch(`${await this.configManager.get("CMS_ENDPOINT")}/graphql`, {
       method: 'POST',
       body: JSON.stringify({
         query: q,
@@ -34,7 +40,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       }),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 20832abfa12e272e6e3fdd2e7ee312f1e0d5300ef71ae876eab37aa539e7b3e58c7018493570a9e0792dc921e70d450505a06a5b4335e34c93772b96aaa1cfa8dd7fc2a700cd5901da7ec6f84fb5aa6ad3ec93df0df72e24bef6ac73a738a754b0507f63fbe1e9f3d22b27e57461e662520d3f37b0e7ad9ca2d82db4a9b1b886"
+        "Authorization": `Bearer ${await this.configManager.get("CMS_API_KEY")}`
       },
       next: {
         revalidate: 1

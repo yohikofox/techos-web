@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rimraf .next && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rimraf .next"
   },
   "dependencies": {
     "@types/node": "20.4.5",
@@ -19,19 +20,26 @@
     "graphql-tag": "^2.12.6",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.8.0",
+    "jsonwebtoken": "^9.0.1",
     "markdown-it": "^13.0.1",
     "next": "13.4.12",
     "parse5": "^7.1.2",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rimraf": "^5.0.1",
     "sass": "^1.64.1",
+    "sharp": "^0.32.4",
     "slugify": "^1.6.6",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "web-push": "^3.6.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/markdown-it": "^12.2.3",
+    "@types/web-push": "^3.3.2",
     "classnames": "^2.3.2",
     "vitest": "^0.34.1"
   }

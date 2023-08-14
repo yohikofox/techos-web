@@ -1,6 +1,7 @@
 import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
 import HomeData from "../model/homeData";
 import { Result } from "../result";
+import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 
 export enum HomeDataResult {
@@ -9,7 +10,10 @@ export enum HomeDataResult {
 }
 
 export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData, HomeDataResult>> {
-  constructor(private cmsRepository: IContentManagerSystemRepository) { }
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+    private imageSetService: IImageSetService
+  ) { }
   async execute(request?: any): Promise<Result<HomeData, HomeDataResult>> {
 
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request)
@@ -22,18 +26,8 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
       hero: {
         title: response.Value.homePage.data.attributes.hero.title,
         content: response.Value.homePage.data.attributes.hero.content,
-        picture: {
-          src: response.Value.homePage.data.attributes.hero.picture.data.attributes.url,
-          width: response.Value.homePage.data.attributes.hero.picture.data.attributes.width,
-          height: response.Value.homePage.data.attributes.hero.picture.data.attributes.height,
-          name: response.Value.homePage.data.attributes.hero.picture.data.attributes.name,
-        },
-        background: {
-          src: response.Value.homePage.data.attributes.hero.background.data.attributes.url,
-          width: response.Value.homePage.data.attributes.hero.background.data.attributes.width,
-          height: response.Value.homePage.data.attributes.hero.background.data.attributes.height,
-          name: response.Value.homePage.data.attributes.hero.background.data.attributes.name,
-        },
+        picture: await this.imageSetService.mapImageSet(response.Value.homePage.data.attributes.hero.picture.data.attributes),
+        background: await this.imageSetService.mapImageSet(response.Value.homePage.data.attributes.hero.background.data.attributes),
       }
     }
 

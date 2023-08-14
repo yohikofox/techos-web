@@ -14,7 +14,7 @@ export interface HeaderProps {
 }
 export default async function Header({ title }: HeaderProps) {
 
-  const useCase = await UseCaseFactory.Instance.get<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
   const response = await useCase?.execute();
 

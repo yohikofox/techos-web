@@ -11,6 +11,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import TrackingWorker from '@/components/TrackingWorker'
+import NotificationWorker from '@/components/NotificationWorker'
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)
@@ -40,6 +41,7 @@ const layout = function RootLayout({
           {children}
         </section>
         <Footer />
+        <NotificationWorker />
       </body>
     </html>
   )

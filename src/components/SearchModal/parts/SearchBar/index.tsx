@@ -26,7 +26,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
     if (query.length < MIN_SEARCH_CHAR_LENGTH) return
 
-    const response = await fetch(`http://localhost:3000/api/search?payload=${query}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}`)
 
     if (!response.ok) {
       console.error(

@@ -1,3 +1,5 @@
+'use client'
+
 import { MouseEventHandler, Suspense, useContext } from "react"
 import styles from "./search-results.module.scss"
 import { SearchDataContext } from "../context"
@@ -47,7 +49,7 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
           <section key={`search-result-item-${index}`} className={styles.container}>
             <div className={styles.image}>
               <Image
-                src={`http://localhost:1337${it.picture.src}`}
+                src={it.picture.src}
                 alt={it.picture.name}
                 fill
                 style={{

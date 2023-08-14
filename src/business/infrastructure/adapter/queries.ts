@@ -292,6 +292,27 @@ mutation updatePostStats ($id:ID!, $count: Int!){
   }
 }
 
+  `,
+  createWebPushSubscription: `
+mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
+  createWebPushSubscription(data: $data) {
+    data {
+      attributes {
+        endpoint
+        expiration_time
+        p256dh
+        auth
+      }
+    }
+  }
+}
+
   `
 }
-export default queries  
+
+import getWebPushNotification from "./queries/getWebPushNotification"
+import getWebPushSubscriptionList from "./queries/getWebPushSubscriptionList"
+
+const exportable = { ...queries, getWebPushSubscriptionList, getWebPushNotification }
+
+export default exportable

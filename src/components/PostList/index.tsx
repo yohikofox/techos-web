@@ -19,7 +19,7 @@ const AD_DEFAULT = {
   type: PostType.Ad,
   picture: {
     name: 'Ads',
-    src: '/uploads/ads_9ee4df27b1.png',
+    src: 'http://localhost:1337/uploads/ads_9ee4df27b1.png',
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -34,7 +34,7 @@ export default async function PostListRender({ title, page }: PostListProps) {
   const validatedPage = page && page > 0 ? page - 1 : DEFAULT_PAGE_INDEX
   const index = validatedPage * DEFAULT_PAGE_SIZE
   const limit = DEFAULT_PAGE_SIZE
-  const postListUseCase = await UseCaseFactory.Instance.get<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
+  const postListUseCase = await UseCaseFactory.Instance.getUseCase<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
   const postListResponse = await postListUseCase?.execute({ index, limit });
 
   if (postListResponse.IsError) {

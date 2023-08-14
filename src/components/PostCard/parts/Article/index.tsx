@@ -10,8 +10,11 @@ import Tag from "../Tag"
 import { DisplayTracking } from "@/components/TrackingWorker"
 import classNames from 'classnames';
 import PostHelper from "@/utils/helper/postHelper"
+import Container from "@/business/dependencyFactory"
+import { IConfigManager } from "@/business/infrastructure/adapter/configManager"
 
-export default function Article({ post }: PostCardProps) {
+export default async function Article({ post }: PostCardProps) {
+  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
 
   const { src } = post?.picture || { src: '', width: 0, height: 0 };
 
@@ -25,7 +28,7 @@ export default function Article({ post }: PostCardProps) {
       <figure className={styles.figure}>
         <Image
           alt={post.title || ''}
-          src={`http://localhost:1337${src}`}
+          src={src || ''}
           fill
           style={{
             objectFit: 'cover',

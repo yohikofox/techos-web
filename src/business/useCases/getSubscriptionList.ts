@@ -1,0 +1,37 @@
+import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import WebPushSubscription from "../model/webPushSubscription";
+import { Result } from "../result";
+import { IUseCase } from "../useCaseFactory";
+
+export enum GetWebPushSubscriptionListResult {
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+export type SaveWebPushSubscriptionRequest = {}
+
+export default class GetSaveWebPushSubscriptionUseCase implements IUseCase<SaveWebPushSubscriptionRequest, Result<WebPushSubscription[], GetWebPushSubscriptionListResult>> {
+  constructor(
+    private cmsRepository: IContentManagerSystemRepository,
+  ) { }
+  async execute(request?: SaveWebPushSubscriptionRequest): Promise<Result<WebPushSubscription[], GetWebPushSubscriptionListResult>> {
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_WEB_PUSH_SUBSCRIPTION_LIST, request)
+
+    if (response.IsError) {
+      return response.transferError(GetWebPushSubscriptionListResult.ERROR)
+    }
+
+    const results = response.Value.webPushSubscriptions.data.map((item: any) => {
+      return {
+        endpoint: item.attributes.endpoint,
+        expirationTime: item.attributes.expiration_time,
+        keys: {
+          p256dh: item.attributes.p256dh,
+          auth: item.attributes.auth,
+        }
+      } as WebPushSubscription
+    })
+
+    return Result.ok(results)
+  }
+}

@@ -1,5 +1,4 @@
 import MainLayout from "@/components/MainLayout";
-import { Children } from "react";
 
 export default function withSlots(Component: React.ComponentType) {
   return function WithSlots(props: any) {
@@ -13,4 +12,3 @@ export default function withSlots(Component: React.ComponentType) {
     );
   };
 }
-//  createElement(Component, Object.assign({}, props), children)

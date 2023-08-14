@@ -30,8 +30,8 @@ async function Page({ params, searchParams }: PageProps) {
     pageInt = parseInt(page) || 0;
   }
 
-  const useCase = await UseCaseFactory.Instance.get<any, HomeData, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
-  const getTagInfosUseCase = await UseCaseFactory.Instance.get<TagInfosRequest, Tag, TagInfosResult>(UseCaseOption.GET_TAG_INFOS);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, HomeData, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
+  const getTagInfosUseCase = await UseCaseFactory.Instance.getUseCase<TagInfosRequest, Tag, TagInfosResult>(UseCaseOption.GET_TAG_INFOS);
 
   const response = await useCase?.execute();
 

@@ -1,5 +1,5 @@
-import SearchData from "@/business/model/searchData";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
+import SearchData from "@/business/model/searchData";
 import { SearchDataResult, SearchRequest } from "@/business/useCases/getSearchData";
 import { NextRequest, NextResponse } from "next/server"
 
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     return badRequest();
   }
 
-  const useCase = await UseCaseFactory.Instance.get<SearchRequest, SearchData, SearchDataResult>(UseCaseOption.GET_SEARCH_DATA)
+  const useCase = await UseCaseFactory.Instance.getUseCase<SearchRequest, SearchData, SearchDataResult>(UseCaseOption.GET_SEARCH_DATA)
 
   const response = await useCase.execute({ payload })
 
