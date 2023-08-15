@@ -24,7 +24,8 @@ export const ResourceMapping: {
     dependencies: ['Helper/ConfigManager']
   },
   'Repo/SearchEngine': {
-    resolve: async () => import('@biz/infrastructure/adapter/searchEngineRepository.repo')
+    resolve: async () => import('@biz/infrastructure/adapter/searchEngineRepository.repo'),
+    dependencies: ['Helper/ConfigManager']
   },
   'UseCase/GetHomeData': {
     resolve: async () => import('@biz/useCases/getHomeData'),

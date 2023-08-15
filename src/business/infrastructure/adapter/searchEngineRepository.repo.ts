@@ -1,4 +1,5 @@
 import { Result } from "@/business/result";
+import { IConfigManager } from "./configManager";
 
 export enum SearchEngineResult {
   SUCCESS = 'success',
@@ -19,10 +20,11 @@ export enum IndexNames {
 }
 
 export default class SearchEngineRepository implements ISearchEngineRepository {
+  constructor(private configManager: IConfigManager) { }
   async search<T>(options: SearchEngineVariables): Promise<Result<T, SearchEngineResult>> {
     const { payload, indexName } = options
 
-    const response = await fetch(`http://localhost:7700/indexes/${indexName}/search`,
+    const response = await fetch(`${await this.configManager.get('INDEX_ENDPOINT')}/indexes/${indexName}/search`,
       {
         method: 'POST',
         body: JSON.stringify({

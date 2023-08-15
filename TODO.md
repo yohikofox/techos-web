@@ -3,7 +3,7 @@
 task                                                                      | status | comment
 --------------------------------------------------------------------------|--------|-------------------------------------------
 Refaire le logo                                                           | done   |
-refacto configs (hosts)                                                   |        |
+refacto configs (hosts)                                                   | done   |
 ajouter le focus sur le champs de recherche en ouvrant la modale          | done   |
 infinite scroll                                                           |        |
 more from author                                                          | done   |
@@ -24,6 +24,6 @@ share in header                                                           |     
 Commentaires ?                                                            |        |
 pas mettre deux headers dans la page de recherche (garder le placeholder) |        |
 moins charger en bg en hero                                               | done   |
-refacto pour refresh config keys                                          |        |
+refacto pour refresh config keys                                          | done   |
 plugin strapi de notifications                                            |        |
 add jwt token to notify api                                               |        |

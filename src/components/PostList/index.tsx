@@ -6,6 +6,9 @@ import PostList from "@/business/model/postList";
 import { redirect } from "next/navigation";
 import Pagination from "./parts/Pagination";
 import { PostType } from "@/business/model/post";
+import Container from "@/business/dependencyFactory";
+import { DependencyKeys } from "@/business/dependencies";
+
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
 const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
@@ -19,7 +22,7 @@ const AD_DEFAULT = {
   type: PostType.Ad,
   picture: {
     name: 'Ads',
-    src: 'http://localhost:1337/uploads/ads_9ee4df27b1.png',
+    src: '/uploads/ads_9ee4df27b1.png',
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -40,6 +43,9 @@ export default async function PostListRender({ title, page }: PostListProps) {
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
+  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
+
+  AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${AD_DEFAULT.picture.src}}`
 
   const posts = [];
   let insertedAdCount = 0;
