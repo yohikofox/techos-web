@@ -8,12 +8,15 @@ import HeaderData from '@/business/model/headerData'
 import SearchModal from '../SearchModal'
 import { MainLogo } from '../Icon/Logo'
 import HamburgerMenu from './parts/HamburgerMenu'
+import Container from '@/business/dependencyFactory'
+import { DependencyKeys } from '@/business/dependencies'
 
 export interface HeaderProps {
   title: string
 }
 export default async function Header({ title }: HeaderProps) {
 
+  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager);
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
   const response = await useCase?.execute();
@@ -32,7 +35,7 @@ export default async function Header({ title }: HeaderProps) {
         <MainLogo className={styles.logo__svg} />
         <Link href="/" />
       </section>
-      <span className={styles.title}>{process.env.DOMAIN_NAME}<Link href={"/"} className={styles.inset__link} /></span>
+      <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}<Link href={"/"} className={styles.inset__link} /></span>
       <nav>
         <ul className={styles.nav__menu}>
           <li className={styles.menu__link}>

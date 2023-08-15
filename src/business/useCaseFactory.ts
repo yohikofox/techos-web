@@ -14,6 +14,7 @@ export enum UseCaseOption {
   GET_WEB_PUSH_SUBSCRIPTION_LIST = 'GetSubscriptionList',
   GET_NOTIFICATION = 'GetNotification',
   DELETE_WEB_PUSH_SUBSCRIPTION = 'DeleteSubscription',
+  GET_OFFLINE_PAGE_DATA = 'GetOfflinePageData',
 }
 
 export interface IUseCase<TRequest, TResult> {

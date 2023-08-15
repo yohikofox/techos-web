@@ -82,17 +82,22 @@ export const ResourceMapping: {
     resolve: async () => import('@biz/useCases/deleteSubscription'),
     dependencies: ['Repo/ContentManagerSystem']
   },
+  'UseCase/GetOfflinePageData': {
+    resolve: async () => import('@biz/useCases/getOfflinePageData'),
+    dependencies: ['Repo/ContentManagerSystem']
+  },
 }
 
 
 const DependencyKeys: { [x: string]: string } = {}
 
-for (const key in Object.keys(ResourceMapping)) {
-  DependencyKeys[slugify(key, {
+Object.keys(ResourceMapping).forEach(key => {
+  const dep_key = slugify(key.replace('/', '_'), {
     lower: true,
     replacement: '_'
-  })] = key
-}
+  })
+  DependencyKeys[dep_key] = key
+})
 
 export {
   DependencyKeys

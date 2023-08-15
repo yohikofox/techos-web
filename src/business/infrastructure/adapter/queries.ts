@@ -312,6 +312,7 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
 }
 
 import { deleteWebPushSubscription } from "./queries/deleteWebPushSubscription"
+import { getOfflinePageData } from "./queries/getOfflinePageData"
 import getWebPushNotification from "./queries/getWebPushNotification"
 import getWebPushSubscriptionList from "./queries/getWebPushSubscriptionList"
 
@@ -320,6 +321,7 @@ const exportable = {
   getWebPushSubscriptionList,
   getWebPushNotification,
   deleteWebPushSubscription,
+  getOfflinePageData,
 }
 
 export default exportable

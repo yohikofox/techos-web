@@ -25,6 +25,7 @@ export enum GraphQLQueries {
   GET_WEB_PUSH_SUBSCRIPTION_LIST = 'getWebPushSubscriptionList',
   GET_WEB_PUSH_NOTIFICATION = 'getWebPushNotification',
   DELETE_WEB_PUSH_SUBSCRIPTION = 'deleteWebPushSubscription',
+  GET_OFFLINE_PAGE_DATA = 'getOfflinePageData',
 }
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {
