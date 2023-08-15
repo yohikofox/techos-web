@@ -1,4 +1,5 @@
 import { registerPushWorker } from "./parts/notification";
+import { registerFetchWorker } from "./parts/fetch";
 
 const worker = self as any;
 
@@ -17,4 +18,9 @@ const activateEvent = () => {
 };
 activateEvent();
 
-registerPushWorker(worker);
+self.addEventListener('fetch', (event: any) => {
+  postMessage('fetch event in service worker')
+})
+
+registerPushWorker(worker)
+// registerFetchWorker(worker)

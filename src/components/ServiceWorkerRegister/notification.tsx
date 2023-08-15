@@ -9,7 +9,7 @@ export default function RegisterNotificationWorker(props: NotificationWorkerProp
   const registerServiceWorker = async (nid: string) => {
     try {
       if ('serviceWorker' in navigator) {
-        const registration = await navigator.serviceWorker.register(new URL('@/workers/sw.ts', import.meta.url))
+        const registration = await navigator.serviceWorker.register(new URL('@/workers/notification.sw.ts', import.meta.url))
         let subscription = await registration.pushManager.getSubscription()
 
         if (!subscription) {

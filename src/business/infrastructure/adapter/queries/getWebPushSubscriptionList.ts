@@ -2,6 +2,7 @@ const getWebPushSubscriptionList = `
 query getWebPushSubscriptionList {
   webPushSubscriptions {
     data {
+      id
       attributes {
         endpoint
         expiration_time

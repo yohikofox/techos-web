@@ -1,3 +1,5 @@
+import slugify from 'slugify'
+
 export enum ResourceTypes {
   Singleton = 'Singleton',
   Transient = 'Transient'
@@ -76,4 +78,22 @@ export const ResourceMapping: {
     resolve: async () => import('@biz/useCases/getNotification'),
     dependencies: ['Repo/ContentManagerSystem', 'Domain/ImageSetService']
   },
+  'UseCase/DeleteSubscription': {
+    resolve: async () => import('@biz/useCases/deleteSubscription'),
+    dependencies: ['Repo/ContentManagerSystem']
+  },
+}
+
+
+const DependencyKeys: { [x: string]: string } = {}
+
+for (const key in Object.keys(ResourceMapping)) {
+  DependencyKeys[slugify(key, {
+    lower: true,
+    replacement: '_'
+  })] = key
+}
+
+export {
+  DependencyKeys
 }

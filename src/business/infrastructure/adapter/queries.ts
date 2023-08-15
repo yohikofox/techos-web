@@ -302,6 +302,7 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
         expiration_time
         p256dh
         auth
+        publishedAt
       }
     }
   }
@@ -310,9 +311,15 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
   `
 }
 
+import { deleteWebPushSubscription } from "./queries/deleteWebPushSubscription"
 import getWebPushNotification from "./queries/getWebPushNotification"
 import getWebPushSubscriptionList from "./queries/getWebPushSubscriptionList"
 
-const exportable = { ...queries, getWebPushSubscriptionList, getWebPushNotification }
+const exportable = {
+  ...queries,
+  getWebPushSubscriptionList,
+  getWebPushNotification,
+  deleteWebPushSubscription,
+}
 
 export default exportable

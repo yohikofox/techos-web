@@ -10,8 +10,7 @@ import Footer from '@/components/Footer'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import TrackingWorker from '@/components/TrackingWorker'
-import NotificationWorker from '@/components/NotificationWorker'
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister'
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)
@@ -23,6 +22,7 @@ const ubuntu = Ubuntu({ weight: ['400', '500', '700'], subsets: ['latin'] })
 const defaultData = {
   title: 'Techos.com, tout pour la tech',
   description: 'www.techos.com, tout pour la tech',
+  manifest: '/manifest.json',
 };
 
 export const metadata: Metadata = defaultData;
@@ -36,12 +36,12 @@ const layout = function RootLayout({
   return (
     <html lang="fr" className={styles.document}>
       <body className={classNames(ubuntu.className, styles.container)}>
+        <ServiceWorkerRegister />
         <Header title={(metadata.title || defaultData.title).toString()} />
         <section className={styles.content}>
           {children}
         </section>
         <Footer />
-        <NotificationWorker />
       </body>
     </html>
   )

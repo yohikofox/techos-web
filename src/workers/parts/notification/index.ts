@@ -25,8 +25,3 @@ export const registerPushWorker = async (worker: any) => {
     )
   })
 }
-
-/**
-
-
- */

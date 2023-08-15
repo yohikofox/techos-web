@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { resolve } = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -23,8 +26,18 @@ const nextConfig = {
       port: '',
     }],
   },
+  //Service-Worker-Allowed
   headers: async () => {
     return [
+      {
+        source: '/(.*).js',
+        headers: [
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/',
+          }
+        ]
+      },
       {
         source: '/api/(.*)',
         headers: [
@@ -35,6 +48,10 @@ const nextConfig = {
         ],
       },
     ]
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+
+    return config
   }
 }
 

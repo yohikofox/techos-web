@@ -26,3 +26,4 @@ pas mettre deux headers dans la page de recherche (garder le placeholder) |     
 moins charger en bg en hero                                               | done   |
 refacto pour refresh config keys                                          |        |
 plugin strapi de notifications                                            |        |
+add jwt token to notify api                                               |        |

@@ -13,6 +13,7 @@ export enum UseCaseOption {
   SAVE_WEB_PUSH_SUBSCRIPTION = 'SaveSubscription',
   GET_WEB_PUSH_SUBSCRIPTION_LIST = 'GetSubscriptionList',
   GET_NOTIFICATION = 'GetNotification',
+  DELETE_WEB_PUSH_SUBSCRIPTION = 'DeleteSubscription',
 }
 
 export interface IUseCase<TRequest, TResult> {

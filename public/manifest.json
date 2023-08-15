@@ -1,0 +1,16 @@
+{
+  "name": "techos.dev",
+  "id": "/",
+  "short_name": "techos.dev",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000",
+  "description": "Techos.dev",
+  "icons": [
+    {
+      "src": "logo-787.png",
+      "type": "image/png",
+      "sizes": "787x787"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import WebPushSubscription from "@/business/model/webPushSubscription";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { GetWebPushSubscriptionListResult } from "@/business/useCases/getSubscriptionList";
 import { NextRequest, NextResponse } from "next/server"
-import webpush from 'web-push'
+import webpush, { WebPushError } from 'web-push'
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
@@ -27,26 +27,33 @@ export async function POST(request: NextRequest, params: any) {
 
   const getSubscriptionUseCase = await UseCaseFactory.Instance.getUseCase<any, WebPushSubscription[], GetWebPushSubscriptionListResult>(UseCaseOption.GET_WEB_PUSH_SUBSCRIPTION_LIST)
   const getNotificationUseCase = await UseCaseFactory.Instance.getUseCase<any, any, any>(UseCaseOption.GET_NOTIFICATION)
+  const deleteSubscriptionUseCase = await UseCaseFactory.Instance.getUseCase<any, any, any>(UseCaseOption.DELETE_WEB_PUSH_SUBSCRIPTION)
 
   const notificationResponse = await getNotificationUseCase.execute({ notificationId })
-
   const subscriptionsResponse = await getSubscriptionUseCase.execute()
 
   if (notificationResponse.IsError || subscriptionsResponse.IsError) {
+    console.warn('/api/notification/notify', subscriptionsResponse.Result, notificationResponse.Result)
     return badRequest(subscriptionsResponse.Message)
   }
 
   const payload = JSON.stringify(notificationResponse.Value)
 
-  for (const subscription of subscriptionsResponse.Value) {
+  const results = await Promise.all(subscriptionsResponse.Value.map(async (subscription, index) => {
     try {
       await webpush.sendNotification(subscription, payload)
     } catch (error) {
-      console.error(error)
-    }
-  }
+      if ((error as WebPushError).statusCode === 410) {
 
-  const res = NextResponse.json({ api_key: publicKey })
+        await deleteSubscriptionUseCase.execute({ subscriptionId: subscription.id })
+        console.info('Subscription deleted', subscription.id)
+      } else {
+        console.error("Route error", error)
+      }
+    }
+  }))
+
+  const res = NextResponse.json({ results })
 
   return res
 }

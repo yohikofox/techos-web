@@ -1,0 +1,343 @@
+{
+  parallelism: undefined,
+  externals: [ 'next'
+  ],
+  optimization: {
+    emitOnErrors: false,
+    checkWasmTypes: false,
+    nodeEnv: false,
+    splitChunks: false,
+    runtimeChunk: { name: 'webpack'
+    },
+    minimize: false,
+    minimizer: [
+      [Function (anonymous)
+      ],
+      [Function (anonymous)
+      ]
+    ],
+    usedExports: false
+  },
+  context: 'D:\\ws\\techos-web',
+  entry: [AsyncFunction: entry
+  ],
+  watchOptions: {
+    aggregateTimeout: 5,
+    ignored: /^((?: [^/
+    ]*(?:\/|$))*)(\.(git|next)|node_modules)(\/((?: [^/
+    ]*(?:\/|$))*)(?:$|\/))?/
+  },
+  output: {
+    publicPath: '/_next/',
+    path: 'D:\\ws\\techos-web\\.next',
+    filename: 'static/chunks/[name
+    ].js',
+    library: '_N_E',
+    libraryTarget: 'assign',
+    hotUpdateChunkFilename: 'static/webpack/[id
+    ].[fullhash
+    ].hot-update.js',
+    hotUpdateMainFilename: 'static/webpack/[fullhash
+    ].[runtime
+    ].hot-update.json',
+    chunkFilename: 'static/chunks/[name
+    ].js',
+    strictModuleExceptionHandling: true,
+    crossOriginLoading: undefined,
+    webassemblyModuleFilename: 'static/wasm/[modulehash
+    ].wasm',
+    hashFunction: 'xxhash64',
+    hashDigestLength: 16,
+    trustedTypes: 'nextjs#bundler',
+    enabledLibraryTypes: [ 'assign'
+    ]
+  },
+  performance: false,
+  resolve: {
+    extensions: [
+      '.mjs',  '.js',
+      '.tsx',  '.ts',
+      '.jsx',  '.json',
+      '.wasm'
+    ],
+    extensionAlias: undefined,
+    modules: [
+      'node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\bin\\node_modules',        
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\node_modules',
+      'D:\\ws\\techos-web'
+    ],
+    alias: {
+      '@vercel/og': 'next/dist/server/web/spec-extension/image-response',
+      '@opentelemetry/api': 'next/dist/compiled/@opentelemetry/api',
+      next: 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next',
+      'styled-jsx/style$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\styled-jsx@5.1.1_react@18.2.0\\node_modules\\styled-jsx\\style.js',
+      'styled-jsx$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\styled-jsx@5.1.1_react@18.2.0\\node_modules\\styled-jsx\\index.js',
+      'private-next-pages/_app': [Array
+      ],
+      'private-next-pages/_error': [Array
+      ],
+      'private-next-pages/_document': [Array
+      ],
+      'private-next-app-dir': 'D:\\ws\\techos-web\\src\\app',
+      'private-next-root-dir': 'D:\\ws\\techos-web',
+      'private-dot-next': 'D:\\ws\\techos-web\\.next',
+      'unfetch$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\fetch\\index.js',
+      'isomorphic-unfetch$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\fetch\\index.js',
+      'whatwg-fetch$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\fetch\\whatwg-fetch.js',
+      'object-assign$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object-assign.js',
+      'object.assign/auto': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object.assign\\auto.js',
+      'object.assign/implementation': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object.assign\\implementation.js',
+      'object.assign$': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object.assign\\index.js',
+      'object.assign/polyfill': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object.assign\\polyfill.js',
+      'object.assign/shim': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\object.assign\\shim.js',
+      url: 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\compiled\\native-url\\index.js',
+      'private-next-rsc-action-validate': 'next/dist/build/webpack/loaders/next-flight-loader/action-validate',
+      'private-next-rsc-action-client-wrapper': 'next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper',
+      'private-next-rsc-action-proxy': 'next/dist/build/webpack/loaders/next-flight-loader/action-proxy',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\shared\\lib\\router\\utils\\resolve-rewrites.js': false,
+      '@swc/helpers/_': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\@swc+helpers@0.5.1\\node_modules\\@swc\\helpers\\_',
+      setimmediate: 'next/dist/compiled/setimmediate'
+    },
+    fallback: {
+      process: 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\process.js'
+    },
+    mainFields: [ 'browser', 'module', 'main'
+    ],
+    plugins: [
+      [JsConfigPathsPlugin
+      ]
+    ]
+  },
+  resolveLoader: {
+    alias: {
+      'error-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\error-loader',
+      'next-swc-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-swc-loader',
+      'next-client-pages-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-client-pages-loader',
+      'next-image-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-image-loader',
+      'next-metadata-image-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-metadata-image-loader',
+      'next-style-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-style-loader',
+      'next-flight-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-flight-loader',
+      'next-flight-client-entry-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-flight-client-entry-loader',
+      'next-flight-action-entry-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-flight-action-entry-loader',
+      'next-flight-client-module-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-flight-client-module-loader',
+      'noop-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\noop-loader',
+      'next-middleware-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-middleware-loader',
+      'next-edge-function-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-edge-function-loader',
+      'next-edge-app-route-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-edge-app-route-loader',
+      'next-edge-ssr-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-edge-ssr-loader',
+      'next-middleware-asset-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-middleware-asset-loader',
+      'next-middleware-wasm-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-middleware-wasm-loader',
+      'next-app-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-app-loader',
+      'next-route-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-route-loader',
+      'next-font-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-font-loader',
+      'next-invalid-import-error-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-invalid-import-error-loader',
+      'next-metadata-route-loader': 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\webpack\\loaders\\next-metadata-route-loader'
+    },
+    modules: [
+      'node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\bin\\node_modules',        
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules',
+      'D:\\ws\\techos-web\\node_modules\\.pnpm\\node_modules'
+    ],
+    plugins: []
+  },
+  module: {
+    rules: [
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ]
+    ],
+    parser: { javascript: [Object
+      ]
+    },
+    generator: { asset: [Object
+      ]
+    }
+  },
+  plugins: [
+    ReactFreshWebpackPlugin {
+      webpackMajorVersion: 5,
+      RuntimeGlobals: [Object
+      ],
+      RuntimeModule: [Function
+      ],
+      Template: [Function
+      ]
+    },
+    ProvidePlugin { definitions: [Object
+      ]
+    },
+    DefinePlugin { definitions: [Object
+      ]
+    },
+    ReactLoadablePlugin {
+      filename: 'react-loadable-manifest.json',
+      pagesDir: undefined,
+      runtimeAsset: 'server/middleware-react-loadable-manifest.js',
+      dev: true
+    },
+    DropClientPage { ampPages: Set(0) {}
+    },
+    IgnorePlugin {
+      options: [Object
+      ],
+      checkIgnore: [Function: bound checkIgnore
+      ]
+    },
+    NextJsRequireCacheHotReloader {
+      prevAssets: null,
+      hasServerComponents: true
+    },
+    HotModuleReplacementPlugin { options: {}
+    },
+    BuildManifestPlugin {
+      buildId: 'development',
+      isDevFallback: false,
+      rewrites: [Object
+      ],
+      appDirEnabled: true,
+      exportRuntime: true
+    },
+    ProfilingPlugin { runWebpackSpan: [Span
+      ]
+    },
+    WellKnownErrorsPlugin {},
+    CopyFilePlugin {
+      filePath: 'D:\\ws\\techos-web\\node_modules\\.pnpm\\next@13.4.12_react-dom@18.2.0_react@18.2.0_sass@1.64.1\\node_modules\\next\\dist\\build\\polyfills\\polyfill-nomodule.js',
+      cacheKey: '13.4.12',
+      name: 'static/chunks/polyfills.js',
+      info: [Object
+      ]
+    },
+    AppBuildManifestPlugin { dev: true
+    },
+    ClientReferenceManifestPlugin {
+      dev: true,
+      appDir: 'D:\\ws\\techos-web\\src\\app',
+      appDirBase: 'D:\\ws\\techos-web\\src\\',
+      ASYNC_CLIENT_MODULES: Set(0) {}
+    },
+    NextFontManifestPlugin { appDir: 'D:\\ws\\techos-web\\src\\app'
+    },
+    NextMiniCssExtractPlugin {
+      _sortedModulesCache: [WeakMap
+      ],
+      options: [Object
+      ],
+      runtimeOptions: [Object
+      ],
+      __next_css_remove: true
+    }
+  ],
+  experiments: { layers: true, cacheUnaffected: true, buildHttp: undefined
+  },
+  snapshot: { managedPaths: [ /^(.+?[\\/
+      ]node_modules[\\/
+      ])/
+    ]
+  },
+  cache: {
+    type: 'filesystem',
+    version: '13.4.12|{
+      "appDir": true,
+      "pageExtensions": [
+        "tsx",
+        "ts",
+        "jsx",
+        "js"
+      ],
+      "trailingSlash": false,
+      "buildActivity": true,
+      "buildActivityPosition": "bottom-right",
+      "productionBrowserSourceMaps": false,
+      "reactStrictMode": false,
+      "optimizeFonts": true,
+      "optimizeCss": false,
+      "nextScriptWorkers": false,
+      "scrollRestoration": false,
+      "typedRoutes": false,
+      "basePath": "",
+      "pageEnv": false,
+      "excludeDefaultMomentLocales": true,
+      "assetPrefix": "",
+      "disableOptimizedLoading": true,
+      "isEdgeRuntime": false,
+      "reactProductionProfiling": false,
+      "webpack": true,
+      "hasRewrites": false,
+      "swcMinify": true,
+      "swcLoader": true,
+      "modularizeImports": {
+        "@mui/icons-material": {
+          "transform": "@mui/icons-material/{{member}}"
+        },
+        "date-fns": {
+          "transform": "date-fns/{{member}}"
+        },
+        "lodash": {
+          "transform": "lodash/{{member}}"
+        },
+        "lodash-es": {
+          "transform": "lodash-es/{{member}}"
+        },
+        "ramda": {
+          "transform": "ramda/es/{{member}}"
+        },
+        "react-bootstrap": {
+          "transform": "react-bootstrap/{{member}}"
+        },
+        "antd": {
+          "transform": "antd/lib/{{kebabCase member}}"
+        },
+        "ahooks": {
+          "transform": "ahooks/es/{{member}}"
+        },
+        "@ant-design/icons": {
+          "transform": "@ant-design/icons/lib/icons/{{member}}"
+        }
+      },
+      "legacyBrowsers": false,
+      "imageLoaderFile": ""
+    }',
+    cacheDirectory: 'D:\\ws\\techos-web\\.next\\cache\\webpack',
+    compression: 'gzip',
+    buildDependencies: { config: [Array
+      ]
+    },
+    name: 'client-development'
+  },
+  mode: 'development',
+  name: 'client',
+  target: [ 'web', 'es5'
+  ],
+  devtool: 'eval-source-map'
+}

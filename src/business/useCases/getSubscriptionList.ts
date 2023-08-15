@@ -23,6 +23,7 @@ export default class GetSaveWebPushSubscriptionUseCase implements IUseCase<SaveW
 
     const results = response.Value.webPushSubscriptions.data.map((item: any) => {
       return {
+        id: item.id,
         endpoint: item.attributes.endpoint,
         expirationTime: item.attributes.expiration_time,
         keys: {

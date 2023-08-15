@@ -1,4 +1,5 @@
 type WebPushSubscription = {
+  id: number,
   endpoint: string,
   expirationTime?: string,
   keys: {

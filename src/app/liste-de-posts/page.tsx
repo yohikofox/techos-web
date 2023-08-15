@@ -5,6 +5,8 @@ import Hero from "@/components/Hero";
 import Layout, { SlotNames } from "@/components/MainLayout";
 import PostCardList from "@/components/PostList";
 import { redirect } from 'next/navigation'
+import { MouseEventHandler } from "react";
+import ClientButton from "./clientButton";
 
 
 
@@ -46,6 +48,7 @@ async function Page({ params, searchParams }: PageProps) {
           )}
         </Layout.Slot>
         <main>
+          <ClientButton />
           <PostCardList title="Derniers articles" page={pageInt} />
         </main>
       </Layout>

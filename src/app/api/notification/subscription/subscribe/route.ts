@@ -1,8 +1,10 @@
-import Container from "@/business/dependencyFactory";
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
+import dayjs from "dayjs";
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod";
+import GraphQLConstants from '@/business/infrastructure/adapter/constants';
+import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
+import { DependencyKeys } from "@/business/dependencies";
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest, params: any) {
 
   const data = subscriptionSave.data
 
-  const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
+  // const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configManager)
 
   const useCase = await UseCaseFactory.Instance.getUseCase(UseCaseOption.SAVE_WEB_PUSH_SUBSCRIPTION)
 
@@ -39,7 +41,8 @@ export async function POST(request: NextRequest, params: any) {
       p256dh: data.keys.p256dh,
       auth: data.keys.auth,
       expiration_time: data.expirationTime,
-    }
+      publishedAt: dayjs().format(GraphQLConstants.GRAPHQL_DATE_FORMAT),
+    },
   })
 
   const res = NextResponse.json({ message: response.Result })
