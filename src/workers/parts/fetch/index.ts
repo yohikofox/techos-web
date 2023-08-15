@@ -3,15 +3,9 @@ const INSTALL_CACHED_RESOURCES = [
   '/hors-ligne',
   '/_next/static/css/app/(offline)/layout.css',
   '/_next/static/css/app/(offline)/hors-ligne/page.css',
-  '/offline.css']
+]
 
 let VERSION = ''
-
-const main = (worker: any) => {
-  worker.addEventListener('fetch', (event: any) => {
-    handlePreloadedResponse(event)
-  })
-}
 
 export const installPointCut = async (worker: any, event: any, version: string) => {
   VERSION = version
@@ -25,71 +19,62 @@ export const installPointCut = async (worker: any, event: any, version: string) 
   }
 }
 
-const handlePreloadedResponse = async (event: any) => {
-  event.respondWith((async () => {
-    try {
-      const preloadedResponse = await event.preloadResponse
+const main = (worker: any) => {
+  worker.addEventListener('fetch', (event: any) => {
+    event.respondWith(
+      (async () => {
+        const response = await toto(event)
+        return response?.clone()
+      })()
+    )
+  })
+}
+const toto = async (event: FetchEvent): Promise<Response | undefined> => {
+  const cache = await caches.open(VERSION)
+  try {
+    switch (event.request.mode) {
+      case 'no-cors':
+      case 'same-origin':
+      case 'cors':
+      case 'navigate': {
+        const cachedResource = await cache.match(event.request.url)
 
-      if (preloadedResponse) {
-        console.log(VERSION, 'preloadedResponse:', preloadedResponse)
-        return preloadedResponse
+        if (cachedResource) {
+          console.info(`Retrieve from cache ${event.request.url}`)
+          return cachedResource.clone()
+        }
+
+        console.info(`Retrieve from network ${event.request.url}`)
+
+        const networkResponse = await fetch(event.request)
+
+        const clonedNetworkResponse = networkResponse.clone()
+        await cache.put(event.request.url, clonedNetworkResponse)
+
+        const retrievedResource = await cache.match(event.request.url)
+        console.log(`Resource ${event.request.url} put in cache`)
+        return retrievedResource?.clone()
       }
-
-      const networkResponse = await fetch(event.request)
-
-      return networkResponse
-    } catch (error) {
-      const cache = await caches.open(VERSION)
-      const requestedUrl = new URL(event.request.url)
-      if (INSTALL_CACHED_RESOURCES.includes(requestedUrl.pathname)) {
-        return cache.match(requestedUrl.pathname)
-      }
-      return cache.match('/hors-ligne')
     }
-  })())
+  } catch (error) {
+    console.error('error:', error)
+    const url = new URL(event.request.url)
+
+    if (INSTALL_CACHED_RESOURCES.includes(url.pathname)) {
+      const cachedResource = await cache.match(url.pathname)
+      if (cachedResource) {
+        console.info(`Retrieve Installed Resource from cache ${event.request.url}`)
+        return cachedResource.clone()
+      }
+    }
+    url.pathname
+    const a = await cache.match('/hors-ligne')
+    if (a) {
+      return a.clone()
+    }
+  }
 }
 
-const helloResponse = (event: any) => {
-  event.respondWith((async () => {
-    return NextResponse.json({
-      status: 200,
-      body: {
-        message: 'Hello from the service worker',
-        version: VERSION
-      }
-    })
-  })())
-}
+
 
 export default main
-
-/**
- * worker.addEventListener('fetch', (event: any) => {
-    console.log('event:', event)
-    let response: any;
-    event.respondWith(caches.match(event.request).catch(function () {
-      return fetch(event.request);
-    }).then(function (r) {
-      response = r;
-      caches.open('v1').then(function (cache) {
-        cache.put(event.request, response);
-      });
-      return response.clone();
-    }));
-  })
- */
-
-// self.addEventListener('fetch', function (event: any) {
-//   switch (event.request.mode) {
-//     case 'navigate':
-//       break;
-//     case 'same-origin':
-//       break;
-//     case 'no-cors':
-//       break;
-//     case 'cors':
-//       break;
-//     default:
-//       break;
-//   }
-// });
