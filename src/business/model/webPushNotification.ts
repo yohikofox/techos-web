@@ -1,4 +1,3 @@
-import layout from '../../app/layout';
 type WebPushNotification = {
   title: string,
   dir: string,

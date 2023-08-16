@@ -20,8 +20,8 @@ const poppins = Poppins({ weight: ['400', '500', '700'], subsets: ['latin'] })
 const ubuntu = Ubuntu({ weight: ['400', '500', '700'], subsets: ['latin'] })
 
 const defaultData = {
-  title: 'Techos.com, tout pour la tech',
-  description: 'www.techos.com, tout pour la tech',
+  title: 'Techos.Dev, tout pour la tech',
+  description: 'www.techos.dev, tout pour la tech',
   manifest: '/manifest.json',
 };
 

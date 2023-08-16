@@ -13,7 +13,6 @@ export default class Container {
 
   public static get Instance() {
     if (!this._instances) {
-      console.warn('Container not initialized')
       this._instances = new Container()
     }
 

@@ -22,7 +22,7 @@ export default function SearchModal({ placeholder, title, className }: SearchMod
   }
   return (
     <SearchDataProvider>
-      <button className={classNames(styles.container, className)} onClick={handleClick}>
+      <button aria-label="search-modal" className={classNames(styles.container, className)} onClick={handleClick}>
         <Search className={styles.icon} />
       </button>
       {showModal && <Modal

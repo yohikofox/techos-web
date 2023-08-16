@@ -34,7 +34,7 @@ export default async function Footer() {
 
   return (
     <footer className={classNames(styles.container)}>
-      <Image src={"/logo.png"} className={styles.test} alt="" fill />
+      <Image src={"/logo.png"} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
 
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
@@ -45,7 +45,7 @@ export default async function Footer() {
 
           }} /> */}
           <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}</span>
-          <Link href="/" className={styles.inset__link} />
+          <Link aria-label="go to home" href="/" className={styles.inset__link} />
         </section>
         <section className={classNames(styles.section)}>
           <h4 className={styles.section__header}>Sections</h4>
@@ -65,7 +65,7 @@ export default async function Footer() {
             {response.Value.trainings?.items.map((training: any, index: number) => {
               return (
                 <li key={`training-item-${index}`}>
-                  <Link href={training.link}>{training.title}</Link>
+                  <Link aria-label={`formation: ${training.title}`} href={training.link}>{training.title}</Link>
                 </li>
               )
             })}
@@ -74,7 +74,7 @@ export default async function Footer() {
         <section className={classNames(styles.section)}>
           <h4 className={styles.section__header}>Contacts</h4>
           <ul>
-            <li><a href="https://twitter.com/Geekspeaks3" >Twitter</a></li>
+            <li><a href="https://twitter.com/Geekspeaks3">Twitter</a></li>
           </ul>
         </section>
       </section>

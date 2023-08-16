@@ -37,7 +37,6 @@ export default class UseCaseFactory {
 
   public static get Instance() {
     if (!this._instances) {
-      console.warn('UseCaseFactory not initialized')
       this._instances = new UseCaseFactory()
     }
 

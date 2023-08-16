@@ -17,7 +17,7 @@ export default function Tag({ tag, className }: TagProps) {
   return (
     <div className={classNames(styles.container, className)} style={style as any}>
       {tag.label}
-      <Link href={`/tag/${tag.slug}`} className={styles.inset__link} />
+      <Link href={`/tag/${tag.slug}`} aria-label={tag.label} className={styles.inset__link} />
     </div>
   )
 }

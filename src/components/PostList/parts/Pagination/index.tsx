@@ -10,7 +10,7 @@ const PaginationItem = ({ page }: { page: number }) => {
   return (
     <div className={styles.item}>
       <span>{page}</span>
-      <Link href={`?page=${page}`} className={styles.inset__link} />
+      <Link href={`?page=${page}`} aria-label={`page-${page}`} className={styles.inset__link} />
     </div>
   )
 }
@@ -52,11 +52,11 @@ export default function Pagination({ page, pageCount, pageSize, total }: Paginat
           <>
             <div className={styles.item}>
               <CaretLeft className={styles.caret} /><CaretLeft className={styles.caret} />
-              <Link href={`/`} className={styles.inset__link} />
+              <Link aria-label="first page" href={`/`} className={styles.inset__link} />
             </div>
             <div className={styles.item}>
               <CaretLeft className={styles.caret} />
-              <Link href={`?page=${page - 1}`} className={styles.inset__link} />
+              <Link aria-label="previous page" href={`?page=${page - 1}`} className={styles.inset__link} />
             </div>
           </>
         )}
@@ -67,11 +67,11 @@ export default function Pagination({ page, pageCount, pageSize, total }: Paginat
           <>
             <div className={styles.item}>
               <CaretRight className={styles.caret} />
-              <Link href={`?page=${page + 1}`} className={styles.inset__link} />
+              <Link aria-label="next page" href={`?page=${page + 1}`} className={styles.inset__link} />
             </div>
             <div className={styles.item}>
               <CaretRight className={styles.caret} /><CaretRight className={styles.caret} />
-              <Link href={`?page=${pageCount}`} className={styles.inset__link} />
+              <Link aria-label="last page" href={`?page=${pageCount}`} className={styles.inset__link} />
             </div>
           </>
         )}

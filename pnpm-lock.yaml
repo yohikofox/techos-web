@@ -77,6 +77,15 @@ dependencies:
   web-push:
     specifier: ^3.6.4
     version: 3.6.4
+  xmldom:
+    specifier: ^0.6.0
+    version: 0.6.0
+  xmlserializer:
+    specifier: ^0.6.1
+    version: 0.6.1
+  xpath:
+    specifier: ^0.0.33
+    version: 0.0.33
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -91,6 +100,12 @@ devDependencies:
   '@types/web-push':
     specifier: ^3.3.2
     version: 3.3.2
+  '@types/xmldom':
+    specifier: ^0.1.31
+    version: 0.1.31
+  '@types/xmlserializer':
+    specifier: ^0.6.3
+    version: 0.6.3
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -607,6 +622,10 @@ packages:
   /@types/node@20.4.5:
     resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
 
+  /@types/parse5@6.0.3:
+    resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
+    dev: true
+
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: false
@@ -633,6 +652,16 @@ packages:
     resolution: {integrity: sha512-JxWGVL/m7mWTIg4mRYO+A6s0jPmBkr4iJr39DqJpRJAc+jrPiEe1/asmkwerzRon8ZZDxaZJpsxpv0Z18Wo9gw==}
     dependencies:
       '@types/node': 20.4.5
+    dev: true
+
+  /@types/xmldom@0.1.31:
+    resolution: {integrity: sha512-bVy7s0nvaR5D1mT1a8ZkByHWNOGb6Vn4yi5TWhEdmyKlAG+08SA7Md6+jH+tYmMLueAwNeWvHHpeKrr6S4c4BA==}
+    dev: true
+
+  /@types/xmlserializer@0.6.3:
+    resolution: {integrity: sha512-C4sPQn2oNQmXwk6oI1sY5mHcd1MJNOH2IXk4QFqxGBI9hSjrAOTP8Th/LsXqEU+E96dfaNrH+ZBTXfOWEGXOWQ==}
+    dependencies:
+      '@types/parse5': 6.0.3
     dev: true
 
   /@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6):
@@ -4062,6 +4091,20 @@ packages:
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+    dev: false
+
+  /xmldom@0.6.0:
+    resolution: {integrity: sha512-iAcin401y58LckRZ0TkI4k0VSM1Qg0KGSc3i8rU+xrxe19A/BN1zHyVSJY7uoutVlaTSzYyk/v5AmkewAP7jtg==}
+    engines: {node: '>=10.0.0'}
+    dev: false
+
+  /xmlserializer@0.6.1:
+    resolution: {integrity: sha512-FNb0eEqqUUbnuvxuHqNuKH8qCGKqxu+558Zi8UzOoQk8Z9LdvpONK+v7m3gpKVHrk5Aq+0nNLsKxu/6OYh7Umw==}
+    dev: false
+
+  /xpath@0.0.33:
+    resolution: {integrity: sha512-NNXnzrkDrAzalLhIUc01jO2mOzXGXh1JwPgkihcLLzw98c0WgYDmmjSh1Kl3wzaxSVWMuA+fe0WTWOBDWCBmNA==}
+    engines: {node: '>=0.6.0'}
     dev: false
 
   /yallist@4.0.0:

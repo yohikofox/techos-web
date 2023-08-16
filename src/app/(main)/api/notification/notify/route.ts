@@ -44,8 +44,7 @@ export async function POST(request: NextRequest, params: any) {
       await webpush.sendNotification(subscription, payload)
     } catch (error) {
       if ((error as WebPushError).statusCode === 410) {
-
-        await deleteSubscriptionUseCase.execute({ subscriptionId: subscription.id })
+        await deleteSubscriptionUseCase.execute({ data: { subscriptionId: subscription.id } })
         console.info('Subscription deleted', subscription.id)
       } else {
         console.error("Route error", error)

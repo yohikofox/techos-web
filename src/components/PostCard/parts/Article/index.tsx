@@ -30,6 +30,7 @@ export default async function Article({ post }: PostCardProps) {
           alt={post.title || ''}
           src={src || ''}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{
             objectFit: 'cover',
           }}
@@ -55,7 +56,7 @@ export default async function Article({ post }: PostCardProps) {
           )}
         </section>
       </section>
-      <Link href={`/post/${post.slug}`} className={styles.inset__link} />
+      <Link href={`/post/${post.slug}`} aria-label={post.title} className={styles.inset__link} />
     </article>
   )
 }
