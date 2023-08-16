@@ -1,18 +1,3 @@
-APP Name : 1691787307630665728Geekspeaks3
-App Id: 27637390
-
-
-APIKEY: 9eN0IrKFgDDpTSGc3XKW4DPCk
-API Key Secret: AkaLVLBP81TM8w4NnaAZTom4KT2NmtzfqNbAtvnsqruayX2JQy
-Bearer: AAAAAAAAAAAAAAAAAAAAAI62pQEAAAAAmeIry0jTyDhkj40F6Y9cL6K%2Bow8%3DAXzA9iOCCrjodKCCaDFVNKOJpFzRTNaNtFXIfHsYARx97Ei3NO
-Access Token: 1354110602898255878-LLtPgts79US9NB2dxJcEN7UNZhBg9g
-Access Token Secret: lOFZKZwLPlzHos7PmBkJ5EWvHYdcLrF7HbbpJ80uNwQak
-
-AAAAAAAAAAAAAAAAAAAAAI62pQEAAAAAJQKVqNa7qBrO5kvMh9EzdPwZxgc%3D9QHN518VQq1IMTH6ogwMzLLUaYjxwcrODnS3XJ0uTVb4SNEgXg
-
-Client ID: ZmYzQWhob2kxc2NQN09KdzFITHY6MTpjaQ
-Client Secret: K_NoO4XnojrPpCV2p_3UHBmRMBFQwv1zzD2jvyXbloZDNsB33P
-<!-- Client Secret: K_NoO4XnojrPpCV2p_3UHBmRMBFQwv1zzD2jvyXbloZDNsB33P -->
 
 
 task                                                                      | status | comment
