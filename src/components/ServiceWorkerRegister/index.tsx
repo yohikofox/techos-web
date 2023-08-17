@@ -5,7 +5,7 @@ export default async function NotificationWorkerWrapper() {
 
   return (
     <>
-      <FetchServiceWorkerRegister />
+      {/* <FetchServiceWorkerRegister /> */}
       <RegisterNotificationWorker />
     </>
   )

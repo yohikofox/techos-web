@@ -44,9 +44,10 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
         "Content-Type": "application/json",
         "Authorization": `Bearer ${await this.configManager.get("CMS_API_KEY")}`
       },
-      next: {
-        revalidate: 1
-      }
+      cache: 'no-store',
+      // next: {
+      //   revalidate: 60
+      // }
     });
 
     if (!response.ok) {

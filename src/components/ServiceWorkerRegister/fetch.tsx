@@ -6,10 +6,7 @@ export default function FetchServiceWorkerRegister() {
 
   const registerServiceWorker = async () => {
     try {
-
-
       if ('serviceWorker' in navigator) {
-
         const registration = await navigator.serviceWorker.register(new URL('@/workers/fetch.sw.ts', import.meta.url), {
           scope: '/'
         })

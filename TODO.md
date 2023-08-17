@@ -27,6 +27,8 @@ moins charger en bg en hero                                               | done
 refacto pour refresh config keys                                          | done   |
 plugin strapi de notifications                                            |        |
 add jwt token to notify api                                               |        |
+Check pourquoi et comment SSR VS SSG vs ISR                               |        |
+revoir l'algo de resolution ads                                           |        |
 
 # A creuser 
 

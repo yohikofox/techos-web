@@ -7,10 +7,21 @@ const nextConfig = {
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
   images: {
-    remotePatterns: [{
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'host.docker.internal',
+        port: "13371",
+        pathname: '/**',
+      },{
       protocol: 'http',
       hostname: 'localhost',
       port: "1337",
+      pathname: '/**',
+    },{
+      protocol: 'http',
+      hostname: 'localhost',
+      port: "13371",
       pathname: '/**',
     },
     {

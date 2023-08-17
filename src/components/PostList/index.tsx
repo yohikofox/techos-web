@@ -22,7 +22,7 @@ const AD_DEFAULT = {
   type: PostType.Ad,
   picture: {
     name: 'Ads',
-    src: '/uploads/ads_9ee4df27b1.png',
+    src: 'http://localhost:1337/uploads/ads_9ee4df27b1.png',
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -45,7 +45,8 @@ export default async function PostListRender({ title, page }: PostListProps) {
   }
   const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
 
-  AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${AD_DEFAULT.picture.src}}`
+  // const src = AD_DEFAULT.picture.src;
+  // AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
 
   const posts = [];
   let insertedAdCount = 0;
