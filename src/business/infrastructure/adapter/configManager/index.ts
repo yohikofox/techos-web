@@ -58,6 +58,7 @@ export default class ConfigManager implements IConfigManager {
         });
 
         Object.entries(process.env).forEach(([key, value], index) => {
+          console.log("Process.env: ",key, value)
           this._config[key] = value || ''
         })
 
