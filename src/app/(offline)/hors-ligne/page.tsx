@@ -8,8 +8,6 @@ export default async function Page() {
   const offlinePageUseCase = await UseCaseFactory.Instance.getUseCase<any, OffLinePageData, GetOfflinePageDataUseCaseResult>(UseCaseOption.GET_OFFLINE_PAGE_DATA)
   const response = await offlinePageUseCase.execute()
 
-  const content = md().render(response.Value.content)
-
   if (response.IsError) {
     return (
       <main>
@@ -18,6 +16,8 @@ export default async function Page() {
       </main>
     )
   }
+
+  const content = md().render(response.Value.content)
 
   return (
     <main className={styles.container}>
