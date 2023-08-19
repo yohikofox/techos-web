@@ -61,4 +61,4 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         with:
           args: |
-            helm upgrade -i frontend "./deploy/techos" --set image.tag=${{ steps.metadata.outputs.version }} --create-namespace --namespace=${{secrets.NAMESPACE}}
+            helm upgrade -i frontend "./deploy/web" --set image.tag=${{ steps.metadata.outputs.version }} --create-namespace --namespace=${{secrets.NAMESPACE}}
