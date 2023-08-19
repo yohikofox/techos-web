@@ -21,7 +21,13 @@ export default async function Footer() {
   const response = await useCase?.execute();
 
   if (response.IsError) {
-    redirect('/error/400')
+    if (response.Result[response.Result.length - 1] === HeaderDataResult.NO_DATA_FOUND) {
+      return <section style={{
+        display: 'none',
+      }}>
+        {response.Result[response.Result.length - 1]}
+      </section>
+    }
   }
 
 

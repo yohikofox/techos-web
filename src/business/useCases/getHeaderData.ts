@@ -7,6 +7,7 @@ import { IImageSetService } from "../services/imageSet.service";
 export enum HeaderDataResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = 'no_data_found'
 }
 
 export default class GetHeaderDataUseCase implements IUseCase<any, Result<HeaderData, HeaderDataResult>> {
@@ -20,6 +21,9 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
     if (response.IsError) {
       return response.transferError(HeaderDataResult.ERROR)
     }
+
+    if (!response.Value.header.data)
+      return response.transferError(HeaderDataResult.NO_DATA_FOUND)
 
     const result: HeaderData = {
       search: {

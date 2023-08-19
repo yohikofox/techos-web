@@ -11,18 +11,17 @@ const badRequest = (message?: string) => new Response(message || 'Bad Request', 
 
 export async function GET(request: NextRequest, params: any) {
 
-  const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
-  const secret = await configManager.get('JWT_KEY');
-  console.log('secret:', secret)
+  // const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
+  // const secret = await configManager.get('JWT_KEY');
 
   const { ip } = request
 
   const timestamp = dayjs().unix()
 
-  let token = jwt.sign({ ip: ip || timestamp, timestamp: timestamp }, secret, {
-    expiresIn: '1h',
-    algorithm: 'HS256',
-  })
+  // let token = jwt.sign({ ip: ip || timestamp, timestamp: timestamp }, secret, {
+  //   expiresIn: '1h',
+  //   algorithm: 'HS256',
+  // })
 
   // const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'sect233k1' })
 

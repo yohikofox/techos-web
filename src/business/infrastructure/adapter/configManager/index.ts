@@ -13,7 +13,6 @@ export default class ConfigManager implements IConfigManager {
   private _config: { [key: string]: string } = {}
 
   constructor() {
-    console.log("process.env: entries",JSON.stringify(Object.entries(process.env), null, 2))
     if (!process.env.CMS_ENDPOINT) throw new Error('CMS_ENDPOINT not found')
     this.endpoint = process.env.CMS_ENDPOINT
     this.load()
