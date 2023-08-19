@@ -24,7 +24,7 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
       return response.transferError(HomeDataResult.ERROR)
     }
 
-    if(!response.Value.homePage) {
+    if(!response.Value.homePage?.data) {
       return response.transferError(HomeDataResult.NO_DATA_FOUND)
     }
 
