@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "gs-plomberie.fullname" . }}-test-connection"
+  labels:
+    {{- include "gs-plomberie.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "gs-plomberie.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
