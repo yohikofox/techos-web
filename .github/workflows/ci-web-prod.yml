@@ -31,8 +31,11 @@ jobs:
         with:
           push: true
           build-args: |
-            CMS_API_KEY=${{ secrets.BACKEND_TOKEN }}
-            CMS_BASE_URL=${{ secrets.BACKEND_BASE_URL }}
+            NEXT_TELEMETRY_DISABLED=1
+            CMS_ENDPOINT: ${{ secrets.BACKEND_BASE_URL }}
+            CMS_API_KEY: ${{ secrets.BACKEND_TOKEN }}
+            NEXT_PUBLIC_FRONT_URL: ${{ secrets.FRONTEND_ENDPOINT }}
+            JWT_KEY: ${{ secrets.JWT_SECRET }}
           file: Dockerfile
           context: "{{defaultContext}}:."
           tags: ${{ steps.metadata.outputs.tags }}
