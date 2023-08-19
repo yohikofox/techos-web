@@ -1,5 +1,5 @@
-const fs = require('fs');
-const { resolve } = require('path');
+const bucketEnv = process.env.NEXT_PUBLIC_BUCKET_HOST;
+console.error('bucketEnv:', bucketEnv)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,7 +10,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_BUCKET_HOST,
+        hostname: bucketEnv,
         pathname: '/**',
         port: '',
       },
@@ -19,29 +19,29 @@ const nextConfig = {
         hostname: 'host.docker.internal',
         port: "13371",
         pathname: '/**',
-      },{
-      protocol: 'http',
-      hostname: 'localhost',
-      port: "1337",
-      pathname: '/**',
-    },{
-      protocol: 'http',
-      hostname: 'localhost',
-      port: "13371",
-      pathname: '/**',
-    },
-    {
-      protocol: 'https',
-      hostname: 'i.pravatar.cc',
-      pathname: '/**',
-      port: '',
-    },
-    {
-      protocol: 'https',
-      hostname: 'eu.ui-avatars.com',
-      pathname: '/**',
-      port: '',
-    }],
+      }, {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: "1337",
+        pathname: '/**',
+      }, {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: "13371",
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+        pathname: '/**',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'eu.ui-avatars.com',
+        pathname: '/**',
+        port: '',
+      }],
   },
   //Service-Worker-Allowed
   headers: async () => {
