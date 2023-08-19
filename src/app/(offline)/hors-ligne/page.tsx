@@ -9,6 +9,7 @@ export default async function Page() {
   const response = await offlinePageUseCase.execute()
 
   if (response.IsError) {
+    console.error('response.Error:', response)
     return (
       <main>
         <h1>Arf !</h1>

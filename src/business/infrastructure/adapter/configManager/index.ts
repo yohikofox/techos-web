@@ -25,7 +25,8 @@ export default class ConfigManager implements IConfigManager {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
-      }
+      },
+      cache: 'no-store',
     })
 
     if (response.ok) {

@@ -21,6 +21,7 @@ export default async function Footer() {
   const response = await useCase?.execute();
 
   if (response.IsError) {
+    console.error('response.Error:', response)
     if (response.Result[response.Result.length - 1] === HeaderDataResult.NO_DATA_FOUND) {
       return <section style={{
         display: 'none',

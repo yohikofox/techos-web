@@ -9,6 +9,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: process.env.NEXT_PUBLIC_BUCKET_HOST,
+        pathname: '/**',
+        port: '',
+      },
+      {
         protocol: 'http',
         hostname: 'host.docker.internal',
         port: "13371",

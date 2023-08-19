@@ -22,6 +22,7 @@ export default async function Header({ title }: HeaderProps) {
   const response = await useCase?.execute();
 
   if (response.IsError) {
+    console.error('response.Error:', response)
     redirect('/error/400')
   }
 

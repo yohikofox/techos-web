@@ -42,6 +42,7 @@ async function Page({ params, searchParams }: PageProps) {
   })
 
   if (response.IsError || tagInfosResponse.IsError) {
+    console.error('response.Error:', response, tagInfosResponse)
     redirect('/error/400')
   }
 
