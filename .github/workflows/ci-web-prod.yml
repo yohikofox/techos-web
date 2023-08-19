@@ -32,7 +32,7 @@ jobs:
           push: true
           build-args: |
             NEXT_TELEMETRY_DISABLED=1
-            CMS_ENDPOINT: ${{ secrets.CMS_BASE_URL }}
+            CMS_ENDPOINT: ${{ secrets.CMS_ENDPOINT }}
             CMS_API_KEY: ${{ secrets.BACKEND_TOKEN }}
             NEXT_PUBLIC_FRONT_URL: ${{ secrets.FRONTEND_ENDPOINT }}
             JWT_KEY: ${{ secrets.JWT_SECRET }}
