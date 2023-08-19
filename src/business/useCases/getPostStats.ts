@@ -5,9 +5,13 @@ import { IUseCase } from "../useCaseFactory";
 
 
 
+
+
+
 export enum PostStatsResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export type PostStatsRequest = {
@@ -19,6 +23,14 @@ export default class GetPostStatsUseCase implements IUseCase<PostStatsRequest, R
   async execute(request?: PostStatsRequest): Promise<Result<PostStats, PostStatsResult>> {
 
     const retrieveResponse = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_STATS, request)
+
+    if (retrieveResponse.IsError) {
+      return retrieveResponse.transferError(PostStatsResult.ERROR)
+    }
+
+    if (!retrieveResponse.Value.tag) {
+      return retrieveResponse.transferError(PostStatsResult.NO_DATA_FOUND)
+    }
 
     const result: PostStats = {
       slug: retrieveResponse.Value.tag.slug,

@@ -9,9 +9,13 @@ import { IPostService } from "../services/post.service";
 
 
 
+
+
+
 export enum PostListResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export type PostListRequest = {
@@ -30,6 +34,11 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
     if (response.IsError) {
       return response.transferError(PostListResult.ERROR)
     }
+
+    if (!response.Value.posts) {
+      return response.transferError(PostListResult.NO_DATA_FOUND)
+    }
+
     const result: PostList = {
       posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post))),
       meta: {

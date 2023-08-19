@@ -4,9 +4,11 @@ import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 
+
 export enum TagInfosResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export type TagInfosRequest = {
@@ -23,6 +25,10 @@ export default class GetTagInfosUseCase implements IUseCase<TagInfosRequest, Res
 
     if (response.IsError) {
       return response.transferError(TagInfosResult.ERROR)
+    }
+
+    if (!response.Value.tags) {
+      return response.transferError(TagInfosResult.NO_DATA_FOUND)
     }
 
     const tag = response.Value.tags.data[0]

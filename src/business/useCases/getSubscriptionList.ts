@@ -3,9 +3,11 @@ import WebPushSubscription from "../model/webPushSubscription";
 import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
 
+
 export enum GetWebPushSubscriptionListResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export type SaveWebPushSubscriptionRequest = {}
@@ -19,6 +21,10 @@ export default class GetSaveWebPushSubscriptionUseCase implements IUseCase<SaveW
 
     if (response.IsError) {
       return response.transferError(GetWebPushSubscriptionListResult.ERROR)
+    }
+
+    if (!response.Value.webPushSubscriptions) {
+      return response.transferError(GetWebPushSubscriptionListResult.NO_DATA_FOUND)
     }
 
     const results = response.Value.webPushSubscriptions.data.map((item: any) => {

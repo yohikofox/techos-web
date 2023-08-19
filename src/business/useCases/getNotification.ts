@@ -4,9 +4,11 @@ import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 
+
 export enum WebPushNotificationResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export interface GetWebPushNotificationRequest {
@@ -24,6 +26,10 @@ export default class GetWebPushNotificationUseCase implements IUseCase<GetWebPus
 
     if (response.IsError) {
       return response.transferError(WebPushNotificationResult.ERROR)
+    }
+
+    if (!response.Value.webPushNotification) {
+      return response.transferError(WebPushNotificationResult.NO_DATA_FOUND)
     }
 
     const data = response.Value.webPushNotification.data.attributes

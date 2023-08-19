@@ -4,9 +4,11 @@ import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 
+
 export enum HomeDataResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData, HomeDataResult>> {
@@ -20,6 +22,10 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
 
     if (response.IsError) {
       return response.transferError(HomeDataResult.ERROR)
+    }
+
+    if(!response.Value.homePage) {
+      return response.transferError(HomeDataResult.NO_DATA_FOUND)
     }
 
     const result: HomeData = {

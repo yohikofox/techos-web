@@ -4,9 +4,11 @@ import { Result } from "../result";
 import { IPostService } from "../services/post.service";
 import { IUseCase } from "../useCaseFactory";
 
+
 export enum TagPostListResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export type TagPostListRequest = {
@@ -25,6 +27,10 @@ export default class GetTagPostListUseCase implements IUseCase<TagPostListReques
 
     if (response.IsError) {
       return response.transferError(TagPostListResult.ERROR)
+    }
+
+    if (!response.Value.posts) {
+      return response.transferError(TagPostListResult.NO_DATA_FOUND)
     }
 
     const result: PostList = {

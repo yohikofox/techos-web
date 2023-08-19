@@ -5,9 +5,11 @@ import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
 import { IImageSetService } from "../services/imageSet.service";
 
+
 export enum PostDetailsResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  NO_DATA_FOUND = "NO_DATA_FOUND"
 }
 
 export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post, PostDetailsResult>> {
@@ -20,6 +22,10 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
 
     if (response.IsError) {
       return response.transferError(PostDetailsResult.ERROR)
+    }
+
+    if (!response.Value.posts) {
+      return response.transferError(PostDetailsResult.NO_DATA_FOUND)
     }
 
     const result: Post = {
