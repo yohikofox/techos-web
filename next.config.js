@@ -58,7 +58,7 @@ const nextConfig = {
   headers: async () => {
     return [
       {
-        source: '/post/(.*)',
+        source: '/post/:slug*',
         headers: [
           {
             key: 'Cache-Control',
