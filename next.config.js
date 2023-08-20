@@ -1,6 +1,8 @@
 const bucketEnv = process.env.NEXT_PUBLIC_BUCKET_HOST;
-console.error('bucketEnv:', bucketEnv)
-console.info("sdfsdsd", JSON.stringify(Object.entries(process.env), null, 2))
+
+if (!bucketEnv) {
+  throw new Error('NEXT_PUBLIC_BUCKET_HOST is not set')
+}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
