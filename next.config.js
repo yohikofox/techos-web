@@ -58,15 +58,6 @@ const nextConfig = {
   headers: async () => {
     return [
       {
-        source: '/post/:slug*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
-          },
-        ]
-      },
-      {
         source: '/(.*).js',
         headers: [
           {
@@ -84,6 +75,18 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/post/:slug*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
+          },{
+            key: 'X-Toto',
+            value: `Tata`,
+          },
+        ]
+      }
     ]
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
