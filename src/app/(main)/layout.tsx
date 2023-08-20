@@ -36,12 +36,12 @@ const layout = function RootLayout({
   return (
     <html lang="fr" className={styles.document}>
       <body className={classNames(ubuntu.className, styles.container)}>
-        <ServiceWorkerRegister />
-        <Header title={(metadata.title || defaultData.title).toString()} />
+        {/* <ServiceWorkerRegister /> */}
+        {/* <Header title={(metadata.title || defaultData.title).toString()} /> */}
         <section className={styles.content}>
           {children}
         </section>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   )
