@@ -15,8 +15,8 @@ export interface PostDetailsProps {
 
 export default async function PostDetails({ post }: PostDetailsProps) {
 
-  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
-  const cmsEndpoint = await configManager.get('CMS_ENDPOINT')
+  // const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
+  // const cmsEndpoint = await configManager.get('CMS_ENDPOINT')
 
 
   const m = md({
@@ -25,19 +25,19 @@ export default async function PostDetails({ post }: PostDetailsProps) {
       return highlightMarkdown(str, lang, attrs)
     },
   })
-  m.renderer.rules.image = function (tokens, idx, options, env, slf) {
-    var token = tokens[idx]
-    if (token && token.type === 'image' && token.attrs && token.children) {
-      token.attrs[token.attrIndex('alt')][1] = slf.renderInlineAsText(token.children, options, env)
-      if (token.attrs[token.attrIndex('src')][1].startsWith('http')) return slf.renderToken(tokens, idx, options)
-      if (token.attrs[token.attrIndex('src')][1].startsWith('/uploads')) token.attrs[token.attrIndex('src')][1] = `${cmsEndpoint}${token.attrs[token.attrIndex('src')][1]}`
-      if (token.attrs[token.attrIndex('src')][1].startsWith('data:image/png;base64,')) return slf.renderToken(tokens, idx, options)
+  // m.renderer.rules.image = function (tokens, idx, options, env, slf) {
+  //   var token = tokens[idx]
+  //   if (token && token.type === 'image' && token.attrs && token.children) {
+  //     token.attrs[token.attrIndex('alt')][1] = slf.renderInlineAsText(token.children, options, env)
+  //     if (token.attrs[token.attrIndex('src')][1].startsWith('http')) return slf.renderToken(tokens, idx, options)
+  //     if (token.attrs[token.attrIndex('src')][1].startsWith('/uploads')) token.attrs[token.attrIndex('src')][1] = `${cmsEndpoint}${token.attrs[token.attrIndex('src')][1]}`
+  //     if (token.attrs[token.attrIndex('src')][1].startsWith('data:image/png;base64,')) return slf.renderToken(tokens, idx, options)
 
-      token.attrSet('loading', 'lazy')
-      return slf.renderToken(tokens, idx, options)
-    }
-    return ''
-  }
+  //     token.attrSet('loading', 'lazy')
+  //     return slf.renderToken(tokens, idx, options)
+  //   }
+  //   return ''
+  // }
   const readingTime = getReadingTime(post.content)
   return (
     <>

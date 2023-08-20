@@ -22,16 +22,16 @@ export default async function Post({ params: { slug } }: PostPageProps) {
   }
 
   return (
-    <Layout>
-      <Layout.Slot name={SlotNames.HERO}>
-        <Hero
-          title={response.Value.title}
-          background={response.Value.picture as ImageSet}
-        />
-      </Layout.Slot>
+    // <Layout>
+    //   <Layout.Slot name={SlotNames.HERO}>
+    //     <Hero
+    //       title={response.Value.title}
+    //       background={response.Value.picture as ImageSet}
+    //     />
+    //   </Layout.Slot>
       <main>
         <PostDetails post={response.Value} />
       </main>
-    </Layout>
+    // </Layout>
   )
 }
