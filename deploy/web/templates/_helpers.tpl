@@ -60,3 +60,20 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "helpers.env-variables"}}
+{{- range $key, $val := .Values.env.file }}
+- {{ $key }}: {{ $val }}
+{{- end}}
+{{- end }}           
+
+{{- define "helpers.configmap-env-variables"}}
+{{- range $key, $val := .Values.env.configmap }}
+- name: {{ $key }}
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.configmapEnvName}}
+      key: {{ $val }}
+{{- end}}
+{{- end }}

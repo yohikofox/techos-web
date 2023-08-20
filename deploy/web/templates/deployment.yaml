@@ -33,45 +33,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: NEXT_TELEMETRY_DISABLED
-              value: "1"
-            - name: CDN_PREFIX
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: CDN_PREFIX
-                  optional: true
-            - name: CMS_ENDPOINT
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: CMS_ENDPOINT
-            - name: CMS_API_KEY
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: CMS_API_KEY
-            - name: ASSET_BASE_URL
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: ASSET_BASE_URL
-            - name: JWT_KEY
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: JWT_KEY
-            - name: NEXT_PUBLIC_BUCKET_HOST
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: SCALEWAY_BUCKET
-            - name: CMS_ENDPOINT_HOSTNAME
-              valueFrom: 
-                configMapKeyRef:
-                  name: {{ .Values.configMapName }}
-                  key: CMS_ENDPOINT_HOSTNAME
+          env:           
+          {{- include "helpers.env-variables" . | indent 6 }}
+          {{- include "helpers.configmap-env-variables" . | indent 6 }}
           ports:
             - name: http
               containerPort: 3000
