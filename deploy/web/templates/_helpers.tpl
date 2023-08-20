@@ -73,7 +73,7 @@ Create the name of the service account to use
 - name: {{ $key }}
   valueFrom:
     configMapKeyRef:
-      name: {{ .Values.configmapEnvName}}
+      name: {{ .Values.configMapName }}
       key: {{ $val }}
 {{- end}}
 {{- end }}
