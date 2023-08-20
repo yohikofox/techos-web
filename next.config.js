@@ -58,6 +58,15 @@ const nextConfig = {
   headers: async () => {
     return [
       {
+        source: '/post/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
+          },
+        ]
+      },
+      {
         source: '/(.*).js',
         headers: [
           {
