@@ -8,6 +8,8 @@ import ImageSet from "@/business/model/image";
 import PostDetails from "@/components/PostDetails";
 import TrackingWorker from "@/components/TrackingWorker";
 
+export const dynamic = 'force-static';
+
 export interface PostPageProps { params: { slug: string } }
 
 export default async function Post({ params: { slug } }: PostPageProps) {
