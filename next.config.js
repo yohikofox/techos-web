@@ -58,6 +58,15 @@ const nextConfig = {
   headers: async () => {
     return [
       {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'x-hello',
+            value: 'there',
+          },
+        ],
+      },
+      {
         source: '/(.*).js',
         headers: [
           {

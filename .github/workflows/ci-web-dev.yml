@@ -1,4 +1,4 @@
-name: CI Internal Website Prod
+name: CI Internal Website Develop
 on: [workflow_dispatch]
 
 jobs:
