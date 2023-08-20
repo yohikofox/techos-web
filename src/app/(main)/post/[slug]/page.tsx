@@ -30,7 +30,8 @@ export default async function Post({ params: { slug } }: PostPageProps) {
     //     />
     //   </Layout.Slot>
       <main>
-        <PostDetails post={response.Value} />
+        you are in post page
+        {/* <PostDetails post={response.Value} /> */}
       </main>
     // </Layout>
   )
