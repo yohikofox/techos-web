@@ -7,7 +7,7 @@ if (!bucketEnv) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  generateEtags: false,
+  generateEtags: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
