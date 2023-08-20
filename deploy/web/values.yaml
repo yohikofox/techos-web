@@ -86,9 +86,6 @@ tolerations: []
 
 affinity: {}
 
-configMapName: techos-frontend-env-vars
-configmapEnvName: techos-frontend-env-vars
-
 env:
   file:
     - NEXT_TELEMETRY_DISABLED: "1"

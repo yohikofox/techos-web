@@ -73,7 +73,7 @@ Create the name of the service account to use
 - name: {{ $key }}
   valueFrom:
     configMapKeyRef:
-      name: {{ .Values.configMapName }}
+      name: techos-frontend-env-vars
       key: {{ $val }}
 {{- end}}
 {{- end }}
