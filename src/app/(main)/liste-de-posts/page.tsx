@@ -28,7 +28,6 @@ async function Page({ params, searchParams }: PageProps) {
 
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HomeData, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
   const response = await useCase?.execute();
-  console.log('response:', response)
 
   if (response.IsError) {
     console.error('response.Error:', response)
