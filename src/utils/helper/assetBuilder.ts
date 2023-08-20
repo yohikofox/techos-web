@@ -6,6 +6,7 @@ export interface IAssetBuilder {
 export default class AssetBuilder implements IAssetBuilder {
   constructor(private configManager: IConfigManager) { }
   public async buildAssetUri(assetPath: string): Promise<string> {
+    console.log('assetPath:', assetPath)
     if(assetPath.startsWith("http")) return assetPath
     return `${await this.configManager.get("CMS_ENDPOINT")}${assetPath}`
   }
