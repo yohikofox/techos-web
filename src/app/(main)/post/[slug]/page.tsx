@@ -14,27 +14,28 @@ export interface PostPageProps { params: { slug: string } }
 
 export default async function Post({ params: { slug } }: PostPageProps) {
 
-  // const useCase = await UseCaseFactory.Instance.getUseCase<any, Post, PostDetailsResult>(UseCaseOption.GET_POST_DETAILS);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, Post, PostDetailsResult>(UseCaseOption.GET_POST_DETAILS);
 
-  // const response = await useCase?.execute({ slug: { "eq": slug } });
+  const response = await useCase?.execute({ slug: { "eq": slug } });
 
-  // if (response.IsError) {
-  //   console.error('response.Error:', response)
-  //   redirect('/error/400')
-  // }
+  if (response.IsError) {
+    redirect('/error/400')
+  }
 
   return (
-    // <Layout>
-    //   <Layout.Slot name={SlotNames.HERO}>
-    //     <Hero
-    //       title={response.Value.title}
-    //       background={response.Value.picture as ImageSet}
-    //     />
-    //   </Layout.Slot>
+    <Layout>
+      <Layout.Slot name={SlotNames.HERO}>
+        <Hero
+          title={response.Value.title}
+          background={response.Value.picture as ImageSet}
+        />
+      </Layout.Slot>
       <main>
-        you are in post page
-        {/* <PostDetails post={response.Value} /> */}
+        <TrackingWorker data={{
+          viewCount: response.Value.stats?.viewCount,
+        }} />
+        <PostDetails post={response.Value} />
       </main>
-    // </Layout>
+    </Layout>
   )
 }
