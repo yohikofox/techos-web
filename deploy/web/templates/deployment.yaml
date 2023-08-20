@@ -67,6 +67,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Values.configMapName }}
                   key: SCALEWAY_BUCKET
+            - name: CMS_ENDPOINT_HOSTNAME
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.configMapName }}
+                  key: CMS_ENDPOINT_HOSTNAME
           ports:
             - name: http
               containerPort: 3000
