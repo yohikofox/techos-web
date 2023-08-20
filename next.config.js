@@ -1,5 +1,6 @@
 const bucketEnv = process.env.NEXT_PUBLIC_BUCKET_HOST;
 console.error('bucketEnv:', bucketEnv)
+console.info("sdfsdsd", JSON.stringify(Object.entries(process.env), null, 2))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

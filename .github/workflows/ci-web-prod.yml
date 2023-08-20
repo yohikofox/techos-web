@@ -35,7 +35,6 @@ jobs:
             CMS_ENDPOINT=${{ secrets.BACKEND_BASE_URL }}
             CMS_API_KEY=${{ secrets.BACKEND_TOKEN }}
             NEXT_PUBLIC_FRONT_URL=${{ secrets.FRONTEND_ENDPOINT }}
-            NEXT_PUBLIC_BUCKET_HOST=${{ secrets.BUCKET_HOST }}
             JWT_KEY=${{ secrets.JWT_SECRET }}
           file: Dockerfile
           context: "{{defaultContext}}:."
