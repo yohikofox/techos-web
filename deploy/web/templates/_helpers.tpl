@@ -61,19 +61,19 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{- define "env-vars" -}}
+{{- range $key, $value := .Values.env.file }}
+- name: {{ $key }}
+  value: {{ $value }}
+{{- end }}
+{{- end }}     
 
-{{- define "helpers.env-variables"}}
-{{- range $key, $val := .Values.env.file }}
-- {{ $key }}: {{ $val }}
-{{- end}}
-{{- end }}           
-
-{{- define "helpers.configmap-env-variables"}}
+{{- define "configmap-env-vars" -}}
 {{- range $key, $val := .Values.env.configmap }}
 - name: {{ $key }}
   valueFrom:
     configMapKeyRef:
       name: techos-frontend-env-vars
       key: {{ $val }}
-{{- end}}
+{{- end }}
 {{- end }}

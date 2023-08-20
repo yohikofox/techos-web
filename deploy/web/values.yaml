@@ -88,7 +88,7 @@ affinity: {}
 
 env:
   file:
-    - NEXT_TELEMETRY_DISABLED: "1"
+    NEXT_TELEMETRY_DISABLED: "1"
   configmap:
     - CDN_PREFIX: CDN_PREFIX
     - CMS_ENDPOINT: CMS_ENDPOINT
