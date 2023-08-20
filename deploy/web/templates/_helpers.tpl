@@ -64,7 +64,7 @@ Create the name of the service account to use
 {{- define "env-vars" -}}
 {{- range $key, $value := .Values.env.file }}
 - name: {{ $key }}
-  value: {{ $value }}
+  value: {{ quote $value }}
 {{- end }}
 {{- end }}     
 
@@ -74,6 +74,6 @@ Create the name of the service account to use
   valueFrom:
     configMapKeyRef:
       name: {{ $.Values.configMapName }}
-      key: {{ $val }}
+      key: {{ $val | print }}
 {{- end }}
 {{- end }}
