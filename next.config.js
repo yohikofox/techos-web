@@ -7,6 +7,7 @@ if (!bucketEnv) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  generateEtags: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
@@ -29,7 +30,7 @@ const nextConfig = {
         hostname: cmsImagesHostname,
         pathname: '/**',
         port: '',
-      }, 
+      },
       {
         protocol: 'http',
         hostname: 'localhost',
@@ -58,18 +59,6 @@ const nextConfig = {
   headers: async () => {
     return [
       {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'x-hello',
-            value: 'there',
-          }, {
-            key: 'Cache-Control',
-            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
-          }
-        ],
-      },
-      {
         source: '/(.*).js',
         headers: [
           {
@@ -86,18 +75,6 @@ const nextConfig = {
             value: '*',
           },
         ],
-      },
-      {
-        source: '/post/:slug*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
-          },{
-            key: 'X-Toto',
-            value: `Tata`,
-          },
-        ]
       }
     ]
   },
