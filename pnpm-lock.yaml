@@ -17,9 +17,6 @@ dependencies:
   autoprefixer:
     specifier: 10.4.14
     version: 10.4.14(postcss@8.4.27)
-  classnames:
-    specifier: ^2.3.2
-    version: 2.3.2
   dayjs:
     specifier: ^1.11.9
     version: 1.11.9
@@ -109,6 +106,9 @@ devDependencies:
   '@types/xmlserializer':
     specifier: ^0.6.3
     version: 0.6.3
+  classnames:
+    specifier: ^2.3.2
+    version: 2.3.2
   vitest:
     specifier: ^0.34.1
     version: 0.34.1(sass@1.64.1)
@@ -1149,7 +1149,7 @@ packages:
 
   /classnames@2.3.2:
     resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
-    dev: false
+    dev: true
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
