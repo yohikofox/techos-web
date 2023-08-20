@@ -63,7 +63,10 @@ const nextConfig = {
           {
             key: 'x-hello',
             value: 'there',
-          },
+          }, {
+            key: 'Cache-Control',
+            value: `public, max-age=${30 * 60}, s-maxage=${1 * 60 * 60}`,
+          }
         ],
       },
       {
@@ -98,10 +101,10 @@ const nextConfig = {
       }
     ]
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+  // webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
 
-    return config
-  }
+  //   return config
+  // }
 }
 
 module.exports = nextConfig
