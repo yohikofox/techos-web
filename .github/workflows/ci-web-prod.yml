@@ -37,6 +37,7 @@ jobs:
             NEXT_TELEMETRY_DISABLED=1
             CMS_ENDPOINT=${{ secrets.BACKEND_BASE_URL }}
             CMS_API_KEY=${{ secrets.BACKEND_TOKEN }}
+            CMS_ENDPOINT_HOSTNAME=${{ secrets.BACKEND_HOSTNAME }}
           file: Dockerfile
           context: "{{defaultContext}}:."
           tags: ${{ steps.metadata.outputs.tags }}

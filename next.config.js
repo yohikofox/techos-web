@@ -1,4 +1,5 @@
 const bucketEnv = process.env.NEXT_PUBLIC_BUCKET_HOST;
+const cmsImagesHostname = process.env.CMS_ENDPOINT_HOSTNAME;
 
 if (!bucketEnv) {
   throw new Error('NEXT_PUBLIC_BUCKET_HOST is not set')
@@ -22,7 +23,14 @@ const nextConfig = {
         hostname: 'host.docker.internal',
         port: "13371",
         pathname: '/**',
-      }, {
+      },
+      {
+        protocol: 'https',
+        hostname: cmsImagesHostname,
+        pathname: '/**',
+        port: '',
+      }, 
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: "1337",
