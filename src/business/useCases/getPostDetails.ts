@@ -18,7 +18,7 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(PostDetailsResult.ERROR)

@@ -100,3 +100,7 @@ env:
     JWT_KEY: JWT_KEY
     NEXT_PUBLIC_BUCKET_HOST: SCALEWAY_BUCKET
     CMS_ENDPOINT_HOSTNAME: CMS_ENDPOINT_HOSTNAME
+  fieldRef:
+    MY_POD_NAME: metadata.name
+    MY_POD_NAMESPACE: metadata.namespace
+    MY_POD_IP: status.podIP

@@ -18,13 +18,13 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
   ) { }
   async execute(request?: any): Promise<Result<HomeData, HomeDataResult>> {
 
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(HomeDataResult.ERROR)
     }
 
-    if(!response.Value.homePage?.data) {
+    if (!response.Value.homePage?.data) {
       return response.transferError(HomeDataResult.NO_DATA_FOUND)
     }
 

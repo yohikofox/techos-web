@@ -15,15 +15,12 @@ import { redirect } from 'next/navigation'
 export interface PageProps {
   params: {
     slug: string
-  }
-  searchParams: {
     page: string
   }
 }
 
-async function Page({ params, searchParams }: PageProps) {
-  const { slug } = params;
-  const { page } = searchParams;
+async function Page({ params }: PageProps) {
+  const { slug, page } = params;
 
   let pageInt = 0;
   if (page) {

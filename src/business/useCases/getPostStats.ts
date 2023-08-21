@@ -22,7 +22,7 @@ export default class GetPostStatsUseCase implements IUseCase<PostStatsRequest, R
   constructor(private cmsRepository: IContentManagerSystemRepository) { }
   async execute(request?: PostStatsRequest): Promise<Result<PostStats, PostStatsResult>> {
 
-    const retrieveResponse = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_STATS, request)
+    const retrieveResponse = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_STATS, request, { revalidate: 60 * 60 * 1 })
 
     if (retrieveResponse.IsError) {
       return retrieveResponse.transferError(PostStatsResult.ERROR)

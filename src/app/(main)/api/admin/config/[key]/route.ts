@@ -2,6 +2,8 @@ import Container from "@/business/dependencyFactory";
 import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
 import { NextRequest, NextResponse } from "next/server"
 
+export const dynamic = "force-dynamic"
+
 export async function GET(request: NextRequest, { params: { key } }: { params: { key: string } }) {
 
   const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')

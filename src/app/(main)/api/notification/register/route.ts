@@ -2,6 +2,8 @@ import Container from "@/business/dependencyFactory";
 import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
 import { NextRequest, NextResponse } from "next/server"
 
+export const dynamic = "force-dynamic"
+
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
 export async function GET(request: NextRequest, params: any) {

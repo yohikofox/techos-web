@@ -29,7 +29,7 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
     private postService: IPostService
   ) { }
   async execute(request?: PostListRequest): Promise<Result<PostList, PostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_LIST, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_LIST, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(PostListResult.ERROR)

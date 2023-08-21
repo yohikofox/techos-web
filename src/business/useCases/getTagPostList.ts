@@ -23,7 +23,7 @@ export default class GetTagPostListUseCase implements IUseCase<TagPostListReques
     private postService: IPostService
   ) { }
   async execute(request?: TagPostListRequest): Promise<Result<PostList, TagPostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(TagPostListResult.ERROR)

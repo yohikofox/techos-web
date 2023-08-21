@@ -18,8 +18,8 @@ export interface PageProps {
   }
 }
 
-async function Page({ params, searchParams }: PageProps) {
-  const { page } = searchParams;
+async function Page({ params }: PageProps) {
+  const { page } = params;
 
   let pageInt = 0;
   if (page) {

@@ -8,7 +8,7 @@ import crypto from "crypto";
 import webpush from "web-push"
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
-
+export const dynamic = "force-dynamic"
 export async function GET(request: NextRequest, params: any) {
 
   // const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')

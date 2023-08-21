@@ -8,6 +8,7 @@ import { DependencyKeys } from "@/business/dependencies";
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
+export const dynamic = "force-dynamic"
 
 const subscriptionSaveSchema = z.object({
   endpoint: z.string().url(),

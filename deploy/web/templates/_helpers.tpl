@@ -77,3 +77,12 @@ Create the name of the service account to use
       key: {{ $val | print }}
 {{- end }}
 {{- end }}
+
+{{- define "pod-env-vars" -}}
+{{- range $key, $val := .Values.env.fieldRef }}
+- name: {{ $key }}
+  valueFrom:
+    fieldRef:
+      fieldPath: {{ $val | print }}
+{{- end }}
+{{- end }}

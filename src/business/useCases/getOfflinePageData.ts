@@ -16,7 +16,7 @@ export default class GetOfflinePageDataUseCase implements IUseCase<GetOfflinePag
   constructor(private contentManagerRepository: IContentManagerSystemRepository) { }
   async execute(request?: GetOfflinePageDataRequest | undefined): Promise<Result<OffLinePageData, GetOfflinePageDataUseCaseResult>> {
 
-    const response = await this.contentManagerRepository.get<any>(GraphQLQueries.GET_OFFLINE_PAGE_DATA, request)
+    const response = await this.contentManagerRepository.get<any>(GraphQLQueries.GET_OFFLINE_PAGE_DATA, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(GetOfflinePageDataUseCaseResult.ERROR)

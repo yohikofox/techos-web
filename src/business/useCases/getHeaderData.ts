@@ -16,7 +16,7 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: any): Promise<Result<HeaderData, HeaderDataResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(HeaderDataResult.ERROR)

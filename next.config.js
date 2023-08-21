@@ -9,6 +9,7 @@ if (!bucketEnv) {
 const nextConfig = {
   generateEtags: true,
   experimental: {
+    instrumentationHook: true,
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
   images: {
@@ -58,7 +59,21 @@ const nextConfig = {
   },
   //Service-Worker-Allowed
   headers: async () => {
+    
     return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=600, s-maxage=1200, stale-while-revalidate=60',
+          },
+          {
+            key: 'yolo',
+            value: 'yolo',
+          }
+        ]
+      },
       {
         source: '/(.*).js',
         headers: [

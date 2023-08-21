@@ -21,7 +21,7 @@ export default class GetTagInfosUseCase implements IUseCase<TagInfosRequest, Res
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: TagInfosRequest): Promise<Result<Tag, TagInfosResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_INFOS, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_INFOS, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(TagInfosResult.ERROR)

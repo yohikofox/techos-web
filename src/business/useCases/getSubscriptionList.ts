@@ -17,7 +17,7 @@ export default class GetSaveWebPushSubscriptionUseCase implements IUseCase<SaveW
     private cmsRepository: IContentManagerSystemRepository,
   ) { }
   async execute(request?: SaveWebPushSubscriptionRequest): Promise<Result<WebPushSubscription[], GetWebPushSubscriptionListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_WEB_PUSH_SUBSCRIPTION_LIST, request)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_WEB_PUSH_SUBSCRIPTION_LIST, request, { revalidate: 60 * 60 * 1 })
 
     if (response.IsError) {
       return response.transferError(GetWebPushSubscriptionListResult.ERROR)

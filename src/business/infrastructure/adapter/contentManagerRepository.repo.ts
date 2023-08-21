@@ -7,8 +7,13 @@ export enum ContentManagerSystemResult {
   ERROR = 'error',
 }
 
+export type FetchOptions = {
+  revalidate?: number
+  tags?: string[]
+}
+
 export interface IContentManagerSystemRepository {
-  get<T>(query: GraphQLQueries, variables?: any): Promise<Result<T, ContentManagerSystemResult>>
+  get<T>(query: GraphQLQueries, variables?: any, options?: FetchOptions): Promise<Result<T, ContentManagerSystemResult>>
 }
 
 export enum GraphQLQueries {
@@ -31,7 +36,7 @@ export enum GraphQLQueries {
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {
   constructor(private configManager: IConfigManager) { }
 
-  async get<T>(query: GraphQLQueries, variables?: any): Promise<Result<T, ContentManagerSystemResult>> {
+  async get<T>(query: GraphQLQueries, variables?: any, options?: FetchOptions): Promise<Result<T, ContentManagerSystemResult>> {
     const q = queries[query]
 
     const response = await fetch(`${await this.configManager.get("CMS_ENDPOINT")}/graphql`, {
@@ -45,7 +50,8 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
         "Authorization": `Bearer ${await this.configManager.get("CMS_API_KEY")}`
       },
       next: {
-        revalidate: 60
+        revalidate: options?.revalidate || 0,
+        tags: options?.tags || []
       }
     });
 

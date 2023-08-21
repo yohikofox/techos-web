@@ -43,10 +43,10 @@ export default async function PostListRender({ title, page }: PostListProps) {
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
-  // const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
+  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
 
-  // const src = AD_DEFAULT.picture.src;
-  // AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
+  const src = AD_DEFAULT.picture.src;
+  AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
 
   const posts = [];
   let insertedAdCount = 0;

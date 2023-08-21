@@ -36,6 +36,7 @@ spec:
           env: 
           {{- include "env-vars" . | nindent 12 }}
           {{- include "configmap-env-vars" . | nindent 12 }}
+          {{- include "pod-env-vars" . | nindent 12 }}
           ports:
             - name: http
               containerPort: 3000
