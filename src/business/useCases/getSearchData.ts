@@ -1,8 +1,8 @@
-import { ISearchEngineRepository } from "../infrastructure/adapter/searchEngineRepository.repo";
+import { ISearchEngineRepository } from "@/infrastructure/adapter/searchEngineRepository.repo";
 import SearchData, { SearchDataItem } from "../model/searchData";
-import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
+import { Result } from "@/lib/result";
 
 export type SearchRequest = {
   payload: string

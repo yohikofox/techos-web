@@ -12,19 +12,19 @@ export const ResourceMapping: {
   }
 } = {
   'Helper/ConfigManager': {
-    resolve: async () => import('@biz/infrastructure/adapter/configManager'),
+    resolve: async () => import('@/infrastructure/adapter/configManager'),
     type: ResourceTypes.Singleton
   },
   'Helper/AssetBuilder': {
-    resolve: async () => import('@/utils/helper/assetBuilder'),
+    resolve: async () => import('@/infrastructure/helper/assetBuilder'),
     dependencies: ['Helper/ConfigManager']
   },
   'Repo/ContentManagerSystem': {
-    resolve: async () => import('@biz/infrastructure/adapter/contentManagerRepository.repo'),
+    resolve: async () => import('@/infrastructure/adapter/contentManagerRepository.repo'),
     dependencies: ['Helper/ConfigManager']
   },
   'Repo/SearchEngine': {
-    resolve: async () => import('@biz/infrastructure/adapter/searchEngineRepository.repo'),
+    resolve: async () => import('@/infrastructure/adapter/searchEngineRepository.repo'),
     dependencies: ['Helper/ConfigManager']
   },
   'UseCase/GetHomeData': {

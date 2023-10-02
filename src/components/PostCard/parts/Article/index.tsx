@@ -1,7 +1,6 @@
 import Image from "next/image"
 import { PostCardProps } from "../.."
 import styles from "./article.module.scss"
-import getReadingTime from "@/utils/helper/getReadingTime"
 import md from "markdown-it"
 import dayjs from "dayjs"
 import Link from "next/link"
@@ -9,9 +8,10 @@ import Clock from "@/components/Icon/Clock"
 import Tag from "../Tag"
 import { DisplayTracking } from "@/components/TrackingWorker"
 import classNames from 'classnames';
-import PostHelper from "@/utils/helper/postHelper"
-import Container from "@/business/dependencyFactory"
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager"
+import getReadingTime from "@/infrastructure/helper/getReadingTime"
+import PostHelper from "@/infrastructure/helper/postHelper"
+import Container from "@/infrastructure/dependencyFactory"
+import { IConfigManager } from "@/infrastructure/adapter/configManager"
 
 export default async function Article({ post }: PostCardProps) {
   const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")

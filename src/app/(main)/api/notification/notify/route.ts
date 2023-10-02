@@ -1,5 +1,5 @@
-import Container from "@/business/dependencyFactory";
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
+import Container from "@/infrastructure/dependencyFactory";
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import WebPushSubscription from "@/business/model/webPushSubscription";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { GetWebPushSubscriptionListResult } from "@/business/useCases/getSubscriptionList";

@@ -1,5 +1,5 @@
-import { Result } from "@/business/result";
-import { IConfigManager } from "./configManager";
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import { Result } from "@/lib/result";
 
 export enum SearchEngineResult {
   SUCCESS = 'success',

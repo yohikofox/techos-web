@@ -1,8 +1,8 @@
 import { IUseCase } from "../useCaseFactory";
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
 import HeaderData from "../model/headerData";
-import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
+import { Result } from "@/lib/result";
 
 export enum HeaderDataResult {
   SUCCESS = 'success',

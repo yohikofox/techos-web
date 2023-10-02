@@ -311,10 +311,10 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
   `
 }
 
-import { deleteWebPushSubscription } from "./queries/deleteWebPushSubscription"
-import { getOfflinePageData } from "./queries/getOfflinePageData"
-import getWebPushNotification from "./queries/getWebPushNotification"
-import getWebPushSubscriptionList from "./queries/getWebPushSubscriptionList"
+import { deleteWebPushSubscription } from "@/infrastructure/adapter/queries/deleteWebPushSubscription"
+import { getOfflinePageData } from "@/infrastructure/adapter/queries/getOfflinePageData"
+import getWebPushNotification from "@/infrastructure/adapter/queries/getWebPushNotification"
+import getWebPushSubscriptionList from "@/infrastructure/adapter/queries/getWebPushSubscriptionList"
 
 const exportable = {
   ...queries,

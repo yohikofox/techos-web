@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import styles from './footer.module.scss'
 import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory';
-import Container from '@/business/dependencyFactory'
+import Container from '@/infrastructure/dependencyFactory'
+
 import HeaderData from '@/business/model/headerData';
 import { HeaderDataResult } from '@/business/useCases/getHeaderData';
 import { redirect } from 'next/navigation';
@@ -9,12 +10,13 @@ import Logo, { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { IConfigManager } from '@/business/infrastructure/adapter/configManager';
+import { IConfigManager } from '@/infrastructure/adapter/configManager';
+import { DependencyKeys } from '@/infrastructure/dependencies';
 
 export default async function Footer() {
 
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
-  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager");
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
 
   const now = dayjs('2019-01-01');
 

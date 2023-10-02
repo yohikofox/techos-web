@@ -1,6 +1,6 @@
 import { IUseCase } from "@/business/useCaseFactory";
-import { Result } from "../result";
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import { Result } from "@/lib/result";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 
 export interface DeleteSubscriptionRequest {
   data: {

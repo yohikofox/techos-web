@@ -1,8 +1,8 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import PostList from "../model/postList";
-import { Result } from "../result";
 import { IPostService } from "../services/post.service";
 import { IUseCase } from "../useCaseFactory";
+import { Result } from "@/lib/result";
 
 
 export enum TagPostListResult {

@@ -1,4 +1,4 @@
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager"
+import { IConfigManager } from "@/infrastructure/adapter/configManager"
 
 export interface IAssetBuilder {
   buildAssetUri(assetPath: string): Promise<string>

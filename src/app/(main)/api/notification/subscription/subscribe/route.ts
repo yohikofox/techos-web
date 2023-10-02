@@ -2,9 +2,9 @@ import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import dayjs from "dayjs";
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod";
-import GraphQLConstants from '@/business/infrastructure/adapter/constants';
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
-import { DependencyKeys } from "@/business/dependencies";
+import GraphQLConstants from '@/infrastructure/adapter/constants';
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import { DependencyKeys } from "@/infrastructure/dependencies";
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 

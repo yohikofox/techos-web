@@ -6,8 +6,8 @@ import PostList from "@/business/model/postList";
 import { redirect } from "next/navigation";
 import Pagination from "./parts/Pagination";
 import { PostType } from "@/business/model/post";
-import Container from "@/business/dependencyFactory";
-import { DependencyKeys } from "@/business/dependencies";
+import Container from "@/infrastructure/dependencyFactory";
+import { DependencyKeys } from "@/infrastructure/dependencies";
 
 
 const ADS_POSITION_LIST: number[] = []; //3, 13

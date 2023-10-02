@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import Container from '@/business/dependencyFactory'
-import { DependencyKeys } from '@/business/dependencies'
-import { IConfigManager } from '@/business/infrastructure/adapter/configManager'
+import Container from '@/infrastructure/dependencyFactory'
+import { DependencyKeys } from '@/infrastructure/dependencies'
+import { IConfigManager } from '@/infrastructure/adapter/configManager'
 
 export const dynamic = 'force-dynamic'
 

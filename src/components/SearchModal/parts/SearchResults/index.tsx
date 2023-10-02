@@ -5,7 +5,7 @@ import styles from "./search-results.module.scss"
 import { SearchDataContext } from "../context"
 import Image from "next/image"
 import md from 'markdown-it';
-import getReadingTime from "@/utils/helper/getReadingTime";
+import getReadingTime from "@/infrastructure/helper/getReadingTime";
 
 import dayjs from "dayjs";
 import 'dayjs/locale/fr'

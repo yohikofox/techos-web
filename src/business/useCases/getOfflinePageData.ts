@@ -1,7 +1,7 @@
 import { IUseCase } from "@/business/useCaseFactory";
-import { Result } from "../result";
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import OffLinePageData from "../model/offLinePageData";
+import { Result } from "@/lib/result";
 
 export interface GetOfflinePageDataRequest { }
 

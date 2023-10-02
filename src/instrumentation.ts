@@ -1,8 +1,8 @@
-import { DependencyKeys } from "./business/dependencies";
-import Container from "./business/dependencyFactory";
-import ConfigManager from "./business/infrastructure/adapter/configManager";
+// import { DependencyKeys } from "@/infrastructure/dependencies";
+// import Container from "@/infrastructure/dependencyFactory";
+// import ConfigManager from "@/infrastructure/adapter/configManager";
 
 
 export function register() {
-  const configManager = Container.Instance.resolve<ConfigManager>(DependencyKeys.helper_configmanager)
+  // const configManager = Container.Instance.resolve<ConfigManager>(DependencyKeys.helper_configmanager)
 }

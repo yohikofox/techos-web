@@ -1,5 +1,5 @@
-import Container from "@/business/dependencyFactory";
-import { IConfigManager } from "@/business/infrastructure/adapter/configManager";
+import Container from "@/infrastructure/dependencyFactory";
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { NextRequest, NextResponse } from "next/server"
 import jwt from 'jsonwebtoken'
 import dayjs from "dayjs";

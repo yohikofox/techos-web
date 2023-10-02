@@ -1,9 +1,9 @@
-import PostHelper from "@/utils/helper/postHelper";
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import PostHelper from "@/infrastructure/helper/postHelper";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import Post, { PostType } from "../model/post";
-import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
 import { IImageSetService } from "../services/imageSet.service";
+import { Result } from "@/lib/result";
 
 
 export enum PostDetailsResult {

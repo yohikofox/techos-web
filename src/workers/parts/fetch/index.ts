@@ -1,4 +1,4 @@
-import HTMLHelper from "@/utils/helper/htmlHelper"
+import HTMLHelper from "@/infrastructure/helper/htmlHelper"
 
 const DISALLOWED_URL_CACHE_PATTERN_LIST = [
   /^\/(?:admin|api)/,

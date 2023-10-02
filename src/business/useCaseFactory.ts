@@ -1,4 +1,4 @@
-import Container from "./dependencyFactory";
+import Container from "@/infrastructure/dependencyFactory";
 import { Result } from "./result";
 
 export enum UseCaseOption {

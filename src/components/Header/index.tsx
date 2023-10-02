@@ -8,8 +8,8 @@ import HeaderData from '@/business/model/headerData'
 import SearchModal from '../SearchModal'
 import { MainLogo } from '../Icon/Logo'
 import HamburgerMenu from './parts/HamburgerMenu'
-import Container from '@/business/dependencyFactory'
-import { DependencyKeys } from '@/business/dependencies'
+import Container from '@/infrastructure/dependencyFactory'
+import { DependencyKeys } from '@/infrastructure/dependencies'
 
 export interface HeaderProps {
   title: string

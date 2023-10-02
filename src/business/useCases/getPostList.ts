@@ -1,16 +1,8 @@
-import PostHelper from "@/utils/helper/postHelper";
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
-import { PostType } from "../model/post";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import PostList from "../model/postList";
-import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
-import { IImageSetService } from "../services/imageSet.service";
 import { IPostService } from "../services/post.service";
-
-
-
-
-
+import { Result } from "@/lib/result";
 
 export enum PostListResult {
   SUCCESS = 'success',
@@ -54,30 +46,3 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
     return Result.ok(result)
   }
 }
-
-/**return {
-        level: PostHelper.getLevel(post.attributes.level),
-        title: post.attributes.title,
-        slug: post.attributes.slug,
-        content: post.attributes.content,
-        extract: post.attributes.extract,
-        start_at: post.attributes.start_at,
-        type: PostType.Article,
-        author: {
-          username: post.attributes.author.data.attributes.username
-        },
-        picture: await this.imageSetService.mapImageSet(post.attributes.picture.data.attributes),
-        tags: post.attributes.tags.data.map((tag: any) => {
-          return {
-            label: tag.attributes.label,
-            slug: tag.attributes.slug,
-            color: tag.attributes.color,
-            backgroundColor: tag.attributes.background_color
-          }
-        }),
-        stats: post.attributes.post_stat_list?.data && {
-          slug: post.attributes.slug,
-          viewCount: post.attributes.post_stat_list.data.attributes.view_count,
-        }
-      }
-    })) */

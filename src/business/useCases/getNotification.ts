@@ -1,8 +1,8 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "../infrastructure/adapter/contentManagerRepository.repo";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import WebPushNotification from "../model/webPushNotification";
-import { Result } from "../result";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
+import { Result } from "@/lib/result";
 
 
 export enum WebPushNotificationResult {

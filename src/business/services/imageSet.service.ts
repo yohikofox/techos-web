@@ -1,4 +1,4 @@
-import { IAssetBuilder } from "@/utils/helper/assetBuilder"
+import { IAssetBuilder } from "@/infrastructure/helper/assetBuilder"
 import ImageSet from "../model/image"
 
 export interface IImageSetService {
