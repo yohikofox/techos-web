@@ -2,11 +2,11 @@ import Post from "@/business/model/post";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { PostDetailsResult } from "@/business/useCases/getPostDetails";
 import { redirect } from "next/navigation";
-import Layout, { SlotNames } from "@/components/MainLayout";
-import Hero from "@/components/Hero";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+import Hero from "@/app/(main)/components/Hero";
 import ImageSet from "@/business/model/image";
-import PostDetails from "@/components/PostDetails";
-import TrackingWorker from "@/components/TrackingWorker";
+import PostDetails from "@/app/(main)/components/PostDetails";
+import TrackingWorker from "@/app/(main)/components/TrackingWorker";
 
 export const dynamic = 'force-static';
 
@@ -31,9 +31,6 @@ export default async function Post({ params: { slug } }: PostPageProps) {
         />
       </Layout.Slot>
       <main>
-        <TrackingWorker data={{
-          viewCount: response.Value.stats?.viewCount,
-        }} />
         <PostDetails post={response.Value} />
       </main>
     </Layout>

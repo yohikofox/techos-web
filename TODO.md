@@ -119,3 +119,24 @@ Optimiser le référencement naturel (SEO) de ce code source nécessiterait plus
     - Intégrez des balises Open Graph et Twitter Cards pour optimiser le partage sur les réseaux sociaux.
 
 N'oubliez pas que le SEO ne concerne pas seulement le code, mais aussi le contenu, la qualité des backlinks, l'expérience utilisateur, et d'autres facteurs hors page.
+
+
+
+* passer les fonts en variables
+* Check footer
+* no-wrap sur les titres et les `<pre>`
+* Regarder tRPC
+
+
+
+
+import Auth0Provider from "next-auth/providers/auth0";
+...
+providers: [
+  Auth0Provider({
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    issuer: process.env.AUTH0_ISSUER
+  })
+]
+...

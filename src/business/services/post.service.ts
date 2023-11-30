@@ -1,5 +1,6 @@
 import Post, { PostType } from "../model/post"
 import { IImageSetService } from "./imageSet.service"
+import { PostData } from "./dto/post.dto"
 
 export interface IPostService {
   mapPost(post: any): Promise<Post>
@@ -10,7 +11,7 @@ export default class PostService implements IPostService {
     private imageSetService: IImageSetService
   ) { }
 
-  async mapPost(post: any): Promise<Post> {
+  async mapPost(post: PostData): Promise<Post> {
     return {
       title: post.attributes.title,
       slug: post.attributes.slug,
@@ -32,10 +33,10 @@ export default class PostService implements IPostService {
           backgroundColor: tag.attributes.background_color
         }
       }),
-      stats: post.attributes.post_stat_list?.data && {
+      stats: post.attributes.post_stat_list?.data ? {
         slug: post.attributes.slug,
         viewCount: post.attributes.post_stat_list.data.attributes.view_count,
-      }
+      } : undefined
     }
   }
 }

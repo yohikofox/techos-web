@@ -1,5 +1,5 @@
 export interface IConfigManager {
-  get(key: string): Promise<string | undefined>
+  get(key: string, fallback?: string): Promise<string | undefined>
   reload(key?: string): Promise<string | undefined>
   reloadAll(): Promise<void>
 }
@@ -70,7 +70,7 @@ export default class ConfigManager implements IConfigManager {
     })
   }
 
-  async get(key: string): Promise<string | undefined> {
+  async get(key: string, fallback?: string): Promise<string | undefined> {
     if (!this.loaded) {
       let tries = 0;
 
@@ -81,6 +81,6 @@ export default class ConfigManager implements IConfigManager {
     }
 
     const result = this._config[key]
-    return result
+    return result || fallback
   }
 }

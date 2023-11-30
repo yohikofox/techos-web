@@ -1,23 +1,20 @@
 import './globals.scss'
 import type { Metadata } from 'next'
-import Header from '@/components/Header'
 import classNames from 'classnames'
 import styles from "./layout.module.scss"
-import { Roboto, Poppins, Ubuntu } from 'next/font/google'
-import Hero from '@/components/Hero'
-import Footer from '@/components/Footer'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import ServiceWorkerRegister from '@/components/ServiceWorkerRegister'
+
+import fontBundle from '@/app/font'
+import ServiceWorkerRegister from '@/app/(main)/components/ServiceWorkerRegister'
+import Header from '@/app/(main)/components/Header'
+import Footer from '@/app/(main)/components/Footer'
+import Hero from '@/app/(main)/components/Hero'
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)
-
-const roboto = Roboto({ weight: ['400', '500', '700'], subsets: ['latin'] })
-const poppins = Poppins({ weight: ['400', '500', '700'], subsets: ['latin'] })
-const ubuntu = Ubuntu({ weight: ['400', '500', '700'], subsets: ['latin'] })
 
 const defaultData = {
   title: 'Techos.Dev, tout pour la tech',
@@ -34,8 +31,9 @@ const layout = function RootLayout({
 }) {
 
   return (
-    <html lang="fr" className={styles.document}>
-      <body className={classNames(ubuntu.className, styles.container)}>
+    <html lang="fr" className={
+      classNames(styles.document, fontBundle.map(font => font.variable))}>
+      <body className={classNames(styles.container)}>
         <ServiceWorkerRegister />
         <Header title={(metadata.title || defaultData.title).toString()} />
         <section className={styles.content}>

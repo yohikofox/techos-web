@@ -4,13 +4,14 @@ export enum ResourceTypes {
   Singleton = 'Singleton',
   Transient = 'Transient'
 }
-export const ResourceMapping: {
-  [key: string]: {
-    resolve: () => Promise<any>,
-    type?: ResourceTypes,
-    dependencies?: string[]
-  }
-} = {
+
+
+const helperDependencies = {
+  "Helper/TokenGenerator": {
+    resolve: async () => import('@/infrastructure/security/token'),
+    DependencyKeys: ['Helper/ConfigManager'],
+    type: ResourceTypes.Singleton
+  },
   'Helper/ConfigManager': {
     resolve: async () => import('@/infrastructure/adapter/configManager'),
     type: ResourceTypes.Singleton
@@ -19,6 +20,11 @@ export const ResourceMapping: {
     resolve: async () => import('@/infrastructure/helper/assetBuilder'),
     dependencies: ['Helper/ConfigManager']
   },
+}
+
+
+
+const repositoryDependencies = {
   'Repo/ContentManagerSystem': {
     resolve: async () => import('@/infrastructure/adapter/contentManagerRepository.repo'),
     dependencies: ['Helper/ConfigManager']
@@ -27,6 +33,10 @@ export const ResourceMapping: {
     resolve: async () => import('@/infrastructure/adapter/searchEngineRepository.repo'),
     dependencies: ['Helper/ConfigManager']
   },
+}
+
+
+const useCaseDependencies = {
   'UseCase/GetHomeData': {
     resolve: async () => import('@biz/useCases/getHomeData'),
     dependencies: ['Repo/ContentManagerSystem', 'Domain/ImageSetService']
@@ -37,7 +47,7 @@ export const ResourceMapping: {
   },
   'UseCase/GetPostList': {
     resolve: async () => import('@biz/useCases/getPostList'),
-    dependencies: ['Repo/ContentManagerSystem', 'Domain/PostService']
+    dependencies: ['Repo/ContentManagerSystem', 'Domain/PostService', 'Domain/MetaService']
   },
   'UseCase/GetSearchData': {
     resolve: async () => import('@biz/useCases/getSearchData'),
@@ -58,14 +68,6 @@ export const ResourceMapping: {
   'UseCase/UpdatePostStats': {
     resolve: async () => import('@biz/useCases/updatePostStats'),
     dependencies: ['Repo/ContentManagerSystem']
-  },
-  'Domain/ImageSetService': {
-    resolve: async () => import('@biz/services/imageSet.service'),
-    dependencies: ['Helper/AssetBuilder']
-  },
-  'Domain/PostService': {
-    resolve: async () => import('@biz/services/post.service'),
-    dependencies: ['Domain/ImageSetService']
   },
   'UseCase/SaveSubscription': {
     resolve: async () => import('@biz/useCases/saveSubscription'),
@@ -90,6 +92,37 @@ export const ResourceMapping: {
 }
 
 
+const domainDependencies = {
+  'Domain/ImageSetService': {
+    resolve: async () => import('@biz/services/imageSet.service'),
+    dependencies: ['Helper/AssetBuilder']
+  },
+  'Domain/PostService': {
+    resolve: async () => import('@biz/services/post.service'),
+    dependencies: ['Domain/ImageSetService']
+  },
+  'Domain/MetaService': {
+    resolve: async () => import('@biz/services/meta.service'),
+    dependencies: []
+  },
+}
+
+
+export const ResourceMapping: {
+  [key: string]: {
+    resolve: () => Promise<any>,
+    type?: ResourceTypes,
+    dependencies?: string[]
+  }
+} = {
+  ...helperDependencies,
+  ...repositoryDependencies,
+  ...useCaseDependencies,
+  ...domainDependencies,
+
+}
+
+
 const DependencyKeys: { [x: string]: string } = {}
 
 Object.keys(ResourceMapping).forEach(key => {
@@ -103,3 +136,6 @@ Object.keys(ResourceMapping).forEach(key => {
 export {
   DependencyKeys
 }
+
+
+

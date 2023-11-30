@@ -1,13 +1,16 @@
-import { Result } from "../result"
+import { Result } from "@/lib/result"
+import { ZodTypeAny } from "zod"
 
 export enum ContentManagerSystemResult {
   SUCCESS = 'success',
   ERROR = 'error',
+  UNHANDLED_ERROR = 'unhandled_error',
 }
 
 export type FetchOptions = {
   revalidate?: number
-  tags?: string[]
+  tags?: string[],
+  schema?: ZodTypeAny
 }
 
 export interface IContentManagerSystemRepository {

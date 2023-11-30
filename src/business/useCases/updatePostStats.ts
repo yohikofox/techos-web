@@ -15,7 +15,6 @@ export type PostStatsRequest = {
 export default class UpdatePostStatsUseCase implements IUseCase<PostStatsRequest, Result<PostStats, PostStatsResult>> {
   constructor(private cmsRepository: IContentManagerSystemRepository) { }
   async execute(request?: PostStatsRequest): Promise<Result<PostStats, PostStatsResult>> {
-
     const retrieveResponse = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_STATS, request)
 
     if (retrieveResponse.IsError) {

@@ -3,6 +3,10 @@ import PostList from "../model/postList";
 import { IUseCase } from "../useCaseFactory";
 import { IPostService } from "../services/post.service";
 import { Result } from "@/lib/result";
+import CacheConstants from "@/lib/constants/cache";
+import RevalidateTagConstants from "@/lib/constants/revalidateTag";
+import { PostListData, postListDataSchema } from "../services/dto/post.dto";
+import { IMetaService } from "../services/meta.service";
 
 export enum PostListResult {
   SUCCESS = 'success',
@@ -18,10 +22,15 @@ export type PostListRequest = {
 export default class GetPostListUseCase implements IUseCase<PostListRequest, Result<PostList, PostListResult>> {
   constructor(
     private cmsRepository: IContentManagerSystemRepository,
-    private postService: IPostService
+    private postService: IPostService,
+    private metaService: IMetaService
   ) { }
   async execute(request?: PostListRequest): Promise<Result<PostList, PostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_LIST, request, { revalidate: 60 * 60 * 1 })
+    const response = await this.cmsRepository.get<PostListData>(GraphQLQueries.GET_POST_LIST, request, {
+      revalidate: CacheConstants.ONE_HOUR,
+      tags: [RevalidateTagConstants.POST],
+      schema: postListDataSchema
+    })
 
     if (response.IsError) {
       return response.transferError(PostListResult.ERROR)
@@ -33,14 +42,7 @@ export default class GetPostListUseCase implements IUseCase<PostListRequest, Res
 
     const result: PostList = {
       posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post))),
-      meta: {
-        pagination: {
-          page: response.Value.posts.meta.pagination.page,
-          pageSize: response.Value.posts.meta.pagination.pageSize,
-          pageCount: response.Value.posts.meta.pagination.pageCount,
-          total: response.Value.posts.meta.pagination.total,
-        }
-      }
+      meta: await this.metaService.mapMeta(response.Value.posts.meta)
     }
 
     return Result.ok(result)

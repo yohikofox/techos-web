@@ -26,7 +26,7 @@ export default class Container {
     return globalThis.singletonContainer
   }
 
-  public async resolve<T>(key: string): Promise<any> {
+  public async resolve<T>(key: string): Promise<T> {
     return await this.getResource(key) as T
   }
 

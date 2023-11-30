@@ -1,0 +1,59 @@
+.container {
+  background: black;
+  display: flex;
+
+  div {
+    display: block;
+  }
+
+  .header {
+    background: red;
+    position: fixed;
+    top: 0;
+    left: 300px;
+    right: 0;
+    height: 100px;
+  }
+
+  section {
+    background: blue;
+  }
+
+  .menu {
+    position: fixed;
+    width: 300px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: green;
+
+    nav {}
+  }
+
+  .content {
+    background: yellow;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    margin-left: 300px;
+    margin-top: 100px;
+    min-height: calc(100vh - 100px);
+  }
+
+
+  aside {
+    background: orange;
+  }
+
+  .footer {
+    background: purple;
+    margin-top: auto;
+    min-width: 71px;
+    padding: 18px 40px;
+  }
+
+  details {
+    background: pink;
+  }
+}

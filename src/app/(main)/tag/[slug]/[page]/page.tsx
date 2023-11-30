@@ -1,15 +1,12 @@
+import Hero from "@/app/(main)/components/Hero";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+import TagPostCardList from "@/app/(main)/components/TagPostCardList";
 import HomeData from "@/business/model/homeData";
 import Tag from "@/business/model/tag";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { HomeDataResult } from "@/business/useCases/getHomeData";
 import { TagInfosRequest, TagInfosResult } from "@/business/useCases/getTagInfos";
-import Hero from "@/components/Hero";
-// import Hero from "@/components/Hero";
-import Layout, { SlotNames } from "@/components/MainLayout";
-import TagPostCardList from "@/components/TagPostCardList";
-// import PostCardList from "@/components/PostList";
 import { redirect } from 'next/navigation'
-
 
 
 export interface PageProps {

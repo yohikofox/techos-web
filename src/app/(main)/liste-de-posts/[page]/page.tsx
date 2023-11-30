@@ -1,9 +1,9 @@
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import HomeData from "@/business/model/homeData";
 import { HomeDataResult } from "@/business/useCases/getHomeData";
-import Hero from "@/components/Hero";
-import Layout, { SlotNames } from "@/components/MainLayout";
-import PostCardList from "@/components/PostList";
+import Hero from "@/app/(main)/components/Hero";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+import PostCardList from "@/app/(main)/components/PostList";
 import { redirect } from 'next/navigation'
 import { MouseEventHandler } from "react";
 
