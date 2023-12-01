@@ -16,13 +16,15 @@ export async function POST(request: NextRequest, params: any) {
 
   const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
 
-  const publicKey = await configManager.get('WEB_PUSH_PUBLIC_KEY');
-  const privateKey = await configManager.get('WEB_PUSH_PRIVATE_KEY');
+  //TODO: lock undefined resources
+
+  const publicKey = await configManager.get('WEB_PUSH_PUBLIC_KEY', "");
+  const privateKey = await configManager.get('WEB_PUSH_PRIVATE_KEY', "");
 
   webpush.setVapidDetails(
     'mailto:yoann.lorho@thetribe.io',
-    publicKey,
-    privateKey
+    publicKey!,
+    privateKey!
   )
 
   const getSubscriptionUseCase = await UseCaseFactory.Instance.getUseCase<any, WebPushSubscription[], GetWebPushSubscriptionListResult>(UseCaseOption.GET_WEB_PUSH_SUBSCRIPTION_LIST)
@@ -39,7 +41,7 @@ export async function POST(request: NextRequest, params: any) {
 
   const payload = JSON.stringify(notificationResponse.Value)
 
-  const results = await Promise.all(subscriptionsResponse.Value.map(async (subscription, index) => {
+  const results = await Promise.all(subscriptionsResponse.Value.map(async (subscription: WebPushSubscription, index: number) => {
     try {
       await webpush.sendNotification(subscription, payload)
     } catch (error) {

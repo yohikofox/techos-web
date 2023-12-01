@@ -1,7 +1,7 @@
 import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import PostStats from "../model/postStats";
-import { Result } from "../result";
 import { IUseCase } from "../useCaseFactory";
+import { Result } from "@/lib/result";
 
 export enum PostStatsResult {
   SUCCESS = 'success',

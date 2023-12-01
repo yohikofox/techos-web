@@ -1,4 +1,4 @@
-import PostCard from "../PostCard"
+
 import styles from "./tag-post-list.module.scss"
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import PostList from "@/business/model/postList";
@@ -8,6 +8,8 @@ import Pagination from "../PostList/parts/Pagination";
 import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
 import Container from "@/infrastructure/dependencyFactory";
 import { DependencyKeys } from "@/infrastructure/dependencies";
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import PostCard from "../PostCard";
 
 const ADS_POSITION_LIST: number[] = [];
 const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
@@ -48,7 +50,7 @@ export default async function PostListRender({ title, page, tag }: TagPostListPr
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
-  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager)
 
   AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${AD_DEFAULT.picture.src}}`
 
@@ -71,7 +73,7 @@ export default async function PostListRender({ title, page, tag }: TagPostListPr
     <section className={styles.container}>
       {posts.map((post, index) => {
         return (
-          <PostCard key={`post-list-item-${index}`} post={post} />
+          <PostCard key={`post-list-item-${index}`} post={post} index={index} />
         )
       })}
       <Pagination {...postListResponse.Value.meta.pagination} />

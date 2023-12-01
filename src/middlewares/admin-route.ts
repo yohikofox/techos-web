@@ -1,7 +1,5 @@
 import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
 import { Middleware } from ".";
-import Container from "@/infrastructure/dependencyFactory";
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { MiddlewareResult } from "./factory";
 import { NextMiddlewareResult } from "next/dist/server/web/types";
 
@@ -13,14 +11,12 @@ export default class AdminRouteMiddleware extends Middleware {
   async run(request: NextRequest, _next: NextFetchEvent): Promise<NextMiddlewareResult> {
     const key = request.headers.get('api-key');
 
-    const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
-
-    const result = await configManager.get("CACHE_API_KEY")
+    const result = process.env.CACHE_API_KEY
 
     const headers = new Headers(request.headers);
 
     if (!result) {
-      console.warn("CACHE_API_KEY not found in config")
+      console.warn("CACHE_API_KEY not found in .env")
       return NextResponse.json({ error: 'Forbidden' }, {
         status: 403,
         headers

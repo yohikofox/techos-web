@@ -10,13 +10,14 @@ import { MainLogo } from '../Icon/Logo'
 import HamburgerMenu from './parts/HamburgerMenu'
 import Container from '@/infrastructure/dependencyFactory'
 import { DependencyKeys } from '@/infrastructure/dependencies'
+import { IConfigManager } from '@/infrastructure/adapter/configManager'
 
 export interface HeaderProps {
   title: string
 }
 export default async function Header({ title }: HeaderProps) {
 
-  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager);
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
   const response = await useCase?.execute();

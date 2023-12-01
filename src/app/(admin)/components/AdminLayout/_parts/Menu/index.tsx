@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ComponentProps } from "@/components/admin/AdminLayout/_parts/ComponentProps";
+import { ComponentProps } from "@/app/(admin)/components/AdminLayout/_parts/ComponentProps";
 
 export default function Component({ className }: ComponentProps) {
   return (

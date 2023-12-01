@@ -11,6 +11,7 @@ const middlewares: MiddlewareFactory[] = [
   // signOutMiddleware,
 ]
 
+
 export default stackMiddlewares(middlewares);
 
 export const config = {

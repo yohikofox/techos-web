@@ -12,6 +12,7 @@ import ServiceWorkerRegister from '@/app/(main)/components/ServiceWorkerRegister
 import Header from '@/app/(main)/components/Header'
 import Footer from '@/app/(main)/components/Footer'
 import Hero from '@/app/(main)/components/Hero'
+// import CoreWebVitals from 'R/src/components/CoreWebVitals'
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)
@@ -34,6 +35,7 @@ const layout = function RootLayout({
     <html lang="fr" className={
       classNames(styles.document, fontBundle.map(font => font.variable))}>
       <body className={classNames(styles.container)}>
+        {/* <CoreWebVitals /> */}
         <ServiceWorkerRegister />
         <Header title={(metadata.title || defaultData.title).toString()} />
         <section className={styles.content}>

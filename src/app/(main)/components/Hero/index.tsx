@@ -35,7 +35,6 @@ export default async function Hero({ title, background, picture, content }: Hero
               width={picture.width}
               height={picture.height}
               src={picture.src}
-              priority
               alt={picture.name || ''}
               style={{
                 width: 'auto',

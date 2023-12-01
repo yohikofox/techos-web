@@ -8,6 +8,7 @@ import Pagination from "./parts/Pagination";
 import { PostType } from "@/business/model/post";
 import Container from "@/infrastructure/dependencyFactory";
 import { DependencyKeys } from "@/infrastructure/dependencies";
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
 
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
@@ -43,7 +44,7 @@ export default async function PostListRender({ title, page }: PostListProps) {
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
-  const configManager = await Container.Instance.resolve(DependencyKeys.helper_configmanager)
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager)
 
   const src = AD_DEFAULT.picture.src;
   AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`

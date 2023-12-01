@@ -13,14 +13,14 @@ export default async function PostDetails({ post }: PostDetailsProps) {
   const readingTime = getReadingTime(post.content)
   return (
     <>
-      <section className={styles.container}>
+      <article className={styles.container}>
         <Metadata
           author={post.author}
           slug={post.slug}
           start_at={post.start_at}
           readingTime={readingTime} />
         <RenderMarkdown content={post.content} className={styles.content} />
-      </section>
+      </article>
     </>
   )
 }

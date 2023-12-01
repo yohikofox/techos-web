@@ -1,5 +1,5 @@
 import Container from "@/infrastructure/dependencyFactory";
-import { Result } from "./result";
+import { Result } from "@/lib/result";
 
 export enum UseCaseOption {
   GET_HOME_DATA = 'GetHomeData',
@@ -45,7 +45,7 @@ export default class UseCaseFactory {
 
   public async getUseCase<TRequest, TResult, TEnum extends string>(option: UseCaseOption) {
     if (!this._useCases[option]) {
-      const UseCase = await this.containerFactory.resolve('UseCase/' + option);
+      const UseCase = await this.containerFactory.resolve<IUseCase<TRequest, TResult>>('UseCase/' + option);
       this._useCases[option] = UseCase
     }
     return this._useCases[option] as IUseCase<TRequest, Result<TResult, TEnum>>

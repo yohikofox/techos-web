@@ -16,7 +16,9 @@ export async function POST(request: NextRequest, { params: { path } }: { params:
   const secret = request.nextUrl.searchParams.get('secret')
   const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager)
 
-  if (secret !== configManager.get('REVALIDATE_SECRET')) {
+  const secretKey = await configManager.get('REVALIDATE_SECRET')
+
+  if (!secret || !secretKey || secret !== secretKey) {
     return NextResponse.json({ message: 'Invalid secret' }, { status: 401 })
   }
 

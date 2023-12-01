@@ -140,3 +140,19 @@ providers: [
   })
 ]
 ...
+
+## Bug :
+
+
+```
+upstream image response failed for /_next/static/media/logo.f769b4b3.png ResponseAborted
+    at Object.fetch (node:internal/deps/undici/undici:11457:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async globalThis.fetch (D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:56839)
+    at async invokeRequest (D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\lib\server-ipc\invoke-request.js:17:12)
+    at async D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\next-server.js:595:35
+    at async imageOptimizer (D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\image-optimizer.js:576:13)
+    at async cacheEntry.imageResponseCache.get.incrementalCache (D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\next-server.js:176:65)
+    at async D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\response-cache\index.js:90:36
+    at async D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\lib\batcher.js:41:32
+```

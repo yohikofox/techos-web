@@ -57,17 +57,20 @@ const nextConfig = {
       },
     ]
   },
+  compiler: {
+    styledComponents: true,
+  },
   generateEtags: true,
   experimental: {
-    optimizeCss: false,
     optimisticClientCache: true,
-    optimizeServerReact: true,
+    // optimizeServerReact: true,
     scrollRestoration: true,
-    instrumentationHook: true,
-    adjustFontFallbacks: true,
-    windowHistorySupport: true,
-    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
+    // instrumentationHook: true,
+    // adjustFontFallbacks: true,
+    // windowHistorySupport: true,
+    // webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
+
   images: {
     minimumCacheTTL: 60,
     // @ts-ignore
