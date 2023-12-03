@@ -1,5 +1,7 @@
 // @ts-check
 
+const path = require('path');
+
 const urlConfig = process.env.CMS_ENDPOINT
 
 const cmsUrl = new URL(urlConfig || "");
@@ -63,12 +65,12 @@ const nextConfig = {
   generateEtags: true,
   experimental: {
     optimisticClientCache: true,
-    // optimizeServerReact: true,
+    optimizeServerReact: true,
     scrollRestoration: true,
-    // instrumentationHook: true,
-    // adjustFontFallbacks: true,
-    // windowHistorySupport: true,
-    // webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
+    instrumentationHook: true,
+    adjustFontFallbacks: true,
+    windowHistorySupport: true,
+    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
   },
 
   images: {
@@ -113,7 +115,15 @@ const nextConfig = {
       }
     ]
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => config
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@admin': path.resolve(__dirname, 'src/app/(admin)'),
+      '@R': path.resolve(__dirname, 'src'),
+    };
+
+    return config;
+  },
 }
 
 module.exports = nextConfig

@@ -5,7 +5,7 @@ import Container from '@/infrastructure/dependencyFactory'
 
 import HeaderData from '@/business/model/headerData';
 import { HeaderDataResult } from '@/business/useCases/getHeaderData';
-import Logo, { MainLogo } from '../Icon/Logo';
+import { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Image from "@/components/Image"
@@ -45,15 +45,9 @@ export default async function Footer() {
   return (
     <footer className={classNames(styles.container)}>
       <Image src={LogoIcon.src} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
-          {/* <Logo className={styles.logo} /> */}
           <MainLogo className={styles.logo} />
-          {/* <img src="/logo.png" alt="logo" width={150} height={150} style={{
-            borderRadius: '12px',
-
-          }} /> */}
           <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}</span>
           <Link aria-label="go to home" href="/" className={styles.inset__link} />
         </section>

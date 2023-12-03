@@ -2,13 +2,11 @@ import { adminRouteMiddleware } from './middlewares/admin-route';
 import { MiddlewareFactory, stackMiddlewares } from './middlewares/factory';
 import { requestEnrichmentMiddleware } from './middlewares/request-enrichment';
 import { sessionMiddleware } from './middlewares/session';
-import { signOutMiddleware } from './middlewares/signout';
 
 const middlewares: MiddlewareFactory[] = [
   requestEnrichmentMiddleware,
   sessionMiddleware,
   adminRouteMiddleware,
-  // signOutMiddleware,
 ]
 
 

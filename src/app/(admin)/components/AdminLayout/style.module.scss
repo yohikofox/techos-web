@@ -1,59 +1,46 @@
-.container {
-  background: black;
-  display: flex;
+@import "@admin/theme/variables.scss";
 
-  div {
-    display: block;
-  }
-
-  .header {
-    background: red;
-    position: fixed;
-    top: 0;
-    left: 300px;
-    right: 0;
-    height: 100px;
-  }
-
+@mixin local-debug($color: $debug-color) {
   section {
-    background: blue;
+    $debug-color: blue;
+    @include debug($debug-color);
   }
-
-  .menu {
-    position: fixed;
-    width: 300px;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    background: green;
-
-    nav {}
-  }
-
-  .content {
-    background: yellow;
-    display: flex;
-    flex-direction: column;
-
-    position: relative;
-    margin-left: 300px;
-    margin-top: 100px;
-    min-height: calc(100vh - 100px);
-  }
-
 
   aside {
-    background: orange;
+    $debug-color: orange;
+    @include debug($debug-color);
   }
 
-  .footer {
-    background: purple;
-    margin-top: auto;
-    min-width: 71px;
-    padding: 18px 40px;
+  footer {
+    $debug-color: purple;
+    @include debug($debug-color);
   }
 
   details {
-    background: pink;
+    $debug-color: pink;
+    @include debug($debug-color);
   }
+
+  header {
+    $debug-color: red;
+    @include debug($debug-color);
+  }
+
+  nav {
+    $debug-color: green;
+    @include debug($debug-color);
+  }
+
+  div {
+    $debug-color: lime;
+    @include debug($debug-color);
+  }
+}
+
+.container {
+  display: flex;
+  @include local-debug();
+  --open-menu-width: 300px;
+  --header-height: 100px;
+  --close-menu-width: 30px;
 }

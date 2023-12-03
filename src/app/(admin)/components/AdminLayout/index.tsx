@@ -10,9 +10,9 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <div className={styles.container}>
-        <Menu className={styles.menu} />
-        <Header className={styles.header} />
-        <Content className={styles.content}>
+        <Menu />
+        <Header />
+        <Content>
           {children}
           <Footer className={styles.footer} />
         </Content>

@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+  margin-top: 100px;
+  min-height: calc(100vh - var(--header-height));
+  width: calc(100vw - var(--open-menu-width));
+}

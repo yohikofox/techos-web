@@ -1,0 +1,14 @@
+.container {
+  position: fixed;
+  width: var(--open-menu-width);
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+
+  nav {}
+
+  &.menu__opened {
+    width: var(--close-menu-width);
+  }
+}
