@@ -1,4 +1,4 @@
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 import styles from "./menuList.module.scss"
 import Link from "next/link"
 import slugify from "slugify"
@@ -17,7 +17,7 @@ export interface MenuListProps {
 const MenuCard = async ({ item, }: any) => {
   return (
     <div className={styles.menu__card}>
-      {item.background && <Image
+      {item.background && <ServerImage
         alt={item.title}
         src={item.background.src}
         width={100}

@@ -1,0 +1,42 @@
+@mixin variables ($colors, $metrics) {
+
+  @each $color,
+  $value in $colors {
+    @if(type-of($value)=='map') {
+
+      @each $sub-color,
+      $sub-value in $value {
+        --color-#{$color}-#{$sub-color}: #{$sub-value};
+
+        @each $opac,
+        $opac-value in $opacity {
+          --color-#{$color}-#{$sub-color}-#{$opac}: #{$value}#{$opac-value};
+        }
+      }
+    }
+
+    @else {
+      --color-#{$color}: #{$value};
+
+      @each $opac,
+      $opac-value in $opacity {
+        --color-#{$color}-#{$opac}: #{$value}#{$opac-value};
+      }
+    }
+  }
+
+  @each $metric,
+  $value in $metrics {
+    @if(type-of($value)=='map') {
+
+      @each $sub-metric,
+      $sub-value in $value {
+        --metric-#{$metric}-#{$sub-metric}: #{$sub-value};
+      }
+    }
+
+    @else {
+      --metric-#{$metric}: #{$value};
+    }
+  }
+}

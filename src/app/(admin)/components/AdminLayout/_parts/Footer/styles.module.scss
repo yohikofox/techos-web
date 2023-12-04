@@ -1,3 +1,14 @@
 .container {
   margin-top: auto;
+  height: var(--footer-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  // width: calc(100vw - var(--open-menu-width));
+  border-top: 1px solid var(--color-border-color);
+
+  &.menu__closed {
+    // width: calc(100% - var(--close-menu-width));
+  }
 }

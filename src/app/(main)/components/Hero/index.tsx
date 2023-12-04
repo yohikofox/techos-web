@@ -1,7 +1,7 @@
 import ImageSet from "@/business/model/image"
 import styles from "./hero.module.scss"
 import md from "markdown-it"
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 
 export interface HeroProps {
   title?: string
@@ -15,7 +15,7 @@ export default async function Hero({ title, background, picture, content }: Hero
     <section className={styles.container}>
       {background && (
         <div className={styles.background}>
-          <Image
+          <ServerImage
             fill
             priority
             src={background.src}
@@ -31,7 +31,7 @@ export default async function Hero({ title, background, picture, content }: Hero
       <section className={styles.content}>
         {picture && (
           <div className={styles.picture}>
-            <Image
+            <ServerImage
               width={picture.width}
               height={picture.height}
               src={picture.src}

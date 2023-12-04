@@ -21,12 +21,17 @@ if (!bucketEnv) {
   throw new Error('NEXT_PUBLIC_BUCKET_HOST is not set')
 }
 
-
 const remotePatterns = [
   cmsConfig,
   {
     protocol: 'https',
     hostname: bucketEnv,
+    pathname: '/**',
+    port: '',
+  },
+  {
+    protocol: 'https',
+    hostname: 'lh3.googleusercontent.com',
     pathname: '/**',
     port: '',
   },
@@ -45,6 +50,7 @@ const remotePatterns = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true, // try to not rerender components on every change DEV ONLY
   i18n: {
     locales: ['en', 'fr'],
     defaultLocale: 'fr',
@@ -118,8 +124,9 @@ const nextConfig = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@admin': path.resolve(__dirname, 'src/app/(admin)'),
-      '@R': path.resolve(__dirname, 'src'),
+      '@admin': path.resolve(__dirname, 'src/app/(admin)/theme'),
+      '@main': path.resolve(__dirname, 'src/app/(main)/theme'),
+      '@R': path.resolve(__dirname, 'src/theme'),
     };
 
     return config;

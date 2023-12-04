@@ -1,4 +1,4 @@
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 import { PostCardProps } from "../..";
 import styles from "./ad.module.scss"
 
@@ -8,7 +8,7 @@ export default async function PostCardAd({ post, index }: PostCardProps) {
   return (
     <div className={styles.container}>
       <figure className={styles.figure}>
-        <Image
+        <ServerImage
           alt={post.title || ''}
           priority={index < 3}
           src={src || ''}

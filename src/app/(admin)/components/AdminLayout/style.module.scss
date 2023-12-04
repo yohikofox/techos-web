@@ -1,46 +1,7 @@
-@import "@admin/theme/variables.scss";
-
-@mixin local-debug($color: $debug-color) {
-  section {
-    $debug-color: blue;
-    @include debug($debug-color);
-  }
-
-  aside {
-    $debug-color: orange;
-    @include debug($debug-color);
-  }
-
-  footer {
-    $debug-color: purple;
-    @include debug($debug-color);
-  }
-
-  details {
-    $debug-color: pink;
-    @include debug($debug-color);
-  }
-
-  header {
-    $debug-color: red;
-    @include debug($debug-color);
-  }
-
-  nav {
-    $debug-color: green;
-    @include debug($debug-color);
-  }
-
-  div {
-    $debug-color: lime;
-    @include debug($debug-color);
-  }
-}
+@import '@admin/admin/theme.scss';
 
 .container {
   display: flex;
-  @include local-debug();
-  --open-menu-width: 300px;
-  --header-height: 100px;
-  --close-menu-width: 30px;
+  color: var(--color-font-primary);
+  background: var(--color-background-primary);
 }

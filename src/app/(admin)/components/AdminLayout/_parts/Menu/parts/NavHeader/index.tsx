@@ -6,13 +6,14 @@ import Logo from "../Logo";
 import { useShallow } from 'zustand/react/shallow'
 
 import useAdminStore from "R/src/infrastructure/store/admin";
+import Link from "next/link";
 
-export default function Component() {
+export interface NavHeaderProps {
+  homeLink?: { path: string, name: string }
+}
 
-  const { isOpen, toggle } = useAdminStore(useShallow((state) => ({
-    isOpen: state.menu.isOpen,
-    toggle: state.menu.toggle
-  })))
+export default function Component({ homeLink }: NavHeaderProps) {
+  const isOpen = useAdminStore((state) => state.menu.isOpen)
 
   return (
     <>
@@ -20,8 +21,8 @@ export default function Component() {
         [styles.menu__opened]: isOpen
       })} >
         <Logo />
-        {isOpen && "yo"}
-        <button onClick={() => toggle()}>{"<"}</button>
+        {homeLink && <Link aria-label="go to home" href={homeLink.path} className={styles.inset__link} />}
+
       </section >
     </>
   )

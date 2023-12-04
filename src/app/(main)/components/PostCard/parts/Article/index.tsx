@@ -1,4 +1,4 @@
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 import { PostCardProps } from "../.."
 import styles from "./article.module.scss"
 import md from "markdown-it"
@@ -26,7 +26,7 @@ export default async function Article({ post }: PostCardProps) {
   return (
     <article className={styles.container}>
       <figure className={styles.figure}>
-        <Image
+        <ServerImage
           alt={post.title || ''}
           src={src || ''}
           fill

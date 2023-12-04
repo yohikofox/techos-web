@@ -1,0 +1,38 @@
+.container {
+  height: var(--header-height);
+  width: var(--open-menu-width);
+  overflow: hidden;
+
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+
+  .icon {
+    position: relative;
+    display: flex;
+
+
+
+    .svg {
+      $w: calc(var(--close-menu-width) - var(--metric-padding-small));
+      width: $w;
+      aspect-ratio: 1;
+      margin-left: 2.5px;
+      scale: .8;
+      // padding: calc(var(--metric-padding-small)) calc(var(--metric-padding-small));
+    }
+  }
+
+  .text {
+
+    h1 {
+      text-transform: uppercase;
+      font-size: var(--h1-size);
+    }
+  }
+
+  &.menu__opened {
+    // width: var(--open-menu-width);
+  }
+}

@@ -1,7 +1,7 @@
 import Author from "@/business/model/author";
 import styles from "./author.module.scss"
 import classNames from "classnames";
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 
 export interface AuthorProps {
   data: Author
@@ -14,7 +14,7 @@ export default async function Author({ data, className }: AuthorProps) {
       <section className={classNames(styles.container, className)}>
         <section className={styles.avatar__container}>
           <div className={styles.avatar}>
-            <Image
+            <ServerImage
               src={data.avatar?.src || ''}
               alt='avatar'
               fill

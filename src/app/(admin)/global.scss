@@ -1,1 +1,8 @@
-@tailwind base;
+@import "@R/base/preflight.scss";
+@import '@admin/admin/theme.scss';
+@import '@R/base/bundles.scss';
+
+:root {
+  @include variables($colors, $metrics);
+  @extend .layout__variables;
+}

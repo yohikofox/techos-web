@@ -32,6 +32,8 @@ revoir l'algo de resolution ads                                                 
 Faire en sorte de pouvoir ajouter des blocs dans un article depuis strapi                                            |        |
 Essayer un curseur de scrollbar proéminent                                                                           |        |
 Checker les réponses de Strapi sur [DISCORD](https://discordapp.com/channels/811989166782021633/1148175390515405021) |        |
+remove tailwind                                                                                                      |        |
+faire une fonction recursive pour les imports de style (bundles.scss)                                                |        |
 # A creuser 
 
 
@@ -126,8 +128,6 @@ N'oubliez pas que le SEO ne concerne pas seulement le code, mais aussi le conten
 * Check footer
 * no-wrap sur les titres et les `<pre>`
 * Regarder tRPC
-
-
 
 
 import Auth0Provider from "next-auth/providers/auth0";

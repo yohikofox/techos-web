@@ -1,0 +1,20 @@
+.container {
+  position: absolute;
+  z-index: 2;
+  background-color: var(--color-primary);
+  height: 30px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  right: 0;
+  bottom: 0;
+  transform: translate(15px, -15px);
+
+  .toggle__icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--color-font-primary);
+  }
+}

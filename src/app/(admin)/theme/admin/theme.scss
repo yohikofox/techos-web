@@ -1,0 +1,14 @@
+@import "./palette";
+@import "@admin/admin/variables";
+@import "@R/base/base.scss";
+@import "@R/base/functions.scss";
+@import "@R/base/variables.scss";
+@import "@R/base/mixins.scss";
+
+.layout__variables {
+  --open-menu-width: 300px;
+  --header-height: 60px;
+  --close-menu-width: 60px;
+  --footer-height: 60px;
+  --h1-size: 1.5rem;
+}

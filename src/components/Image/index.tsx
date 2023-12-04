@@ -34,12 +34,31 @@ const handleBlur = async (options: ImageOptions) => {
   return options.blurDataURL
 }
 
-export default async function Image(options: ImageOptions) {
+export default async function ServerImage(options: ImageOptions) {
 
 
   const localOptions: ImageOptions = {
     ...options,
     blurDataURL: await handleBlur(options)
+  }
+
+  return (
+    <NextImage
+      {...localOptions}
+    />
+  )
+}
+
+
+export function Image(options: ImageOptions) {
+
+
+  const localOptions: ImageOptions = {
+    ...options,
+  }
+
+  if (options.fill && !options.sizes) {
+    localOptions.sizes = "100%"
   }
 
   return (

@@ -1,0 +1,104 @@
+$colors: (
+  // French Blue
+  primary: #7C5FE3,
+  // Picton Blue
+  secondary: #494453,
+  // Aero
+  tertiary: #AFA8BA,
+  // Carrot Orange
+  accent: #FF705F,
+  // Persian Red
+  danger: #d63230,
+  // Emerald
+  success: #4caf50,
+  // Sunglow
+  warning: #fbc02d,
+  icon-color:#000000,
+  icon-bg-color:#2B2830,
+  font-primary: #C0BCCA,
+  font-secondary: #7E7A86,
+  border-color: #312E37,
+  background-primary: #0F0E11,
+  background-secondary: #17151B,
+);
+
+$dark-colors: (
+  // French Blue
+  primary: #533A71,
+  // Picton Blue
+  secondary: #6184D8,
+  // Aero
+  tertiary: #50C5B7,
+  // Carrot Orange
+  accent: #9CEC5B,
+  // Persian Red
+  danger: #d63230,
+  // Emerald
+  success: #4caf50,
+  // Sunglow
+  warning: #fbc02d,
+  // White
+  light: lighten(#000000, 4%),
+  // Black
+  dark: darken(#ffffff, 25%)
+);
+
+$base-metric: 4px;
+
+$opacity-step : 25;
+
+$opacity: (
+  0: 00,
+  1: 02,
+  2: 04,
+  3: 08,
+  5: 0A,
+  6: 0C,
+  7: 0E,
+  8: 10,
+  9: 12,
+  10: 19,
+  20: 32,
+  30: 4B,
+  40: 64,
+  50: 7D,
+  60: 96,
+  70: AF,
+  80: C8,
+  90: E1,
+  100: FF,
+);
+
+$metrics: (
+  base: $base-metric,
+  radius: (small: $base-metric,
+    medium: $base-metric * 2,
+    large: $base-metric * 3,
+  ),
+  padding:(small: $base-metric * 2,
+    medium: $base-metric * 3,
+    large: $base-metric * 4,
+  )
+);
+
+$constant-black: lighten(#000, 5%);
+
+$default--colors: (
+  foreground: map-get($colors, dark),
+  alternate-foreground: map-get($colors, light),
+  background: map-get($colors, light),
+  alternate-background: map-get($colors, dark),
+  border: map-get($colors, dark),
+  black: $constant-black,
+);
+
+$colors: map-merge($colors, $default--colors);
+
+$default--dark--colors: (
+  foreground: map-get($dark-colors, dark),
+  background: map-get($dark-colors, light),
+  border: map-get($colors, dark),
+  black: $constant-black,
+);
+
+$dark-colors: map-merge($dark-colors, $default--dark--colors);

@@ -8,7 +8,7 @@ import { HeaderDataResult } from '@/business/useCases/getHeaderData';
 import { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
 import { DependencyKeys } from '@/infrastructure/dependencies';
 
@@ -44,7 +44,7 @@ export default async function Footer() {
 
   return (
     <footer className={classNames(styles.container)}>
-      <Image src={LogoIcon.src} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      <ServerImage src={LogoIcon.src} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
           <MainLogo className={styles.logo} />

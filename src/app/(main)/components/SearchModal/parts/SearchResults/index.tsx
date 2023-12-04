@@ -3,7 +3,7 @@
 import { MouseEventHandler, Suspense, useContext } from "react"
 import styles from "./search-results.module.scss"
 import { SearchDataContext } from "../context"
-import Image from "@/components/Image"
+import ServerImage from "@/components/Image"
 import md from 'markdown-it';
 import getReadingTime from "@/infrastructure/helper/getReadingTime";
 
@@ -48,7 +48,7 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
         return (
           <section key={`search-result-item-${index}`} className={styles.container}>
             <div className={styles.image}>
-              <Image
+              <ServerImage
                 src={it.picture.src}
                 alt={it.picture.name}
                 fill

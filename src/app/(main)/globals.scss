@@ -1,13 +1,7 @@
-@import '~@/theme/classic/theme.scss';
-
-@tailwind base;
-
->* {
-  border: solid 5px red;
-}
+@import "@R/base/preflight.scss";
+@import '@R/classic/theme.scss';
 
 :root {
-
   --icon-chip: url("#{$chip-svg-icon}");
 
   @each $color,
