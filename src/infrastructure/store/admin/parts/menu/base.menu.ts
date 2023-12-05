@@ -8,6 +8,8 @@ export default abstract class BaseMenuStoreImplementation implements MenuStore {
   }
 
   abstract toggle: () => void;
+  abstract open: () => void;
+  abstract close: () => void;
 }
 
 export type MenuItem = {
@@ -21,4 +23,6 @@ export type MenuStore = {
   isOpen: boolean,
   links: MenuItem[]
   toggle: () => void
+  close: () => void
+  open: () => void
 }

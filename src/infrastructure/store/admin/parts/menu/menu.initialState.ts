@@ -12,12 +12,12 @@ const initialState: Partial<MenuStore> = {
     },
     {
       path: "/admin/security",
-      icon: "FaClock",
+      icon: "fa6/FaHouseLock",
       name: "Security management"
     },
     {
       path: "/admin/cache",
-      icon: "FaBeer",
+      icon: "fa/FaMemory",
       name: "Cache management"
     }
   ]

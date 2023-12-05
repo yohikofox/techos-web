@@ -14,4 +14,21 @@ export default class MenuStoreImplementation extends BaseMenuStoreImplementation
       return ns
     })
   }
+
+
+  public close: () => void = () => {
+    this.set((state: any) => {
+      const ns = { ...state }
+      ns.menu.isOpen = false
+      return ns
+    })
+  }
+
+  public open: () => void = () => {
+    this.set((state: any) => {
+      const ns = { ...state }
+      ns.menu.isOpen = true
+      return ns
+    })
+  }
 }

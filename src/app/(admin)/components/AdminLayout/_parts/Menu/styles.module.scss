@@ -6,7 +6,7 @@
   transition: min-width .05s linear;
 
   nav {
-    z-index: 1;
+    z-index: 2;
     background-color: var(--color-background-secondary);
     border-right: 1px solid var(--color-border-color);
     position: absolute;
@@ -34,8 +34,8 @@
 
 
       .link {
+        @extend .inset__link;
         display: table-cell;
-        position: relative;
         border-collapse: collapse;
         border-spacing: 0;
         transform: translateZ(0) scale(1, 1);
@@ -48,8 +48,11 @@
       }
 
       &.selected {
+        $box-margin: 10px;
         color: var(--color-font-primary);
         background-color: var(--color-background-primary);
+        border: 1px solid var(--color-border-color);
+        border-right: none;
       }
 
       .icon {
@@ -62,7 +65,6 @@
         position: relative;
         display: table-cell;
         width: calc(var(--open-menu-width) - var(--close-menu-width));
-
       }
     }
   }

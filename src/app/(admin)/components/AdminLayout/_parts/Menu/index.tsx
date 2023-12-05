@@ -13,6 +13,7 @@ import { useShallow } from "zustand/react/shallow"
 import ReactIcon from "@Admin/components/Icon/ReactIcon"
 import ToggleMenuButton from "./parts/ToggleMenuButton"
 
+
 export interface MenuProps extends ComponentProps {
 }
 function Component({ className }: MenuProps) {
@@ -39,7 +40,7 @@ function Component({ className }: MenuProps) {
               })}>
                 {icon && <ReactIcon className={styles.icon} name={icon} size={20} />}
                 <span className={styles.name}>{name}</span>
-                <Link href={path} aria-label={name} className={classNames(styles.inset__link, styles.link)}></Link>
+                <Link href={path} aria-label={name} className={classNames(styles.link)}></Link>
               </li>
             )
           })}

@@ -46,7 +46,20 @@ const remotePatterns = [
     hostname: 'eu.ui-avatars.com',
     pathname: '/**',
     port: '',
-  }]
+  },
+  {
+    protocol: 'https',
+    hostname: 'ui-avatars.com',
+    pathname: '/**',
+    port: '',
+  },
+  {
+    protocol: 'https',
+    hostname: 'api.dicebear.com',
+    pathname: '/**',
+    port: '',
+  },
+]
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

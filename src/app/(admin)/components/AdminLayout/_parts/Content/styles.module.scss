@@ -6,12 +6,12 @@
   width: calc(100vw - var(--open-menu-width));
 
   &.menu__closed {
-    // margin-left: var(--close-menu-width);
     width: calc(100vw - var(--close-menu-width));
   }
 
   .content__section {
     height: calc(100vh - var(--header-height) - var(--footer-height));
     overflow: auto;
+    padding: calc(var(--metric-base) * 5);
   }
 }

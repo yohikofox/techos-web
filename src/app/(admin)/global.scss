@@ -5,4 +5,5 @@
 :root {
   @include variables($colors, $metrics);
   @extend .layout__variables;
+  font-size: $font-size;
 }

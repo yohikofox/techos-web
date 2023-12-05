@@ -1,5 +1,12 @@
 import BaseMenuStoreImplementation, { MenuStore } from "./base.menu";
 
+export type ProfileMenuStore = {
+  avatar: {
+    fallback?: string,
+    avatarFallback: (fallback: string) => void
+  }
+} & MenuStore
+
 export const initialState: Partial<MenuStore> = {
   isOpen: false,
   /**
@@ -22,16 +29,48 @@ export const initialState: Partial<MenuStore> = {
   ]
 }
 
-export default class ProfileMenuStoreImplementation extends BaseMenuStoreImplementation implements MenuStore {
+export default class ProfileMenuStoreImplementation extends BaseMenuStoreImplementation implements ProfileMenuStore {
+  avatar: {
+    fallback: undefined;
+    avatarFallback: (fallback: string) => void;
+  };
 
   constructor(set: any, initialState: Partial<MenuStore> = {}) {
     super(set, initialState)
+    this.avatar = {
+      fallback: undefined,
+      avatarFallback: this.avatarFallback
+    }
   }
 
   public toggle: () => void = () => {
     this.set((state: any) => {
       const ns = { ...state }
       ns.profileMenu.isOpen = !ns.profileMenu.isOpen
+      return ns
+    })
+  }
+
+  public close: () => void = () => {
+    this.set((state: any) => {
+      const ns = { ...state }
+      ns.profileMenu.isOpen = false
+      return ns
+    })
+  }
+
+  public open: () => void = () => {
+    this.set((state: any) => {
+      const ns = { ...state }
+      ns.profileMenu.isOpen = true
+      return ns
+    })
+  }
+
+  public avatarFallback: (fallback: string) => void = (fallback: string) => {
+    this.set((state: any) => {
+      const ns = { ...state }
+      ns.profileMenu.avatar.fallback = fallback
       return ns
     })
   }

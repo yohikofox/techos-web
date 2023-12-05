@@ -43,6 +43,8 @@ $dark-colors: (
   dark: darken(#ffffff, 25%)
 );
 
+$font-size: 16px;
+
 $base-metric: 4px;
 
 $opacity-step : 25;
@@ -70,6 +72,12 @@ $opacity: (
 );
 
 $metrics: (
+  input:(width: 300px,
+    height: 40px,
+  ),
+  button:(height: 40px,
+    min-width: 100px,
+  ),
   base: $base-metric,
   radius: (small: $base-metric,
     medium: $base-metric * 2,
