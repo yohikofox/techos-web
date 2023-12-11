@@ -36,7 +36,6 @@ const handleBlur = async (options: ImageOptions) => {
 
 export default async function ServerImage(options: ImageOptions) {
 
-
   const localOptions: ImageOptions = {
     ...options,
     blurDataURL: await handleBlur(options)
