@@ -13,7 +13,6 @@ import { useShallow } from "zustand/react/shallow"
 import ReactIcon from "@Admin/components/Icon/ReactIcon"
 import ToggleMenuButton from "./parts/ToggleMenuButton"
 
-
 export interface MenuProps extends ComponentProps {
 }
 function Component({ className }: MenuProps) {

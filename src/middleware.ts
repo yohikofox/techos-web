@@ -5,7 +5,7 @@ import { sessionMiddleware } from './middlewares/session';
 
 const middlewares: MiddlewareFactory[] = [
   requestEnrichmentMiddleware,
-  sessionMiddleware,
+  // sessionMiddleware,
   adminRouteMiddleware,
 ]
 

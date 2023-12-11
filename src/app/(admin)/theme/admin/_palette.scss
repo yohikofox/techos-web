@@ -100,7 +100,12 @@ $default--colors: (
   black: $constant-black,
 );
 
-$colors: map-merge($colors, $default--colors);
+$special-colors: (
+  disabled: #333,
+);
+
+$colors: map-merge(map-merge($colors, $default--colors), $special-colors);
+
 
 $default--dark--colors: (
   foreground: map-get($dark-colors, dark),

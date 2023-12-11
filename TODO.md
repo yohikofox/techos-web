@@ -34,6 +34,9 @@ Essayer un curseur de scrollbar proéminent                                     
 Checker les réponses de Strapi sur [DISCORD](https://discordapp.com/channels/811989166782021633/1148175390515405021) |        |
 remove tailwind                                                                                                      |        |
 faire une fonction recursive pour les imports de style (bundles.scss)                                                |        |
+ajouter un bundler pour le next.config.js                                                                            |        |
+
+
 # A creuser 
 
 

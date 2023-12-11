@@ -1,5 +1,7 @@
 // @ts-check
 
+const CacheHandler = require.resolve('./cache-handler-redis.js');
+
 const path = require('path');
 
 const urlConfig = process.env.CMS_ENDPOINT
@@ -89,7 +91,8 @@ const nextConfig = {
     instrumentationHook: true,
     adjustFontFallbacks: true,
     windowHistorySupport: true,
-    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP']
+    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP'],
+    incrementalCacheHandlerPath: CacheHandler
   },
 
   images: {
@@ -133,6 +136,9 @@ const nextConfig = {
         ],
       }
     ]
+  },
+  env: {
+    NEXT_PUBLIC_REDIS_INSIGHT_URL: process.env.REDIS_INSIGHT_URL ?? 'http://localhost:8001',
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     config.resolve.alias = {

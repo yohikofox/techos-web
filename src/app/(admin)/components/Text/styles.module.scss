@@ -8,6 +8,7 @@
     label {
       top: -.75rem;
       font-size: .85rem;
+      background-color: var(--color-background-primary);
     }
   }
 
@@ -25,10 +26,12 @@
     }
 
     .form__validate__button {
-      color: var(--color-primary);
+      &:not([disabled]) {
+        color: var(--color-primary);
 
-      &:hover {
-        color: color-mix(in srgb, var(--color-primary) 75%, var(--color-accent) 100%);
+        &:hover {
+          color: color-mix(in srgb, var(--color-primary) 50%, var(--color-accent) 100%);
+        }
       }
     }
   }
@@ -106,13 +109,17 @@
     width: var(--metric-button-height);
     aspect-ratio: 1;
     background-color: transparent;
-    color: var(--color-font-primary);
-    cursor: pointer;
     transition: all .2s ease, scale .1s ease-in-out;
+    color: var(--color-disabled);
 
-    &:hover {
-      color: var(--color-primary);
-      scale: 1.2;
+    &:not([disabled]) {
+      color: var(--color-font-primary);
+      cursor: pointer;
+
+      &:hover {
+        color: color-mix(in srgb, var(--color-font-primary) 100%, #ffffff 30%);
+        scale: 1.2;
+      }
     }
   }
 }

@@ -1,9 +1,7 @@
 import React from 'react';
 import { IconType, IconBaseProps } from 'react-icons';
-import { ImSpinner3 } from "react-icons/im";
 import loadable from '@loadable/component';
-import classNames from 'classnames';
-import styles from './styles.module.scss';
+import Spinner from './Spinner';
 export interface ReactIconProps extends IconBaseProps {
   name: string;
 }
@@ -21,7 +19,7 @@ export default function Icon({ name, className, ...props }: ReactIconProps) {
 
   const ElementIcon: IconType = loadable(() => import(`react-icons/${lib}/index.js`), {
     resolveComponent: (el: JSX.Element) => el[iconName as keyof JSX.Element],
-    fallback: <><ImSpinner3 className={classNames(styles.spinner, className)} {...props} /></>
+    fallback: <><Spinner className={className} /></>
   }) as IconType;
 
   return <ElementIcon className={className} {...props} />
