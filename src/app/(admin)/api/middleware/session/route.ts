@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { getRedirectData } from "./getRedirectData";
 
-
+export const dynamic = "force-dynamic"
 
 export async function GET(request: NextRequest, params: any) {
 

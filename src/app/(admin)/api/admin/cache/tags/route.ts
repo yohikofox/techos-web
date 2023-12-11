@@ -1,6 +1,8 @@
 import CacheFactory from 'R/src/infrastructure/cache/CacheFactory';
 import { NextResponse } from 'next/server';
 
+export const dynamic = "force-dynamic"
+
 export async function GET(request: Request) {
   // const Provider = CacheFactory.resolve()
 
