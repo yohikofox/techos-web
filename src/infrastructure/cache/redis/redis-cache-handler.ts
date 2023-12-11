@@ -1,59 +1,66 @@
 import { RedisClientOptions, RedisClientType, SetOptions, createClient } from 'redis';
 import { CustomCacheHandler } from '../CustomCacheHandler';
+import BaseCacheHandler from '../BaseCacheHandler';
+import { CacheProvider } from '../CacheFactory';
 
-export default class RedisCacheHandler implements CustomCacheHandler {
-  private TAG_MANIFESTS_KEY = 'tags-manifest'
-  private WAITING_TIME = 500
-  private LIMIT_WAITING_TIME = 30_000
-  private waitedTime: number = 0;
+export default class RedisCacheHandler extends BaseCacheHandler {
 
-  private static _initialized: boolean = false;
-
-  public static get cache(): RedisClientType | undefined {
-    return globalThis.redisClient;
-  }
-  public static set cache(value: RedisClientType | undefined) {
-    globalThis.redisClient = value;
-  }
-
-  options: any;
   constructor(options: any) {
+    super(options, CacheProvider.REDIS)
     this.options = options
+    this.loadHandler()
   }
 
-  static get initialized(): boolean {
-    return RedisCacheHandler._initialized;
-  }
-  static set initialized(value: boolean) {
-    RedisCacheHandler._initialized = value;
+  public async loadHandler(): Promise<void> {
+    if (this.initialized()) return;
+
+    const options: RedisClientOptions = {
+      url: process.env.REDIS_URL,
+    }
+
+    const client = createClient(options) as RedisClientType;
+    client.on('error', (err: any) => {
+      console.error('Caching Error :', err);
+    });
+    client.on('connect', () => {
+      this.setInitialized(true);
+      console.log('Redis client connected');
+    });
+
+    this.setCache(client);
+
+    this.cache<RedisClientType>()!.connect();
   }
 
   public async list<T>(): Promise<T[]> {
-    return RedisCacheHandler.cache?.keys('*') as any;
-  }
-
-  private async waitForInitialization<T>(label: string, action: Function): Promise<T | undefined> {
-    if (RedisCacheHandler.initialized) {
-      console.time(label)
-      const result = action()
-      console.timeEnd(label)
-      return result;
-
-    } else {
-      if (this.waitedTime > this.LIMIT_WAITING_TIME) {
-        throw new Error('Redis client not connected')
-      }
-
-      this.waitedTime += this.WAITING_TIME
-      setTimeout(() => this.waitForInitialization(label, action), this.WAITING_TIME)
+    try {
+      const result = await this.waitForInitialization<T[]>(`list`, async () => await this.cache<RedisClientType>()?.keys('*') as T[])
+      return result || [];
+    } catch (err) {
+      console.error(err);
+      return [];
     }
   }
 
   async get(key: string) {
-    const strValue = await this.waitForInitialization<string>(`get ${key}`, async () => RedisCacheHandler.cache?.get(key));
-    if (!strValue) return null;
-    return JSON.parse(strValue);
+    try {
+      const strValue = await this.waitForInitialization<string>(`get ${key}`, async () => this.cache<RedisClientType>()?.get(key));
+      if (!strValue) return null;
+      return JSON.parse(strValue);
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   }
+
+  async remove(key: string): Promise<void> {
+    try {
+      await this.waitForInitialization<string>(`get ${key}`, async () => this.cache<RedisClientType>()?.del(key));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   /**{
     fetchCache: true,
     revalidate: 3600,
@@ -65,30 +72,10 @@ export default class RedisCacheHandler implements CustomCacheHandler {
     const options: SetOptions = {
       EX: ctx.revalidate,
     }
-    await this.waitForInitialization<string>(`set ${key}`, async () => await RedisCacheHandler.cache?.set(key, JSON.stringify(data), options));
-
+    try {
+      await this.waitForInitialization<string>(`set ${key}`, async () => await this.cache<RedisClientType>()?.set(key, JSON.stringify(data), options));
+    } catch (err) {
+      console.error(err);
+    }
   }
-
-  async revalidateTag(tag: string): Promise<void> {
-    throw new Error('Method not implemented.')
-
-  }
-}
-
-
-export async function loadCacheHandler() {
-  if (RedisCacheHandler.initialized) return;
-
-  const options: RedisClientOptions = {
-    url: 'redis://localhost:6379',
-  }
-  RedisCacheHandler.cache = createClient(options) as RedisClientType;
-  RedisCacheHandler.cache.on('error', (err: any) => {
-    console.error('Caching Error :', err);
-  });
-  RedisCacheHandler.cache.on('connect', () => {
-    RedisCacheHandler.initialized = true;
-    console.log('Redis client connected');
-  });
-  RedisCacheHandler.cache.connect();
 }

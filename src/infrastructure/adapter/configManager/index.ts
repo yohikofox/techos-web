@@ -26,7 +26,9 @@ export default class ConfigManager implements IConfigManager {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
       },
-      cache: 'no-store',
+      next: {
+        revalidate: 0
+      }
     })
 
     if (response.ok) {
@@ -50,7 +52,9 @@ export default class ConfigManager implements IConfigManager {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
       },
-      cache: 'no-store',
+      next: {
+        revalidate: 0
+      }
     }).then(async (response) => {
       return response.json().then((json) => {
         this._config = {}

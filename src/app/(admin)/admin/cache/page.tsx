@@ -3,7 +3,6 @@ import CacheItemList from "./components/CacheItemList"
 import styles from "./style.module.scss"
 
 export default function Page() {
-
   const apiKey = process.env.CACHE_API_KEY
 
   return (

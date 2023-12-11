@@ -17648,37 +17648,37 @@ var require_dist7 = __commonJS({
 
 // src/infrastructure/cache/redis/redis-cache-handler.ts
 var import_redis = __toESM(require_dist7());
-var RedisCacheHandler = class _RedisCacheHandler {
-  constructor(options) {
+
+// src/infrastructure/cache/BaseCacheHandler.ts
+var BaseCacheHandler = class {
+  constructor(options, provider) {
     this.TAG_MANIFESTS_KEY = "tags-manifest";
     this.WAITING_TIME = 500;
     this.LIMIT_WAITING_TIME = 3e4;
     this.waitedTime = 0;
     this.options = options;
+    globalThis.cache = globalThis.cache || {};
   }
-  static {
-    this._initialized = false;
+  get isDebug() {
+    return process.env.NODE_ENV === "recette";
   }
-  static get cache() {
-    return globalThis.redisClient;
+  cache() {
+    return globalThis.cache.client;
   }
-  static set cache(value) {
-    globalThis.redisClient = value;
+  setCache(value) {
+    globalThis.cache.client = value;
   }
-  static get initialized() {
-    return _RedisCacheHandler._initialized;
+  initialized() {
+    return globalThis.cache._initialized;
   }
-  static set initialized(value) {
-    _RedisCacheHandler._initialized = value;
-  }
-  async list() {
-    return _RedisCacheHandler.cache?.keys("*");
+  setInitialized(value) {
+    globalThis.cache._initialized = value;
   }
   async waitForInitialization(label, action) {
-    if (_RedisCacheHandler.initialized) {
-      console.time(label);
+    if (this.initialized()) {
+      this.isDebug && console.time(label);
       const result = action();
-      console.timeEnd(label);
+      this.isDebug && console.timeEnd(label);
       return result;
     } else {
       if (this.waitedTime > this.LIMIT_WAITING_TIME) {
@@ -17688,11 +17688,46 @@ var RedisCacheHandler = class _RedisCacheHandler {
       setTimeout(() => this.waitForInitialization(label, action), this.WAITING_TIME);
     }
   }
+  async revalidateTag(tag) {
+    throw new Error("Method not implemented.");
+  }
+};
+
+// src/infrastructure/cache/redis/redis-cache-handler.ts
+var RedisCacheHandler = class extends BaseCacheHandler {
+  constructor(options) {
+    super(options, "redis" /* REDIS */);
+    this.options = options;
+    this.loadHandler();
+  }
+  async loadHandler() {
+    if (this.initialized())
+      return;
+    const options = {
+      url: process.env.REDIS_URL
+    };
+    const client = (0, import_redis.createClient)(options);
+    client.on("error", (err) => {
+      console.error("Caching Error :", err);
+    });
+    client.on("connect", () => {
+      this.setInitialized(true);
+      console.log("Redis client connected");
+    });
+    this.setCache(client);
+    this.cache().connect();
+  }
+  async list() {
+    return await this.cache()?.keys("*");
+  }
   async get(key) {
-    const strValue = await this.waitForInitialization(`get ${key}`, async () => _RedisCacheHandler.cache?.get(key));
+    const strValue = await this.waitForInitialization(`get ${key}`, async () => this.cache()?.get(key));
     if (!strValue)
       return null;
     return JSON.parse(strValue);
+  }
+  async remove(key) {
+    await this.waitForInitialization(`get ${key}`, async () => this.cache()?.del(key));
   }
   /**{
     fetchCache: true,
@@ -17705,31 +17740,22 @@ var RedisCacheHandler = class _RedisCacheHandler {
     const options = {
       EX: ctx.revalidate
     };
-    await this.waitForInitialization(`set ${key}`, async () => await _RedisCacheHandler.cache?.set(key, JSON.stringify(data), options));
-  }
-  async revalidateTag(tag) {
-    throw new Error("Method not implemented.");
+    await this.waitForInitialization(`set ${key}`, async () => await this.cache()?.set(key, JSON.stringify(data), options));
   }
 };
-async function loadCacheHandler() {
-  if (RedisCacheHandler.initialized)
-    return;
-  const options = {
-    url: "redis://localhost:6379"
-  };
-  RedisCacheHandler.cache = (0, import_redis.createClient)(options);
-  RedisCacheHandler.cache.on("error", (err) => {
-    console.error("Caching Error :", err);
-  });
-  RedisCacheHandler.cache.on("connect", () => {
-    RedisCacheHandler.initialized = true;
-    console.log("Redis client connected");
-  });
-  RedisCacheHandler.cache.connect();
-}
+
+// src/infrastructure/cache/CacheFactory.ts
+var CacheFactory = class {
+  static resolve() {
+    const cacheProvider = process.env.CACHE_PROVIDER;
+    switch (cacheProvider) {
+      case "redis" /* REDIS */:
+        return RedisCacheHandler;
+      default:
+        throw new Error(`Cache provider ${cacheProvider} is not supported`);
+    }
+  }
+};
 
 // bundle/cache-handler.ts
-(async () => {
-  await loadCacheHandler();
-})();
-module.exports = RedisCacheHandler;
+module.exports = CacheFactory.resolve();

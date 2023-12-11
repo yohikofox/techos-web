@@ -9,7 +9,11 @@ export interface CacheItemProps {
   apiKey: string
 }
 export default function Component({ id, apiKey }: CacheItemProps) {
-  const { item, loadItem } = useAdminStore(useShallow((state) => ({ item: state.cache.items[id], loadItem: state.cache.loadCacheItem })))
+  const { item, loadItem, removeItem } = useAdminStore(useShallow((state) => ({
+    item: state.cache.items[id],
+    loadItem: state.cache.loadCacheItem,
+    removeItem: state.cache.removeCacheItem
+  })))
 
   useEffect(() => {
     if (!item)
@@ -23,6 +27,7 @@ export default function Component({ id, apiKey }: CacheItemProps) {
       <tr>
         <td>{id}</td>
         <td>
+          <button onClick={async () => await removeItem({ id, apiKey })}>Refresh</button>
         </td>
       </tr>
     </>

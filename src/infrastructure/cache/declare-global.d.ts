@@ -1,6 +1,6 @@
 import type { RedisClientType } from 'redis';
 
 declare global {
-  var redisClient: RedisClientType | undefined;
+  var cache: any | undefined;
 }
 export default global;

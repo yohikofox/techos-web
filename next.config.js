@@ -1,7 +1,5 @@
 // @ts-check
 
-const CacheHandler = require.resolve('./cache-handler-redis.js');
-
 const path = require('path');
 
 const urlConfig = process.env.CMS_ENDPOINT
@@ -92,7 +90,6 @@ const nextConfig = {
     adjustFontFallbacks: true,
     windowHistorySupport: true,
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP'],
-    incrementalCacheHandlerPath: CacheHandler
   },
 
   images: {

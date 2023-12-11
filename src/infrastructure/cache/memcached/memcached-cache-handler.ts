@@ -1,59 +1,19 @@
 import Memcached from 'memcached';
-import { CustomCacheHandler } from '../CustomCacheHandler';
+import BaseCacheHandler from '../BaseCacheHandler';
+import { CacheProvider } from '../CacheFactory';
 
-export default class MemcachedCacheHandler implements CustomCacheHandler {
-  private TAG_MANIFESTS_KEY = 'tags-manifest'
-  private WAITING_TIME = 500
-  private LIMIT_WAITING_TIME = 30_000
-  private waitedTime: number = 0;
+export default class MemcachedCacheHandler extends BaseCacheHandler {
+  private ALL_KEYS = 'all_keys';
 
-  static _cache: Memcached | undefined = undefined;
-
-  private static _initialized: boolean = false;
-
-  public static get cache(): Memcached | undefined {
-    return globalThis.memcachedClient;
-  }
-  public static set cache(value: Memcached | undefined) {
-    globalThis.memcachedClient = value;
-  }
-
-  options: any;
   constructor(options: any) {
+    super(options, CacheProvider.MEMCACHED)
     this.options = options
-  }
-
-  public list<T>(): T[] | Promise<T[]> {
-    return []
-  }
-
-  static get initialized(): boolean {
-    return MemcachedCacheHandler._initialized;
-  }
-  static set initialized(value: boolean) {
-    MemcachedCacheHandler._initialized = value;
-  }
-
-  private async waitForInitialization<T>(label: string, action: Function): Promise<T | undefined> {
-    if (MemcachedCacheHandler.initialized) {
-      console.time(label)
-      const result = action()
-      console.timeEnd(label)
-      return result;
-
-    } else {
-      if (this.waitedTime > this.LIMIT_WAITING_TIME) {
-        throw new Error('Redis client not connected')
-      }
-
-      this.waitedTime += this.WAITING_TIME
-      setTimeout(() => this.waitForInitialization(label, action), this.WAITING_TIME)
-    }
+    this.loadHandler()
   }
 
   async get(key: string) {
     const strValue = await this.waitForInitialization<string>(`get ${key}`, async () => await new Promise((resolve, reject) => {
-      MemcachedCacheHandler.cache?.get(key, (err, data) => {
+      this.cache<Memcached>()?.get(key, (err, data) => {
         if (err) reject(err);
         resolve(data);
       })
@@ -61,6 +21,7 @@ export default class MemcachedCacheHandler implements CustomCacheHandler {
     if (!strValue) return null;
     return JSON.parse(strValue);
   }
+
   /**{
     fetchCache: true,
     revalidate: 3600,
@@ -70,24 +31,54 @@ export default class MemcachedCacheHandler implements CustomCacheHandler {
   } */
   async set(key: string, data: any, ctx: any) {
     await this.waitForInitialization<string>(`set ${key}`, async () => await new Promise<void>((resolve, reject) => {
-      MemcachedCacheHandler.cache?.set(key, JSON.stringify(data), ctx.revalidate, (err) => {
+      this.cache<Memcached>()?.set(key, JSON.stringify(data), ctx.revalidate, (err) => {
         if (err) reject(err);
-        resolve();
+        this.cache<Memcached>()?.get(this.ALL_KEYS, (err, data) => {
+          if (err) reject(err);
+          const newData = data ? [...data, key] : [key];
+          this.cache<Memcached>()?.set(this.ALL_KEYS, newData, 0, (err, result) => {
+            if (err) reject(err);
+            resolve();
+          });
+        });
       })
     }));
   }
 
-  async revalidateTag(tag: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async remove(key: string): Promise<void> {
+    await this.waitForInitialization<string>(`remove ${key}`, async () => await new Promise<void>((resolve, reject) => {
+      this.cache<Memcached>()?.del(key, (err) => {
+        if (err) reject(err);
+        this.cache<Memcached>()?.get(this.ALL_KEYS, (err, data) => {
+          if (err) reject(err);
 
+          const newData = data ? data.filter((k: string) => k !== key) : [];
+          this.cache<Memcached>()?.set(this.ALL_KEYS, newData, 0, (err, result) => {
+            if (err) reject(err);
+            resolve();
+          });
+
+        });
+      })
+    }));
+  }
+
+  async list<T>(): Promise<T[]> {
+    return await new Promise<T[]>((resolve, reject) => {
+      this.cache<Memcached>()?.get(this.ALL_KEYS, (err, data) => {
+        if (err) reject(err);
+        resolve(data);
+      });
+    })
+  }
+
+  async loadHandler(): Promise<void> {
+    if (this.initialized()) return;
+
+    const options: Memcached.options = {}
+    const memcachedClient = new Memcached('localhost:11211', options);
+    this.setCache<Memcached>(memcachedClient);
+    this.setInitialized(true);
   }
 }
 
-
-export async function loadCacheHandler() {
-  if (MemcachedCacheHandler.initialized) return;
-  const options: Memcached.options = {}
-  const memcachedClient = new Memcached('localhost:11211', options);
-  globalThis.memcachedClient = memcachedClient;
-  MemcachedCacheHandler.initialized = true;
-}

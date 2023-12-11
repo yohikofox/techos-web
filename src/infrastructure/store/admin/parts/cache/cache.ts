@@ -4,6 +4,7 @@ export type CacheStore = {
   itemIdList: string[],
   items: Record<string, CacheItem>,
   loadCacheItem: ({ id, apiKey }: { id: string, apiKey: string }) => Promise<void>,
+  removeCacheItem: ({ id, apiKey }: { id: string, apiKey: string }) => Promise<void>,
   loadCacheItems: ({ apiKey }: { apiKey: string }) => Promise<void>,
 }
 
@@ -21,8 +22,24 @@ export default class CacheStoreImplementation implements CacheStore {
     this.itemIdList = initialState.itemIdList === undefined ? [] : initialState.itemIdList;
   }
 
+  public removeCacheItem: ({ apiKey, id }: { apiKey: string, id: string }) => Promise<void> = async ({ apiKey, id }: { apiKey: string, id: string }) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/admin/cache/tags/${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+      headers: {
+        'api-key': apiKey
+      },
+      next: {
+        revalidate: 0
+      }
+    })
+
+    const data = await response.json()
+
+    this.loadCacheItems({ apiKey })
+  }
+
   public loadCacheItem: ({ apiKey, id }: { apiKey: string, id: string }) => Promise<void> = async ({ apiKey, id }: { apiKey: string, id: string }) => {
-    const response = await fetch(`/api/admin/cache/tags/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/admin/cache/tags/${encodeURIComponent(id)}`, {
       headers: {
         'api-key': apiKey
       },
@@ -41,7 +58,7 @@ export default class CacheStoreImplementation implements CacheStore {
   }
 
   public loadCacheItems: ({ apiKey }: { apiKey: string }) => Promise<void> = async ({ apiKey }: { apiKey: string }) => {
-    const response = await fetch(`/api/admin/cache/tags`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/admin/cache/tags`, {
       headers: {
         'api-key': apiKey
       },
