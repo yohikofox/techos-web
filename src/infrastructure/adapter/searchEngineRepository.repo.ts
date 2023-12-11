@@ -25,26 +25,35 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
     const { payload, indexName } = options
 
     const endpoint = await this.configManager.get('INDEX_ENDPOINT')
+    console.log('endpoint:', endpoint)
+    const bearer = await this.configManager.get('INDEX_TOKEN')
+    console.log('bearer:', bearer)
+    const url = `${endpoint}/indexes/${indexName}/search`
+    console.log('url:', url)
+    try {
+      const response = await fetch(url,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            q: payload
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${bearer}`
+          }
+        })
 
-    const response = await fetch(`${endpoint}/indexes/${indexName}/search`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          q: payload
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer byq4v7FNY2HjA7ATSJeCPzxH7oqchSHMBaZOrBSFZrM"
-        }
-      })
+      if (!response.ok) {
+        console.log('Network response was not ok.', response.status, response.statusText);
+        return Result.error(SearchEngineResult.ERROR)
+      }
 
-    if (!response.ok) {
-      console.log('Network response was not ok.', response.status, response.statusText);
+      const json = await response.json();
+
+      return Result.ok(json)
+    } catch (err) {
+      console.error(err)
       return Result.error(SearchEngineResult.ERROR)
     }
-
-    const json = await response.json();
-
-    return Result.ok(json)
   }
 }
