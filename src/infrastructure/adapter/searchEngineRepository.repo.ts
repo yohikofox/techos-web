@@ -24,7 +24,9 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
   async search<T>(options: SearchEngineVariables): Promise<Result<T, SearchEngineResult>> {
     const { payload, indexName } = options
 
-    const response = await fetch(`${await this.configManager.get('INDEX_ENDPOINT')}/indexes/${indexName}/search`,
+    const endpoint = await this.configManager.get('INDEX_ENDPOINT')
+
+    const response = await fetch(`${endpoint}/indexes/${indexName}/search`,
       {
         method: 'POST',
         body: JSON.stringify({

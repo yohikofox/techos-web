@@ -45,7 +45,7 @@ export default class ConfigManager implements IConfigManager {
 
   private load() {
     if (this.loaded) return
-
+    console.log('this.endpoint:', this.endpoint)
     fetch(`${this.endpoint}/api/configurations`, {
       method: 'GET',
       headers: {
@@ -57,6 +57,7 @@ export default class ConfigManager implements IConfigManager {
       }
     }).then(async (response) => {
       return response.json().then((json) => {
+        console.log('json:', json)
         this._config = {}
         json.data.forEach((conf: any) => {
           this._config[conf.attributes.key] = conf.attributes.value
