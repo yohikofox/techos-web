@@ -29,7 +29,7 @@
   }
 
   .hamburger__menu {
-    display: flex;
+    display: none; //flex
     flex-direction: column;
     justify-content: center;
     padding: 5px;
@@ -76,11 +76,11 @@
 
   .logo {
     position: relative;
-    display: none;
+    display: flex; //none
+    width: 30px; //75px
     justify-content: center;
     align-items: center;
     margin-right: 0.5rem;
-    width: 75px;
 
     img {
       object-fit: cover;
@@ -88,6 +88,7 @@
 
     .logo__svg {
       fill: var(--color-foreground);
+      padding: 2px;
     }
 
     a {

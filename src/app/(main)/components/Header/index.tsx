@@ -39,16 +39,7 @@ export default async function Header({ title }: HeaderProps) {
       </section>
       <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}<Link aria-label={await configManager.get("DOMAIN_NAME")} href={"/"} className={styles.inset__link} /></span>
       <nav>
-        <ul className={styles.nav__menu}>
-          <li className={styles.menu__link}>
-            <Link href="/formations">Formations</Link>
-          </li>
-          {response.Value.trainings && <li><MenuList name={response.Value.trainings.title || ""} items={response.Value.trainings.items} /></li>}
-          {/* <li className={styles.push__right}>
-            
-            
-          </li> */}
-        </ul>
+
       </nav>
       <SearchModal
         className={styles.search__modal}
@@ -58,3 +49,15 @@ export default async function Header({ title }: HeaderProps) {
     </header>
   )
 }
+
+
+/**<ul className={styles.nav__menu}>
+          <li className={styles.menu__link}>
+            <Link href="/formations">Formations</Link>
+          </li>
+          {response.Value.trainings && <li><MenuList name={response.Value.trainings.title || ""} items={response.Value.trainings.items} /></li>}
+          <li className={styles.push__right}>
+            
+            
+          </li> 
+        </ul > */
