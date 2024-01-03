@@ -3,6 +3,7 @@
 const path = require('path');
 
 const urlConfig = process.env.CMS_ENDPOINT
+console.log("🚀 ~ file: next.config.js:6 ~ urlConfig:", urlConfig)
 
 if (!urlConfig || !URL.canParse(urlConfig)) {
   throw new Error(`CMS_ENDPOINT is not set or not a valid URL: [${urlConfig}]`)
