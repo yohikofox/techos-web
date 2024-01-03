@@ -3,7 +3,6 @@
 const path = require('path');
 
 const urlConfig = process.env.CMS_ENDPOINT
-console.log("🚀 ~ file: next.config.js:6 ~ urlConfig:", urlConfig?.toString())
 
 if (!urlConfig || !URL.canParse(urlConfig)) {
   throw new Error(`CMS_ENDPOINT is not set or not a valid URL: [${urlConfig}]`)
@@ -25,10 +24,6 @@ const bucketEnv = process.env.NEXT_PUBLIC_BUCKET_HOST;
 if (!bucketEnv) {
   throw new Error('NEXT_PUBLIC_BUCKET_HOST is not set')
 }
-
-const storeEndpointConfig = process.env.STORE_ENDPOINT;
-
-const storeEndpointUrl = new URL(storeEndpointConfig || "");
 
 
 
@@ -70,13 +65,21 @@ const remotePatterns = [
     pathname: '/**',
     port: '',
   },
-  {
+]
+
+const storeEndpointConfig = process.env.STORE_ENDPOINT;
+
+if (storeEndpointConfig && URL.canParse(storeEndpointConfig)) {
+  const storeEndpointUrl = new URL(storeEndpointConfig || "");
+  remotePatterns.push({
     protocol: storeEndpointUrl.protocol.includes('https') ? 'https' : 'http',
     hostname: storeEndpointUrl.hostname,
     pathname: '/**',
     port: '',
-  }
-]
+  })
+} else {
+  console.warn(`STORE_ENDPOINT is not set or not a valid URL: [${storeEndpointConfig}]`)
+}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
