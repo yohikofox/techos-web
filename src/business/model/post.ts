@@ -13,7 +13,7 @@ export enum PostType {
 
 type Post = {
   title: string
-  extract: string
+  extract?: string
   slug: string
   content: string
   start_at: string

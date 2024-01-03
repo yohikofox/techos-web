@@ -16,7 +16,7 @@ export default class PostService implements IPostService {
       title: post.attributes.title,
       slug: post.attributes.slug,
       content: post.attributes.content,
-      extract: post.attributes.extract,
+      extract: post.attributes.extract ?? undefined,
       start_at: post.attributes.start_at,
       type: PostType.Article,
       author: {

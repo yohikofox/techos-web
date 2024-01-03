@@ -66,7 +66,7 @@ export default async function Footer() {
         <section className={classNames(styles.section, styles.trainings)}>
           <h4 className={styles.section__header}>Formation</h4>
           <ul>
-            {response.Value.trainings?.items.map((training: any, index: number) => {
+            {response.Value?.trainings?.items.map((training: any, index: number) => {
               return (
                 <li key={`training-item-${index}`}>
                   <Link aria-label={`formation: ${training.title}`} href={training.link}>{training.title}</Link>

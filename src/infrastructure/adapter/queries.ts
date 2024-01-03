@@ -57,64 +57,6 @@ const queries = {
       }}}
     }
   `,
-  getPostList: `
-query postList($index: Int!, $limit: Int!) {
-  posts(sort: "start_at:desc", pagination: { start: $index, limit: $limit }) {
-    data {
-      attributes {
-        level
-        author {
-          data {
-            attributes {
-              username
-            }
-          }
-        }
-        tags {
-          data {
-            attributes {
-              label
-              background_color
-              color
-              slug
-            }
-          }
-        }
-        title
-        slug
-        content
-        extract
-        start_at
-        picture {
-          data {
-            attributes {
-              name
-              url
-              width
-              height
-            }
-          }
-        }
-        post_stat_list {
-          data {
-            attributes {
-              view_count
-            }
-          }
-        }
-      }
-    }
-    meta {
-      pagination {
-        total
-        page
-        pageSize
-        pageCount
-      }
-    }
-  }
-}
-  `,
   getPostDetails: `
   query postDetails($slug: StringFilterInput!) {
   posts(filters: { slug: $slug }) {
@@ -315,6 +257,7 @@ import { deleteWebPushSubscription } from "@/infrastructure/adapter/queries/dele
 import { getOfflinePageData } from "@/infrastructure/adapter/queries/getOfflinePageData"
 import getWebPushNotification from "@/infrastructure/adapter/queries/getWebPushNotification"
 import getWebPushSubscriptionList from "@/infrastructure/adapter/queries/getWebPushSubscriptionList"
+import { getPostList } from "@/infrastructure/adapter/queries/getPostList"
 
 const exportable = {
   ...queries,
@@ -322,6 +265,7 @@ const exportable = {
   getWebPushNotification,
   deleteWebPushSubscription,
   getOfflinePageData,
+  getPostList,
 }
 
 export default exportable

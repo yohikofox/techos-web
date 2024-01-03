@@ -16,7 +16,8 @@ export enum PostListResult {
 
 export type PostListRequest = {
   index?: number,
-  limit?: number
+  limit?: number,
+  sort?: string
 }
 
 export default class GetPostListUseCase implements IUseCase<PostListRequest, Result<PostList, PostListResult>> {

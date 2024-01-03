@@ -1,9 +1,9 @@
 import queries from "./queries";
 
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import { ContentManagerSystemResult, FetchOptions, GraphQLQueries, IContentManagerSystemRepository } from "@/business/adapter/contentManagementSystem";
+import { ContentManagerSystemResult, GraphQLQueries, IContentManagerSystemRepository } from "@/business/adapter/contentManagementSystem";
 import { Result } from "@/lib/result";
-import { z } from "zod";
+import { FetchOptions } from "./fetchOptions";
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {
   constructor(private configManager: IConfigManager) { }
@@ -31,7 +31,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       });
 
       if (!response.ok) {
-        console.log('Network response was not ok.', response.status, response.statusText);
+        console.log('CMS Response was not ok.', response.status, response.statusText);
         return Result.error(ContentManagerSystemResult.ERROR)
       }
 

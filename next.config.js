@@ -21,6 +21,12 @@ if (!bucketEnv) {
   throw new Error('NEXT_PUBLIC_BUCKET_HOST is not set')
 }
 
+const storeEndpointConfig = process.env.STORE_ENDPOINT;
+
+const storeEndpointUrl = new URL(storeEndpointConfig || "");
+
+
+
 const remotePatterns = [
   cmsConfig,
   {
@@ -59,6 +65,12 @@ const remotePatterns = [
     pathname: '/**',
     port: '',
   },
+  {
+    protocol: storeEndpointUrl.protocol.includes('https') ? 'https' : 'http',
+    hostname: storeEndpointUrl.hostname,
+    pathname: '/**',
+    port: '',
+  }
 ]
 
 /** @type {import('next').NextConfig} */

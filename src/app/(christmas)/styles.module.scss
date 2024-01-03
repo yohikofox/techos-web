@@ -1,0 +1,17 @@
+.container {
+  background: url('/iphone.jpg');
+  background-size: auto 90%;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-position: center;
+
+  .content {
+    max-width: 280px;
+    height: 570px;
+    margin-left: calc(50% - (280px / 2) + 2px);
+    margin-top: 80px;
+    overflow: auto;
+  }
+}

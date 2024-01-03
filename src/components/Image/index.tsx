@@ -50,8 +50,6 @@ export default async function ServerImage(options: ImageOptions) {
 
 
 export function Image(options: ImageOptions) {
-
-
   const localOptions: ImageOptions = {
     ...options,
   }

@@ -1,16 +1,10 @@
 import { Result } from "@/lib/result"
-import { ZodTypeAny } from "zod"
+import { FetchOptions } from "R/src/infrastructure/adapter/fetchOptions"
 
 export enum ContentManagerSystemResult {
   SUCCESS = 'success',
   ERROR = 'error',
   UNHANDLED_ERROR = 'unhandled_error',
-}
-
-export type FetchOptions = {
-  revalidate?: number
-  tags?: string[],
-  schema?: ZodTypeAny
 }
 
 export interface IContentManagerSystemRepository {
@@ -33,3 +27,4 @@ export enum GraphQLQueries {
   DELETE_WEB_PUSH_SUBSCRIPTION = 'deleteWebPushSubscription',
   GET_OFFLINE_PAGE_DATA = 'getOfflinePageData',
 }
+

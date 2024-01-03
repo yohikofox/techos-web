@@ -19,6 +19,7 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
   ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, { revalidate: 60 * 60 * 1 })
+    console.log('response:', response)
 
     if (response.IsError) {
       return response.transferError(PostDetailsResult.ERROR)

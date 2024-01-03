@@ -36,6 +36,7 @@ remove tailwind                                                                 
 faire une fonction recursive pour les imports de style (bundles.scss)                                                |        |
 ajouter un bundler pour le next.config.js                                                                            |        |
 pre/code text-wrap  ex: http://localhost:3000/post/les-shadow-realms-en-javascript                                   | done   |
+Create a CLI to scaffold useCases                                                                                    |        |
 
 # A creuser 
 

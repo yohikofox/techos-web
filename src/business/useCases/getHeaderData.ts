@@ -31,8 +31,8 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
         search_title: response.Value.header.data.attributes.search_title
       },
       trainings: {
-        title: response.Value.header.data.attributes.trainings,
-        items: await Promise.all(response.Value.trainings.data.map(async (training: any) => {
+        title: response.Value.header.data.attributes?.trainings,
+        items: await Promise.all(response.Value?.trainings.data.map(async (training: any) => {
           return {
             title: training.attributes.title,
             link: `/formation${training.attributes.link}`,

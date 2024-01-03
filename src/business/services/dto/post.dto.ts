@@ -10,7 +10,7 @@ export const postDataSchema = z.object({
     title: z.string(),
     slug: z.string(),
     content: z.string(),
-    extract: z.string(),
+    extract: z.string().optional().nullable(),
     start_at: z.string(),
     author: authorDataSchema,
     picture: pictureDataSchema,

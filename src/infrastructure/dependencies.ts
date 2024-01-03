@@ -33,6 +33,10 @@ const repositoryDependencies = {
     resolve: async () => import('@/infrastructure/adapter/searchEngineRepository.repo'),
     dependencies: ['Helper/ConfigManager']
   },
+  'Repo/Store': {
+    resolve: async () => import('@/infrastructure/adapter/store.repo'),
+    dependencies: ['Helper/ConfigManager']
+  },
 }
 
 
@@ -89,6 +93,14 @@ const useCaseDependencies = {
     resolve: async () => import('@biz/useCases/getOfflinePageData'),
     dependencies: ['Repo/ContentManagerSystem']
   },
+  'UseCase/GetProductById': {
+    resolve: async () => import('@biz/useCases/getProductById'),
+    dependencies: ['Repo/Store', 'Domain/ProductService']
+  },
+  'UseCase/GetRandomProduct': {
+    resolve: async () => import('@biz/useCases/getRandomProduct'),
+    dependencies: ['Repo/Store', 'Domain/ProductService']
+  },
 }
 
 
@@ -103,6 +115,10 @@ const domainDependencies = {
   },
   'Domain/MetaService': {
     resolve: async () => import('@biz/services/meta.service'),
+    dependencies: []
+  },
+  'Domain/ProductService': {
+    resolve: async () => import('@biz/services/product.service'),
     dependencies: []
   },
 }
