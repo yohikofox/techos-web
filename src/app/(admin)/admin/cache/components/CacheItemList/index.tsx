@@ -20,7 +20,7 @@ export default function Component({ apiKey }: TagListProps) {
 
   return (
     <>
-      <table>
+      {tags.length > 0 && <table>
         <thead>
           <tr>
             <th>Key</th>
@@ -30,7 +30,7 @@ export default function Component({ apiKey }: TagListProps) {
         <tbody>
           {tags.map((it: string, index: number) => <CacheItem key={`item-${index}`} id={it} apiKey={apiKey} />)}
         </tbody>
-      </table>
+      </table>}
     </>
   )
 }

@@ -4,7 +4,11 @@ const path = require('path');
 
 const urlConfig = process.env.CMS_ENDPOINT
 
-const cmsUrl = new URL(urlConfig || "");
+if (!urlConfig || !URL.canParse(urlConfig)) {
+  throw new Error(`CMS_ENDPOINT is not set or not a valid URL: [${urlConfig}]`)
+}
+
+const cmsUrl = new URL(urlConfig);
 
 const cmsConfig = {
   protocol: cmsUrl.protocol.includes('https') ? 'https' : 'http',
