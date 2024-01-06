@@ -7,7 +7,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const tag = searchParams.get('tag');
 
-  if (tag) revalidateTag(tag);
+  if (tag) {
+    console.log("🚀 ~ file: route.ts:12 ~ GET ~ tag:", tag)
+    revalidateTag(tag);
+    // revalidatePath('/');
+  }
 
   return NextResponse.json({ status: 'OK' });
 }

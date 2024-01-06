@@ -19,7 +19,10 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
   ) { }
   async execute(request?: any): Promise<Result<HomeData, HomeDataResult>> {
 
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request, { revalidate: 60 * 60 * 1, tags: [RevalidateTagConstants.HOME] })
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request, {
+      // revalidate: 60 * 60 * 1,
+      tags: [RevalidateTagConstants.HOME]
+    })
 
     if (response.IsError) {
       return response.transferError(HomeDataResult.ERROR)

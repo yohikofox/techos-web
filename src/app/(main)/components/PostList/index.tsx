@@ -9,6 +9,7 @@ import { PostType } from "@/business/model/post";
 import Container from "@/infrastructure/dependencyFactory";
 import { DependencyKeys } from "@/infrastructure/dependencies";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import TextToSpeechInfos from "../TextToSpeechInfos";
 
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
@@ -65,13 +66,16 @@ export default async function PostListRender({ title, page }: PostListProps) {
   }
 
   return (
-    <section className={styles.container}>
-      {posts.map((post, index) => {
-        return (
-          <PostCard key={`post-list-item-${index}`} post={post} index={index} />
-        )
-      })}
-      <Pagination {...postListResponse.Value.meta.pagination} />
-    </section>
+    <>
+      <TextToSpeechInfos />
+      <section className={styles.container}>
+        {posts.map((post, index) => {
+          return (
+            <PostCard key={`post-list-item-${index}`} post={post} index={index} />
+          )
+        })}
+        <Pagination {...postListResponse.Value.meta.pagination} />
+      </section>
+    </>
   )
 }

@@ -11,6 +11,7 @@ export interface SearchBarProps {
 }
 
 const MIN_SEARCH_CHAR_LENGTH = 0
+const SEARCH_TRIGGER_DELAY = 200
 
 export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
@@ -47,11 +48,12 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (delay) {
+    if (e.target.value.length < MIN_SEARCH_CHAR_LENGTH) return
+    if (delay || SEARCH_TRIGGER_DELAY > 0) {
       if (currentTimeout.current) clearTimeout(currentTimeout.current)
       currentTimeout.current = setTimeout(async () => {
         fetchResults(e.target.value)
-      }, 10)
+      }, SEARCH_TRIGGER_DELAY)
     } else {
       fetchResults(e.target.value)
     }

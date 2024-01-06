@@ -10,12 +10,9 @@ import { DisplayTracking } from "@/app/(main)/components/TrackingWorker"
 import classNames from 'classnames';
 import getReadingTime from "@/infrastructure/helper/getReadingTime"
 import PostHelper from "@/infrastructure/helper/postHelper"
-import Container from "@/infrastructure/dependencyFactory"
-import { IConfigManager } from "@/infrastructure/adapter/configManager"
+import TextToSpeechButton from "../../../TextToSpeechButton"
 
 export default async function Article({ post }: PostCardProps) {
-  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
-
   const { src } = post?.picture || { src: '', width: 0, height: 0 };
 
   const getAbstractHTML = () => {
@@ -53,6 +50,15 @@ export default async function Article({ post }: PostCardProps) {
         <section className={styles.details__bottom}>
           {post.extract && (
             <div className={styles.abstract} dangerouslySetInnerHTML={{ __html: getAbstractHTML() || '' }} />
+          )}
+          {(post.slug && post.extract) && (
+            <div className={styles.read__container}>
+              <TextToSpeechButton
+                identifier={post.slug}
+                className={styles.read__button}
+                text={post.extract}
+              />
+            </div>
           )}
         </section>
       </section>

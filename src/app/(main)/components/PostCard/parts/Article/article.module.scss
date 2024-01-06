@@ -110,7 +110,21 @@ $card-gap: 20px;
 
   .details__bottom {
     // z-index: 1;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+
+    .read {
+      &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__button {
+        position: absolute;
+        z-index: 2;
+      }
+
+    }
   }
 
 
@@ -119,6 +133,8 @@ $card-gap: 20px;
     overflow: hidden;
     height: 100%;
   }
+
+
 }
 
 @media screen and (min-width: 760px) {

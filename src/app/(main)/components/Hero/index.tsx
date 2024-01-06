@@ -20,7 +20,7 @@ export default async function Hero({ title, background, picture, content }: Hero
             priority
             src={background.src}
             alt={background.name || ''}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"}
             style={{
               objectFit: 'cover',
             }}

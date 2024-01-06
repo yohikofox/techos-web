@@ -4,6 +4,7 @@ import Post, { PostType } from "../model/post";
 import { IUseCase } from "../useCaseFactory";
 import { IImageSetService } from "../services/imageSet.service";
 import { Result } from "@/lib/result";
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
 
 export enum PostDetailsResult {
@@ -18,8 +19,10 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, { revalidate: 60 * 60 * 1 })
-    console.log('response:', response)
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, {
+      // revalidate: 60 * 60 * 1,
+      tags: [RevalidateTagConstants.POST]
+    })
 
     if (response.IsError) {
       return response.transferError(PostDetailsResult.ERROR)

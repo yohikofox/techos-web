@@ -3,6 +3,7 @@ import HeaderData from "../model/headerData";
 import { IImageSetService } from "../services/imageSet.service";
 import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import { Result } from "@/lib/result";
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
 export enum HeaderDataResult {
   SUCCESS = 'success',
@@ -16,7 +17,10 @@ export default class GetHeaderDataUseCase implements IUseCase<any, Result<Header
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: any): Promise<Result<HeaderData, HeaderDataResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request, { revalidate: 60 * 60 * 1 })
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request, {
+      // revalidate: 60 * 60 * 1,
+      tags: [RevalidateTagConstants.HEADER_DATA]
+    })
 
     if (response.IsError) {
       return response.transferError(HeaderDataResult.ERROR)

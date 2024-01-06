@@ -9,7 +9,7 @@ const levelMapping: { [key: string]: string } = {
 
 
 export default class PostHelper {
-  private static __ABSTRACT_SIZE: number = 300
+  private static __ABSTRACT_SIZE: number = 200
 
   public static getLevel(level: string): string | undefined {
     return level == 'basic' ? undefined : levelMapping[level]
@@ -35,9 +35,9 @@ export default class PostHelper {
   }
 
   public static getExtract(extract: string): string | undefined {
-    const toto = parseFragment(extract)
+    const fragments = parseFragment(extract)
 
-    const resultFragments: any[] = this.extractFromFragment(toto)
+    const resultFragments: any[] = this.extractFromFragment(fragments)
 
     let res = '';
     let shorted = false;

@@ -1,6 +1,7 @@
 import Post, { PostType } from "../model/post"
 import { IImageSetService } from "./imageSet.service"
 import { PostData } from "./dto/post.dto"
+import { ITagService } from "./tag.service"
 
 export interface IPostService {
   mapPost(post: any): Promise<Post>
@@ -8,7 +9,8 @@ export interface IPostService {
 
 export default class PostService implements IPostService {
   constructor(
-    private imageSetService: IImageSetService
+    private imageSetService: IImageSetService,
+    private tagService: ITagService
   ) { }
 
   async mapPost(post: PostData): Promise<Post> {
@@ -24,14 +26,9 @@ export default class PostService implements IPostService {
         avatar: post.attributes.author.data.attributes.avatar?.data &&
           await this.imageSetService.mapImageSet(post.attributes.author.data.attributes.avatar.data.attributes)
       },
-      picture: await this.imageSetService.mapImageSet(post.attributes.picture.data.attributes),
+      picture: post.attributes.picture && await this.imageSetService.mapImageSet(post.attributes.picture.data.attributes) || undefined,
       tags: post.attributes.tags.data.map((tag: any) => {
-        return {
-          label: tag.attributes.label,
-          slug: tag.attributes.slug,
-          color: tag.attributes.color,
-          backgroundColor: tag.attributes.background_color
-        }
+        return this.tagService.mapTag(tag)
       }),
       stats: post.attributes.post_stat_list?.data ? {
         slug: post.attributes.slug,

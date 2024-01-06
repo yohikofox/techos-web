@@ -38,12 +38,12 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       const json = await response.json();
 
       if (json.errors) {
-        console.log('GraphQL query error', json.errors);
+        console.warn('GraphQL query error', json.errors);
         return Result.error(ContentManagerSystemResult.ERROR)
       }
 
       if (!json.data) {
-        console.log('GraphQL query error', json);
+        console.warn('GraphQL query error', json);
         return Result.error(ContentManagerSystemResult.ERROR)
       }
 
@@ -52,7 +52,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       const parseResult = options?.schema.safeParse(json.data)
 
       if (!parseResult.success) {
-        console.log('GraphQL query error', parseResult.error.message);
+        console.warn('GraphQL query error', parseResult.error.message);
         return Result.error(ContentManagerSystemResult.ERROR)
       }
 

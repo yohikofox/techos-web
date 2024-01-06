@@ -5,7 +5,6 @@ export enum ResourceTypes {
   Transient = 'Transient'
 }
 
-
 const helperDependencies = {
   "Helper/TokenGenerator": {
     resolve: async () => import('@/infrastructure/security/token'),
@@ -22,8 +21,6 @@ const helperDependencies = {
   },
 }
 
-
-
 const repositoryDependencies = {
   'Repo/ContentManagerSystem': {
     resolve: async () => import('@/infrastructure/adapter/contentManagerRepository.repo'),
@@ -38,7 +35,6 @@ const repositoryDependencies = {
     dependencies: ['Helper/ConfigManager']
   },
 }
-
 
 const useCaseDependencies = {
   'UseCase/GetHomeData': {
@@ -103,7 +99,6 @@ const useCaseDependencies = {
   },
 }
 
-
 const domainDependencies = {
   'Domain/ImageSetService': {
     resolve: async () => import('@biz/services/imageSet.service'),
@@ -111,7 +106,7 @@ const domainDependencies = {
   },
   'Domain/PostService': {
     resolve: async () => import('@biz/services/post.service'),
-    dependencies: ['Domain/ImageSetService']
+    dependencies: ['Domain/ImageSetService', 'Domain/TagService']
   },
   'Domain/MetaService': {
     resolve: async () => import('@biz/services/meta.service'),
@@ -119,6 +114,10 @@ const domainDependencies = {
   },
   'Domain/ProductService': {
     resolve: async () => import('@biz/services/product.service'),
+    dependencies: []
+  },
+  'Domain/TagService': {
+    resolve: async () => import('@biz/services/tag.service'),
     dependencies: []
   },
 }
@@ -135,7 +134,6 @@ export const ResourceMapping: {
   ...repositoryDependencies,
   ...useCaseDependencies,
   ...domainDependencies,
-
 }
 
 

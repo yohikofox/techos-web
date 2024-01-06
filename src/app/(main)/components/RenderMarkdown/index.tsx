@@ -5,14 +5,15 @@ import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
 
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
 import Container from '@/infrastructure/dependencyFactory';
+import TextToSpeechButton from "../TextToSpeechButton";
 
 export interface RenderMarkdownProps {
   content: string
   className?: string
 }
 
-export default async function RenderMarkdown({content, className}: RenderMarkdownProps) {
-    
+export default async function RenderMarkdown({ content, className }: RenderMarkdownProps) {
+
   const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
   const cmsEndpoint = await configManager.get('CMS_ENDPOINT')
 
@@ -23,7 +24,7 @@ export default async function RenderMarkdown({content, className}: RenderMarkdow
       return highlightMarkdown(str, lang, attrs)
     },
   })
-  
+
 
   m.renderer.rules.image = function (tokens, idx, options, env, slf) {
     var token = tokens[idx]
@@ -38,8 +39,19 @@ export default async function RenderMarkdown({content, className}: RenderMarkdow
     }
     return ''
   }
-
+  const ctnt = m.render(content)
   return (
-    <div className={classNames(styles.content, className)} dangerouslySetInnerHTML={{ __html: m.render(content) }} />
+    <>
+      {(content) && (
+        <div className={styles.speech}>
+          <TextToSpeechButton
+            identifier={""}
+            className={styles.read__button}
+            text={ctnt}
+          />
+        </div>
+      )}
+      <div className={classNames(styles.content, className)} dangerouslySetInnerHTML={{ __html: ctnt }} />
+    </>
   )
 }
