@@ -6,9 +6,6 @@ import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import Hero from "@/app/(main)/components/Hero";
 import ImageSet from "@/business/model/image";
 import PostDetails from "@/app/(main)/components/PostDetails";
-import TrackingWorker from "@/app/(main)/components/TrackingWorker";
-
-export const dynamic = 'force-static';
 
 export interface PostPageProps { params: { slug: string } }
 

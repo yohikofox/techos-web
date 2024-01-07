@@ -35,7 +35,6 @@ export default async function SessionHandler({ children, target }: SessionHandle
   const headersList = headers();
 
   const redirectUrl = `/api/auth/signin${currentProvider}?callbackUrl=${encodeURIComponent(`${await configManager.get("NEXT_PUBLIC_FRONT_URL")}${headersList.get('x-pathname') || target || ''}`)}`
-  console.log('redirectUrl:', redirectUrl)
 
   if (!session || !session.user) {
     redirect(redirectUrl)

@@ -15,7 +15,6 @@ const INSTALL_CACHED_RESOURCES = [
 let VERSION = ''
 
 export const installPointCut = async (event: any, version: string) => {
-  console.log('event:', event)
   VERSION = version
   for (var i = 0; i < INSTALL_CACHED_RESOURCES.length; i++) {
     const key = INSTALL_CACHED_RESOURCES[i]
@@ -59,7 +58,6 @@ const handleEvent = async (event: FetchEvent): Promise<Response | undefined> => 
         return handle(event)
       case 'navigate': {
         if (ALLOWED_NAVIGATE_URL_CACHE_PATTERN_LIST.some((pattern) => pattern.test(new URL(event.request.url).pathname))) {
-          console.log("navigate yep", event.request.url)
           return handle(event)
         }
         return

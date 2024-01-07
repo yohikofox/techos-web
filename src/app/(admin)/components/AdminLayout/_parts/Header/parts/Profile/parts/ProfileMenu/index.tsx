@@ -25,9 +25,7 @@ const Menu = () => {
   useEffect(() => {
     const clickHandler = (event: any) => {
       if (!menuRef.current?.contains(event.target)) {
-        console.log('event.target:', event.target)
         if (event.target.dataset.name === 'profile-menu-toggle') return
-        console.log('event.target.dataset.name:', event.target.dataset.name)
         toggle()
       }
     }

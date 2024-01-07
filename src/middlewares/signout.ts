@@ -39,14 +39,12 @@ export default class SignOutMiddleware extends Middleware {
       body: await csrf.text()
     })
 
-    console.log('fetchResponse:', fetchResponse)
 
     return { redirectUrl: callbackUrl, cookies: undefined }
   }
 
   async run(request: NextRequest, _next: NextFetchEvent): Promise<NextMiddlewareResult> {
     const session = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
-    console.log('session:', session)
 
     if (session) {
 

@@ -14,9 +14,9 @@ const refreshTag = async (value: string) => {
     const data = await response.json()
 
     //TODO: push notification
-    console.log(data)
+    console.log('refreshTag:', data)
   } catch (error) {
-    console.error(error)
+    console.error('refreshTag:', error)
   }
 }
 

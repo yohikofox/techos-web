@@ -35,7 +35,6 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
   const [searchResults] = useContext(SearchDataContext) || []
 
   const handleLinkClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
-    console.log('click')
     handleSelectedItem()
   }
 

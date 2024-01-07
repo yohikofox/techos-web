@@ -8,7 +8,6 @@ export async function GET(request: Request) {
   const tag = searchParams.get('tag');
 
   if (tag) {
-    console.log("🚀 ~ file: route.ts:12 ~ GET ~ tag:", tag)
     revalidateTag(tag);
     // revalidatePath('/');
   }
