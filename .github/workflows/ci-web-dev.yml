@@ -1,4 +1,4 @@
-name: CI Internal Backend Dev
+name: CI Internal Website Dev
 
 on: [workflow_dispatch]
 run-name: Deploy by @${{ github.actor }} at ${{ github.event_name }} ${{ github.sha }}
