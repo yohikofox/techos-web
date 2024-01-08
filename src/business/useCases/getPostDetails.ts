@@ -5,6 +5,7 @@ import { IUseCase } from "../useCaseFactory";
 import { IImageSetService } from "../services/imageSet.service";
 import { Result } from "@/lib/result";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+import CacheConstants from "R/src/lib/constants/cache";
 
 
 export enum PostDetailsResult {
@@ -20,7 +21,7 @@ export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post,
   ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, {
-      // revalidate: 60 * 60 * 1,
+      revalidate: CacheConstants.ONE_DAY,
       tags: [RevalidateTagConstants.POST]
     })
 
