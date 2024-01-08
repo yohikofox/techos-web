@@ -10,21 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4     
+        with:
+          ref: ${{ github.head_ref }}   # checkout the correct branch name
+          fetch-depth: 0                # fetch the whole repo history
       - name: Git Version
         id: version
         uses: codacy/git-version@2.7.1
         with:
           release-branch: main
           dev-branch: develop
-      - name: Tag and prepare release
-        id: tag_and_prepare_release
-        uses: K-Phoen/semver-release-action@master
-        with:
-          release_branch: main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Echo version
-        run: echo "${{ steps.tag_and_prepare_release.outputs.tag }}"
 
   #     - name: Set up QEMU
   #       uses: docker/setup-qemu-action@v2
