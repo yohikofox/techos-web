@@ -19,6 +19,8 @@ export const installPointCut = async (event: any, version: string) => {
   for (var i = 0; i < INSTALL_CACHED_RESOURCES.length; i++) {
     const key = INSTALL_CACHED_RESOURCES[i]
     const request = new Request(`${key}`)
+
+    //TODO: revalidate: 0
     const response = await fetch(request)
 
     await putInCache(request.url, response)
@@ -30,6 +32,8 @@ export const installPointCut = async (event: any, version: string) => {
 
     await Promise.all(links.map(async (link: string) => {
       const request = new Request(link)
+
+      //TODO: revalidate: 0
       const response = await fetch(request)
       await putInCache(request.url, response.clone())
     }))
@@ -97,6 +101,7 @@ const putInCache = async (url: string, response: Response) => {
 const handle = async (event: FetchEvent) => {
 
   if (DISALLOWED_URL_CACHE_PATTERN_LIST.some((pattern) => pattern.test(new URL(event.request.url).pathname))) {
+    //TODO: revalidate: 0
     return await fetch(event.request)
   }
 
@@ -109,7 +114,7 @@ const handle = async (event: FetchEvent) => {
     return cachedResource
   }
 
-
+  //TODO: revalidate: 0
   const networkResponse = await fetch(event.request)
 
   /**

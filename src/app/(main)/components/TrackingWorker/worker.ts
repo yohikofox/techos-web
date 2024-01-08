@@ -4,6 +4,7 @@ const onmessageHandler = async (event: MessageEvent<{
   const data = event.data;
   const strData = JSON.stringify(data);
 
+  //TODO: export to server action
   const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/track`, {
     method: 'POST',
     headers: {

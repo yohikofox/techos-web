@@ -36,17 +36,17 @@ const layout = function RootLayout({
       classNames(styles.document, fontBundle.map(font => font.variable))}>
       <body className={classNames(styles.container)}>
         {/* <CoreWebVitals /> */}
-        <ServiceWorkerRegister />
+        {/* <ServiceWorkerRegister /> */}
         <Header title={(metadata.title || defaultData.title).toString()} />
         <section className={styles.content}>
           {children}
         </section>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   )
 };
 
-layout.Hero = Hero;
+// layout.Hero = Hero;
 
 export default layout;
