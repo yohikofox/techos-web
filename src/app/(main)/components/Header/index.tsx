@@ -17,17 +17,17 @@ export interface HeaderProps {
 }
 export default async function Header({ title }: HeaderProps) {
 
-  // const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
+  // const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
-  const response = await useCase?.execute();
+  // const response = await useCase?.execute();
 
-  if (response.IsError) {
-    console.error('response.Error:', response)
-    redirect('/error/400')
-  }
+  // if (response.IsError) {
+  //   console.error('response.Error:', response)
+  //   redirect('/error/400')
+  // }
 
-  // const domainName = await configManager.get("DOMAIN_NAME")
+  const domainName = await configManager.get("DOMAIN_NAME")
 
   return (
     <header className={styles.container}>
