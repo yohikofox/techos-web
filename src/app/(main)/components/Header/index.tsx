@@ -17,37 +17,37 @@ export interface HeaderProps {
 }
 export default async function Header({ title }: HeaderProps) {
 
-  // const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
-  // const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
-  // const response = await useCase?.execute();
+  const response = await useCase?.execute();
 
-  // if (response.IsError) {
-  //   console.error('response.Error:', response)
-  //   redirect('/error/400')
-  // }
+  if (response.IsError) {
+    console.error('response.Error:', response)
+    redirect('/error/400')
+  }
 
-  // const domainName = await configManager.get("DOMAIN_NAME")
+  const domainName = await configManager.get("DOMAIN_NAME")
 
   return (
     <header className={styles.container}>
-      {/* <span className={styles.hamburger__menu}><HamburgerMenu /></span> */}
+      <span className={styles.hamburger__menu}><HamburgerMenu /></span>
       <section className={styles.logo}>
         {/* <Image src="/logo.png" alt="logo" width={50} height={50} /> */}
         {/* <Image src="/logo.png" alt="logo" fill /> */}
         {/* <Logo className={styles.logo__svg} /> */}
-        {/* <MainLogo className={styles.logo__svg} /> */}
-        {/* <Link href="/" /> */}
+        <MainLogo className={styles.logo__svg} />
+        <Link href="/" />
       </section>
-      {/* <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span> */}
+      <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span>
       <nav>
 
       </nav>
-      {/* <SearchModal
+      <SearchModal
         className={styles.search__modal}
         placeholder={response.Value.search?.placeholder || ""}
         title={response.Value.search?.search_title || ""}
-      /> */}
+      />
     </header>
   )
 }

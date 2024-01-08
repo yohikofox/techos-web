@@ -56,7 +56,8 @@ export default class ConfigManager implements IConfigManager {
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
       },
       next: {
-        revalidate: 0
+        revalidate: CacheConstants.ONE_DAY,
+        tags: [RevalidateTagConstants.CONFIG]
       }
     }).then(async (response) => {
       return response.json().then((json) => {
