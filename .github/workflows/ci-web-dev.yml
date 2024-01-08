@@ -24,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Echo version
-        run: echo ${{ steps.tag_and_prepare_release.outputs.tag }}
+        run: echo "${{ steps.tag_and_prepare_release.outputs.tag }}"
 
   #     - name: Set up QEMU
   #       uses: docker/setup-qemu-action@v2
