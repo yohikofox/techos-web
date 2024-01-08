@@ -102,15 +102,15 @@ const nextConfig = {
     styledComponents: true,
   },
   generateEtags: true,
-  experimental: {
-    optimisticClientCache: true,
-    optimizeServerReact: true,
-    scrollRestoration: true,
-    instrumentationHook: true,
-    adjustFontFallbacks: true,
-    windowHistorySupport: true,
-    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP'],
-  },
+  // experimental: {
+  //   optimisticClientCache: true,
+  //   optimizeServerReact: true,
+  //   scrollRestoration: true,
+  //   instrumentationHook: true,
+  //   adjustFontFallbacks: true,
+  //   windowHistorySupport: true,
+  //   webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP'],
+  // },
 
   images: {
     minimumCacheTTL: 60,
@@ -118,42 +118,42 @@ const nextConfig = {
     remotePatterns,
   },
   //Service-Worker-Allowed
-  headers: async () => {
+  // headers: async () => {
 
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=600, s-maxage=1200, stale-while-revalidate=60',
-          },
-          {
-            key: 'yolo',
-            value: 'yolo',
-          }
-        ]
-      },
-      {
-        source: '/(.*).js',
-        headers: [
-          {
-            key: 'Service-Worker-Allowed',
-            value: '/',
-          }
-        ]
-      },
-      {
-        source: '/api/(.*)',
-        headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: '*',
-          },
-        ],
-      }
-    ]
-  },
+  //   return [
+  //     {
+  //       source: '/:path*',
+  //       headers: [
+  //         {
+  //           key: 'Cache-Control',
+  //           value: 'public, max-age=600, s-maxage=1200, stale-while-revalidate=60',
+  //         },
+  //         {
+  //           key: 'yolo',
+  //           value: 'yolo',
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       source: '/(.*).js',
+  //       headers: [
+  //         {
+  //           key: 'Service-Worker-Allowed',
+  //           value: '/',
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       source: '/api/(.*)',
+  //       headers: [
+  //         {
+  //           key: 'Access-Control-Allow-Origin',
+  //           value: '*',
+  //         },
+  //       ],
+  //     }
+  //   ]
+  // },
   env: {
     NEXT_PUBLIC_REDIS_INSIGHT_URL: process.env.REDIS_INSIGHT_URL ?? 'http://localhost:8001',
   },
