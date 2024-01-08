@@ -17,7 +17,7 @@ export interface HeaderProps {
 }
 export default async function Header({ title }: HeaderProps) {
 
-  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
+  // const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
 
   const response = await useCase?.execute();
@@ -27,7 +27,7 @@ export default async function Header({ title }: HeaderProps) {
     redirect('/error/400')
   }
 
-  const domainName = await configManager.get("DOMAIN_NAME")
+  // const domainName = await configManager.get("DOMAIN_NAME")
 
   return (
     <header className={styles.container}>
@@ -39,7 +39,7 @@ export default async function Header({ title }: HeaderProps) {
         <MainLogo className={styles.logo__svg} />
         <Link href="/" />
       </section>
-      <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span>
+      {/* <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span> */}
       <nav>
 
       </nav>
