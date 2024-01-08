@@ -1,6 +1,11 @@
 name: CI Internal Website Dev
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/*
+
 run-name: Deploy by @${{ github.actor }} at ${{ github.event_name }} ${{ github.sha }}
 
 jobs:
