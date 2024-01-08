@@ -4,6 +4,7 @@ import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 import { Result } from "@/lib/result";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+import CacheConstants from "R/src/lib/constants/cache";
 
 
 export enum HomeDataResult {
@@ -20,7 +21,7 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<HomeData
   async execute(request?: any): Promise<Result<HomeData, HomeDataResult>> {
 
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HOME_DATA, request, {
-      // revalidate: 60 * 60 * 1,
+      revalidate: CacheConstants.ONE_DAY,
       tags: [RevalidateTagConstants.HOME]
     })
 
