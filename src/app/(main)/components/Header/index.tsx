@@ -31,7 +31,7 @@ export default async function Header({ title }: HeaderProps) {
 
   return (
     <header className={styles.container}>
-      <span className={styles.hamburger__menu}><HamburgerMenu /></span>
+      {/* <span className={styles.hamburger__menu}><HamburgerMenu /></span> */}
       <section className={styles.logo}>
         {/* <Image src="/logo.png" alt="logo" width={50} height={50} /> */}
         {/* <Image src="/logo.png" alt="logo" fill /> */}
