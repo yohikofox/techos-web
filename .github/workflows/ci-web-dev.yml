@@ -10,15 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4     
+        with:
+          ref: ${{ github.head_ref }}   # checkout the correct branch name
+          fetch-depth: 0                # fetch the whole repo history
       - name: Git Version
         id: version
         uses: codacy/git-version@2.7.1
         with:
           release-branch: main
           dev-branch: develop
-
-      - name: env version
-        run: echo "VERSION=${{ steps.version.outputs.version }}" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -54,6 +54,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}   # checkout the correct branch name
+          fetch-depth: 0    
       - name: Git Version
         id: version
         with:
@@ -66,5 +69,4 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         with:
           args: |
-            helm upgrade -i backend "./deploy/web" --set image.tag=${{secrets.REGISTRY_SERVER}}/techos:${{ steps.version.outputs.version }} --set semver=${{ steps.version.outputs.version }} --create-namespace --namespace=${{secrets.NAMESPACE}}
-
+            helm upgrade -i frontend "./deploy/web" --set image.tag=${{ steps.version.outputs.version }} --set semver=${{ steps.version.outputs.version }} --create-namespace --namespace=${{secrets.NAMESPACE}}
