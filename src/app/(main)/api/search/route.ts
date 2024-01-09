@@ -9,8 +9,6 @@ export async function GET(request: NextRequest) {
 
   const payload = request.nextUrl.searchParams.get("payload");
 
-  console.log("🚀 ~ file: route.ts:11 ~ GET ~ payload:", payload)
-
   if (!payload) {
     return badRequest();
   }
