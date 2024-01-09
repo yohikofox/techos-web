@@ -17,6 +17,7 @@ export default function RegisterNotificationWorker(props: NotificationWorkerProp
             userVisibleOnly: true,
             applicationServerKey: nid
           })
+          //TODO: export to server action
 
           await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/notification/subscription/subscribe`, {
             method: 'POST',

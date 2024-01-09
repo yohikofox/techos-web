@@ -28,6 +28,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
     if (query.length < MIN_SEARCH_CHAR_LENGTH) return
 
     try {
+      //TODO: export to server action
       const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}`)
 
       if (!response.ok) {

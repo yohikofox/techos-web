@@ -1,6 +1,11 @@
 name: CI Internal Website Dev
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/*
+
 run-name: Deploy by @${{ github.actor }} at ${{ github.event_name }} ${{ github.sha }}
 
 jobs:
@@ -43,6 +48,8 @@ jobs:
             CMS_ENDPOINT=${{ secrets.BACKEND_BASE_URL }}
             CMS_API_KEY=${{ secrets.BACKEND_TOKEN }}
             CMS_ENDPOINT_HOSTNAME=${{ secrets.BACKEND_HOSTNAME }}
+            STORE_ENDPOINT=${{ vars.STORE_ENDPOINT }}
+            STORE_API_KEY=${{ secrets.STORE_API_KEY }}
           file: "Dockerfile"
           context: "{{defaultContext}}:."
           tags: ${{secrets.REGISTRY_SERVER}}/techos:${{ steps.version.outputs.version }}
