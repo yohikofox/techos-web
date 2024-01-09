@@ -71,9 +71,8 @@ export default class ConfigManager implements IConfigManager {
 
       return response.json().then((json) => {
         this._config = {}
-        console.log("🚀 ~ file: index.ts:87 ~ ConfigManager ~ returnresponse.json ~ json:", json)
 
-        if (json.data?.length > 0) throw new Error('ConfigManager error - Missing Configurations');
+        if (json.data?.length <= 0) throw new Error('ConfigManager error - Missing Configurations');
 
         json.data.forEach((conf: any) => {
           this._config[conf.attributes.key] = conf.attributes.value
