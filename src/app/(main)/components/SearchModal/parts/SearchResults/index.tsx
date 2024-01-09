@@ -43,6 +43,10 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
       <section className={styles.item__list}>
         {searchResults?.hits ? searchResults.hits?.map((it, index) => {
           const readingTime = getReadingTime(it.content);
+          console.log("🚀 ~ file: index.tsx:47 ~ {searchResults?.hits?searchResults.hits?.map ~ it.extract:", it.extract)
+          const transformedMarkdown = md().render(it.extract)
+          console.log("🚀 ~ file: index.tsx:47 ~ {searchResults?.hits?searchResults.hits?.map ~ transformedMarkdown:", transformedMarkdown)
+
           return (
             <section key={`search-result-item-${index}`} className={styles.container}>
               <div className={styles.image}>
@@ -65,7 +69,7 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
                   </span>
                   <span className={styles.reading__time}><Clock className={styles.clock} />{readingTime} min<span className={styles.desktop}>&nbsp;de lecture</span></span>
                 </div>
-                <div className={classNames(styles.content__extract, styles.tablet)} dangerouslySetInnerHTML={{ __html: md().render(it.extract) }} />
+                <div className={classNames(styles.content__extract, styles.tablet)} dangerouslySetInnerHTML={{ __html: transformedMarkdown }} />
               </div>
               <Link href={`/post/${it.slug}`} legacyBehavior >
                 <a className={styles.inset__link} onClick={handleLinkClick} />

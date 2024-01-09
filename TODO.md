@@ -1,3 +1,8 @@
+task                             | status | comment
+---------------------------------|--------|--------
+refresh confs                    |        |
+errors on search (only one char) |        |
+
 
 
 task                                                                                                                 | status | comment

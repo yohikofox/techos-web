@@ -25,7 +25,10 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       return
     }
 
+    console.log('fetchResults: ', query)
+
     if (query.length < MIN_SEARCH_CHAR_LENGTH) return
+
 
     try {
       //TODO: export to server action
