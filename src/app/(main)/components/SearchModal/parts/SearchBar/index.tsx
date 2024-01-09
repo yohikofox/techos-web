@@ -10,8 +10,8 @@ export interface SearchBarProps {
   delay?: boolean
 }
 
-const MIN_SEARCH_CHAR_LENGTH = 0
-const SEARCH_TRIGGER_DELAY = 200
+const MIN_SEARCH_CHAR_LENGTH = 3
+const SEARCH_TRIGGER_DELAY = 400
 
 export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
@@ -24,8 +24,6 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       setSearchResults && setSearchResults({} as SearchData)
       return
     }
-
-    console.log('fetchResults: ', query)
 
     if (query.length < MIN_SEARCH_CHAR_LENGTH) return
 
