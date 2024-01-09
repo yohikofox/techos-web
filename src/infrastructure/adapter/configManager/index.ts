@@ -19,6 +19,7 @@ export default class ConfigManager implements IConfigManager {
   constructor() {
     if (!process.env.CMS_ENDPOINT) throw new Error('CMS_ENDPOINT not found')
     this.endpoint = process.env.CMS_ENDPOINT
+    console.log("🚀 ~ file: index.ts:22 ~ ConfigManager ~ constructor ~ this.endpoint:", this.endpoint)
     this.load()
 
     this.base_url = `${this.endpoint}/api/configurations`
