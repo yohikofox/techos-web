@@ -27,6 +27,8 @@ export default async function Header({ title }: HeaderProps) {
     redirect('/error/400')
   }
 
+  const domainName = await configManager.get("DOMAIN_NAME")
+
   return (
     <header className={styles.container}>
       <span className={styles.hamburger__menu}><HamburgerMenu /></span>
@@ -37,7 +39,7 @@ export default async function Header({ title }: HeaderProps) {
         <MainLogo className={styles.logo__svg} />
         <Link href="/" />
       </section>
-      <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}<Link aria-label={await configManager.get("DOMAIN_NAME")} href={"/"} className={styles.inset__link} /></span>
+      <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span>
       <nav>
 
       </nav>

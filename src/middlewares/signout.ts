@@ -28,8 +28,11 @@ export default class SignOutMiddleware extends Middleware {
     // const cookie = `${CSRFToken}|${CSRFTokenHash}`;
 
     const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signout`
+
+    //TODO: revalidate: 0
     const csrf = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/csrf`)
 
+    //TODO: revalidate: 0
     const fetchResponse = await fetch(`${url}?callbackUrl=/api/auth/session`, {
       method: "POST",
       headers: {

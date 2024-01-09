@@ -1,3 +1,6 @@
+import CacheConstants from "R/src/lib/constants/cache";
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+
 export interface IConfigManager {
   get(key: string, fallback?: string): Promise<string | undefined>
   reload(key?: string): Promise<string | undefined>
@@ -27,7 +30,8 @@ export default class ConfigManager implements IConfigManager {
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
       },
       next: {
-        revalidate: 0
+        revalidate: CacheConstants.ONE_DAY,
+        tags: [RevalidateTagConstants.CONFIG]
       }
     })
 
@@ -52,7 +56,8 @@ export default class ConfigManager implements IConfigManager {
         'Authorization': `Bearer ${process.env.CMS_API_KEY}`
       },
       next: {
-        revalidate: 0
+        revalidate: CacheConstants.ONE_DAY,
+        tags: [RevalidateTagConstants.CONFIG]
       }
     }).then(async (response) => {
       return response.json().then((json) => {

@@ -28,6 +28,7 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
     const bearer = await this.configManager.get('INDEX_TOKEN')
     const url = `${endpoint}/indexes/${indexName}/search`
     try {
+      //TODO: export to server action
       const response = await fetch(url,
         {
           method: 'POST',
