@@ -13,7 +13,7 @@ const RETRY_DELAY = 1000;
 export default class ConfigManager implements IConfigManager {
   private apiToken: string | undefined;
   private endpoint: string
-  private loaded = false;
+  private _loaded = false;
   private _config: { [key: string]: string } = {}
   private base_url: string;
 
@@ -22,6 +22,8 @@ export default class ConfigManager implements IConfigManager {
     this.endpoint = process.env.CMS_ENDPOINT
     this.apiToken = process.env.CMS_API_KEY
     this.base_url = `${this.endpoint}/api/configurations`
+
+    console.info('ConfigManager initialized')
 
     this.load()
   }
@@ -55,6 +57,8 @@ export default class ConfigManager implements IConfigManager {
 
   private load() {
     if (this.loaded) return
+
+    console.log('ConfigManager load', this.base_url)
 
     fetch(this.base_url, {
       method: 'GET',
@@ -100,7 +104,19 @@ export default class ConfigManager implements IConfigManager {
       } while (tries < RETRY_COUNT)
     }
 
+    console.info('ConfigManager get', key, this._config[key])
+
     const result = this._config[key]
     return result || fallback
+  }
+
+
+  private set loaded(value: boolean) {
+    console.log("🚀 ~ file: index.ts:115 ~ ConfigManager ~ setloaded ~ value:", value)
+    this._loaded = value
+  }
+  private get loaded(): boolean {
+    console.log("🚀 ~ file: index.ts:120 ~ ConfigManager ~ getloaded ~ this._loaded", this._loaded)
+    return this._loaded
   }
 }
