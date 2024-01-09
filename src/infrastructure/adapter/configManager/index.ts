@@ -60,8 +60,13 @@ export default class ConfigManager implements IConfigManager {
         tags: [RevalidateTagConstants.CONFIG]
       }
     }).then(async (response) => {
+      if (!response.ok) throw new Error('ConfigManager error - ' + response.statusText);
+
       return response.json().then((json) => {
         this._config = {}
+
+        if (json.data?.length > 0) throw new Error('ConfigManager error - Missing Configurations');
+
         json.data.forEach((conf: any) => {
           this._config[conf.attributes.key] = conf.attributes.value
         });
