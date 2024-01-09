@@ -25,7 +25,9 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       return
     }
 
-    if (query.length && query.length < MIN_SEARCH_CHAR_LENGTH) return
+    console.log("🚀 ~ file: index.tsx:29 ~ fetchResults ~ query before:", query)
+    if (query.length <= 0 && query.length < MIN_SEARCH_CHAR_LENGTH) return
+    console.log("🚀 ~ file: index.tsx:29 ~ fetchResults ~ query after:", query)
 
 
     try {
