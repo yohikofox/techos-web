@@ -23,10 +23,6 @@ export default class ConfigManager implements IConfigManager {
     this.apiToken = process.env.CMS_API_KEY
     this.base_url = `${this.endpoint}/api/configurations`
 
-    console.log("🚀 ~ file: index.ts:24 ~ ConfigManager ~ constructor ~ apiToken:", this.apiToken?.toUpperCase())
-    console.log("🚀 ~ file: index.ts:22 ~ ConfigManager ~ constructor ~ this.endpoint:", this.endpoint.toUpperCase())
-    console.log("🚀 ~ file: index.ts:26 ~ ConfigManager ~ constructor ~ this.base_url:", this.base_url.toUpperCase())
-
     this.load()
   }
 
@@ -75,6 +71,7 @@ export default class ConfigManager implements IConfigManager {
 
       return response.json().then((json) => {
         this._config = {}
+        console.log("🚀 ~ file: index.ts:87 ~ ConfigManager ~ returnresponse.json ~ json:", json)
 
         if (json.data?.length > 0) throw new Error('ConfigManager error - Missing Configurations');
 
