@@ -13,4 +13,3 @@ export async function GET(request: NextRequest, { params: { key } }: { params: {
   return NextResponse.json({ status: 'success', result })
 }
 
-
