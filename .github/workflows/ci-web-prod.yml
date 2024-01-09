@@ -3,6 +3,8 @@ name: CI Internal Website Prod
 on: 
   workflow_dispatch:
   push:
+    branches:
+      - hotfix/*
     tags:
       - "*.*.*"
 

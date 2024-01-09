@@ -14,15 +14,22 @@ export default class ConfigManager implements IConfigManager {
   private endpoint: string
   private loaded = false;
   private _config: { [key: string]: string } = {}
+  private base_url: string;
 
   constructor() {
     if (!process.env.CMS_ENDPOINT) throw new Error('CMS_ENDPOINT not found')
     this.endpoint = process.env.CMS_ENDPOINT
     this.load()
+
+    this.base_url = `${this.endpoint}/api/configurations`
+    console.log("🚀 ~ file: index.ts:26 ~ ConfigManager ~ constructor ~ this.base_url:", this.base_url)
   }
 
   async reload(key?: string | undefined): Promise<string | undefined> {
-    const url = `${this.endpoint}/api/configurations?filters[key]=${key}`
+    const url = `${this.base_url}?filters[key]=${key}`
+
+    console.log("🚀 ~ file: index.ts:91 ~ ConfigManager ~ load ~ url:", url)
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -49,7 +56,10 @@ export default class ConfigManager implements IConfigManager {
 
   private load() {
     if (this.loaded) return
-    fetch(`${this.endpoint}/api/configurations`, {
+
+    console.log("🚀 ~ file: index.ts:91 ~ ConfigManager ~ load ~ this.base_url:", this.base_url)
+
+    fetch(this.base_url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
