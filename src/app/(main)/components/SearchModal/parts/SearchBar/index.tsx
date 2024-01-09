@@ -4,6 +4,7 @@ import { useContext, useRef } from "react"
 import styles from "./search.module.scss"
 import { SearchDataContext } from "../context"
 import SearchData from "@/business/model/searchData"
+import fetchResultsAction from "./fetchResults"
 
 export interface SearchBarProps {
   placeholder: string
@@ -25,34 +26,13 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       return
     }
 
-    console.log("🚀 ~ file: index.tsx:29 ~ fetchResults ~ query before:", query)
-    if (query.length <= 0 && query.length < MIN_SEARCH_CHAR_LENGTH) return
-    console.log("🚀 ~ file: index.tsx:29 ~ fetchResults ~ query after:", query)
+    const results = await fetchResultsAction(query);
 
-
-    try {
-      //TODO: export to server action
-      const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}`)
-
-      if (!response.ok) {
-        console.error(
-          `Error fetching search results for query ${query}`,
-          response.statusText,
-          response.status
-        )
-      }
-
-      const results = await response.json()
-
-      setSearchResults && setSearchResults(results)
-    } catch (e) {
-      console.error('SearchBar: ', e)
-    }
+    (setSearchResults && results) && setSearchResults(results)
   }
 
-
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 0 && e.target.value.length < MIN_SEARCH_CHAR_LENGTH) return
+    if (e.target.value?.length > 0 && e.target.value?.length < MIN_SEARCH_CHAR_LENGTH) return
     if (delay || SEARCH_TRIGGER_DELAY > 0) {
       if (currentTimeout.current) clearTimeout(currentTimeout.current)
       currentTimeout.current = setTimeout(async () => {
