@@ -25,7 +25,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       return
     }
 
-    if (query.length < MIN_SEARCH_CHAR_LENGTH) return
+    if (query.length && query.length < MIN_SEARCH_CHAR_LENGTH) return
 
 
     try {
