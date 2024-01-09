@@ -11,6 +11,7 @@ const RETRY_COUNT = 3;
 const RETRY_DELAY = 1000;
 
 export default class ConfigManager implements IConfigManager {
+  private apiToken: string | undefined;
   private endpoint: string
   private loaded = false;
   private _config: { [key: string]: string } = {}
@@ -19,9 +20,11 @@ export default class ConfigManager implements IConfigManager {
   constructor() {
     if (!process.env.CMS_ENDPOINT) throw new Error('CMS_ENDPOINT not found')
     this.endpoint = process.env.CMS_ENDPOINT
-    console.log("🚀 ~ file: index.ts:22 ~ ConfigManager ~ constructor ~ this.endpoint:", this.endpoint.toUpperCase())
-
+    this.apiToken = process.env.CMS_API_KEY
     this.base_url = `${this.endpoint}/api/configurations`
+
+    console.log("🚀 ~ file: index.ts:24 ~ ConfigManager ~ constructor ~ apiToken:", this.apiToken?.toUpperCase())
+    console.log("🚀 ~ file: index.ts:22 ~ ConfigManager ~ constructor ~ this.endpoint:", this.endpoint.toUpperCase())
     console.log("🚀 ~ file: index.ts:26 ~ ConfigManager ~ constructor ~ this.base_url:", this.base_url.toUpperCase())
 
     this.load()
@@ -30,13 +33,11 @@ export default class ConfigManager implements IConfigManager {
   async reload(key?: string | undefined): Promise<string | undefined> {
     const url = `${this.base_url}?filters[key]=${key}`
 
-    console.log("🚀 ~ file: index.ts:91 ~ ConfigManager ~ load ~ url:", url)
-
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CMS_API_KEY}`
+        'Authorization': `Bearer ${this.apiToken}`
       },
       next: {
         revalidate: CacheConstants.ONE_DAY,
@@ -59,13 +60,11 @@ export default class ConfigManager implements IConfigManager {
   private load() {
     if (this.loaded) return
 
-    console.log("🚀 ~ file: index.ts:91 ~ ConfigManager ~ load ~ this.base_url:", this.base_url)
-
     fetch(this.base_url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CMS_API_KEY}`
+        'Authorization': `Bearer ${this.apiToken}`
       },
       next: {
         revalidate: CacheConstants.ONE_DAY,
