@@ -11,23 +11,29 @@ const RETRY_COUNT = 3;
 const RETRY_DELAY = 1000;
 
 export default class ConfigManager implements IConfigManager {
+  private apiToken: string | undefined;
   private endpoint: string
-  private loaded = false;
+  private _loaded = false;
   private _config: { [key: string]: string } = {}
+  private base_url: string;
 
   constructor() {
     if (!process.env.CMS_ENDPOINT) throw new Error('CMS_ENDPOINT not found')
     this.endpoint = process.env.CMS_ENDPOINT
+    this.apiToken = process.env.CMS_API_KEY
+    this.base_url = `${this.endpoint}/api/configurations`
+
     this.load()
   }
 
   async reload(key?: string | undefined): Promise<string | undefined> {
-    const url = `${this.endpoint}/api/configurations?filters[key]=${key}`
+    const url = `${this.base_url}?filters[key]=${key}`
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CMS_API_KEY}`
+        'Authorization': `Bearer ${this.apiToken}`
       },
       next: {
         revalidate: CacheConstants.ONE_DAY,
@@ -44,16 +50,20 @@ export default class ConfigManager implements IConfigManager {
   }
   async reloadAll(): Promise<void> {
     this.loaded = false
+    console.log("reloadAll")
     this.load()
   }
 
   private load() {
+
+    console.log('this.loaded:', this.loaded)
     if (this.loaded) return
-    fetch(`${this.endpoint}/api/configurations`, {
+
+    fetch(this.base_url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CMS_API_KEY}`
+        'Authorization': `Bearer ${this.apiToken}`
       },
       next: {
         revalidate: CacheConstants.ONE_DAY,
@@ -65,7 +75,7 @@ export default class ConfigManager implements IConfigManager {
       return response.json().then((json) => {
         this._config = {}
 
-        if (json.data?.length > 0) throw new Error('ConfigManager error - Missing Configurations');
+        if (json.data?.length <= 0) throw new Error('ConfigManager error - Missing Configurations');
 
         json.data.forEach((conf: any) => {
           this._config[conf.attributes.key] = conf.attributes.value
@@ -93,7 +103,16 @@ export default class ConfigManager implements IConfigManager {
       } while (tries < RETRY_COUNT)
     }
 
+
     const result = this._config[key]
     return result || fallback
+  }
+
+
+  private set loaded(value: boolean) {
+    this._loaded = value
+  }
+  private get loaded(): boolean {
+    return this._loaded
   }
 }
