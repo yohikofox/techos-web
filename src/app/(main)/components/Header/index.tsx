@@ -43,11 +43,11 @@ export default async function Header({ title }: HeaderProps) {
       <nav>
 
       </nav>
-      {/* <SearchModal
+      <SearchModal
         className={styles.search__modal}
         placeholder={response.Value.search?.placeholder || ""}
         title={response.Value.search?.search_title || ""}
-      /> */}
+      />
     </header>
   )
 }
