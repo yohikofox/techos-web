@@ -65,7 +65,7 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
                   </span>
                   <span className={styles.reading__time}><Clock className={styles.clock} />{readingTime} min<span className={styles.desktop}>&nbsp;de lecture</span></span>
                 </div>
-                <div className={classNames(styles.content__extract, styles.tablet)} dangerouslySetInnerHTML={{ __html: md().render(it.extract) }} />
+                {it.extract && <div className={classNames(styles.content__extract, styles.tablet)} dangerouslySetInnerHTML={{ __html: md().render(it.extract) }} />}
               </div>
               <Link href={`/post/${it.slug}`} legacyBehavior >
                 <a className={styles.inset__link} onClick={handleLinkClick} />

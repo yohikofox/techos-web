@@ -1,5 +1,6 @@
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
+import { FetchOptions } from "./fetchOptions";
 
 export enum SearchEngineResult {
   SUCCESS = 'success',
@@ -12,7 +13,7 @@ export type SearchEngineVariables = {
 }
 
 export interface ISearchEngineRepository {
-  search<T>(options: SearchEngineVariables): Promise<Result<T, SearchEngineResult>>
+  search<T>(request: SearchEngineVariables, options?: FetchOptions): Promise<Result<T, SearchEngineResult>>
 }
 
 export enum IndexNames {
@@ -21,14 +22,13 @@ export enum IndexNames {
 
 export default class SearchEngineRepository implements ISearchEngineRepository {
   constructor(private configManager: IConfigManager) { }
-  async search<T>(options: SearchEngineVariables): Promise<Result<T, SearchEngineResult>> {
-    const { payload, indexName } = options
+  async search<T>(request: SearchEngineVariables, options?: FetchOptions): Promise<Result<T, SearchEngineResult>> {
+    const { payload, indexName } = request
 
     const endpoint = await this.configManager.get('INDEX_ENDPOINT')
     const bearer = await this.configManager.get('INDEX_TOKEN')
     const url = `${endpoint}/indexes/${indexName}/search`
     try {
-      //TODO: export to server action
       const response = await fetch(url,
         {
           method: 'POST',
@@ -38,6 +38,10 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${bearer}`
+          },
+          next: {
+            revalidate: options?.revalidate || 0,
+            tags: options?.tags || []
           }
         })
 
