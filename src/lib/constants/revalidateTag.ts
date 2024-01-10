@@ -3,4 +3,5 @@ export default class RevalidateTagConstants {
   static readonly HOME = 'home';
   static readonly HEADER_DATA = 'header_data';
   static readonly CONFIG = 'config';
+  static readonly SEARCH = 'search';
 }

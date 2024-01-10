@@ -3,6 +3,8 @@ import SearchData, { SearchDataItem } from "../model/searchData";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 import { Result } from "@/lib/result";
+import CacheConstants from "R/src/lib/constants/cache";
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
 export type SearchRequest = {
   payload: string
@@ -19,7 +21,11 @@ export default class GetSearchDataUseCase implements IUseCase<SearchRequest, Res
     private imageSetService: IImageSetService
   ) { }
   async execute(request?: any): Promise<Result<SearchData, SearchDataResult>> {
-    const result = await this.searchEngineRepository.search<any>({ ...request, indexName: 'post' })
+
+    const result = await this.searchEngineRepository.search<any>({ ...request, indexName: 'post' }, {
+      revalidate: CacheConstants.ONE_MINUTE,
+      tags: [RevalidateTagConstants.SEARCH]
+    })
 
     if (result.IsError) {
       return result.transferError(SearchDataResult.ERROR)
