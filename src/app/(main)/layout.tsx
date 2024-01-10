@@ -37,16 +37,16 @@ const layout = function RootLayout({
       <body className={classNames(styles.container)}>
         {/* <CoreWebVitals /> */}
         <ServiceWorkerRegister />
-        <Header title={(metadata.title || defaultData.title).toString()} />
+        {/* <Header title={(metadata.title || defaultData.title).toString()} /> */}
         <section className={styles.content}>
           {children}
         </section>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   )
 };
 
-layout.Hero = Hero;
+// layout.Hero = Hero;
 
 export default layout;
