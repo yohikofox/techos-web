@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import styles from './header.module.scss'
-import MenuList from '../MenuList'
 import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory'
 import { HeaderDataResult } from '@/business/useCases/getHeaderData'
 import { redirect } from 'next/navigation'
@@ -11,6 +10,7 @@ import HamburgerMenu from './parts/HamburgerMenu'
 import Container from '@/infrastructure/dependencyFactory'
 import { DependencyKeys } from '@/infrastructure/dependencies'
 import { IConfigManager } from '@/infrastructure/adapter/configManager'
+import Brand from 'R/src/components/Brand'
 
 export interface HeaderProps {
   title: string
@@ -33,10 +33,10 @@ export default async function Header({ title }: HeaderProps) {
     <header className={styles.container}>
       <span className={styles.hamburger__menu}><HamburgerMenu /></span>
       <section className={styles.logo}>
-        {/* <Image src="/logo.png" alt="logo" width={50} height={50} /> */}
-        {/* <Image src="/logo.png" alt="logo" fill /> */}
-        {/* <Logo className={styles.logo__svg} /> */}
-        <MainLogo className={styles.logo__svg} />
+        <div className={styles.logo__brand__container}>
+          <Brand className={styles.logo__brand} />
+        </div>
+
         <Link href="/" />
       </section>
       <span className={styles.title}>{domainName}<Link aria-label={domainName} href={"/"} className={styles.inset__link} /></span>

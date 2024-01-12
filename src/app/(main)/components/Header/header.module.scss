@@ -77,13 +77,18 @@
   .logo {
     position: relative;
     display: flex; //none
-    width: 30px; //75px
     justify-content: center;
     align-items: center;
-    margin-right: 0.5rem;
 
     img {
       object-fit: cover;
+    }
+
+    &__brand {
+      &__container {
+        display: block;
+      }
+
     }
 
     .logo__svg {
@@ -106,7 +111,7 @@
 
     .logo {
       display: flex;
-      width: 40px;
+      // width: 40px;
       margin-right: 0.1rem;
     }
 

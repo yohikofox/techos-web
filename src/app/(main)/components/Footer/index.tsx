@@ -13,6 +13,7 @@ import { IConfigManager } from '@/infrastructure/adapter/configManager';
 import { DependencyKeys } from '@/infrastructure/dependencies';
 
 import LogoIcon from 'R/public/logo.png';
+import Brand from 'R/src/components/Brand';
 
 const begin_date = dayjs('2019-01-01');
 
@@ -47,7 +48,7 @@ export default async function Footer() {
       <ServerImage src={LogoIcon.src} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
-          <MainLogo className={styles.logo} />
+          <Brand />
           <span className={styles.title}>{await configManager.get("DOMAIN_NAME")}</span>
           <Link aria-label="go to home" href="/" className={styles.inset__link} />
         </section>
