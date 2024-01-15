@@ -3,7 +3,7 @@
 import { useContext, useRef } from "react"
 import styles from "./search.module.scss"
 import { SearchDataContext } from "../context"
-import SearchData from "@/business/model/searchData"
+import Search from "@/business/model/search"
 import fetchResultsAction from "./fetchResults"
 
 export interface SearchBarProps {
@@ -22,7 +22,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
   const fetchResults = async (query: string) => {
     if (!query.length) {
-      setSearchResults && setSearchResults({} as SearchData)
+      setSearchResults && setSearchResults({} as Search)
       return
     }
 

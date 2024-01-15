@@ -1,12 +1,12 @@
 'use client'
-import SearchData from "@/business/model/searchData";
+import Search from "@/business/model/search";
 import { Dispatch, SetStateAction, createContext, useState } from "react"
 
-export const SearchDataContext = createContext<[SearchData, Dispatch<SetStateAction<SearchData>>] | null>(null);
+export const SearchDataContext = createContext<[Search, Dispatch<SetStateAction<Search>>] | null>(null);
 
 export const SearchDataProvider = ({ children }: any) => {
   return (
-    <SearchDataContext.Provider value={useState({} as SearchData)} >
+    <SearchDataContext.Provider value={useState({} as Search)} >
       {children}
     </SearchDataContext.Provider>
   )

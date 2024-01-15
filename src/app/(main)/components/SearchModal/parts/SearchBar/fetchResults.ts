@@ -1,8 +1,8 @@
-import SearchData from "R/src/business/model/searchData"
+import Search from "R/src/business/model/search"
 import CacheConstants from "R/src/lib/constants/cache"
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
 
-const fetchResults = async (query: string): Promise<SearchData> => {
+const fetchResults = async (query: string): Promise<Search> => {
 
   const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}&index=post`
 
@@ -27,7 +27,7 @@ const fetchResults = async (query: string): Promise<SearchData> => {
       )
     }
 
-    const results = (await response.json()) satisfies SearchData
+    const results = (await response.json()) satisfies Search
 
     return results
   } catch (e) {

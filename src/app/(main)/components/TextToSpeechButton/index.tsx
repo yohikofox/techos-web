@@ -38,7 +38,7 @@ export default function Component({ identifier, text, className }: TextToSpeechB
 
   const [splitResult, setSplitText] = useState<string[]>(doSplit(text))
 
-  const speak = useCallback((text: string) => {
+  const speak = useCallback(() => {
 
     if (window['speechSynthesis'] === undefined) {
       return;
@@ -54,7 +54,7 @@ export default function Component({ identifier, text, className }: TextToSpeechB
       if (splitResult.length > 0) {
         const rest = splitResult.splice(0, STEP)
         setSplitText({ ...rest })
-        speak('')
+        speak()
       } else {
         setPlayerState(PlayerState.Idle)
       }
@@ -72,16 +72,16 @@ export default function Component({ identifier, text, className }: TextToSpeechB
       window.speechSynthesis.resume()
     else {
       selectASpeech(identifier)
-      speak(text)
+      speak()
     }
     setPlayerState(PlayerState.Playing)
-  }, [identifier, playerState, selectASpeech, speak, text])
+  }, [identifier, playerState, selectASpeech, speak])
 
   const handleStop = useCallback(() => {
     window.speechSynthesis.cancel()
     setSplitText(doSplit(text))
     setPlayerState(PlayerState.Idle)
-  }, [])
+  }, [text])
 
 
   const handlePause = useCallback(() => {

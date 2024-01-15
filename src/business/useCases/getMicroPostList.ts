@@ -44,7 +44,7 @@ export default class GetPostListUseCase implements IUseCase<MicroPostListRequest
     }
 
     const result: MicroPostList = {
-      posts: await Promise.all(response.Value.microPosts.data.map(async (post: any) => await this.microPostService.mapMicroPost(post))),
+      posts: await Promise.all(response.Value.microPosts.data.map(async (post: any) => (await this.microPostService.mapMicroPost(post))!)),
       meta: await this.metaService.mapMeta(response.Value.microPosts.meta)
     }
 

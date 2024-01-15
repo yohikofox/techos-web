@@ -5,7 +5,7 @@ import Close from "@/app/(main)/components/Icon/Close"
 import SearchBar from "../SearchBar"
 import styles from "./modal.module.scss"
 import { SearchDataContext } from "../context"
-import SearchData from "@/business/model/searchData"
+import Search from "@/business/model/search"
 
 export interface ModalProps {
   title?: string
@@ -26,7 +26,7 @@ export default function Modal({ title, placeholder, children, closeHandler }: Mo
   }, [])
 
   const handleCloseClick = () => {
-    setSearchResults && setSearchResults({} as SearchData)
+    setSearchResults && setSearchResults({} as Search)
     closeHandler && closeHandler(false)
   }
 
