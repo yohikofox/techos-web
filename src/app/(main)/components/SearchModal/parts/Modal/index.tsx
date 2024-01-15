@@ -39,7 +39,7 @@ export default function Modal({ title, placeholder, children, closeHandler }: Mo
         </header>
         <section className={styles.content}>
           <div className={styles.search__bar}>
-            <SearchBar placeholder={placeholder || ""} />
+            <SearchBar placeholder={placeholder || ""} delay={true} />
           </div>
           <section className={styles.children}>
             {children}

@@ -57,54 +57,6 @@ const queries = {
       }}}
     }
   `,
-  getPostDetails: `
-  query postDetails($slug: StringFilterInput!) {
-  posts(filters: { slug: $slug }) {
-    data {
-      id
-      attributes {
-        author {
-          data {
-            attributes {
-              username
-              avatar {
-                data {
-                  attributes {
-                    name
-                    url
-                    width
-                    height
-                  }
-                }
-              }
-            }
-          }
-        }
-        title
-        slug
-        content
-        start_at
-        picture {
-          data {
-            attributes {
-              name
-              url
-            }
-          }
-        }
-        post_stat_list {
-          data {
-            attributes {
-              view_count
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-  `,
   getTagPostList: `
 query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
   posts(
@@ -255,9 +207,12 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
 
 import { deleteWebPushSubscription } from "@/infrastructure/adapter/queries/deleteWebPushSubscription"
 import { getOfflinePageData } from "@/infrastructure/adapter/queries/getOfflinePageData"
-import getWebPushNotification from "@/infrastructure/adapter/queries/getWebPushNotification"
-import getWebPushSubscriptionList from "@/infrastructure/adapter/queries/getWebPushSubscriptionList"
+import { getWebPushNotification } from "@/infrastructure/adapter/queries/getWebPushNotification"
+import { getWebPushSubscriptionList } from "@/infrastructure/adapter/queries/getWebPushSubscriptionList"
 import { getPostList } from "@/infrastructure/adapter/queries/getPostList"
+import { getMicroPostList } from "@/infrastructure/adapter/queries/getMicroPostList"
+import { getPostDetails } from "./queries/getPostDetails"
+import { getMicroPostDetails } from './queries/getMicroPostDetails';
 
 const exportable = {
   ...queries,
@@ -265,7 +220,10 @@ const exportable = {
   getWebPushNotification,
   deleteWebPushSubscription,
   getOfflinePageData,
+  getPostDetails,
   getPostList,
+  getMicroPostList,
+  getMicroPostDetails,
 }
 
 export default exportable

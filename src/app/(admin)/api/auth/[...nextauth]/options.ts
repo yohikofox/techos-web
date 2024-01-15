@@ -1,8 +1,8 @@
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import Container from '@/infrastructure/dependencyFactory';
 import SessionConstants from '@/lib/constants/session';
 import { NextAuthOptions, Session } from 'next-auth';
 import Auth0Provider from "next-auth/providers/auth0";
+import { IOC } from "R/src/infrastructure/container";
 
 // import CustomSession from '@/types/session';
 // import CmsUser from '@/types/user';
@@ -23,7 +23,7 @@ import Auth0Provider from "next-auth/providers/auth0";
 export const getAuthOptions: () => Promise<NextAuthOptions> =
   async (): Promise<NextAuthOptions> => {
 
-    const configManager = await Container.Instance.resolve<IConfigManager>('Helper/TokenGenerator');
+    const configManager = await IOC().resolve<IConfigManager>('Helper/TokenGenerator');
 
     const config = {
       clientId: (await configManager.get("AUTH0_CLIENT_ID", "MISSING"))!,//process.env.AUTH0_CLIENT_ID

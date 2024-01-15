@@ -1,4 +1,6 @@
 import winston, { transports, format, level } from 'winston';
+import { red, italic } from "colorette"
+
 import util from 'node:util';
 import { SyslogConfigSetColors, SyslogConfigSetLevels } from 'winston/lib/winston/config';
 import p from '../../../package.json';
@@ -7,6 +9,18 @@ type LoggerMethod = (message?: any, ...optionalParams: any[]) => void
 const { prettyPrint, label, combine, timestamp, errors } = format
 const DIVIDER = "====================================================================="
 const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss  "
+let STYLISH = false
+
+const levelStyles: { [key: string]: (str: string) => string } = {
+  emerg: (str: string) => str,
+  alert: (str: string) => str,
+  crit: (str: string) => str,
+  error: (str: string) => red(italic(str)),
+  warning: (str: string) => str,
+  notice: (str: string) => str,
+  info: (str: string) => str,
+  debug: (str: string) => str,
+}
 
 const customLevels: { levels: SyslogConfigSetLevels, colors: SyslogConfigSetColors } = {
   levels: {
@@ -73,6 +87,7 @@ class LoggerFactory {
     formatFunctions.push(winston.format.errors({ stack: true }))
 
     if (process.env.NODE_ENV === 'development') {
+      STYLISH = true;
       formatFunctions.push(winston.format.simple())
       formatFunctions.push(winston.format.colorize())
 
@@ -157,7 +172,10 @@ class LoggerFactory {
 
     const str = util.format(message, ...args)
 
-    this._winston.log({ level, message: str })
+
+    const colored = (STYLISH && levelStyles[level]) ? levelStyles[level](str) : str
+
+    this._winston.log({ level, message: colored })
   }
 
   private _cli: LoggerMethod = (level: Levels, message?: any, ...optionalParams: any[]) => {

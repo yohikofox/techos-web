@@ -1,16 +1,14 @@
 import Link from 'next/link'
 import styles from './footer.module.scss'
 import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory';
-import Container from '@/infrastructure/dependencyFactory'
 
 import HeaderData from '@/business/model/headerData';
 import { HeaderDataResult } from '@/business/useCases/getHeaderData';
-import { MainLogo } from '../Icon/Logo';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import ServerImage from "@/components/Image"
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import { DependencyKeys } from '@/infrastructure/dependencies';
+import { IOC } from "R/src/infrastructure/container";
 
 import LogoIcon from 'R/public/logo.png';
 import Brand from 'R/src/components/Brand';
@@ -20,7 +18,7 @@ const begin_date = dayjs('2019-01-01');
 export default async function Footer() {
 
   const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
-  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager);
+  const configManager = await IOC().resolve<IConfigManager>('ConfigManager');
 
   const response = await useCase?.execute();
 
@@ -45,7 +43,7 @@ export default async function Footer() {
 
   return (
     <footer className={classNames(styles.container)}>
-      <ServerImage src={LogoIcon.src} className={styles.test} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      <ServerImage src={LogoIcon.src} className={styles.test} priority alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
           <Brand />

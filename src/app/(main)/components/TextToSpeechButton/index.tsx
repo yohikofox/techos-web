@@ -7,9 +7,8 @@ import { ImPlay3, ImStop2, ImPause2 } from "react-icons/im";
 import useBlogStore from "R/src/infrastructure/store/blog";
 import { useShallow } from "zustand/react/shallow";
 
-
 const LIMIT = 100
-
+const STEP = 1
 export interface TextToSpeechButtonProps extends PropsWithChildren<{}> {
   identifier: string
   text: string
@@ -30,23 +29,43 @@ export default function Component({ identifier, text, className }: TextToSpeechB
   } = useBlogStore(useShallow(state => state.speech))
   const [playerState, setPlayerState] = useState(0)
 
+  const doSplit = (text: string) => text
+    .replaceAll('/!\\', '')
+    .replaceAll('*', '\n\n')
+    .replaceAll('\n\n', '====')
+    .replaceAll('\n', ' ')
+    .split('====').filter(it => it.length > 0)
+
+  const [splitResult, setSplitText] = useState<string[]>(doSplit(text))
+
   const speak = useCallback((text: string) => {
 
     if (window['speechSynthesis'] === undefined) {
       return;
     }
 
-    var utterThis = new SpeechSynthesisUtterance(text);
-    utterThis.addEventListener("end", (event) => {
-      setPlayerState(PlayerState.Idle)
-    });
     const synth = window.speechSynthesis
+
+    const current = splitResult.slice(0, STEP).join('\n')
+
+    var utterThis = new SpeechSynthesisUtterance(current.trim());
+
+    utterThis.addEventListener("end", (event) => {
+      if (splitResult.length > 0) {
+        const rest = splitResult.splice(0, STEP)
+        setSplitText({ ...rest })
+        speak('')
+      } else {
+        setPlayerState(PlayerState.Idle)
+      }
+    });
+
     utterThis.voice = synth.getVoices()[12];
 
     synth?.cancel();
     synth?.speak(utterThis);
 
-  }, [])
+  }, [splitResult])
 
   const handlePlay = useCallback(() => {
     if (playerState === PlayerState.Paused)
@@ -60,6 +79,7 @@ export default function Component({ identifier, text, className }: TextToSpeechB
 
   const handleStop = useCallback(() => {
     window.speechSynthesis.cancel()
+    setSplitText(doSplit(text))
     setPlayerState(PlayerState.Idle)
   }, [])
 

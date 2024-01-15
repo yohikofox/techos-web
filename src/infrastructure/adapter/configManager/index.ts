@@ -50,13 +50,11 @@ export default class ConfigManager implements IConfigManager {
   }
   async reloadAll(): Promise<void> {
     this.loaded = false
-    console.log("reloadAll")
     this.load()
   }
 
   private load() {
 
-    console.log('this.loaded:', this.loaded)
     if (this.loaded) return
 
     fetch(this.base_url, {

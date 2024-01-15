@@ -1,5 +1,5 @@
-import Container from "@/infrastructure/dependencyFactory";
 import { Result } from "@/lib/result";
+import { IOC } from "R/src/infrastructure/container";
 
 export enum UseCaseOption {
   GET_HOME_DATA = 'GetHomeData',
@@ -16,6 +16,8 @@ export enum UseCaseOption {
   DELETE_WEB_PUSH_SUBSCRIPTION = 'DeleteSubscription',
   GET_OFFLINE_PAGE_DATA = 'GetOfflinePageData',
   GET_RANDOM_PRODUCT = 'GetRandomProduct',
+  GET_MICRO_POST_LIST = 'GetMicroPostList',
+  GET_MICRO_POST_DETAILS = 'GetMicroPostDetails',
 }
 
 export interface IUseCase<TRequest, TResult> {
@@ -29,12 +31,9 @@ type UseCaseStore = {
 
 export default class UseCaseFactory {
   private _useCases: UseCaseStore = {}
-  private containerFactory: Container
   private static _instances: UseCaseFactory;
 
-  constructor() {
-    this.containerFactory = Container.Instance
-  }
+  constructor() { }
 
   public static get Instance() {
     if (!this._instances) {
@@ -46,9 +45,10 @@ export default class UseCaseFactory {
 
   public async getUseCase<TRequest, TResult, TEnum extends string>(option: UseCaseOption) {
     if (!this._useCases[option]) {
-      const UseCase = await this.containerFactory.resolve<IUseCase<TRequest, TResult>>('UseCase/' + option);
+      const UseCase = await IOC().resolve<IUseCase<TRequest, TResult>>(option);
       this._useCases[option] = UseCase
     }
     return this._useCases[option] as IUseCase<TRequest, Result<TResult, TEnum>>
   }
 }
+

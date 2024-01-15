@@ -4,7 +4,7 @@ import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
 
 const fetchResults = async (query: string): Promise<SearchData> => {
 
-  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}`
+  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}&index=post`
 
   try {
 

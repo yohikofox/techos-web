@@ -1,10 +1,15 @@
 import { Result } from "@/lib/result"
 import { FetchOptions } from "R/src/infrastructure/adapter/fetchOptions"
 
+
 export enum ContentManagerSystemResult {
   SUCCESS = 'success',
   ERROR = 'error',
   UNHANDLED_ERROR = 'unhandled_error',
+  PARSE_ERROR = 'parse_error',
+  NO_DATA_FOUND = 'no_data_found',
+  RESULT_ENDPOINT_ERROR = 'result_endpoint_error',
+  HTTP_ENDPOINT_ERROR = 'http_endpoint_error',
 }
 
 export interface IContentManagerSystemRepository {
@@ -26,5 +31,7 @@ export enum GraphQLQueries {
   GET_WEB_PUSH_NOTIFICATION = 'getWebPushNotification',
   DELETE_WEB_PUSH_SUBSCRIPTION = 'deleteWebPushSubscription',
   GET_OFFLINE_PAGE_DATA = 'getOfflinePageData',
+  GET_MICRO_POST_LIST = 'getMicroPostList',
+  GET_MICRO_POST_DETAILS = 'getMicroPostDetails',
 }
 

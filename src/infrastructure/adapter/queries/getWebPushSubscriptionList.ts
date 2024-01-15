@@ -1,4 +1,4 @@
-const getWebPushSubscriptionList = `
+export const getWebPushSubscriptionList = `
 query getWebPushSubscriptionList {
   webPushSubscriptions {
     data {
@@ -14,5 +14,3 @@ query getWebPushSubscriptionList {
 }
 
 `
-
-export default getWebPushSubscriptionList

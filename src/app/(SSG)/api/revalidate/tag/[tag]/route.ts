@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidateTag } from 'next/cache'
-import Container from '@/infrastructure/dependencyFactory'
-import { DependencyKeys } from '@/infrastructure/dependencies'
 import { IConfigManager } from '@/infrastructure/adapter/configManager'
+import { IOC } from "R/src/infrastructure/container";
 
 export const dynamic = 'force-dynamic'
 
@@ -14,7 +13,7 @@ export const dynamic = 'force-dynamic'
  */
 export async function POST(request: NextRequest, { params: { tag } }: { params: { tag: string } }) {
   const secret = request.nextUrl.searchParams.get('secret')
-  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager)
+  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
   const secretKey = await configManager.get('REVALIDATE_SECRET')
 
