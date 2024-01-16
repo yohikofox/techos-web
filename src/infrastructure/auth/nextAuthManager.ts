@@ -48,20 +48,22 @@ export default class NextAuthManager {
    */
   private async fetchSignInRedirectData(provider: string, callbackUrl: string) {
     const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signin/${provider}`
-
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ url:", url)
+    const cookie = await this.cookie()
+    const csrfToken = await this.CSRFToken()
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ csrfToken:", csrfToken)
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ cookie:", cookie)
 
     const fetchOptions: RequestInit = {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Auth-Return-Redirect": "1",
-        cookie: `next-auth.csrf-token=${await this.cookie()}`,
+        cookie: `next-auth.csrf-token=${cookie}`,
       },
       credentials: "include",
       redirect: "follow",
       body: new URLSearchParams({
-        csrfToken: await this.CSRFToken(),
+        csrfToken: csrfToken,
         callbackUrl: `${process.env.NEXT_PUBLIC_FRONT_URL}${callbackUrl}`,
         json: "true",
       }),
@@ -69,11 +71,8 @@ export default class NextAuthManager {
         revalidate: 0
       }
     }
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ fetchOptions:", fetchOptions)
 
     const res = await fetch(url, fetchOptions);
-
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ res:", res)
 
     if (!res.ok) {
       return { redirectUrl: '', isError: true }
