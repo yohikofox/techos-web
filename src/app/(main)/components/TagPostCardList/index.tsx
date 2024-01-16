@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 import { PostType } from "@/business/model/post";
 import Pagination from "../PostList/parts/Pagination";
 import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
-import Container from "@/infrastructure/dependencyFactory";
-import { DependencyKeys } from "@/infrastructure/dependencies";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import PostCard from "../PostCard";
+import { IOC } from "R/src/infrastructure/container";
+
 
 const ADS_POSITION_LIST: number[] = [];
 const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
@@ -50,7 +50,7 @@ export default async function PostListRender({ title, page, tag }: TagPostListPr
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
-  const configManager = await Container.Instance.resolve<IConfigManager>(DependencyKeys.helper_configmanager)
+  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
   AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${AD_DEFAULT.picture.src}}`
 

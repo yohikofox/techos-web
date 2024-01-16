@@ -19,10 +19,12 @@ export async function hash(value: string): Promise<string> {
 
 const PATTERNS = [
   '/api/admin',
-  '/admin'
+  '/admin',
+  '/post',
+  // '/logout',
 ]
 
-export type Machin = {
+export type RedirectData = {
   redirectUrl: string,
   cookies?: string,
   isError?: boolean
@@ -41,34 +43,32 @@ export default class SessionMiddleware extends Middleware {
   async run(request: NextRequest, _next: NextFetchEvent): Promise<NextMiddlewareResult> {
     const session = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
-    if (!session) {
+    if (session) return this.next(request, _next)
 
-      const pathName = request.headers.get('x-pathname')
+    const pathName = request.headers.get('x-pathname')
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/middleware/session?callbackUrl=${pathName}`, {
-        next: {
-          revalidate: 0
-        }
-      })
-
-      const { redirectUrl, cookies, isError } = await response.json() as Machin
-
-      if (isError) {
-        return NextResponse.next({ headers: new Headers(request.headers) })
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/middleware/session?callbackUrl=${pathName}`, {
+      next: {
+        revalidate: 0
       }
+    })
 
-      const responseHeaders = new Headers(response.headers)
+    const { redirectUrl, cookies, isError } = await response.json() as RedirectData
 
-      if (cookies) {
-        responseHeaders.set('set-cookie', cookies)
-      }
-
-      return NextResponse.redirect(redirectUrl, {
-        status: 302,
-        headers: responseHeaders,
-      });
+    if (isError) {
+      return NextResponse.next({ headers: new Headers(request.headers) })
     }
-    return this.next(request, _next)
+
+    const responseHeaders = new Headers(response.headers)
+
+    if (cookies) {
+      responseHeaders.set('set-cookie', cookies)
+    }
+
+    return NextResponse.redirect(redirectUrl, {
+      status: 302,
+      headers: responseHeaders,
+    });
   }
 
   constructor(next: NextMiddleware) {

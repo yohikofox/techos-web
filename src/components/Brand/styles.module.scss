@@ -24,6 +24,7 @@ $size: 2.5rem;
     font-style: italic;
     align-self: stretch;
     position: relative;
+    width: 45px; // extension size must be set with absolute position
 
     div {
       position: absolute;

@@ -1,10 +1,10 @@
-import Container from "@/infrastructure/dependencyFactory";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import WebPushSubscription from "@/business/model/webPushSubscription";
 import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
 import { GetWebPushSubscriptionListResult } from "@/business/useCases/getSubscriptionList";
 import { NextRequest, NextResponse } from "next/server"
 import webpush, { WebPushError } from 'web-push'
+import { IOC } from "R/src/infrastructure/container";
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest, params: any) {
 
   const { notificationId } = body
 
-  const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
+  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
   //TODO: lock undefined resources
 

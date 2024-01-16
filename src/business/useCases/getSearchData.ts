@@ -1,28 +1,35 @@
 import { ISearchEngineRepository } from "@/infrastructure/adapter/searchEngineRepository.repo";
-import SearchData, { SearchDataItem } from "../model/searchData";
 import { IImageSetService } from "../services/imageSet.service";
 import { IUseCase } from "../useCaseFactory";
 import { Result } from "@/lib/result";
 import CacheConstants from "R/src/lib/constants/cache";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+import { ISearchService } from "../services/search.service";
+import { SearchData } from "../services/dto/search.dto";
+import Search from "../model/search";
 
 export type SearchRequest = {
-  payload: string
+  payload: string,
+  indexName: string
 }
 
 export enum SearchDataResult {
   SUCCESS = 'success',
+  BAD_REQUEST = 'bad_request',
   ERROR = 'error',
 }
 
-export default class GetSearchDataUseCase implements IUseCase<SearchRequest, Result<SearchData, SearchDataResult>> {
+export default class GetSearchDataUseCase implements IUseCase<SearchRequest, Result<Search, SearchDataResult>> {
   constructor(
     private searchEngineRepository: ISearchEngineRepository,
-    private imageSetService: IImageSetService
+    private searchService: ISearchService
   ) { }
-  async execute(request?: any): Promise<Result<SearchData, SearchDataResult>> {
+  async execute(request?: SearchRequest): Promise<Result<Search, SearchDataResult>> {
+    if (!request || !request.indexName) {
+      return Result.error(SearchDataResult.BAD_REQUEST)
+    }
 
-    const result = await this.searchEngineRepository.search<any>({ ...request, indexName: 'post' }, {
+    const result = await this.searchEngineRepository.search<any>({ ...request } as any, {
       revalidate: CacheConstants.ONE_MINUTE,
       tags: [RevalidateTagConstants.SEARCH]
     })
@@ -31,21 +38,7 @@ export default class GetSearchDataUseCase implements IUseCase<SearchRequest, Res
       return result.transferError(SearchDataResult.ERROR)
     }
 
-    const model: SearchData = {
-      hits: await Promise.all(result.Value.hits.map(async (hit: any) => {
-        return {
-          title: hit.title,
-          slug: hit.slug,
-          content: hit.content,
-          extract: hit.extract,
-          picture: await this.imageSetService.mapImageSet(hit.picture),
-          author: {
-            username: hit.author.username,
-          },
-          start_at: hit.start_at,
-        } as SearchDataItem
-      }))
-    }
+    const model: Search = await this.searchService.mapSearchItem(result.Value, request.indexName)
 
     return Result.ok(model)
   }
