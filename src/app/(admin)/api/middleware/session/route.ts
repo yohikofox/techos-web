@@ -17,6 +17,7 @@ export async function GET(request: NextRequest, params: any) {
     let response: RedirectData
 
     response = await new NextAuthManager().getSignInRedirectData(callbackUrl || '/')
+    console.info("🚀 ~ GET ~ response:", JSON.stringify(response))
 
     if (response.isError) {
       return NextResponse.json({ error: 'Forbidden' }, {
