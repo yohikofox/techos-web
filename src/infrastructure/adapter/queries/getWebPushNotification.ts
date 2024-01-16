@@ -1,4 +1,4 @@
-const getWebPushNotification = `
+export const getWebPushNotification = `
 query getWebPushNotification($notificationId: ID!) {
   webPushNotification(id: $notificationId) {
     data {
@@ -63,5 +63,3 @@ query getWebPushNotification($notificationId: ID!) {
   }
 }
 `
-
-export default getWebPushNotification

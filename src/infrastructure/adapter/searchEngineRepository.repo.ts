@@ -18,6 +18,7 @@ export interface ISearchEngineRepository {
 
 export enum IndexNames {
   POST = 'post',
+  MICRO_POST = 'micro-post'
 }
 
 export default class SearchEngineRepository implements ISearchEngineRepository {
@@ -28,6 +29,7 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
     const endpoint = await this.configManager.get('INDEX_ENDPOINT')
     const bearer = await this.configManager.get('INDEX_TOKEN')
     const url = `${endpoint}/indexes/${indexName}/search`
+
     try {
       const response = await fetch(url,
         {
@@ -51,7 +53,6 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
       }
 
       const json = await response.json();
-
       return Result.ok(json)
     } catch (err) {
       console.error('SearchEngineRepository:', err)

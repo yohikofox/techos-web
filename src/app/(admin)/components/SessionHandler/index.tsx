@@ -6,9 +6,9 @@ import React, { PropsWithChildren } from "react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import SessionProvider from "./SessionProvider";
-import Container from "@/infrastructure/dependencyFactory";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { getProviders } from "next-auth/react";
+import { IOC } from "R/src/infrastructure/container";
 
 export interface SessionHandlerProps extends PropsWithChildren {
   target?: string
@@ -16,7 +16,7 @@ export interface SessionHandlerProps extends PropsWithChildren {
 
 export default async function SessionHandler({ children, target }: SessionHandlerProps) {
 
-  const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
+  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
   const session = await getServerSession();
 

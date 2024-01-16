@@ -4,8 +4,9 @@ import md from "markdown-it";
 import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
 
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import Container from '@/infrastructure/dependencyFactory';
 import TextToSpeechButton from "../TextToSpeechButton";
+import { IOC } from "R/src/infrastructure/container";
+import { convert } from "html-to-text"
 
 export interface RenderMarkdownProps {
   content: string
@@ -14,7 +15,7 @@ export interface RenderMarkdownProps {
 
 export default async function RenderMarkdown({ content, className }: RenderMarkdownProps) {
 
-  const configManager = await Container.Instance.resolve<IConfigManager>("Helper/ConfigManager")
+  const configManager = await IOC().resolve<IConfigManager>("ConfigManager")
   const cmsEndpoint = await configManager.get('CMS_ENDPOINT')
 
 
@@ -40,6 +41,8 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
     return ''
   }
   const ctnt = m.render(content)
+  const tts = convert(ctnt).replaceAll('>', '')
+
   return (
     <>
       {(content) && (
@@ -47,7 +50,7 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
           <TextToSpeechButton
             identifier={""}
             className={styles.read__button}
-            text={ctnt}
+            text={tts}
           />
         </div>
       )}

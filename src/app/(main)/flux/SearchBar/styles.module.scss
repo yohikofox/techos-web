@@ -1,0 +1,20 @@
+@import '~@/theme/classic/theme.scss';
+
+.container {
+  max-width: 400px;
+  margin: 3rem auto;
+
+  .search__input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--color-dark);
+    background-color: var(--color-light);
+    border-radius: var(--metric-radius-large);
+  }
+
+  .label {
+    @apply sr-only;
+  }
+}

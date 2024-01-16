@@ -1,6 +1,7 @@
 @import '~@/theme/classic/theme.scss';
 
 .container {
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -43,7 +44,7 @@
   nav {
     display: none;
     margin: 0.5rem 0;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
 
     ul {
       display: flex;
@@ -77,19 +78,23 @@
   .logo {
     position: relative;
     display: flex; //none
-    width: 30px; //75px
     justify-content: center;
     align-items: center;
-    margin-right: 0.5rem;
 
-    img {
-      object-fit: cover;
-    }
+    // img {
+    //   object-fit: cover;
+    // }
 
-    .logo__svg {
-      fill: var(--color-foreground);
-      padding: 2px;
-    }
+    // &__brand {
+    //   &__container {
+    //     display: block;
+    //   }
+    // }
+
+    // .logo__svg {
+    // fill: var(--color-foreground);
+    // padding: 2px;
+    // }
 
     a {
       position: absolute;
@@ -106,7 +111,7 @@
 
     .logo {
       display: flex;
-      width: 40px;
+      // width: 40px;
       margin-right: 0.1rem;
     }
 

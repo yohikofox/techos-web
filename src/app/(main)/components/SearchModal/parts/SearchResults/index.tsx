@@ -41,7 +41,7 @@ export default function SearchResults({ handleSelectedItem }: SearchResultsProps
   return (
     <>
       <section className={styles.item__list}>
-        {searchResults?.hits ? searchResults.hits?.map((it, index) => {
+        {searchResults?.hits ? searchResults.hits?.map((it: any, index: number) => {
           const readingTime = getReadingTime(it.content);
           return (
             <section key={`search-result-item-${index}`} className={styles.container}>

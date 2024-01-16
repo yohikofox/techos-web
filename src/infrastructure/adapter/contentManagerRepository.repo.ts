@@ -32,19 +32,19 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
 
       if (!response.ok) {
         console.log('CMS Response was not ok.', response.status, response.statusText);
-        return Result.error(ContentManagerSystemResult.ERROR)
+        return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR)
       }
 
       const json = await response.json();
 
       if (json.errors) {
         console.warn('GraphQL query error', json.errors);
-        return Result.error(ContentManagerSystemResult.ERROR)
+        return Result.error(ContentManagerSystemResult.RESULT_ENDPOINT_ERROR)
       }
 
       if (!json.data) {
         console.warn('GraphQL query error', json);
-        return Result.error(ContentManagerSystemResult.ERROR)
+        return Result.error(ContentManagerSystemResult.NO_DATA_FOUND)
       }
 
       if (!options?.schema) return Result.ok(json.data as T)
@@ -52,8 +52,8 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       const parseResult = options?.schema.safeParse(json.data)
 
       if (!parseResult.success) {
-        console.warn('GraphQL query error', parseResult.error.message);
-        return Result.error(ContentManagerSystemResult.ERROR)
+        console.warn('GraphQL query parse error', parseResult.error.message);
+        return Result.error(ContentManagerSystemResult.PARSE_ERROR)
       }
 
       return Result.ok(parseResult.data as T)

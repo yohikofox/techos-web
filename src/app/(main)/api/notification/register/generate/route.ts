@@ -1,22 +1,17 @@
-import Container from "@/infrastructure/dependencyFactory";
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { NextRequest, NextResponse } from "next/server"
-import jwt from 'jsonwebtoken'
-import dayjs from "dayjs";
-import { cookies } from "next/headers";
-import crypto from "crypto";
+// import dayjs from "dayjs";
 import webpush from "web-push"
 
-const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
+// const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 export const dynamic = "force-dynamic"
 export async function GET(request: NextRequest, params: any) {
 
-  // const configManager = await Container.Instance.resolve<IConfigManager>('Helper/ConfigManager')
+  // const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
   // const secret = await configManager.get('JWT_KEY');
 
-  const { ip } = request
+  // const { ip } = request
 
-  const timestamp = dayjs().unix()
+  // const timestamp = dayjs().unix()
 
   // let token = jwt.sign({ ip: ip || timestamp, timestamp: timestamp }, secret, {
   //   expiresIn: '1h',

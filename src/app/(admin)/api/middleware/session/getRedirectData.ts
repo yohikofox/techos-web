@@ -1,8 +1,8 @@
 import { getCsrfToken, getProviders } from "next-auth/react";
 import { NextRequest } from "next/server";
-import { Machin, hash } from "R/src/middlewares/session";
+import { RedirectData, hash } from "R/src/middlewares/session";
 
-export async function getRedirectData(request: NextRequest, callbackUrl: string): Promise<Machin> {
+export async function getRedirectData(request: NextRequest, callbackUrl: string): Promise<RedirectData> {
 
   const CSRFToken = await getCsrfToken() || ''
 

@@ -1,13 +1,14 @@
 import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
 import { Middleware } from ".";
 import { getToken } from "next-auth/jwt";
-import { getCsrfToken } from "next-auth/react";
 import { MiddlewareResult } from "./factory";
 import { NextMiddlewareResult } from "next/dist/server/web/types";
-import { Machin, hash } from "./session";
+import { RedirectData, hash } from "./session";
+import CookieManager from "../infrastructure/cookie";
 
 const PATTERNS = [
   '/api/auth/logout',
+  '/logout',
 ]
 
 export default class SignOutMiddleware extends Middleware {
@@ -20,54 +21,53 @@ export default class SignOutMiddleware extends Middleware {
     return false
   }
 
-
-  private async getMachin(request: NextRequest, callbackUrl: string): Promise<Machin> {
-    const CSRFToken = await getCsrfToken() || ''
-
-    const CSRFTokenHash = (await hash(`${CSRFToken}${process.env.NEXTAUTH_SECRET}`));
-    // const cookie = `${CSRFToken}|${CSRFTokenHash}`;
-
-    const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signout`
-
-    //TODO: revalidate: 0
-    const csrf = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/csrf`)
-
-    //TODO: revalidate: 0
-    const fetchResponse = await fetch(`${url}?callbackUrl=/api/auth/session`, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: await csrf.text()
-    })
-
-
-    return { redirectUrl: callbackUrl, cookies: undefined }
-  }
-
   async run(request: NextRequest, _next: NextFetchEvent): Promise<NextMiddlewareResult> {
+
     const session = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
-    if (session) {
+    if (!session) return this.next(request, _next)
 
-      const pathName = request.headers.get('x-pathname')
+    const pathName = request.headers.get('x-pathname')
 
-      const { redirectUrl, cookies, isError } = await this.getMachin(request, pathName || '')
+    const splt: Record<string, string> = {};
 
-      if (isError) {
-        return NextResponse.next({ headers: new Headers(request.headers) })
+    const okFilter = [
+      'next-auth.callback-url',
+      'next-auth.session-token'];
+
+    (request.headers.get("cookie") ?? '').split(';').forEach(v => {
+      const [key, value] = v.split('=')
+      if (!okFilter.includes(key.trim())) return
+      splt[key.trim()] = value
+    })
+
+    const cookieManager = new CookieManager(request.headers.get("cookie") ?? '')
+
+    cookieManager.filter(okFilter)
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/middleware/session/signout?callbackUrl=${"/admin"}`, {
+      headers: {
+        cookie: cookieManager.render()
+      },
+      next: {
+        revalidate: 0
       }
+    })
 
-      return NextResponse.redirect(redirectUrl, {
-        status: 302,
-        headers: {
-          "Set-Cookie": cookies ?? "",
-        },
-      });
+    const { redirectUrl, cookies, isError } = await response.json() as RedirectData
+
+    if (isError) {
+      return NextResponse.next({ headers: new Headers(request.headers) })
     }
 
-    return this.next(request, _next)
+    return NextResponse.redirect(redirectUrl, {
+      status: 302,
+      headers: {
+        "Set-Cookie": cookies ?? "",
+      },
+    });
+
+    // return this.next(request, _next)
   }
 
   constructor(next: NextMiddleware) {

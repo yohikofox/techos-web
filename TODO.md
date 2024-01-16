@@ -1,35 +1,16 @@
-task                             | status | comment
----------------------------------|--------|--------
-refresh confs                    |        |
-errors on search (only one char) |        |
-
-
 
 task                                                                                                                 | status | comment
----------------------------------------------------------------------------------------------------------------------|--------|-------------------------------------------
-Refaire le logo                                                                                                      | done   |
-refacto configs (hosts)                                                                                              | done   |
-ajouter le focus sur le champs de recherche en ouvrant la modale                                                     | done   |
+---------------------------------------------------------------------------------------------------------------------|--------|--------
 infinite scroll                                                                                                      |        |
-more from author                                                                                                     | done   |
 revoir le style des tags (icons)                                                                                     |        |
-caler margin right                                                                                                   | done   |
 Caler le header (responsive)                                                                                         |        |
-ellipsis sur card abstract                                                                                           | done   |
-Homogénéiser les titres des posts (taille) -> augmenter les font-size                                                | done   | font size 1.3em en 1440px
-catégorisation (tags, catégories)                                                                                    | done   | faire apparaitre dans la carte. + page tag
-Faire apparaître le niveau tech demandé dans la carte                                                                | done   |
-tracking nombre de vues                                                                                              | done   |
 share dans les réseaux                                                                                               |        |
 page QSN                                                                                                             |        |
-ajouter les ads en tant que card dans la liste des posts                                                             | done   |
 ajouter des inserts dans les posts                                                                                   |        |
 progress bar scroll                                                                                                  |        |
 share in header                                                                                                      |        |
 Commentaires ?                                                                                                       |        |
 pas mettre deux headers dans la page de recherche (garder le placeholder)                                            |        |
-moins charger en bg en hero                                                                                          | done   |
-refacto pour refresh config keys                                                                                     | done   |
 plugin strapi de notifications                                                                                       |        |
 add jwt token to notify api                                                                                          |        |
 Check pourquoi et comment SSR VS SSG vs ISR                                                                          |        |
@@ -40,7 +21,6 @@ Checker les réponses de Strapi sur [DISCORD](https://discordapp.com/channels/81
 remove tailwind                                                                                                      |        |
 faire une fonction recursive pour les imports de style (bundles.scss)                                                |        |
 ajouter un bundler pour le next.config.js                                                                            |        |
-pre/code text-wrap  ex: http://localhost:3000/post/les-shadow-realms-en-javascript                                   | done   |
 Create a CLI to scaffold useCases                                                                                    |        |
 
 # A creuser 

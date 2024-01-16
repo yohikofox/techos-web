@@ -3,7 +3,7 @@
 import { useContext, useRef } from "react"
 import styles from "./search.module.scss"
 import { SearchDataContext } from "../context"
-import SearchData from "@/business/model/searchData"
+import Search from "@/business/model/search"
 import fetchResultsAction from "./fetchResults"
 
 export interface SearchBarProps {
@@ -22,7 +22,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
   const fetchResults = async (query: string) => {
     if (!query.length) {
-      setSearchResults && setSearchResults({} as SearchData)
+      setSearchResults && setSearchResults({} as Search)
       return
     }
 
@@ -33,7 +33,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value?.length > 0 && e.target.value?.length < MIN_SEARCH_CHAR_LENGTH) return
-    if (delay || SEARCH_TRIGGER_DELAY > 0) {
+    if (delay && SEARCH_TRIGGER_DELAY > 0) {
       if (currentTimeout.current) clearTimeout(currentTimeout.current)
       currentTimeout.current = setTimeout(async () => {
         fetchResults(e.target.value)
