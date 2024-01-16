@@ -47,7 +47,11 @@ export default class NextAuthManager {
    * http://localhost:3000/api/auth/logout
    */
   private async fetchSignInRedirectData(provider: string, callbackUrl: string) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signin/${provider}`, {
+    const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signin/${provider}`
+
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ url:", url)
+
+    const fetchOptions: RequestInit = {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -64,7 +68,12 @@ export default class NextAuthManager {
       next: {
         revalidate: 0
       }
-    });
+    }
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ fetchOptions:", fetchOptions)
+
+    const res = await fetch(url, fetchOptions);
+
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ res:", res)
 
     if (!res.ok) {
       return { redirectUrl: '', isError: true }
@@ -91,7 +100,7 @@ export default class NextAuthManager {
     cookieManager.update('next-auth.csrf-token', cookieToken)
     cookieManager.remove('csrfToken')
 
-    const fetchOptions = {
+    const fetchOptions: RequestInit = {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
