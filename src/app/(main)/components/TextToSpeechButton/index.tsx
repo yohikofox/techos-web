@@ -31,6 +31,7 @@ export default function Component({ identifier, text, className }: TextToSpeechB
 
   const doSplit = (text: string) => text
     .replaceAll('/!\\', '')
+    .replaceAll('#', '')
     .replaceAll('*', '\n\n')
     .replaceAll('\n\n', '====')
     .replaceAll('\n', ' ')
