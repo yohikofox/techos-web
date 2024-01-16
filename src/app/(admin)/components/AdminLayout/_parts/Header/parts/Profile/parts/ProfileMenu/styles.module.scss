@@ -13,7 +13,23 @@
   justify-content: flex-start;
   z-index: 1;
 
-  &.profile__menu__open {
+  &__item {
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 10px;
+
+    &:hover {
+      background-color: var(--color-font-primary);
+      color: var(--color-background-primary);
+      font-weight: bold;
+    }
+
+    // &__icon {
+    //   margin-right: calc(var(--metric-base) *2);
+    // }
+  }
+
+  &__open {
     display: flex;
   }
 }

@@ -86,7 +86,7 @@ class LoggerFactory {
     formatFunctions.push(winston.format.timestamp({ format: DATE_FORMAT }))
     formatFunctions.push(winston.format.errors({ stack: true }))
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.DEBUG_MODE === 'true') {
       STYLISH = true;
       formatFunctions.push(winston.format.simple())
       formatFunctions.push(winston.format.colorize())
