@@ -98,14 +98,12 @@ export default class NextAuthManager {
 
     h.set('Content-Type', 'application/x-www-form-urlencoded')
 
-    const cookieManager = new CookieManager(h.get('cookie') || '')
+    const cookieString = h.get('cookie');
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ cookieString:", cookieString)
+    const cookieManager = new CookieManager(cookieString || '')
 
     cookieManager.update('next-auth.csrf-token', cookieToken)
     cookieManager.remove('csrfToken')
-
-    options?.isSecured && cookieManager.updateKey('next-auth.csrf-token', '__Host-next-auth.csrf-token')
-    options?.isSecured && cookieManager.updateKey('next-auth.callback-url', '__Secure-next-auth.callback-url')
-    options?.isSecured && cookieManager.updateKey('next-auth.session-token', '__Secure-next-auth.session-token')
 
     const toto = cookieManager.render()
 
