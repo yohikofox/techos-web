@@ -107,11 +107,14 @@ export default class NextAuthManager {
     options?.isSecured && cookieManager.updateKey('next-auth.callback-url', '__Secure-next-auth.callback-url')
     options?.isSecured && cookieManager.updateKey('next-auth.session-token', '__Secure-next-auth.session-token')
 
+    const toto = cookieManager.render()
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ toto:", toto)
+
     const fetchOptions: RequestInit = {
       method: "post",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        cookie: cookieManager.render()
+        cookie: toto
       },
       body: new URLSearchParams({
         csrfToken,
