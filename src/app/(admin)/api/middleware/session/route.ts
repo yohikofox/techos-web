@@ -13,10 +13,13 @@ export async function GET(request: NextRequest, params: any) {
 
   const session = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
+  // TODO: faire un helper
+  const isSecured = request.url.startsWith('https://') || process.env.FORCE_SECURED_COOKIES === 'true'
+
   if (!session) {
     let response: RedirectData
 
-    response = await new NextAuthManager().getSignInRedirectData(callbackUrl || '/')
+    response = await new NextAuthManager().getSignInRedirectData(callbackUrl || '/', { isSecured })
 
     if (response.isError) {
       return NextResponse.json({ error: 'Forbidden' }, {

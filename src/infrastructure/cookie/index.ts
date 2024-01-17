@@ -21,12 +21,20 @@ export interface ICookieManager {
   add(key: string, value: string, options?: any): void
   render(): string
   filter(keys: string[]): void
+  updateKey(key: string, newKey: string): void
 }
 export default class CookieManager implements ICookieManager {
   private _store: CookieCollection
 
   constructor(private readonly cookieValue: string) {
     this._store = CookieManager.parse(cookieValue)
+  }
+  public updateKey(key: string, newKey: string): void {
+    const parsedKey = CookieManager.parseKey(key)
+    const parsedNewKey = CookieManager.parseKey(newKey)
+
+    this._store[parsedNewKey.key] = this._store[parsedKey.key]
+    delete this._store[parsedKey.key]
   }
 
   public remove(key: string): void {
