@@ -108,6 +108,7 @@ export default class NextAuthManager {
     options?.isSecured && cookieManager.updateKey('next-auth.session-token', '__Secure-next-auth.session-token')
 
     const toto = cookieManager.render()
+
     console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ toto:", toto)
 
     const fetchOptions: RequestInit = {

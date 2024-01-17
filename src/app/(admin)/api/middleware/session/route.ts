@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { getRedirectData } from "./getRedirectData";
 import NextAuthManager from "R/src/infrastructure/auth/nextAuthManager";
 import { RedirectData } from "R/src/middlewares/session";
+import RequestHelper from "R/src/infrastructure/request";
 
 export const dynamic = "force-dynamic"
 
@@ -13,13 +14,10 @@ export async function GET(request: NextRequest, params: any) {
 
   const session = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
-  // TODO: faire un helper
-  const isSecured = request.url.startsWith('https://') || process.env.FORCE_SECURED_COOKIES === 'true'
-
   if (!session) {
     let response: RedirectData
 
-    response = await new NextAuthManager().getSignInRedirectData(callbackUrl || '/', { isSecured })
+    response = await new NextAuthManager().getSignInRedirectData(callbackUrl || '/', { isSecured: RequestHelper.isSecured(request) })
 
     if (response.isError) {
       return NextResponse.json({ error: 'Forbidden' }, {
