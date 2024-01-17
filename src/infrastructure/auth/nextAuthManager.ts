@@ -49,9 +49,8 @@ export default class NextAuthManager {
   private async fetchSignInRedirectData(provider: string, callbackUrl: string) {
     const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signin/${provider}`
     const cookie = await this.cookie()
-    const csrfToken = await this.CSRFToken()
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ csrfToken:", csrfToken)
     console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ cookie:", cookie)
+    const csrfToken = await this.CSRFToken()
 
     const fetchOptions: RequestInit = {
       method: "post",
