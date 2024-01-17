@@ -10,6 +10,7 @@ const providerOptions = {
 
 export const authOptions: AuthOptions = {
   logger: console as any,
+  useSecureCookies: false,
   callbacks: {
     async redirect({ url, baseUrl }: { url: string, baseUrl: string }) {
       return url.startsWith(baseUrl) ? url : baseUrl
