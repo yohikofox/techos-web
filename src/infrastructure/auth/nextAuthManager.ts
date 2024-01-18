@@ -90,6 +90,7 @@ export default class NextAuthManager {
   }
 
   private async fetchSignOutRedirectData(provider: string, headers: Headers, callbackUrl: string, options?: NextAuthManagerOptions) {
+    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ options:", options)
     const csrfToken = await this.CSRFToken()
     const cookieToken = await this.cookie()
 
