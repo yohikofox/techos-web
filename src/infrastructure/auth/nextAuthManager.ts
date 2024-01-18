@@ -102,7 +102,10 @@ export default class NextAuthManager {
     console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ cookieString:", cookieString)
     const cookieManager = new CookieManager(cookieString || '')
 
-    cookieManager.update(`${options?.isSecured ? '__Host-' : ''}next-auth.csrf-token`, cookieToken)
+    const csrfTokenKey = `${options?.isSecured ? '__Host-' : ''}next-auth.csrf-token`
+
+    cookieManager.updateKey('next-auth.csrf-token', csrfTokenKey)
+    cookieManager.update(csrfTokenKey, cookieToken)
     cookieManager.remove('csrfToken')
 
     const toto = cookieManager.render()
