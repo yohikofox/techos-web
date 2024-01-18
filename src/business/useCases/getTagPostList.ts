@@ -3,6 +3,8 @@ import PostList from "../model/postList";
 import { IPostService } from "../services/post.service";
 import { IUseCase } from "../useCaseFactory";
 import { Result } from "@/lib/result";
+import CacheConstants from "R/src/lib/constants/cache";
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
 
 export enum TagPostListResult {
@@ -23,7 +25,10 @@ export default class GetTagPostListUseCase implements IUseCase<TagPostListReques
     private postService: IPostService
   ) { }
   async execute(request?: TagPostListRequest): Promise<Result<PostList, TagPostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request, { revalidate: 60 * 60 * 1 })
+    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request, {
+      revalidate: CacheConstants.ONE_HOUR,
+      tags: [RevalidateTagConstants.TAG, RevalidateTagConstants.POST]
+    })
 
     if (response.IsError) {
       return response.transferError(TagPostListResult.ERROR)
