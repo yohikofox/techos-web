@@ -38,11 +38,17 @@ export default class CookieManager implements ICookieManager {
     this._store = CookieManager.parse(cookieValue)
   }
   public updateKey(key: string, newKey: string): void {
+
+    if (key.trim() === newKey.trim()) return
+
     const parsedKey = CookieManager.parseKey(key)
     const parsedNewKey = CookieManager.parseKey(newKey)
 
     this._store[parsedNewKey.key] = this._store[parsedKey.key]
     this.updateCookieOptions(parsedNewKey.key, { secure: parsedNewKey.isSecure, isHost: parsedNewKey.isHost })
+
+    if (parsedKey.key.trim() === parsedNewKey.key.trim()) return
+
     delete this._store[parsedKey.key]
   }
 
@@ -52,6 +58,9 @@ export default class CookieManager implements ICookieManager {
 
   public update(key: string, value: string, options?: any): void {
     const parsedKey = CookieManager.parseKey(key)
+
+    if (!this._store[parsedKey.key]) return
+
     this._store[parsedKey.key].value = value
     this.updateCookieOptions(parsedKey.key, { ...options, secure: parsedKey.isSecure, isHost: parsedKey.isHost })
   }

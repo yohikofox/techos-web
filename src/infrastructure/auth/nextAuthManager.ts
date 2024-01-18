@@ -1,7 +1,6 @@
 import { BuiltInProviderType } from "next-auth/providers";
 import { ClientSafeProvider, LiteralUnion, getCsrfToken, getProviders as getNextAuthProviders } from "next-auth/react";
 import { RedirectData, hash } from "R/src/middlewares/session";
-import { cookies, headers } from 'next/headers';
 import CookieManager from "../cookie";
 
 export type NextAuthManagerOptions = {
@@ -53,7 +52,6 @@ export default class NextAuthManager {
   private async fetchSignInRedirectData(provider: string, callbackUrl: string, options?: NextAuthManagerOptions) {
     const url = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/auth/signin/${provider}`
     const cookie = await this.cookie()
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignInRedirectData ~ cookie:", cookie)
     const csrfToken = await this.CSRFToken()
 
     const fetchOptions: RequestInit = {
@@ -90,7 +88,6 @@ export default class NextAuthManager {
   }
 
   private async fetchSignOutRedirectData(provider: string, headers: Headers, callbackUrl: string, options?: NextAuthManagerOptions) {
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ options:", options)
     const csrfToken = await this.CSRFToken()
     const cookieToken = await this.cookie()
 
@@ -100,7 +97,6 @@ export default class NextAuthManager {
     h.set('Content-Type', 'application/x-www-form-urlencoded')
 
     const cookieString = h.get('cookie');
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ cookieString:", cookieString)
     const cookieManager = new CookieManager(cookieString || '')
 
     const csrfTokenKey = `${options?.isSecured ? '__Host-' : ''}next-auth.csrf-token`
@@ -110,8 +106,6 @@ export default class NextAuthManager {
     cookieManager.remove('csrfToken')
 
     const toto = cookieManager.render()
-
-    console.debug("🚀 ~ NextAuthManager ~ fetchSignOutRedirectData ~ toto:", toto)
 
     const fetchOptions: RequestInit = {
       method: "post",
