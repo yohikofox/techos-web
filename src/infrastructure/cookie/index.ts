@@ -41,36 +41,19 @@ export default class CookieManager implements ICookieManager {
     const parsedKey = CookieManager.parseKey(key)
     const parsedNewKey = CookieManager.parseKey(newKey)
 
-    const cookie = this._store[parsedKey.key]
-    this._store[parsedNewKey.key] = {
-      value: cookie.value,
-      option: {
-        ...cookie.option,
-        secure: parsedNewKey.isSecure,
-        isHost: parsedNewKey.isHost,
-      }
-    }
+    this._store[parsedNewKey.key] = this._store[parsedKey.key]
+    this.updateCookieOptions(parsedNewKey.key, { secure: parsedNewKey.isSecure, isHost: parsedNewKey.isHost })
     delete this._store[parsedKey.key]
   }
 
   public remove(key: string): void {
-    const parsedKey = CookieManager.parseKey(key)
-    delete this._store[parsedKey.key]
+    delete this._store[CookieManager.parseKey(key).key]
   }
 
   public update(key: string, value: string, options?: any): void {
     const parsedKey = CookieManager.parseKey(key)
-
-    const newOptions = {
-      value: value,
-      option: {
-        ...(options || defaultOption),
-        secure: parsedKey.isSecure
-      }
-    }
-
-    console.debug("🚀 ~ CookieManager ~ update ~ newOptions:", newOptions)
-    this._store[parsedKey.key] = newOptions
+    this._store[parsedKey.key].value = value
+    this.updateCookieOptions(parsedKey.key, { ...options, secure: parsedKey.isSecure, isHost: parsedKey.isHost })
   }
 
   public invalidate(key: string): void {
@@ -78,6 +61,17 @@ export default class CookieManager implements ICookieManager {
     this.update(parsedKey.key, '', { maxAge: -1 })
   }
 
+  private updateCookieOptions(key: string, options: any) {
+    const parsedKey = CookieManager.parseKey(key)
+    const cookie = this._store[parsedKey.key]
+    this._store[parsedKey.key] = {
+      value: cookie.value,
+      option: {
+        ...cookie.option,
+        ...options,
+      }
+    }
+  }
 
   private static parseKey = (key: string): {
     isSecure: boolean
