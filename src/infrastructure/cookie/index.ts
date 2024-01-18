@@ -53,13 +53,16 @@ export default class CookieManager implements ICookieManager {
   public update(key: string, value: string, options?: any): void {
     const parsedKey = CookieManager.parseKey(key)
 
-    this._store[parsedKey.key] = {
+    const newOptions = {
       value: value,
       option: {
         ...(options || defaultOption),
         secure: parsedKey.isSecure
       }
     }
+
+    console.debug("🚀 ~ CookieManager ~ update ~ newOptions:", newOptions)
+    this._store[parsedKey.key] = newOptions
   }
 
   public invalidate(key: string): void {
