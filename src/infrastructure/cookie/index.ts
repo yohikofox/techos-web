@@ -41,7 +41,15 @@ export default class CookieManager implements ICookieManager {
     const parsedKey = CookieManager.parseKey(key)
     const parsedNewKey = CookieManager.parseKey(newKey)
 
-    this._store[parsedNewKey.key] = this._store[parsedKey.key]
+    const cookie = this._store[parsedKey.key]
+    this._store[parsedNewKey.key] = {
+      value: cookie.value,
+      option: {
+        ...cookie.option,
+        secure: parsedNewKey.isSecure,
+        isHost: parsedNewKey.isHost,
+      }
+    }
     delete this._store[parsedKey.key]
   }
 
