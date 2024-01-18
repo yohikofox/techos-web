@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - feature/*
+      - release/*
+      - bugfix/*
 
 run-name: Deploy by @${{ github.actor }} at ${{ github.event_name }} ${{ github.sha }}
 
