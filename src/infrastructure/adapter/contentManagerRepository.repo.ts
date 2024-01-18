@@ -38,7 +38,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       const json = await response.json();
 
       if (json.errors) {
-        console.warn('GraphQL query error', json.errors);
+        console.warn('GraphQL query error', JSON.stringify(json.errors));
         return Result.error(ContentManagerSystemResult.RESULT_ENDPOINT_ERROR)
       }
 
