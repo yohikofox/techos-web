@@ -1,10 +1,18 @@
 export type CookieValue = {
   value: string
-  option: any
+  option: {
+    path: string
+    httpOnly: boolean
+    sameSite: string
+    secure: boolean
+    maxAge: number
+    isHost?: boolean
+  }
 }
 export type CookieCollection = Record<string, CookieValue>
 
-const secrurePrefix = "__Secure-"
+const SECURE_PREFIX = "__Secure-"
+const HOST_PREFIX = "__Host-"
 
 const defaultOption = {
   path: '/',
@@ -62,12 +70,16 @@ export default class CookieManager implements ICookieManager {
 
   private static parseKey = (key: string): {
     isSecure: boolean
+    isHost: boolean
     key: string
   } => {
-    const isSecure = key.startsWith(secrurePrefix)
+    const isSecure = key.startsWith(SECURE_PREFIX)
+    const isHost = key.startsWith(HOST_PREFIX)
+
     return {
       isSecure,
-      key: isSecure ? key.replace(secrurePrefix, '') : key
+      isHost,
+      key: key.replace(SECURE_PREFIX, '').replace(HOST_PREFIX, '')
     }
   }
 
@@ -107,14 +119,17 @@ export default class CookieManager implements ICookieManager {
     const cookies: CookieCollection = {}
     value.split(';').forEach(v => {
       const [key, value] = v.split('=')
+
       if (!key) return
 
       const parsedKey = CookieManager.parseKey(key.trim())
+
       cookies[parsedKey.key] = {
         value: value,
         option: {
           ...defaultOption,
-          secure: parsedKey.isSecure
+          secure: parsedKey.isSecure,
+          isHost: parsedKey.isHost
         }
       }
     })
@@ -123,10 +138,11 @@ export default class CookieManager implements ICookieManager {
 
   public static stringify(cookies: CookieCollection): string {
     return Object.entries(cookies).map(([key, value]) => {
-      return `${value.option.isSecure ? `${secrurePrefix}${key}` : key}=${value.value}`
+      if (value.option.secure)
+        return `${SECURE_PREFIX}${key}=${value.value}`
+      if (value.option.isHost)
+        return `${HOST_PREFIX}${key}=${value.value}`
+      return `${key}=${value.value}`
     }).join('; ')
   }
-
-
-
 }
