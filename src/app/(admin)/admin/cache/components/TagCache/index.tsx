@@ -4,7 +4,7 @@ import Text from "@Admin/components/Text"
 
 import { useState } from "react"
 import styles from "./styles.module.scss"
-import refreshTag from "./cache.service"
+import { refreshTag } from "./cache.service"
 
 export interface TagCacheProps {
   initialValue?: string
