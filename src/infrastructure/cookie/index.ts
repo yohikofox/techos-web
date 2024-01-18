@@ -1,8 +1,18 @@
 export type CookieValue = {
   value: string
-  option: any
+  option: {
+    path: string
+    httpOnly: boolean
+    sameSite: string
+    secure: boolean
+    maxAge: number
+    isHost?: boolean
+  }
 }
 export type CookieCollection = Record<string, CookieValue>
+
+const SECURE_PREFIX = "__Secure-"
+const HOST_PREFIX = "__Host-"
 
 const defaultOption = {
   path: '/',
@@ -19,6 +29,7 @@ export interface ICookieManager {
   add(key: string, value: string, options?: any): void
   render(): string
   filter(keys: string[]): void
+  updateKey(key: string, newKey: string): void
 }
 export default class CookieManager implements ICookieManager {
   private _store: CookieCollection
@@ -26,39 +37,90 @@ export default class CookieManager implements ICookieManager {
   constructor(private readonly cookieValue: string) {
     this._store = CookieManager.parse(cookieValue)
   }
+  public updateKey(key: string, newKey: string): void {
+
+    if (key.trim() === newKey.trim()) return
+
+    const parsedKey = CookieManager.parseKey(key)
+    const parsedNewKey = CookieManager.parseKey(newKey)
+
+    this._store[parsedNewKey.key] = this._store[parsedKey.key]
+    this.updateCookieOptions(parsedNewKey.key, { secure: parsedNewKey.isSecure, isHost: parsedNewKey.isHost })
+
+    if (parsedKey.key.trim() === parsedNewKey.key.trim()) return
+
+    delete this._store[parsedKey.key]
+  }
 
   public remove(key: string): void {
-    delete this._store[key]
+    delete this._store[CookieManager.parseKey(key).key]
   }
 
   public update(key: string, value: string, options?: any): void {
-    this._store[key] = {
-      value: value,
-      option: options || defaultOption
-    }
+    const parsedKey = CookieManager.parseKey(key)
+
+    if (!this._store[parsedKey.key]) return
+
+    this._store[parsedKey.key].value = value
+    this.updateCookieOptions(parsedKey.key, { ...options, secure: parsedKey.isSecure, isHost: parsedKey.isHost })
   }
 
   public invalidate(key: string): void {
-    this.update(key, '', { maxAge: -1 })
+    const parsedKey = CookieManager.parseKey(key)
+    this.update(parsedKey.key, '', { maxAge: -1 })
+  }
+
+  private updateCookieOptions(key: string, options: any) {
+    const parsedKey = CookieManager.parseKey(key)
+    const cookie = this._store[parsedKey.key]
+    this._store[parsedKey.key] = {
+      value: cookie.value,
+      option: {
+        ...cookie.option,
+        ...options,
+      }
+    }
+  }
+
+  private static parseKey = (key: string): {
+    isSecure: boolean
+    isHost: boolean
+    key: string
+  } => {
+    const isSecure = key.startsWith(SECURE_PREFIX)
+    const isHost = key.startsWith(HOST_PREFIX)
+
+    return {
+      isSecure,
+      isHost,
+      key: key.replace(SECURE_PREFIX, '').replace(HOST_PREFIX, '')
+    }
   }
 
   public get(key: string): string | undefined {
-    return this._store[key]?.value
+    const parsedKey = CookieManager.parseKey(key)
+    return this._store[parsedKey.key]?.value
   }
 
   public filter(keys: string[]): void {
     const newStore: CookieCollection = {}
     keys.forEach(key => {
-      if (!this._store[key]) return
-      newStore[key] = this._store[key]
+      const parsedKey = CookieManager.parseKey(key)
+
+      if (!this._store[parsedKey.key]) return
+      newStore[parsedKey.key] = this._store[parsedKey.key]
     })
     this._store = newStore
   }
 
   public add(key: string, value: string, options?: any): void {
-    this._store[key] = {
+    const parsedKey = CookieManager.parseKey(key)
+    this._store[parsedKey.key] = {
       value: value,
-      option: options || defaultOption
+      option: {
+        ...(options || defaultOption),
+        secure: parsedKey.isSecure
+      }
     }
   }
 
@@ -66,19 +128,35 @@ export default class CookieManager implements ICookieManager {
     return Object.keys(this._store).length > 0 ? CookieManager.stringify(this._store) : ''
   }
 
+
   public static parse(value: string): CookieCollection {
     const cookies: CookieCollection = {}
     value.split(';').forEach(v => {
       const [key, value] = v.split('=')
-      cookies[key.trim()] = {
+
+      if (!key) return
+
+      const parsedKey = CookieManager.parseKey(key.trim())
+
+      cookies[parsedKey.key] = {
         value: value,
-        option: defaultOption
+        option: {
+          ...defaultOption,
+          secure: parsedKey.isSecure,
+          isHost: parsedKey.isHost
+        }
       }
     })
     return cookies
   }
 
   public static stringify(cookies: CookieCollection): string {
-    return Object.entries(cookies).map(([key, value]) => `${key}=${value.value}`).join('; ')
+    return Object.entries(cookies).map(([key, value]) => {
+      if (value.option.secure)
+        return `${SECURE_PREFIX}${key}=${value.value}`
+      if (value.option.isHost)
+        return `${HOST_PREFIX}${key}=${value.value}`
+      return `${key}=${value.value}`
+    }).join('; ')
   }
 }

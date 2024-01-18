@@ -20,8 +20,6 @@ export async function hash(value: string): Promise<string> {
 const PATTERNS = [
   '/api/admin',
   '/admin',
-  '/post',
-  // '/logout',
 ]
 
 export type RedirectData = {

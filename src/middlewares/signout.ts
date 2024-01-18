@@ -27,23 +27,7 @@ export default class SignOutMiddleware extends Middleware {
 
     if (!session) return this.next(request, _next)
 
-    const pathName = request.headers.get('x-pathname')
-
-    const splt: Record<string, string> = {};
-
-    const okFilter = [
-      'next-auth.callback-url',
-      'next-auth.session-token'];
-
-    (request.headers.get("cookie") ?? '').split(';').forEach(v => {
-      const [key, value] = v.split('=')
-      if (!okFilter.includes(key.trim())) return
-      splt[key.trim()] = value
-    })
-
     const cookieManager = new CookieManager(request.headers.get("cookie") ?? '')
-
-    cookieManager.filter(okFilter)
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/middleware/session/signout?callbackUrl=${"/admin"}`, {
       headers: {
