@@ -1,9 +1,12 @@
 import MicroPost from "R/src/business/model/microPost";
 import UseCaseFactory, { UseCaseOption } from "R/src/business/useCaseFactory";
 import { MicroPostDetailsResult } from "R/src/business/useCases/getMicroPostDetails";
-import MicroPostCard from "../MicroPostCard";
+import MicroPostCard, { PostClassNames } from "../MicroPostCard";
 
-export default async function Wrapper({ slug }: { slug: string }) {
+export interface WrappedMicroPostCardProps { slug: string, className?: PostClassNames }
+
+
+export default async function Wrapper({ slug, className }: WrappedMicroPostCardProps) {
   const useCase = await UseCaseFactory.Instance.getUseCase<any, MicroPost, MicroPostDetailsResult>(UseCaseOption.GET_MICRO_POST_DETAILS);
 
   const response = await useCase?.execute({ slug: { "eq": slug } });
@@ -16,7 +19,7 @@ export default async function Wrapper({ slug }: { slug: string }) {
   return (
     <>
       {response.Value && (
-        <MicroPostCard post={response.Value} />
+        <MicroPostCard post={response.Value} className={className} />
       )}
     </>
   )

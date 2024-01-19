@@ -2,7 +2,6 @@ import classNames from "classnames"
 import styles from "./render-markdown.module.scss"
 import md from "markdown-it";
 import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
-import MicroPostPage from '@/app/(main)/tips/[slug]/page';
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
 import TextToSpeechButton from "../TextToSpeechButton";
 import { IOC } from "R/src/infrastructure/container";
@@ -13,13 +12,13 @@ import WrappedMicroPostCard from "../../flux/MicroPostList/_parts/WrappedMicroPo
 export interface RenderMarkdownProps {
   content: string
   className?: string
+  classNameCollection?: Record<string, Record<string, string>>
 }
 
-export default async function RenderMarkdown({ content, className }: RenderMarkdownProps) {
+export default async function RenderMarkdown({ content, className, classNameCollection }: RenderMarkdownProps) {
 
   const configManager = await IOC().resolve<IConfigManager>("ConfigManager")
   const cmsEndpoint = await configManager.get('CMS_ENDPOINT')
-
 
   const m = md({
     html: true,
@@ -66,7 +65,7 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
               {(componentDefinition satisfies ComponentDefinition[]).map((cd, cdIndex) => {
                 switch (cd.resourceType) {
                   case 'micro-post':
-                    return <WrappedMicroPostCard key={cdIndex} slug={cd.value} />
+                    return <WrappedMicroPostCard key={cdIndex} slug={cd.value} className={classNameCollection && classNameCollection["micro-post"]} />
                   default: return
                 }
               })}
