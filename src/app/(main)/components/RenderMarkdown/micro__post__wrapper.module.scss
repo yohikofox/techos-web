@@ -1,0 +1,7 @@
+.micro__post__wrapper {
+  max-width: 1008px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}

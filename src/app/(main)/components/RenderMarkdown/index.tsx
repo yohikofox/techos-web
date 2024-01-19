@@ -2,11 +2,13 @@ import classNames from "classnames"
 import styles from "./render-markdown.module.scss"
 import md from "markdown-it";
 import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
-
+import MicroPostPage from '@/app/(main)/tips/[slug]/page';
 import { IConfigManager } from '@/infrastructure/adapter/configManager';
 import TextToSpeechButton from "../TextToSpeechButton";
 import { IOC } from "R/src/infrastructure/container";
 import { convert } from "html-to-text"
+import ReplaceComponentHelper, { ComponentDefinition } from "R/src/infrastructure/helper/replaceComponents";
+import WrappedMicroPostCard from "../../flux/MicroPostList/_parts/WrappedMicroPostCard";
 
 export interface RenderMarkdownProps {
   content: string
@@ -26,7 +28,6 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
     },
   })
 
-
   m.renderer.rules.image = function (tokens, idx, options, env, slf) {
     var token = tokens[idx]
     if (token && token.type === 'image' && token.attrs && token.children) {
@@ -40,7 +41,10 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
     }
     return ''
   }
-  const ctnt = m.render(content)
+  let ctnt = m.render(content)
+
+  const componentDefinitions = ReplaceComponentHelper.extractAndSplit(ctnt)
+
   const tts = convert(ctnt).replaceAll('>', '')
 
   return (
@@ -54,7 +58,25 @@ export default async function RenderMarkdown({ content, className }: RenderMarkd
           />
         </div>
       )}
-      <div className={classNames(styles.content, className)} dangerouslySetInnerHTML={{ __html: ctnt }} />
+
+      {componentDefinitions.map((componentDefinition, index) => {
+        if (typeof componentDefinition !== 'string')
+          return (
+            <div key={index} className={styles.micro__post__wrapper}>
+              {(componentDefinition satisfies ComponentDefinition[]).map((cd, cdIndex) => {
+                switch (cd.resourceType) {
+                  case 'micro-post':
+                    return <WrappedMicroPostCard key={cdIndex} slug={cd.value} />
+                  default: return
+                }
+              })}
+            </div>
+          )
+
+        return (
+          <div className={classNames(styles.content, className)} key={index} dangerouslySetInnerHTML={{ __html: componentDefinition }} />
+        )
+      })}
     </>
   )
 }

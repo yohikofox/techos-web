@@ -20,11 +20,12 @@ $colors: (
   border-color: #312E37,
   background-primary: #0F0E11,
   background-secondary: #17151B,
+  bright-primary: #FFFFFF,
 );
 
 $dark-colors: (
   // French Blue
-  primary: #533A71,
+  primary-100: darken(map-get($colors, primary), 10%),
   // Picton Blue
   secondary: #6184D8,
   // Aero
@@ -72,20 +73,39 @@ $opacity: (
 );
 
 $metrics: (
-  input:(width: 300px,
-    height: 40px,
+  input:(width: $base-metric * 80,
+    height: $base-metric * 10,
   ),
-  button:(height: 40px,
-    min-width: 100px,
+  button:(height: $base-metric * 10,
+    min-width: $base-metric * 40,
+    padding: $base-metric*3 $base-metric * 5,
+    margin:$base-metric * 3,
   ),
   base: $base-metric,
   radius: (small: $base-metric,
     medium: $base-metric * 2,
     large: $base-metric * 3,
   ),
+  font:(small: $font-size * 0.75,
+    medium: $font-size,
+    large: $font-size * 1.25,
+    extra-large: $font-size * 1.5,
+    extra-extra-large: $font-size * 1.75,
+  ),
+  icon:(base: $base-metric,
+    small: $base-metric * 3,
+    medium: $base-metric * 4,
+    large: $base-metric * 5,
+  ),
+  font-weight:(light: 300,
+    normal: 400,
+    bold: 700,
+  ),
   padding:(small: $base-metric * 2,
     medium: $base-metric * 3,
     large: $base-metric * 4,
+  ),
+  heading:(h3-margin: $base-metric * 3,
   )
 );
 
