@@ -31,6 +31,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       });
 
       if (!response.ok) {
+        console.debug("🚀 ~ ContentManagerSystemRepository ~ response:", response)
         console.log('CMS Response was not ok.', response.status, response.statusText);
         return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR)
       }
@@ -52,7 +53,7 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       const parseResult = options?.schema.safeParse(json.data)
 
       if (!parseResult.success) {
-        console.warn('GraphQL query parse error', parseResult.error.message);
+        console.warn('GraphQL query parse error', parseResult.error.message, json.data);
         return Result.error(ContentManagerSystemResult.PARSE_ERROR)
       }
 

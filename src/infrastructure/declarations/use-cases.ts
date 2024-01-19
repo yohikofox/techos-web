@@ -5,7 +5,7 @@ const definitions = {
   },
   'GetHeaderData': {
     resolve: async () => import('@biz/useCases/getHeaderData'),
-    dependencies: ['ContentManagerSystem', 'ImageSetService']
+    dependencies: ['ContentManagerSystem', 'HeaderDataService']
   },
   'GetPostList': {
     resolve: async () => import('@biz/useCases/getPostList'),

@@ -1,51 +1,38 @@
 import { IUseCase } from "../useCaseFactory";
-import HeaderData from "../model/headerData";
-import { IImageSetService } from "../services/imageSet.service";
+import Header from "../model/header";
 import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
 import { Result } from "@/lib/result";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 import CacheConstants from "R/src/lib/constants/cache";
+import { headerDataSchema } from "../services/dto/header-data.dto";
+import { IHeaderDataService } from "../services/header-data.service";
 
-export enum HeaderDataResult {
+export enum HeaderResult {
   SUCCESS = 'success',
   ERROR = 'error',
   NO_DATA_FOUND = 'no_data_found'
 }
 
-export default class GetHeaderDataUseCase implements IUseCase<any, Result<HeaderData, HeaderDataResult>> {
+export default class GetHeaderUseCase implements IUseCase<any, Result<Header, HeaderResult>> {
   constructor(
     private cmsRepository: IContentManagerSystemRepository,
-    private imageSetService: IImageSetService
+    private headerDataService: IHeaderDataService
   ) { }
-  async execute(request?: any): Promise<Result<HeaderData, HeaderDataResult>> {
+  async execute(request?: any): Promise<Result<Header, HeaderResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request, {
       revalidate: CacheConstants.ONE_DAY,
-      tags: [RevalidateTagConstants.HEADER_DATA]
+      tags: [RevalidateTagConstants.HEADER_DATA],
+      schema: headerDataSchema
     })
 
     if (response.IsError) {
-      return response.transferError(HeaderDataResult.ERROR)
+      return response.transferError(HeaderResult.ERROR)
     }
 
     if (!response.Value.header.data)
-      return response.transferError(HeaderDataResult.NO_DATA_FOUND)
+      return response.transferError(HeaderResult.NO_DATA_FOUND)
 
-    const result: HeaderData = {
-      search: {
-        placeholder: response.Value.header.data.attributes.placeholder,
-        search_title: response.Value.header.data.attributes.search_title
-      },
-      trainings: {
-        title: response.Value.header.data.attributes?.trainings,
-        items: await Promise.all(response.Value?.trainings.data.map(async (training: any) => {
-          return {
-            title: training.attributes.title,
-            link: `/formation${training.attributes.link}`,
-            background: await this.imageSetService.mapImageSet(training.attributes.background.data.attributes)
-          }
-        }))
-      }
-    }
+    const result: Header = await this.headerDataService.mapToHeader(response.Value.header, response.Value.trainings.data)
 
     return Result.ok(result)
   }

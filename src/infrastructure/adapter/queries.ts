@@ -1,62 +1,4 @@
 const queries = {
-  getHomeData: `
-    query {
-      homePage {
-        data {
-          attributes {
-            hero {
-              title
-              content
-              background {
-                data {
-                  attributes {
-                    name
-                    width
-                    height
-                    url
-                  }
-                }
-              }
-              picture {
-                data {
-                  attributes {
-                    name
-                    width
-                    height
-                    url
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-  `,
-  getHeaderData: `
-    query{
-      header {
-        data{attributes{
-          placeholder
-          search_title
-          trainings
-        }}
-      }
-      trainings {data{attributes{
-        title
-        link
-        background {
-          data{
-            attributes{
-              name
-              width
-              height
-              url
-            }}}
-      }}}
-    }
-  `,
   getTagPostList: `
 query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
   posts(
@@ -213,6 +155,8 @@ import { getPostList } from "@/infrastructure/adapter/queries/getPostList"
 import { getMicroPostList } from "@/infrastructure/adapter/queries/getMicroPostList"
 import { getPostDetails } from "./queries/getPostDetails"
 import { getMicroPostDetails } from './queries/getMicroPostDetails';
+import { getHomeData } from "./queries/getHomeData"
+import { getHeaderData } from './queries/getHeaderData';
 
 const exportable = {
   ...queries,
@@ -224,6 +168,8 @@ const exportable = {
   getPostList,
   getMicroPostList,
   getMicroPostDetails,
+  getHomeData,
+  getHeaderData,
 }
 
 export default exportable

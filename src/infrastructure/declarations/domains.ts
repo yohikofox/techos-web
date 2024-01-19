@@ -28,6 +28,14 @@ const definitions = {
     resolve: async () => import('@biz/services/search.service'),
     dependencies: ['PostService', 'MicroPostService']
   },
+  'TrainingService': {
+    resolve: async () => import('@biz/services/trainings.service'),
+    dependencies: ["ImageSetService"]
+  },
+  'HeaderDataService': {
+    resolve: async () => import('@biz/services/header-data.service'),
+    dependencies: ['TrainingService']
+  },
 }
 
 export default definitions
