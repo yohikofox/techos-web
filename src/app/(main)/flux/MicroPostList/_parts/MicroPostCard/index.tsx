@@ -15,7 +15,7 @@ export type PostClassNames = {
 }
 
 export interface PostProps {
-  post: MicroPost
+  post: Partial<MicroPost>
   className?: PostClassNames
 }
 
