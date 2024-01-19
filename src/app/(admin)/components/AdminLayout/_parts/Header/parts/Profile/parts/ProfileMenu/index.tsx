@@ -3,7 +3,6 @@
 import styles from "./styles.module.scss"
 import useAdminStore from "R/src/infrastructure/store/admin"
 import classNames from "classnames"
-import { redirect } from "next/navigation"
 import { MouseEventHandler, useEffect, useRef } from "react"
 
 export default function Component() {

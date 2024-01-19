@@ -6,6 +6,10 @@ import { useState } from "react"
 import ReactIcon from '@Admin/components/Icon/ReactIcon';
 import Spinner from "../Icon/ReactIcon/Spinner";
 
+export type TextClassName = {
+  label?: string
+}
+
 export interface TextProps {
   name: string
   label?: string
@@ -13,9 +17,10 @@ export interface TextProps {
   onChange?: (value: string) => void
   onValidate?: () => Promise<void>
   theme?: "primary" | "default"
+  className?: TextClassName
 }
 
-export default function Component({ name, label, initialValue, onChange, onValidate, theme }: TextProps) {
+export default function Component({ name, label, initialValue, onChange, onValidate, theme, className }: TextProps) {
 
   const [value, setValue] = useState<string>(initialValue || "")
   const [loading, setLoading] = useState<boolean>(false)
@@ -38,7 +43,7 @@ export default function Component({ name, label, initialValue, onChange, onValid
         [styles.form__group__collapsed]: onValidate !== undefined
       })}>
         <input type="text" name={name} className={styles.form__control} placeholder=" " value={value} onChange={onInputChange} />
-        {label && <label htmlFor={name}>{label}</label>}
+        {label && <label className={classNames(className?.label)} htmlFor={name}>{label}</label>}
         {onValidate && (
           <button
             disabled={value !== null && value !== undefined && value.length === 0}

@@ -12,10 +12,8 @@ export default function Component() {
     <>
       <section className={styles.container}>
         {
-          items.map(([key, value]) => (
-            <div key={key}>
-              <Button onClick={() => onClick(value)}>{key}</Button>
-            </div>
+          items.map(([key, value], index) => (
+            <Button key={index} onClick={() => onClick(value)}>{key}</Button>
           ))
         }
       </section>

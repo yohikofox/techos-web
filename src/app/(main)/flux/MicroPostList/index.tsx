@@ -6,8 +6,7 @@ import { FluxStore } from "R/src/infrastructure/store/flux/_parts/flux/flux"
 import { useEffect } from "react"
 import { useShallow } from "zustand/react/shallow"
 import styles from "./style.module.scss"
-import { Image } from "R/src/components/Image"
-import Link from "next/link"
+import MicroPostCard from "./_parts/MicroPostCard"
 
 export interface MicroPostListProps {
   data: MicroPostList
@@ -31,20 +30,7 @@ export default function Component({ data: { posts: inputData, meta: inputMeta } 
     <>
       <section className={styles.container}>
         {posts.map((post: Partial<MicroPost>, index: number) => {
-          return (
-            <div key={index} className={styles.post}>
-              <div className={styles.infos}>
-                <h2>{post.title}</h2>
-              </div>
-              <div className={styles.picture__container}> <Image
-                src={post.picture?.src || ''}
-                alt={post.picture?.name || ''}
-                fill
-                className={styles.picture__image}
-              /></div>
-              <Link href={`/tips/${post.slug}`} aria-label={post.title} className={styles.inset__link} />
-            </div>
-          )
+          return <MicroPostCard key={index} post={post} />
         })}
       </section>
     </>
