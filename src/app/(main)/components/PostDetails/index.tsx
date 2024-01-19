@@ -19,7 +19,13 @@ export default async function PostDetails({ post }: PostDetailsProps) {
           slug={post.slug}
           start_at={post.start_at}
           readingTime={readingTime} />
-        <RenderMarkdown content={post.content} className={styles.content} />
+        <RenderMarkdown content={post.content} className={styles.content} classNameCollection={{
+          "micro-post": {
+            container: styles.micro__post__content__container,
+            picture__container: styles.micro__post__picture__container,
+            infos: styles.micro__post__infos,
+          }
+        }} />
       </article>
     </>
   )
