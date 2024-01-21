@@ -10,7 +10,11 @@
     "lint": "next lint",
     "clean": "rimraf .next",
     "bundle": "esbuild ./bundle/cache-handler.ts --bundle --platform=node --target=node10.4 --outfile=./bundle/out.js",
-    "cache:build": "node ./build.esbuild.js"
+    "cache:build": "node ./build.esbuild.js",
+    "pw": "npx playwright test",
+    "ui:e2e": "concurrently \"pnpm run dev\" \"pnpm run pw --ui\"",
+    "e2e": "pnpm run build && concurrently \"pnpm run start\" \"pnpm run pw\"",
+    "e2e:dev": "concurrently \"pnpm run dev\" \"pnpm run pw\""
   },
   "dependencies": {
     "@loadable/component": "^5.15.3",
@@ -56,6 +60,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.41.0",
     "@types/html-to-text": "^9.0.4",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/loadable__component": "^5.13.7",
@@ -65,6 +70,7 @@
     "@types/xmldom": "^0.1.34",
     "@types/xmlserializer": "^0.6.6",
     "classnames": "^2.3.2",
+    "concurrently": "^8.2.2",
     "esbuild": "^0.19.8",
     "vitest": "^0.34.6"
   }

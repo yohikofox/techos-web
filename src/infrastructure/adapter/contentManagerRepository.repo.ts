@@ -31,7 +31,6 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
       });
 
       if (!response.ok) {
-        console.debug("🚀 ~ ContentManagerSystemRepository ~ response:", response)
         console.log('CMS Response was not ok.', response.status, response.statusText);
         return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR)
       }

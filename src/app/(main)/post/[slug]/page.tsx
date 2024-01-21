@@ -16,6 +16,7 @@ export default async function Post({ params: { slug } }: PostPageProps) {
   const response = await useCase?.execute({ slug: { "eq": slug } });
 
   if (response.IsError) {
+    console.error("🚀 ~ Post ~ response:", response.Result)
     redirect('/error/400')
   }
 

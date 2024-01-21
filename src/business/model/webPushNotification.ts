@@ -1,10 +1,12 @@
+import ImageSet from "./image"
+
 type WebPushNotification = {
   title: string,
   dir: string,
   body: string,
-  icon: string,
-  badge: string,
-  image: string,
+  icon: ImageSet,
+  badge: ImageSet,
+  image: ImageSet,
   tag: string,
   url: string,
   data: any,
@@ -12,7 +14,7 @@ type WebPushNotification = {
   actions: {
     action: string,
     title: string,
-    icon: string
+    icon: ImageSet
   }[]
 }
 

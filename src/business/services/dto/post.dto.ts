@@ -22,6 +22,11 @@ export const postDataSchema = z.object({
 })
 export type PostData = z.infer<typeof postDataSchema>
 
+export const postDetailsResponseSchema = z.object({
+  posts: z.object({
+    data: z.array(postDataSchema).length(1),
+  })
+})
 
 export const postListDataSchema = z.object({
   posts: z.object({
@@ -31,3 +36,4 @@ export const postListDataSchema = z.object({
 })
 
 export type PostListData = z.infer<typeof postListDataSchema>
+export type PostDetailsResponse = z.infer<typeof postDetailsResponseSchema>

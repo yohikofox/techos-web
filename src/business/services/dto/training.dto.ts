@@ -11,4 +11,4 @@ export const trainingDataSchema = z.object({
   attributes: trainingSchema
 });
 
-export type TrainingData = z.infer<typeof trainingDataSchema>
+export type TrainingData = z.infer<typeof trainingSchema>

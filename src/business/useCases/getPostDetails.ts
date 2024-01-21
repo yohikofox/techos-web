@@ -1,57 +1,46 @@
-import PostHelper from "@/infrastructure/helper/postHelper";
 import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/contentManagementSystem";
-import Post, { PostType } from "../model/post";
+import Post from "../model/post";
 import { IUseCase } from "../useCaseFactory";
-import { IImageSetService } from "../services/imageSet.service";
 import { Result } from "@/lib/result";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 import CacheConstants from "R/src/lib/constants/cache";
+import { IPostService } from "../services/post.service";
+import { PostData, PostDetailsResponse, postDetailsResponseSchema } from "../services/dto/post.dto";
 
 
 export enum PostDetailsResult {
   SUCCESS = 'success',
   ERROR = 'error',
-  NO_DATA_FOUND = "NO_DATA_FOUND"
+  NO_DATA_FOUND = 'no_data_found',
+  BAD_RESOURCE = 'bad_resource',
+  NOT_UNIQUE_CONTENT = 'not_unique_content'
 }
 
 export default class GetPostDetailsUseCase implements IUseCase<any, Result<Post, PostDetailsResult>> {
   constructor(
     private cmsRepository: IContentManagerSystemRepository,
-    private imageSetService: IImageSetService
+    private postService: IPostService
   ) { }
   async execute(request?: any): Promise<Result<Post, PostDetailsResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_POST_DETAILS, request, {
+    const response = await this.cmsRepository.get<PostDetailsResponse>(GraphQLQueries.GET_POST_DETAILS, request, {
       revalidate: CacheConstants.ONE_DAY,
-      tags: [RevalidateTagConstants.POST]
+      tags: [RevalidateTagConstants.POST],
+      schema: postDetailsResponseSchema
     })
 
     if (response.IsError) {
       return response.transferError(PostDetailsResult.ERROR)
     }
 
-    if (!response.Value.posts) {
+    if (!response.Value.posts?.data || response.Value.posts.data.length <= 0) {
       return response.transferError(PostDetailsResult.NO_DATA_FOUND)
     }
 
-    const result: Post = {
-      level: PostHelper.getLevel(response.Value.posts.data[0].attributes.level),
-      title: response.Value.posts.data[0].attributes.title,
-      slug: response.Value.posts.data[0].attributes.slug,
-      content: response.Value.posts.data[0].attributes.content,
-      extract: response.Value.posts.data[0].attributes.extract,
-      start_at: response.Value.posts.data[0].attributes.start_at,
-      type: PostType.Article,
-      author: {
-        username: response.Value.posts.data[0].attributes.author.data.attributes.username,
-        avatar: response.Value.posts.data[0].attributes.author.data.attributes.avatar?.data &&
-          await this.imageSetService.mapImageSet(response.Value.posts.data[0].attributes.author.data.attributes.avatar.data.attributes)
-      },
-      picture: await this.imageSetService.mapImageSet(response.Value.posts.data[0].attributes.picture.data.attributes),
-      stats: response.Value.posts.data[0].attributes.post_stat_list?.data && {
-        slug: response.Value.posts.data[0].attributes.post_stat_list.data.attributes.slug,
-        viewCount: response.Value.posts.data[0].attributes.post_stat_list.data.attributes.view_count,
-      }
+    if (response.Value.posts.data.length !== 1) {
+      return response.transferError(PostDetailsResult.NOT_UNIQUE_CONTENT)
     }
+
+    const result: Post = await this.postService.mapPost(response.Value.posts.data[0] satisfies PostData)
 
     return Result.ok(result)
   }

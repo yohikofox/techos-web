@@ -93,19 +93,6 @@ query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
 }
 
   `,
-  getPostStats: `
-query getPostStats($slug: StringFilterInput!) {
-  postStatLists(filters: { post: { slug: $slug } }) {
-    data {
-      id
-      attributes {
-        view_count
-      }
-    }
-  }
-}
-
-  `,
   createPostStats: `
 mutation createPostStats ($count: Int!, $post:ID!){
   createPostStatList(data: {view_count: $count,post:$post}) {
@@ -157,6 +144,7 @@ import { getPostDetails } from "./queries/getPostDetails"
 import { getMicroPostDetails } from './queries/getMicroPostDetails';
 import { getHomeData } from "./queries/getHomeData"
 import { getHeaderData } from './queries/getHeaderData';
+import { getPostStats } from "./queries/getPostStats"
 
 const exportable = {
   ...queries,
@@ -170,6 +158,7 @@ const exportable = {
   getMicroPostDetails,
   getHomeData,
   getHeaderData,
+  getPostStats,
 }
 
 export default exportable

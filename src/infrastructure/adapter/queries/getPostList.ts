@@ -18,6 +18,9 @@ query postList($index: Int!, $limit: Int!) {
               background_color
               color
               slug
+              hero {
+                title
+              }
             }
           }
         }

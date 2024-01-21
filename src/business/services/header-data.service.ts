@@ -9,14 +9,14 @@ export interface IHeaderDataService {
 export default class HeaderDataService implements IHeaderDataService {
   constructor(private trainingService: ITrainingService) { }
 
-  async mapToHeader(data: HeaderData, trainings: TrainingData[]): Promise<Header> {
+  async mapToHeader(data: HeaderData, trainings?: TrainingData[]): Promise<Header> {
     const model = {
       search: {
         placeholder: data.placeholder,
         search_title: data.search_title
       },
       trainings: {
-        items: await Promise.all(trainings?.map(m => this.trainingService.mapToTraining(m)))
+        items: trainings ? await Promise.all(trainings.map(m => this.trainingService.mapToTraining(m))) : []
       }
     } as Header
 

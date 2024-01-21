@@ -1,17 +1,21 @@
 import Tag from "../model/tag";
 import { TagData } from "./dto/tag.dto";
+import { IHeroService } from "./hero.service";
 
 export interface ITagService {
-  mapTag(tag: TagData): Tag
+  mapTag(tag: TagData): Promise<Tag>
 }
 
 export default class TagService implements ITagService {
-  mapTag(tag: TagData): Tag {
+  constructor(private heroService: IHeroService) { }
+
+  async mapTag(tag: TagData): Promise<Tag> {
     return {
       label: tag.attributes.label,
       slug: tag.attributes.slug,
       backgroundColor: tag.attributes.background_color,
-      color: tag.attributes.color
+      color: tag.attributes.color,
+      hero: tag.attributes.hero && await this.heroService.mapToHero(tag.attributes.hero)
     } as Tag
   }
 }

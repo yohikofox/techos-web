@@ -10,7 +10,7 @@ const definitions = {
   },
   'MicroPostService': {
     resolve: async () => import('@biz/services/micro-post.service'),
-    dependencies: ['ImageSetService', 'TagService']
+    dependencies: ['ImageSetService', 'TagService', 'MetaService']
   },
   'MetaService': {
     resolve: async () => import('@biz/services/meta.service'),
@@ -22,7 +22,7 @@ const definitions = {
   },
   'TagService': {
     resolve: async () => import('@biz/services/tag.service'),
-    dependencies: []
+    dependencies: ['HeroService']
   },
   'SearchService': {
     resolve: async () => import('@biz/services/search.service'),
@@ -35,6 +35,26 @@ const definitions = {
   'HeaderDataService': {
     resolve: async () => import('@biz/services/header-data.service'),
     dependencies: ['TrainingService']
+  },
+  'HeroService': {
+    resolve: async () => import('@biz/services/hero.service'),
+    dependencies: ['ImageSetService']
+  },
+  'WebPushNotificationService': {
+    resolve: async () => import('@biz/services/web-push-notification.service'),
+    dependencies: ['ImageSetService']
+  },
+  'OffLineService': {
+    resolve: async () => import('@biz/services/offline.service'),
+    dependencies: []
+  },
+  'HomeDataService': {
+    resolve: async () => import('@biz/services/home-data.service'),
+    dependencies: ['HeroService']
+  },
+  'PostStatService': {
+    resolve: async () => import('@biz/services/post-stats.service'),
+    dependencies: []
   },
 }
 

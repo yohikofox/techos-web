@@ -4,8 +4,9 @@ import { GraphQLQueries, IContentManagerSystemRepository } from "@biz/adapter/co
 import { Result } from "@/lib/result";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 import CacheConstants from "R/src/lib/constants/cache";
-import { headerDataSchema } from "../services/dto/header-data.dto";
+import { HeaderData, HeaderResponseData, headerDataSchema } from "../services/dto/header-data.dto";
 import { IHeaderDataService } from "../services/header-data.service";
+import { TrainingData } from "../services/dto/training.dto";
 
 export enum HeaderResult {
   SUCCESS = 'success',
@@ -18,8 +19,9 @@ export default class GetHeaderUseCase implements IUseCase<any, Result<Header, He
     private cmsRepository: IContentManagerSystemRepository,
     private headerDataService: IHeaderDataService
   ) { }
+
   async execute(request?: any): Promise<Result<Header, HeaderResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_HEADER_DATA, request, {
+    const response = await this.cmsRepository.get<HeaderResponseData>(GraphQLQueries.GET_HEADER_DATA, request, {
       revalidate: CacheConstants.ONE_DAY,
       tags: [RevalidateTagConstants.HEADER_DATA],
       schema: headerDataSchema
@@ -29,31 +31,14 @@ export default class GetHeaderUseCase implements IUseCase<any, Result<Header, He
       return response.transferError(HeaderResult.ERROR)
     }
 
-    if (!response.Value.header.data)
+    if (!response.Value.header)
       return response.transferError(HeaderResult.NO_DATA_FOUND)
 
-    const result: Header = await this.headerDataService.mapToHeader(response.Value.header, response.Value.trainings.data)
+    const result: Header = await this.headerDataService.mapToHeader(
+      response.Value.header.data.attributes satisfies HeaderData,
+      response.Value.trainings?.data.map(m => m.attributes satisfies TrainingData).filter(f => f) as TrainingData[]
+    )
 
     return Result.ok(result)
   }
 }
-
-/**urlSet: training.attributes.background.data.map((image: any) => {
-
-                const keys = Object.keys(image.attributes.formats)
-
-                return keys.map((key: string) => {
-                  return {
-                    src: image.attributes.formats[key].url,
-                    size: image.attributes.formats[key].size,
-                    width: image.attributes.formats[key].width,
-                    height: image.attributes.formats[key].height,
-                  }
-                })
-              }).flat() 
-              
-              
-                let avatarSrc = data.avatar?.src //'https://i.pravatar.cc/400'
-  if (!avatarSrc) avatarSrc = `https://eu.ui-avatars.com/api/?background=random&color=random&name=${encodeURIComponent(data.username)}&size=400`
-
-  */

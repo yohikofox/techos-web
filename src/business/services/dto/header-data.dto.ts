@@ -17,5 +17,5 @@ export const headerDataSchema = z.object({
   }).optional().nullable()
 });
 
-
+export type HeaderResponseData = z.infer<typeof headerDataSchema>
 export type HeaderData = z.infer<typeof headerSchema>

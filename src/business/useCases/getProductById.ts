@@ -1,4 +1,3 @@
-import PostList from "../model/postList";
 import { IUseCase } from "../useCaseFactory";
 import { Result } from "@/lib/result";
 import Product from "../model/product";

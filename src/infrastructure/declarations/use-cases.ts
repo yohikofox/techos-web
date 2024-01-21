@@ -1,7 +1,7 @@
 const definitions = {
   'GetHomeData': {
     resolve: async () => import('@biz/useCases/getHomeData'),
-    dependencies: ['ContentManagerSystem', 'ImageSetService']
+    dependencies: ['ContentManagerSystem', 'HomeDataService']
   },
   'GetHeaderData': {
     resolve: async () => import('@biz/useCases/getHeaderData'),
@@ -17,7 +17,7 @@ const definitions = {
   },
   'GetPostDetails': {
     resolve: async () => import('@biz/useCases/getPostDetails'),
-    dependencies: ['ContentManagerSystem', 'ImageSetService']
+    dependencies: ['ContentManagerSystem', 'PostService']
   },
   'GetTagPostList': {
     resolve: async () => import('@biz/useCases/getTagPostList'),
@@ -41,7 +41,7 @@ const definitions = {
   },
   'GetNotification': {
     resolve: async () => import('@biz/useCases/getNotification'),
-    dependencies: ['ContentManagerSystem', 'ImageSetService']
+    dependencies: ['ContentManagerSystem', 'WebPushNotificationService']
   },
   'DeleteSubscription': {
     resolve: async () => import('@biz/useCases/deleteSubscription'),
@@ -49,7 +49,7 @@ const definitions = {
   },
   'GetOfflinePageData': {
     resolve: async () => import('@biz/useCases/getOfflinePageData'),
-    dependencies: ['ContentManagerSystem']
+    dependencies: ['ContentManagerSystem', 'OffLineService']
   },
   'GetProductById': {
     resolve: async () => import('@biz/useCases/getProductById'),

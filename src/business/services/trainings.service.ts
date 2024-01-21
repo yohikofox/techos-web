@@ -11,9 +11,9 @@ export default class TrainingService implements ITrainingService {
 
   async mapToTraining(data: TrainingData): Promise<Training> {
     const model = {
-      title: data.attributes.title,
-      link: `/formation${data.attributes.link}`,
-      background: await this.imageSetService.mapImageSet(data.attributes.background.data.attributes)
+      title: data.title,
+      link: `/formation${data.link}`,
+      background: await this.imageSetService.mapImageSet(data.background)
     }
     return model
   }

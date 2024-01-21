@@ -5,6 +5,7 @@ import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 import CacheConstants from "R/src/lib/constants/cache";
 import MicroPost from "../model/microPost";
 import { IMicroPostService } from "../services/micro-post.service";
+import { MicroPostData, MicroPostListData, microPostListDataSchema } from "../services/dto/micro-post.dto";
 
 
 export enum MicroPostDetailsResult {
@@ -19,9 +20,10 @@ export default class GetMicroPostDetailsUseCase implements IUseCase<any, Result<
     private microPostService: IMicroPostService
   ) { }
   async execute(request?: any): Promise<Result<MicroPost, MicroPostDetailsResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_MICRO_POST_DETAILS, request, {
+    const response = await this.cmsRepository.get<MicroPostListData>(GraphQLQueries.GET_MICRO_POST_DETAILS, request, {
       revalidate: CacheConstants.ONE_DAY,
-      tags: [RevalidateTagConstants.POST]
+      tags: [RevalidateTagConstants.POST],
+      schema: microPostListDataSchema
     })
 
     if (response.IsError) {
@@ -32,7 +34,9 @@ export default class GetMicroPostDetailsUseCase implements IUseCase<any, Result<
       return response.transferError(MicroPostDetailsResult.NO_DATA_FOUND)
     }
 
-    const result: MicroPost | undefined = await this.microPostService.mapMicroPost(response.Value.microPosts.data[0]);
+    const result: MicroPost = await this.microPostService.mapMicroPost(
+      response.Value.microPosts.data[0] satisfies MicroPostData
+    );
 
     return Result.ok(result)
   }
