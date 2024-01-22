@@ -1,7 +1,7 @@
 import { ResourceTypes } from "./resourceTypes"
 import { Definition, DefinitionCollection, ResourceMapping } from "./dependencies"
 
-export const IOC = () => {
+export const IOC: () => IContainer = () => {
   const c = Container.Instance
   c.registerDependencies(ResourceMapping)
   return c
@@ -34,6 +34,7 @@ export default class Container implements IContainer {
   public registerDependencies(dependencies: DefinitionCollection) {
     if (this.isLoaded) return
     this.definitions = dependencies
+    this.testDependencies()
   }
 
   public register(key: string, definition: Definition) {
@@ -73,6 +74,15 @@ export default class Container implements IContainer {
     }
 
     return this.buildInstance(key)
+  }
+
+  private async testDependencies() {
+    const keys = Object.keys(this.definitions)
+    const dependencies = keys.map(async (key) => {
+      return await this.getResource(key)
+    })
+
+    return await Promise.all(dependencies)
   }
 
   private async buildInstance(key: string) {

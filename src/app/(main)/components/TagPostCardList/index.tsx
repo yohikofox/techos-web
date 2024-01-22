@@ -1,11 +1,11 @@
 
 import styles from "./tag-post-list.module.scss"
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import PostList from "@/business/model/postList";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import PostList from "@domain/postList";
 import { redirect } from "next/navigation";
-import { PostType } from "@/business/model/post";
+import { PostType } from "@domain/post";
 import Pagination from "../PostList/parts/Pagination";
-import { TagPostListRequest, TagPostListResult } from "@/business/useCases/getTagPostList";
+import { TagPostListRequest, TagPostListResult } from "@app/getTagPostList";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import PostCard from "../PostCard";
 import { IOC } from "R/src/infrastructure/container";
@@ -16,7 +16,7 @@ const DEFAULT_PAGE_SIZE = 3 * 5 - ADS_POSITION_LIST.length;
 const DEFAULT_PAGE_INDEX = 0;
 
 const AD_DEFAULT = {
-  id: -1,
+  id: "-1",
   title: 'Ads',
   description: 'Ads',
   content: 'Ads',

@@ -2,7 +2,7 @@ import CaretRight from "@/app/(main)/components/Icon/CaretRight";
 import styles from "./pagination.module.scss"
 import CaretLeft from "@/app/(main)/components/Icon/CaretLeft";
 import Link from "next/link";
-import { Pagination as PaginationProps } from "R/src/business/model/pagination";
+import { Pagination as PaginationProps } from "@domain/pagination";
 
 const PAGINATION_ITEM_COUNT = 5;
 

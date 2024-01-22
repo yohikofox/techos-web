@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import styles from './header.module.scss'
-import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory'
+import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory'
 import { redirect } from 'next/navigation'
 import SearchModal from '../SearchModal'
 import HamburgerMenu from './parts/HamburgerMenu'
 import { IConfigManager } from '@/infrastructure/adapter/configManager'
 import Brand from 'R/src/components/Brand'
 import { IOC } from "R/src/infrastructure/container";
-import { HeaderResult } from 'R/src/business/useCases/getHeaderData'
-import Header from 'R/src/business/model/header'
+import { HeaderResult } from '@app/getHeaderData'
+import Header from '@domain/header'
 
 export interface HeaderProps {
   title: string

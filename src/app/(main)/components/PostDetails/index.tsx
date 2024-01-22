@@ -1,4 +1,4 @@
-import Post from '@/business/model/post'
+import Post from '@domain/post'
 import styles from './post-details.module.scss'
 import Metadata from './parts/Metadata'
 import getReadingTime from '@/infrastructure/helper/getReadingTime'

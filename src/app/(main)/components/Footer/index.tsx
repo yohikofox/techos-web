@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styles from './footer.module.scss'
-import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory';
+import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory';
 
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -10,8 +10,8 @@ import { IOC } from "R/src/infrastructure/container";
 
 import LogoIcon from 'R/public/logo.png';
 import Brand from 'R/src/components/Brand';
-import { HeaderResult } from 'R/src/business/useCases/getHeaderData';
-import Header from 'R/src/business/model/header';
+import { HeaderResult } from '@app/getHeaderData';
+import Header from '@domain/header';
 
 const begin_date = dayjs('2019-01-01');
 

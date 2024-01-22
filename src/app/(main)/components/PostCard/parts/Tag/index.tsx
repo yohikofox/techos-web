@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
 import styles from "./tag.module.scss"
-import Tag from "@/business/model/tag"
+import Tag from "@domain/tag"
 import Link from "next/link"
 import classNames from "classnames"
 

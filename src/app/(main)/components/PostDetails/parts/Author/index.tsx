@@ -1,4 +1,4 @@
-import Author from "@/business/model/author";
+import Author from "@domain/author";
 import styles from "./author.module.scss"
 import classNames from "classnames";
 import ServerImage from "@/components/Image"

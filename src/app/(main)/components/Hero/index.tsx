@@ -1,4 +1,4 @@
-import ImageSet from "@/business/model/image"
+import ImageSet from "@domain/image"
 import styles from "./hero.module.scss"
 import md from "markdown-it"
 import ServerImage from "@/components/Image"

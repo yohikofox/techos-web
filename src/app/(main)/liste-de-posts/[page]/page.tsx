@@ -1,11 +1,11 @@
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { HomeDataResult } from "@/business/useCases/getHomeData";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { HomeDataResult } from "@app/getHomeData";
 import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import { redirect } from 'next/navigation'
 
 import Hero from "@/app/(main)/components/Hero";
 import PostCardList from "@/app/(main)/components/PostList";
-import Home from "R/src/business/model/home";
+import Home from "@domain/home";
 
 export interface PageProps {
   params: {

@@ -1,4 +1,4 @@
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import dayjs from "dayjs";
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod";
