@@ -42,8 +42,6 @@ export default async function ServerImage(options: ImageOptions) {
     blurDataURL: await handleBlur(options)
   }
 
-  console.debug('ServerImage', localOptions.sizes)
-
   return (
     <NextImage
       {...localOptions}
