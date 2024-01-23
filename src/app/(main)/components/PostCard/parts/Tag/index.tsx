@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
 import styles from "./tag.module.scss"
-import Tag from "@/business/model/tag"
+import Tag from "@domain/tag"
 import Link from "next/link"
 import classNames from "classnames"
 
@@ -17,7 +17,7 @@ export default function Tag({ tag, className }: TagProps) {
   return (
     <div className={classNames(styles.container, className)} style={style as any}>
       {tag.label}
-      <Link href={`/tag/${tag.slug}`} aria-label={tag.label} className={styles.inset__link} />
+      <Link href={`/tag/${tag.slug}`} aria-label={tag.hero?.title} className={styles.inset__link} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import ImageSet from "@/business/model/image"
+import ImageSet from "@domain/image"
 import styles from "./hero.module.scss"
 import md from "markdown-it"
 import ServerImage from "@/components/Image"
@@ -20,7 +20,8 @@ export default async function Hero({ title, background, picture, content }: Hero
             priority
             src={background.src}
             alt={background.name || ''}
-            sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"}
+            preset={background.preset}
+            sizes={background.sizes}
             style={{
               objectFit: 'cover',
             }}
@@ -35,6 +36,8 @@ export default async function Hero({ title, background, picture, content }: Hero
               width={picture.width}
               height={picture.height}
               src={picture.src}
+              sizes={picture.sizes}
+              preset={picture.preset}
               alt={picture.name || ''}
               style={{
                 width: 'auto',

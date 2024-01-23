@@ -111,7 +111,6 @@ const nextConfig = {
     windowHistorySupport: true,
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB', 'INP'],
   },
-
   images: {
     minimumCacheTTL: 60,
     // @ts-ignore

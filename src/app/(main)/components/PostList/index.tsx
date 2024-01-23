@@ -1,29 +1,29 @@
 import PostCard from "../PostCard"
 import styles from "./post-list.module.scss"
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { PostListRequest, PostListResult } from "@/business/useCases/getPostList";
-import PostList from "@/business/model/postList";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { PostListRequest, PostListResult } from "@app/getPostList";
+import PostList from "@domain/postList";
 import { redirect } from "next/navigation";
 import Pagination from "./parts/Pagination";
-import { PostType } from "@/business/model/post";
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import { PostType } from "@domain/post";
+// import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import TextToSpeechInfos from "../TextToSpeechInfos";
 import { IOC } from "R/src/infrastructure/container";
-
+import { IAssetBuilder } from "R/src/infrastructure/helper/assetBuilder";
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
 const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
 const DEFAULT_PAGE_INDEX = 0;
 
 const AD_DEFAULT = {
-  id: -1,
+  id: "-1",
   title: 'Ads',
   description: 'Ads',
   content: 'Ads',
   type: PostType.Ad,
   picture: {
     name: 'Ads',
-    src: 'http://localhost:1337/uploads/ads_9ee4df27b1.png',
+    src: '/uploads/ads_9ee4df27b1.png',
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -41,13 +41,18 @@ export default async function PostListRender({ title, page }: PostListProps) {
   const postListUseCase = await UseCaseFactory.Instance.getUseCase<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
   const postListResponse = await postListUseCase?.execute({ index, limit });
 
+
   if (postListResponse.IsError) {
     redirect('/error/400')
   }
-  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
+  // const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
-  const src = AD_DEFAULT.picture.src;
-  AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
+  // const src = AD_DEFAULT.picture.src;
+  // AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
+
+  const assetBuilder = await IOC().resolve<IAssetBuilder>('AssetBuilder')
+
+  AD_DEFAULT.picture.src = await assetBuilder.buildAssetUri(AD_DEFAULT.picture.src)
 
   const posts = [];
   let insertedAdCount = 0;

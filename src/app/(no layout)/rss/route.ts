@@ -1,7 +1,7 @@
-import Post from "R/src/business/model/post";
-import PostList from "R/src/business/model/postList";
-import UseCaseFactory, { UseCaseOption } from "R/src/business/useCaseFactory";
-import { PostListRequest, PostListResult } from "R/src/business/useCases/getPostList";
+import Post from "@domain/post";
+import PostList from "@domain/postList";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { PostListRequest, PostListResult } from "@app/getPostList";
 import { redirect } from "next/navigation";
 import { Feed, FeedOptions } from "feed";
 import dayjs from "dayjs";

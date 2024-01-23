@@ -1,15 +1,14 @@
 import Link from 'next/link'
 import styles from './header.module.scss'
-import UseCaseFactory, { UseCaseOption } from '@/business/useCaseFactory'
-import { HeaderDataResult } from '@/business/useCases/getHeaderData'
+import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory'
 import { redirect } from 'next/navigation'
-import HeaderData from '@/business/model/headerData'
 import SearchModal from '../SearchModal'
 import HamburgerMenu from './parts/HamburgerMenu'
 import { IConfigManager } from '@/infrastructure/adapter/configManager'
 import Brand from 'R/src/components/Brand'
-import MenuList from '../MenuList'
 import { IOC } from "R/src/infrastructure/container";
+import { HeaderResult } from '@app/getHeaderData'
+import Header from '@domain/header'
 
 export interface HeaderProps {
   title: string
@@ -17,7 +16,7 @@ export interface HeaderProps {
 export default async function Header({ title }: HeaderProps) {
 
   const configManager = await IOC().resolve<IConfigManager>('ConfigManager');
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, HeaderData, HeaderDataResult>(UseCaseOption.GET_HEADER_DATA);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, Header, HeaderResult>(UseCaseOption.GET_HEADER_DATA);
 
   const response = await useCase?.execute();
 

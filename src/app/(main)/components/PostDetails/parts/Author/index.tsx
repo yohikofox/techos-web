@@ -1,4 +1,4 @@
-import Author from "@/business/model/author";
+import Author from "@domain/author";
 import styles from "./author.module.scss"
 import classNames from "classnames";
 import ServerImage from "@/components/Image"
@@ -17,8 +17,9 @@ export default async function Author({ data, className }: AuthorProps) {
             <ServerImage
               src={data.avatar?.src || ''}
               alt='avatar'
+              preset={data.avatar?.preset}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes={data.avatar?.sizes}
               style={{
                 objectFit: 'cover',
               }}

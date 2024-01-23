@@ -1,6 +1,6 @@
-import OffLinePageData from "@/business/model/offLinePageData";
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { GetOfflinePageDataUseCaseResult } from "@/business/useCases/getOfflinePageData";
+import OffLinePageData from "@domain/offLinePageData";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { GetOfflinePageDataUseCaseResult } from "@app/getOfflinePageData";
 import md from 'markdown-it';
 import styles from './offline.module.scss'
 

@@ -1,6 +1,6 @@
-import MicroPost from "R/src/business/model/microPost";
-import UseCaseFactory, { UseCaseOption } from "R/src/business/useCaseFactory";
-import { MicroPostDetailsResult } from "R/src/business/useCases/getMicroPostDetails";
+import MicroPost from "@domain/microPost";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
 import MicroPostCard, { PostClassNames } from "../MicroPostCard";
 
 export interface WrappedMicroPostCardProps { slug: string, className?: PostClassNames }

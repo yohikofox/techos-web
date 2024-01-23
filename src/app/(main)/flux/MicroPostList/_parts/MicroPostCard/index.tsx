@@ -1,7 +1,7 @@
 'use client'
 
 import { Image } from "R/src/components/Image"
-import MicroPost from "R/src/business/model/microPost"
+import MicroPost from "@domain/microPost"
 import styles from "./styles.module.scss"
 import Link from "next/link"
 import classNames from "classnames"

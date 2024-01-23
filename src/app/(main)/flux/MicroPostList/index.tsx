@@ -1,6 +1,6 @@
 'use client'
-import MicroPost from "R/src/business/model/microPost"
-import MicroPostList from "R/src/business/model/microPostList"
+import MicroPost from "@domain/microPost"
+import MicroPostList from "@domain/microPostList"
 import useFluxStore from "R/src/infrastructure/store/flux"
 import { FluxStore } from "R/src/infrastructure/store/flux/_parts/flux/flux"
 import { useEffect } from "react"

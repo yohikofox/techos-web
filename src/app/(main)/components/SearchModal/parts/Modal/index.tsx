@@ -5,7 +5,7 @@ import Close from "@/app/(main)/components/Icon/Close"
 import SearchBar from "../SearchBar"
 import styles from "./modal.module.scss"
 import { SearchDataContext } from "../context"
-import Search from "@/business/model/search"
+import Search from "@domain/search"
 
 export interface ModalProps {
   title?: string

@@ -1,7 +1,7 @@
-import UseCaseFactory, { UseCaseOption } from "R/src/business/useCaseFactory";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import MicroPostListComponent from "./MicroPostList";
-import MicroPostList from "R/src/business/model/microPostList";
-import { MicroPostListResult } from "R/src/business/useCases/getMicroPostList";
+import MicroPostList from "@domain/microPostList";
+import { MicroPostListResult } from "@app/getMicroPostList";
 import { redirect } from "next/navigation";
 import SearchBar from "./SearchBar";
 

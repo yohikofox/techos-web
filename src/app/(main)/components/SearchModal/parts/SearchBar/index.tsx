@@ -3,7 +3,7 @@
 import { useContext, useRef } from "react"
 import styles from "./search.module.scss"
 import { SearchDataContext } from "../context"
-import Search from "@/business/model/search"
+import Search from "@domain/search"
 import fetchResultsAction from "./fetchResults"
 
 export interface SearchBarProps {

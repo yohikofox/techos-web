@@ -1,7 +1,7 @@
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import PostStats from "@/business/model/postStats";
-import { PostStatsResult } from "@/business/useCases/updatePostStats";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import PostStats from "@domain/postStats";
 import { NextRequest, NextResponse } from "next/server"
+import { PostStatsResult } from "@app/getPostStats";
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
 
