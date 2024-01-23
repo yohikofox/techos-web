@@ -25,6 +25,7 @@ type defaultOptionsType = Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<H
 
 export type ImageOptions = {
   priority?: boolean;
+  preset?: string;
 } & defaultOptionsType
 
 const handleBlur = async (options: ImageOptions) => {
@@ -40,6 +41,8 @@ export default async function ServerImage(options: ImageOptions) {
     ...options,
     blurDataURL: await handleBlur(options)
   }
+
+  console.debug('ServerImage', localOptions.sizes)
 
   return (
     <NextImage

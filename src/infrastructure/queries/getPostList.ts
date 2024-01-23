@@ -37,6 +37,11 @@ query postList($index: Int!, $limit: Int!) {
               url
               width
               height
+              alternativeText
+              caption
+              size
+              mime
+              formats
             }
           }
         }

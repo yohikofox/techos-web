@@ -42,7 +42,14 @@ export default async function Footer() {
 
   return (
     <footer className={classNames(styles.container)}>
-      <ServerImage src={LogoIcon.src} className={styles.test} priority alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+
+      <ServerImage
+        src={LogoIcon.src}
+        className={styles.test}
+        priority alt=""
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
       <section className={styles.section__list}>
         <section className={classNames(styles.section)}>
           <Brand />

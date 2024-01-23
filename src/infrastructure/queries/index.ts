@@ -16,6 +16,11 @@ const queries = {
                 url
                 width
                 height
+                alternativeText
+                caption
+                size
+                mime
+                formats
               }
             }
           }
@@ -27,6 +32,11 @@ const queries = {
                 url
                 width
                 height
+                alternativeText
+                caption
+                size
+                mime
+                formats
               }
             }
           }

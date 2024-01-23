@@ -24,6 +24,11 @@ query microPostDetails($slug: StringFilterInput!) {
               url
               width
               height
+              alternativeText
+              caption
+              size
+              mime
+              formats
             }
           }
         }

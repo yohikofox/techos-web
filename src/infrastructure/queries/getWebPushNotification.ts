@@ -10,9 +10,13 @@ query getWebPushNotification($notificationId: ID!) {
           data {
             attributes {
               name
+              url
               width
               height
-              url
+              alternativeText
+              caption
+              size
+              mime
               formats
             }
           }
@@ -24,9 +28,13 @@ query getWebPushNotification($notificationId: ID!) {
           data {
             attributes {
               name
+              url
               width
               height
-              url
+              alternativeText
+              caption
+              size
+              mime
               formats
             }
           }
@@ -35,9 +43,13 @@ query getWebPushNotification($notificationId: ID!) {
           data {
             attributes {
               name
+              url
               width
               height
-              url
+              alternativeText
+              caption
+              size
+              mime
               formats
             }
           }
@@ -50,9 +62,13 @@ query getWebPushNotification($notificationId: ID!) {
             data {
               attributes {
                 name
+                url
                 width
                 height
-                url
+                alternativeText
+                caption
+                size
+                mime
                 formats
               }
             }

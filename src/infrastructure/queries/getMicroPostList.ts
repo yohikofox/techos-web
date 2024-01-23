@@ -13,6 +13,11 @@ query getMicroPosts {
               url
               width
               height
+              alternativeText
+              caption
+              size
+              mime
+              formats
             }
           }
         }

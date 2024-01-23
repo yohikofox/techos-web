@@ -14,7 +14,7 @@ export default class HomeRepository implements IHomeRepository {
     private homeDataService: IHomeDataService
   ) { }
 
-  async getHeaderData(request?: any): Promise<Result<Home, HomeDataResult>> {
+  async getHomeData(request?: any): Promise<Result<Home, HomeDataResult>> {
     const response = await this.contentManagerRepository.get<HomePageData>(GraphQLQueries.GET_HOME_DATA, request, {
       revalidate: CacheConstants.ONE_DAY,
       tags: [RevalidateTagConstants.HOME],

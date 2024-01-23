@@ -14,6 +14,6 @@ export default class GetHomeDataUseCase implements IUseCase<any, Result<Home, Ho
     private homeRepository: IHomeRepository,
   ) { }
   async execute(request?: any): Promise<Result<Home, HomeDataResult>> {
-    return this.homeRepository.getHeaderData(request)
+    return this.homeRepository.getHomeData(request)
   }
 }

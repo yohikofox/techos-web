@@ -10,9 +10,14 @@ export const getHomeData = `
                 data {
                   attributes {
                     name
+                    url
                     width
                     height
-                    url
+                    alternativeText
+                    caption
+                    size
+                    mime
+                    formats
                   }
                 }
               }
@@ -20,9 +25,14 @@ export const getHomeData = `
                 data {
                   attributes {
                     name
+                    url
                     width
                     height
-                    url
+                    alternativeText
+                    caption
+                    size
+                    mime
+                    formats
                   }
                 }
               }

@@ -38,6 +38,11 @@ query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
               url
               width
               height
+              alternativeText
+              caption
+              size
+              mime
+              formats
             }
           }
         }

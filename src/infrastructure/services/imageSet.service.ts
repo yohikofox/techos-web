@@ -7,6 +7,7 @@ export interface IImageSetService {
 }
 
 export enum ImageSetPreset {
+  NONE = 'none',
   THUMBNAIL = 'thumbnail',
   LARGE = 'large',
   MEDIUM = 'medium',
@@ -22,13 +23,45 @@ export type ImageSetOptions = {
 export default class ImageSetService implements IImageSetService {
   constructor(private assetBuilder: IAssetBuilder) { }
   async mapImageSet(image: PictureData, options?: ImageSetOptions): Promise<ImageSet> {
+    let src = image.data.attributes
+    const preset = options?.preset || ImageSetPreset.SMALL
+
+    if (src.formats) {
+      if (preset && preset !== ImageSetPreset.NONE && src.formats.hasOwnProperty(preset)) {
+        src = src.formats[preset]
+      }
+    }
+    const sizesArray: string[] = []
+
+
+    if (src.formats) {
+      const sizes = []
+      const maxScreenWidth = 1920
+
+
+
+      for (const format in src.formats) {
+        if (src.formats.hasOwnProperty(format)) {
+          const fmt = src.formats[format]
+          sizes.push({ width: src.formats[format].width, format: fmt })
+        }
+      }
+
+      sizes.sort((a, b) => (b.format.width / maxScreenWidth) - (a.format.width / maxScreenWidth))
+
+      for (const src of sizes) {
+        sizesArray.push(`(max-width: ${src.format.width}px) ${Math.round((src.format.width / maxScreenWidth) * 100)}w`)
+      }
+    }
+
     return {
-      src: await this.assetBuilder.buildAssetUri(image.data.attributes.url),
-      srcSet: {},
+      src: await this.assetBuilder.buildAssetUri(src.url),
+      sizes: '100vw' + (sizesArray.length > 0 ? ', ' : '') + sizesArray.join(', '),
       placeholderUrl: '',
-      width: image.data.attributes.width,
-      height: image.data.attributes.height,
-      name: image.data.attributes.name,
+      width: src.width,
+      height: src.height,
+      name: src.name,
+      preset: preset,
     }
   }
 
