@@ -9,7 +9,6 @@ export async function GET(request: Request) {
 
   if (tag) {
     revalidateTag(tag);
-    // revalidatePath('/');
   }
 
   return NextResponse.json({ status: 'OK' });

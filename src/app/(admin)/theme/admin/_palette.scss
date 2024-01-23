@@ -11,6 +11,8 @@ $colors: (
   danger: #d63230,
   // Emerald
   success: #4caf50,
+  // info-color
+  info: #33b5e5,
   // Sunglow
   warning: #fbc02d,
   icon-color:#000000,
@@ -85,6 +87,10 @@ $metrics: (
   radius: (small: $base-metric,
     medium: $base-metric * 2,
     large: $base-metric * 3,
+  ),
+  toast:(width: 350px,
+    padding: $base-metric * 4 $base-metric * 6,
+    margin: $base-metric * 2,
   ),
   font:(small: $font-size * 0.75,
     medium: $font-size,

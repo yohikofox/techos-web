@@ -180,7 +180,7 @@
     margin: 1rem;
     padding: 10px;
     border-radius: var(--metric-radius-medium);
-    overflow: scroll;
+    overflow-x: auto;
   }
 
   code {

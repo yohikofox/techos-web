@@ -1,0 +1,76 @@
+.toast {
+  box-sizing: border-box;
+  width: var(--metric-toast-width);
+  background-color: var(--color-background-secondary);
+  border: 1px solid var(--color-border-color);
+  padding: var(--metric-toast-padding);
+  border-radius: var(--metric-radius-medium);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--metric-base);
+}
+
+
+
+.close {
+  transition: all 0.2s ease-in-out !important;
+  border: 2px solid var(--color-border-color) !important;
+
+  &:hover {
+    scale: 1.1;
+    filter: grayscale(0%) !important;
+  }
+}
+
+.success {
+  color: var(--color-success);
+  background-color: color-mix(in srgb, var(--color-background-secondary), var(--color-success) 5%);
+
+  >[data-close-button="true"] {
+    filter: grayscale(100%);
+    background: var(--color-success) !important;
+    border-color: color-mix(in srgb, var(--color-background-secondary), var(--color-success) 5%) !important;
+    color: color-mix(in srgb, var(--color-background-secondary), var(--color-success) 5%) !important;
+  }
+}
+
+.error {
+  color: var(--color-danger);
+  background-color: color-mix(in srgb, var(--color-background-secondary), var(--color-danger) 5%);
+
+  >[data-close-button="true"] {
+    filter: grayscale(100%);
+    background: var(--color-danger) !important;
+    border-color: color-mix(in srgb, var(--color-background-secondary), var(--color-danger) 5%) !important;
+    color: color-mix(in srgb, var(--color-background-secondary), var(--color-danger) 5%) !important;
+  }
+}
+
+.info {
+  color: var(--color-info);
+  background-color: color-mix(in srgb, var(--color-background-secondary), var(--color-info) 5%);
+
+  >[data-close-button="true"] {
+    filter: grayscale(100%);
+    background: var(--color-info) !important;
+    border-color: color-mix(in srgb, var(--color-background-secondary), var(--color-info) 5%) !important;
+    color: color-mix(in srgb, var(--color-background-secondary), var(--color-info) 5%) !important;
+  }
+}
+
+
+.warning {
+  color: var(--color-warning);
+  background-color: color-mix(in srgb, var(--color-background-secondary), var(--color-warning) 5%);
+
+  >[data-close-button="true"] {
+    filter: grayscale(100%);
+    background: var(--color-warning) !important;
+    border-color: color-mix(in srgb, var(--color-background-secondary), var(--color-warning) 5%) !important;
+    color: color-mix(in srgb, var(--color-background-secondary), var(--color-warning) 5%) !important;
+  }
+}
+
+
+.loader {}
