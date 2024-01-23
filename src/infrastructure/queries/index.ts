@@ -1,60 +1,4 @@
 const queries = {
-  getTagPostList: `
-query tagPostList($tag: StringFilterInput!, $index: Int!, $limit: Int!) {
-  posts(
-    filters: { tags: { slug: $tag } }
-    sort: "start_at:desc"
-    pagination: { start: $index, limit: $limit }
-  ) {
-    data {
-      attributes {
-        level
-        author {
-          data {
-            attributes {
-              username
-            }
-          }
-        }
-        tags {
-          data {
-            attributes {
-              label
-              background_color
-              color
-              slug
-            }
-          }
-        }
-        title
-        slug
-        content
-        extract
-        start_at
-        picture {
-          data {
-            attributes {
-              name
-              url
-              width
-              height
-            }
-          }
-        }
-      }
-    }
-    meta {
-      pagination {
-        total
-        page
-        pageSize
-        pageCount
-      }
-    }
-  }
-}
-
-  `,
   getTagInfos: `
   query tagInfos($slug: StringFilterInput!) {
   tags(filters: { slug: $slug }) {
@@ -129,9 +73,7 @@ mutation createWebPushSubscription($data: WebPushSubscriptionInput!) {
       }
     }
   }
-}
-
-  `
+}`
 }
 
 import { deleteWebPushSubscription } from "@queries/deleteWebPushSubscription"
@@ -145,6 +87,7 @@ import { getMicroPostDetails } from '@queries/getMicroPostDetails';
 import { getHomeData } from "@queries/getHomeData"
 import { getHeaderData } from '@queries/getHeaderData';
 import { getPostStats } from "@queries/getPostStats"
+import { getTagPostList } from "@queries/getTagPostList"
 
 const exportable = {
   ...queries,
@@ -159,6 +102,7 @@ const exportable = {
   getHomeData,
   getHeaderData,
   getPostStats,
+  getTagPostList,
 }
 
 export default exportable

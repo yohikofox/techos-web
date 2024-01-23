@@ -1,5 +1,5 @@
 export const getPostDetails = `
-  query postDetails($slug: StringFilterInput!) {
+query postDetails($slug: StringFilterInput!) {
   posts(filters: { slug: $slug }) {
     data {
       id
@@ -30,11 +30,24 @@ export const getPostDetails = `
             attributes {
               name
               url
+              width
+              height
+            }
+          }
+        }
+        tags {
+          data {
+            attributes {
+              label
+              slug
+              color
+              background_color
             }
           }
         }
         post_stat_list {
           data {
+            id
             attributes {
               view_count
             }
@@ -44,5 +57,4 @@ export const getPostDetails = `
     }
   }
 }
-
-  `
+`

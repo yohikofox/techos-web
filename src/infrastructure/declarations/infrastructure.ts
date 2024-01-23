@@ -5,7 +5,7 @@ const services = {
   },
   'PostService': {
     resolve: async () => import(`@services/post.service`),
-    dependencies: ['ImageSetService', 'TagService']
+    dependencies: ['ImageSetService', 'TagService', 'PostStatService']
   },
   'MicroPostService': {
     resolve: async () => import(`@services/micro-post.service`),

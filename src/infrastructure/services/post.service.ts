@@ -4,6 +4,8 @@ import { PostData } from "@dto/post.dto"
 import { ITagService } from "@services/tag.service"
 import { PictureData } from "@dto/picture.dto"
 import { TagData } from "@dto/tag.dto"
+import { IPostStatService } from "@services/post-stats.service"
+import { PostStatData } from "@dto/post-stat.dto"
 
 export interface IPostService {
   mapPost(post: any): Promise<Post>
@@ -12,7 +14,8 @@ export interface IPostService {
 export default class PostService implements IPostService {
   constructor(
     private imageSetService: IImageSetService,
-    private tagService: ITagService
+    private tagService: ITagService,
+    private postStatService: IPostStatService
   ) { }
 
   async mapPost(post: PostData): Promise<Post> {
@@ -33,11 +36,7 @@ export default class PostService implements IPostService {
       tags: post.attributes.tags?.data ? await Promise.all(post.attributes.tags.data.map(async (tag: TagData) => {
         return this.tagService.mapTag(tag)
       })) : undefined,
-      stats: post.attributes.post_stat_list?.data ? {
-        id: post.attributes.post_stat_list?.data.id,
-        slug: post.attributes.slug,
-        viewCount: post.attributes.post_stat_list.data.attributes.view_count,
-      } : undefined
+      stats: await this.postStatService.mapPostStats(post.attributes.slug, post.attributes.post_stat_list.data satisfies PostStatData)
     }
   }
 }

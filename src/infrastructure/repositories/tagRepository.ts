@@ -1,14 +1,15 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
-import { ITagService } from "@infra/services/tag.service"
-import { Result } from "@lib/result"
-import { TagInfosResult } from "@app/getTagInfos"
-import Tag from "@domain/tag"
-import { ITagRepository } from "@interfaces/ITagRepository"
-import CacheConstants from "@lib/constants/cache"
-import RevalidateTagConstants from "@lib/constants/revalidateTag"
-import { TagPostListResult } from "@app/getTagPostList"
-import PostList from "@domain/postList"
-import { IPostService } from "@infra/services/post.service"
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
+import { ITagService } from "@infra/services/tag.service";
+import { Result } from "@lib/result";
+import { TagInfosResult } from "@app/getTagInfos";
+import Tag from "@domain/tag";
+import { ITagRepository } from "@interfaces/ITagRepository";
+import CacheConstants from "@lib/constants/cache";
+import RevalidateTagConstants from "@lib/constants/revalidateTag";
+import { TagPostListResult } from "@app/getTagPostList";
+import PostList from "@domain/postList";
+import { IPostService } from "@infra/services/post.service";
+import { PostData, postListResponseSchema } from "@dto/post.dto";
 
 export default class TagRepository implements ITagRepository {
 
@@ -42,7 +43,8 @@ export default class TagRepository implements ITagRepository {
   async findTagPostList(request?: any): Promise<Result<PostList, TagPostListResult>> {
     const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request, {
       revalidate: CacheConstants.ONE_HOUR,
-      tags: [RevalidateTagConstants.TAG, RevalidateTagConstants.POST]
+      tags: [RevalidateTagConstants.TAG, RevalidateTagConstants.POST],
+      schema: postListResponseSchema
     })
 
     if (response.IsError) {
@@ -54,7 +56,7 @@ export default class TagRepository implements ITagRepository {
     }
 
     const result: PostList = {
-      posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post))),
+      posts: await Promise.all(response.Value.posts.data.map(async (post: PostData) => await this.postService.mapPost(post satisfies PostData))),
       meta: {
         pagination: {
           page: response.Value.posts.meta.pagination.page,

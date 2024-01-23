@@ -10,9 +10,9 @@ export default class PostStatService implements IPostStatService {
 
   async mapPostStats(slug: string, data: PostStatData): Promise<PostStats> {
     const result = {
-      id: data.data!.id,
+      id: data!.id,
       slug: slug,
-      viewCount: data.data?.attributes.view_count || 0
+      viewCount: data?.attributes.view_count || 0
     }
 
     return result

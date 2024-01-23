@@ -2,8 +2,9 @@ import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/con
 import { IPostService } from "@infra/services/post.service"
 import { Result } from "@lib/result"
 import Post from "@domain/post"
+import Meta from "@domain/meta"
 import { PostDetailsResult } from "@app/getPostDetails"
-import { PostData, PostDetailsResponse, PostListData, postDetailsResponseSchema, postListDataSchema } from "@dto/post.dto"
+import { PostData, PostDetailsResponse, PostListResponse, postDetailsResponseSchema, postListResponseSchema } from "@dto/post.dto"
 import CacheConstants from "@lib/constants/cache"
 import RevalidateTagConstants from "@lib/constants/revalidateTag"
 import { IPostRepository } from "@interfaces/IPostRepository"
@@ -44,10 +45,10 @@ export default class PostRepository implements IPostRepository {
   }
 
   async findPostList(request?: any): Promise<Result<PostList, PostListResult>> {
-    const response = await this.cmsRepository.get<PostListData>(GraphQLQueries.GET_POST_LIST, request, {
+    const response = await this.cmsRepository.get<PostListResponse>(GraphQLQueries.GET_POST_LIST, request, {
       revalidate: CacheConstants.ONE_HOUR,
       tags: [RevalidateTagConstants.POST],
-      schema: postListDataSchema
+      schema: postListResponseSchema
     })
 
     if (response.IsError) {
@@ -59,8 +60,8 @@ export default class PostRepository implements IPostRepository {
     }
 
     const result: PostList = {
-      posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post))),
-      meta: await this.metaService.mapMeta(response.Value.posts.meta)
+      posts: await Promise.all(response.Value.posts.data.map(async (post: any) => await this.postService.mapPost(post satisfies PostData))),
+      meta: await this.metaService.mapMeta(response.Value.posts.meta satisfies Meta)
     }
 
     return Result.ok(result)

@@ -49,7 +49,7 @@ const repositories = {
   },
   'TagRepository': {
     resolve: async () => import(`@infra/repositories/tagRepository`),
-    dependencies: ['ContentManagerSystem', 'TagService']
+    dependencies: ['ContentManagerSystem', 'TagService', 'PostService']
   },
   'SubscriptionRepository': {
     resolve: async () => import(`@infra/repositories/subscriptionRepository`),

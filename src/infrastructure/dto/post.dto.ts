@@ -18,7 +18,9 @@ export const postDataSchema = z.object({
     tags: z.object({
       data: z.array(tagDataSchema)
     }),
-    post_stat_list: postStatDataSchema.optional().nullable()
+    post_stat_list: z.object({
+      data: postStatDataSchema.optional().nullable()
+    })
   })
 })
 export type PostData = z.infer<typeof postDataSchema>
@@ -29,12 +31,14 @@ export const postDetailsResponseSchema = z.object({
   })
 })
 
-export const postListDataSchema = z.object({
+
+export const postListResponseSchema = z.object({
   posts: z.object({
     data: z.array(postDataSchema),
     meta: metaDataSchema
   })
 })
 
-export type PostListData = z.infer<typeof postListDataSchema>
+export type PostListResponse = z.infer<typeof postListResponseSchema>
+
 export type PostDetailsResponse = z.infer<typeof postDetailsResponseSchema>

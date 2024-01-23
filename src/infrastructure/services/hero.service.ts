@@ -14,8 +14,8 @@ export default class HeroService implements IHeroService {
     return {
       title: hero.title,
       content: hero.content || undefined,
-      picture: hero.picture ? await this.imageSetService.mapImageSet(hero.picture satisfies PictureData) : undefined,
-      background: hero.background ? await this.imageSetService.mapImageSet(hero.background satisfies PictureData) : undefined,
+      picture: hero.picture?.data ? await this.imageSetService.mapImageSet(hero.picture satisfies PictureData) : undefined,
+      background: hero.background?.data ? await this.imageSetService.mapImageSet(hero.background satisfies PictureData) : undefined,
     }
   }
 }

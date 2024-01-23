@@ -26,4 +26,10 @@ export const microPostListDataSchema = z.object({
   })
 })
 
+export const microPostDetailResponseSchema = z.object({
+  microPosts: z.object({
+    data: z.array(microPostDataSchema),
+  })
+})
+
 export type MicroPostListData = z.infer<typeof microPostListDataSchema>

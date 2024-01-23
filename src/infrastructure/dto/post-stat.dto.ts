@@ -1,13 +1,11 @@
 import { z } from "zod";
 
 export const postStatDataSchema = z.object({
-  data: z.object({
-    id: z.string(),
-    attributes: z.object({
-      view_count: z.number(),
-    })
-  }).optional().nullable()
-}).strict();
+  id: z.string(),
+  attributes: z.object({
+    view_count: z.number(),
+  })
+}).strict().optional().nullable()
 
 
 export const postStatDataResponseSchema = z.object({

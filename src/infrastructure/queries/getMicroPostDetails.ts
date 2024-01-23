@@ -11,6 +11,9 @@ query microPostDetails($slug: StringFilterInput!) {
           data {
             attributes {
               label
+              background_color
+              color
+              slug
             }
           }
         }
@@ -19,6 +22,8 @@ query microPostDetails($slug: StringFilterInput!) {
             attributes {
               name
               url
+              width
+              height
             }
           }
         }

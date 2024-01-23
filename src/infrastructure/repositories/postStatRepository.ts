@@ -1,7 +1,7 @@
 import { PostStatsResult } from "@app/getPostStats"
 import PostStats from "@domain/postStats"
 import { Result } from "@lib/result"
-import { PostStatData, PostStatDataResponse } from "@dto/post-stat.dto"
+import { PostStatData, PostStatDataResponse, postStatDataResponseSchema } from "@dto/post-stat.dto"
 import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
 import { IPostStatService } from "@infra/services/post-stats.service"
 import { IPostStatRepository } from "@interfaces/IPostStatRepository"
@@ -57,8 +57,9 @@ export default class PostStatRepository implements IPostStatRepository {
   async findPostStat(request?: any): Promise<Result<PostStats, PostStatsResult>> {
     const retrieveResponse = await this.cmsRepository.get<PostStatDataResponse>(GraphQLQueries.GET_POST_STATS, request,
       {
-        revalidate: CacheConstants.ONE_HOUR,
+        revalidate: 0,//CacheConstants.ONE_HOUR,
         tags: [RevalidateTagConstants.POST],
+        schema: postStatDataResponseSchema
       })
 
     if (retrieveResponse.IsError) {
