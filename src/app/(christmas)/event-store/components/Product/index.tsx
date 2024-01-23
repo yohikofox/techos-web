@@ -1,7 +1,7 @@
 "use client"
 
-import Product from "R/src/business/model/product";
-import Image from "R/src/components/Image"
+import Product from "@domain/product";
+import { Image } from "R/src/components/Image"
 import { useCallback, useState } from "react";
 import styles from './styles.module.scss';
 

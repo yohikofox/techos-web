@@ -1,6 +1,6 @@
-import { StoreResult } from "R/src/business/adapter/store";
-import Product from "R/src/business/model/product";
-import UseCaseFactory, { UseCaseOption } from "R/src/business/useCaseFactory";
+import { StoreResult } from "@infra/store";
+import Product from "@domain/product";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import styles from './styles.module.scss';
 import ProductComponent from "./components/Product";
 

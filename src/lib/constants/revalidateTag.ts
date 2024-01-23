@@ -5,4 +5,6 @@ export default class RevalidateTagConstants {
   static readonly CONFIG = 'config';
   static readonly SEARCH = 'search';
   static readonly TAG = 'tag';
+  static readonly NOTIFICATION = 'notification';
+  static readonly OFFLINE_PAGE = 'offline_page';
 }

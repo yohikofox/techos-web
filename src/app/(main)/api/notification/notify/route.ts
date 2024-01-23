@@ -1,7 +1,7 @@
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import WebPushSubscription from "@/business/model/webPushSubscription";
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { GetWebPushSubscriptionListResult } from "@/business/useCases/getSubscriptionList";
+import WebPushSubscription from "@domain/webPushSubscription";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { GetWebPushSubscriptionListResult } from "@app/getSubscriptionList";
 import { NextRequest, NextResponse } from "next/server"
 import webpush, { WebPushError } from 'web-push'
 import { IOC } from "R/src/infrastructure/container";

@@ -35,8 +35,29 @@
       "@/*": [
         "./src/*"
       ],
-      "@biz/*": [
-        "./src/business/*"
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@domain/*": [
+        "./src/domain/*"
+      ],
+      "@infra/*": [
+        "./src/infrastructure/*"
+      ],
+      "@app/*": [
+        "./src/application/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@dto/*": [
+        "./src/infrastructure/dto/*"
+      ],
+      "@services/*": [
+        "./src/infrastructure/services/*"
+      ],
+      "@queries/*": [
+        "./src/infrastructure/queries/*"
       ],
     }
   },

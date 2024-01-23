@@ -1,10 +1,10 @@
-import Post from "@/business/model/post";
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import { PostDetailsResult } from "@/business/useCases/getPostDetails";
+import Post from "@domain/post";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { PostDetailsResult } from "@app/getPostDetails";
 import { redirect } from "next/navigation";
 import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import Hero from "@/app/(main)/components/Hero";
-import ImageSet from "@/business/model/image";
+import ImageSet from "@domain/image";
 import PostDetails from "@/app/(main)/components/PostDetails";
 
 export interface PostPageProps { params: { slug: string } }
@@ -16,6 +16,7 @@ export default async function Post({ params: { slug } }: PostPageProps) {
   const response = await useCase?.execute({ slug: { "eq": slug } });
 
   if (response.IsError) {
+    console.error("🚀 ~ Post ~ response:", response.Result)
     redirect('/error/400')
   }
 

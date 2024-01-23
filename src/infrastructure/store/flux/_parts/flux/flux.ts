@@ -1,5 +1,5 @@
-import MicroPost from "R/src/business/model/microPost"
-import MicroPostList from "R/src/business/model/microPostList"
+import MicroPost from "@domain/microPost"
+import MicroPostList from "@domain/microPostList"
 
 export default class FluxStoreImplementation implements FluxStore {
   public loaded: boolean

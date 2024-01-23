@@ -20,8 +20,8 @@ const MenuCard = async ({ item, }: any) => {
       {item.background && <ServerImage
         alt={item.title}
         src={item.background.src}
-        width={100}
-        height={100}
+        preset={item.background.preset}
+        sizes={item.background.sizes}
       />}
       <span>{item.title}</span>
       <Link href={item.link} className={styles.inset__link} />

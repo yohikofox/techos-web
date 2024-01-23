@@ -1,11 +1,11 @@
-import UseCaseFactory, { UseCaseOption } from "@/business/useCaseFactory";
-import HomeData from "@/business/model/homeData";
-import { HomeDataResult } from "@/business/useCases/getHomeData";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { HomeDataResult } from "@app/getHomeData";
 import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import { redirect } from 'next/navigation'
 
 import Hero from "@/app/(main)/components/Hero";
 import PostCardList from "@/app/(main)/components/PostList";
+import Home from "@domain/home";
 
 export interface PageProps {
   params: {
@@ -24,7 +24,7 @@ async function Page({ params }: PageProps) {
     pageInt = parseInt(page) || 0;
   }
 
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, HomeData, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
+  const useCase = await UseCaseFactory.Instance.getUseCase<any, Home, HomeDataResult>(UseCaseOption.GET_HOME_DATA);
   const response = await useCase?.execute();
 
   if (response.IsError) {

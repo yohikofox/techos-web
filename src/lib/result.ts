@@ -60,6 +60,14 @@ export class Result<ValueType, TEnumValue extends string> {
     return this;
   }
 
+  lastErrorMatchWith(result: TEnumValue): boolean {
+    return (this.result && this.result.length > 0) && this.result[this.result.length - 1] === result;
+  }
+
+  errorsContains(result: TEnumValue): boolean {
+    return (this.result && this.result.length > 0) && this.result.includes(result);
+  }
+
   get IsOk(): boolean {
     return this.result[this.result.length - 1] === AbstractEnum.SUCCESS;
   }

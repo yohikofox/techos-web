@@ -1,4 +1,4 @@
-import Search from "R/src/business/model/search"
+import Search from "@domain/search"
 import CacheConstants from "R/src/lib/constants/cache"
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
 

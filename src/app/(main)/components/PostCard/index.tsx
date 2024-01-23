@@ -1,4 +1,4 @@
-import Post, { PostType } from "@/business/model/post";
+import Post, { PostType } from "@domain/post";
 import Article from "./parts/Article";
 import PostCardAd from "./parts/Ad";
 

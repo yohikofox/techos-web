@@ -13,7 +13,7 @@ import PostHelper from "@/infrastructure/helper/postHelper"
 import TextToSpeechButton from "../../../TextToSpeechButton"
 
 export default async function Article({ post }: PostCardProps) {
-  const { src } = post?.picture || { src: '', width: 0, height: 0 };
+  const { src, preset } = post?.picture || { src: '', width: 0, height: 0 };
 
   const getAbstractHTML = () => {
     const result = post.extract ? md().render(post.extract) : ''
@@ -27,7 +27,8 @@ export default async function Article({ post }: PostCardProps) {
           alt={post.title || ''}
           src={src || ''}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          preset={preset}
+          sizes={post.picture?.sizes}
           style={{
             objectFit: 'cover',
           }}
