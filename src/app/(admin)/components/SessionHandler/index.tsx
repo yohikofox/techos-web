@@ -1,14 +1,15 @@
 import "server-only"
 
 import { headers } from "next/headers";
-
-import React, { PropsWithChildren } from "react";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import SessionProvider from "./SessionProvider";
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { IOC } from "R/src/infrastructure/container";
+import React, { PropsWithChildren } from "react";
+
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+
+import SessionProvider from "./SessionProvider";
 
 export interface SessionHandlerProps extends PropsWithChildren {
   target?: string

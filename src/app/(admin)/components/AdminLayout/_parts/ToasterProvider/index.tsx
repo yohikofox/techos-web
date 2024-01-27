@@ -1,4 +1,5 @@
 import { Toaster } from 'sonner'
+
 import styles from "./styles.module.scss"
 
 interface ToastClassnames {

@@ -1,6 +1,6 @@
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
+import { Result } from "@lib/result";
 
 export enum SaveWebPushSubscriptionResult {
   SUCCESS = 'success',

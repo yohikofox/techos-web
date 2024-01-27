@@ -1,5 +1,6 @@
-import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
 import { IUseCase } from "@infra/useCaseFactory";
+import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
+
 import { Result } from "@/lib/result";
 
 export interface DeleteSubscriptionRequest {

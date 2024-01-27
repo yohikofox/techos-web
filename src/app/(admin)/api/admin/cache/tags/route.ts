@@ -1,4 +1,3 @@
-import CacheFactory from 'R/src/infrastructure/cache/CacheFactory';
 import { NextResponse } from 'next/server';
 
 export const dynamic = "force-dynamic"

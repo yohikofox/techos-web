@@ -1,8 +1,9 @@
 import classNames from "classnames"
-import styles from "./styles.module.scss"
 import { FacetedSearch } from "R/src/domain/search"
+
 import ClearButton from "./_parts/ClearButton"
 import FacetGroup from "./_parts/FacetGroup"
+import styles from "./styles.module.scss"
 
 export type FacetCollectionProps = {
   data: FacetedSearch[]

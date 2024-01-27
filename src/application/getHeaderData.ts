@@ -1,7 +1,7 @@
-import { IUseCase } from "@infra/useCaseFactory";
 import Header from "@domain/header";
-import { Result } from "@lib/result";
+import { IUseCase } from "@infra/useCaseFactory";
 import { IHeaderRepository } from "@interfaces/IHeaderRepository";
+import { Result } from "@lib/result";
 
 export interface GetHeaderRequest { }
 

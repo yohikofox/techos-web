@@ -1,4 +1,5 @@
 import ServerImage from "@/components/Image"
+
 import { PostCardProps } from "../..";
 import styles from "./ad.module.scss"
 

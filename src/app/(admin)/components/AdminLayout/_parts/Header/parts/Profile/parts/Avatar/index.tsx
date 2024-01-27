@@ -1,10 +1,11 @@
 'use client'
 
-import styles from "./styles.module.scss"
-import { Image } from "R/src/components/Image"
-import useAdminStore from "R/src/infrastructure/store/admin";
 import classNames from 'classnames';
 import { useSession } from "next-auth/react";
+import { Image } from "R/src/components/Image"
+import useAdminStore from "R/src/infrastructure/store/admin";
+
+import styles from "./styles.module.scss"
 
 export default function Component({ className, fallback }: any) {
   const session = useSession()

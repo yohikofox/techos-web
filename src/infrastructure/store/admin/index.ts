@@ -1,8 +1,9 @@
 import { create } from 'zustand';
+
+import CacheStoreImplementation, { CacheStore, initialState as cacheInitialState } from './parts/cache/cache';
 import { MenuStore } from './parts/menu/base.menu';
 import MenuStoreImplementation, { initialState as menuInitialState } from './parts/menu/menu.menu';
-import ProfileMenuStoreImplementation, { ProfileMenuStore, initialState as profileMenuInitialState } from './parts/menu/profileMenu.menu';
-import CacheStoreImplementation, { CacheStore, initialState as cacheInitialState } from './parts/cache/cache';
+import ProfileMenuStoreImplementation, { initialState as profileMenuInitialState,ProfileMenuStore } from './parts/menu/profileMenu.menu';
 
 export interface AdminStore {
   menu: MenuStore,

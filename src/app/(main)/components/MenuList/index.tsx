@@ -1,7 +1,9 @@
-import ServerImage from "@/components/Image"
-import styles from "./menuList.module.scss"
 import Link from "next/link"
 import slugify from "slugify"
+
+import ServerImage from "@/components/Image"
+
+import styles from "./menuList.module.scss"
 
 export interface MenuListProps {
   name: string

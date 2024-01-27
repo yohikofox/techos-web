@@ -1,19 +1,21 @@
 'use client'
 
-import { MouseEventHandler, Suspense, useContext } from "react"
-import styles from "./search-results.module.scss"
-import { SearchDataContext } from "../context"
-import { Image } from "@/components/Image"
+import 'dayjs/locale/fr'
+
+import classNames from "classnames"
+import dayjs from "dayjs";
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import md from 'markdown-it';
+import Link from "next/link";
+import { MouseEventHandler, useContext } from "react"
+
+import Clock from "@/app/(main)/components/Icon/Clock";
+import Logo from "@/app/(main)/components/Icon/Logo";
+import { Image } from "@/components/Image"
 import getReadingTime from "@/infrastructure/helper/getReadingTime";
 
-import dayjs from "dayjs";
-import 'dayjs/locale/fr'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import Clock from "@/app/(main)/components/Icon/Clock";
-import Link from "next/link";
-import Logo from "@/app/(main)/components/Icon/Logo";
-import classNames from "classnames"
+import { SearchDataContext } from "../context"
+import styles from "./search-results.module.scss"
 
 dayjs.locale('fr')
 dayjs.extend(advancedFormat)

@@ -1,7 +1,8 @@
 import "./global.scss"
-import styles from "./styles.module.scss"
 
 import { PropsWithChildren } from "react"
+
+import styles from "./styles.module.scss"
 
 export const metadata = {
   title: 'All i want for christmas',

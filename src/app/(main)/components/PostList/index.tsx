@@ -1,19 +1,11 @@
-import PostCard from "../PostCard"
-import styles from "./post-list.module.scss"
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import { redirect } from "next/navigation";
-import { PostType } from "@domain/post";
 // import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import TextToSpeechInfos from "../TextToSpeechInfos";
-import { IOC } from "R/src/infrastructure/container";
-import { IAssetBuilder } from "R/src/infrastructure/helper/assetBuilder";
 import { SearchDataResult, SearchRequest } from "R/src/application/getSearchData";
 import Search, { SearchItem } from "R/src/domain/search";
-import FacetCollection from "./parts/FacetCollection";
-import ServerSidePostCollection from "./parts/ServerSidePostCollection";
-import { ImageSetPreset } from "R/src/infrastructure/services/imageSet.service";
 
 import { getDefaultAd } from "./parts/DefaultAd";
+import ServerSidePostCollection from "./parts/ServerSidePostCollection";
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
 const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
@@ -51,7 +43,7 @@ export default async function PostListRender({ title, page, query }: PostListPro
 
   const postCollection = postListResponse.Value.hits //postListResponse.Value.posts
 
-  let meta: any = {
+  const meta: any = {
     pagination: {
       page: validatedPage + 1,
       pageCount: Math.ceil(postListResponse.Value.estimatedTotalHits / limit),

@@ -1,5 +1,6 @@
-import { Result } from "@/lib/result";
 import { IOC } from "@infra/container";
+
+import { Result } from "@/lib/result";
 
 export enum UseCaseOption {
   GET_HOME_DATA = 'GetHomeData',

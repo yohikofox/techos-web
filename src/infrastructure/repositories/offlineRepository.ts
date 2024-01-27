@@ -1,12 +1,12 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
+import { GetOfflinePageDataUseCaseResult } from "@app/getOfflinePageData"
+import OffLinePageData from "@domain/offLinePageData"
 import { OffLineData, OffLineDataResponse, offLineDataResponseSchema } from "@dto/offline.dto"
+import { IOffLineService } from "@infra/services/offline.service"
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
+import { IOfflineRepository } from "@interfaces/IOfflineRepository"
 import CacheConstants from "@lib/constants/cache"
 import RevalidateTagConstants from "@lib/constants/revalidateTag"
-import { GetOfflinePageDataUseCaseResult } from "@app/getOfflinePageData"
 import { Result } from "@lib/result"
-import OffLinePageData from "@domain/offLinePageData"
-import { IOffLineService } from "@infra/services/offline.service"
-import { IOfflineRepository } from "@interfaces/IOfflineRepository"
 
 export default class OfflineRepository implements IOfflineRepository {
   constructor(

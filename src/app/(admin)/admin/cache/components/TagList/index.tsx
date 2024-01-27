@@ -1,9 +1,10 @@
 'use client';
 
-import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
-import styles from "./styles.module.scss"
 import Button from "@Admin/components/Button"
+import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
+
 import { onClick } from "./actions"
+import styles from "./styles.module.scss"
 
 export default function Component() {
   const items = Object.entries(RevalidateTagConstants)

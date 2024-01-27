@@ -1,9 +1,11 @@
+import Author from "@domain/author";
+import classNames from "classnames";
+
 import TrackingWorker from "@/app/(main)/components/TrackingWorker";
+
 import AuthorComponent from "../Author";
 import PostDate from "../PostDate";
 import styles from "./metadata.module.scss"
-import Author from "@domain/author";
-import classNames from "classnames";
 
 export interface MetadataProps {
   author: Author

@@ -1,12 +1,11 @@
 'use client'
 
 import classNames from "classnames"
-import styles from "./style.module.scss"
-import Logo from "../Logo";
-import { useShallow } from 'zustand/react/shallow'
-
-import useAdminStore from "R/src/infrastructure/store/admin";
 import Link from "next/link";
+import useAdminStore from "R/src/infrastructure/store/admin";
+
+import Logo from "../Logo";
+import styles from "./style.module.scss"
 
 export interface NavHeaderProps {
   homeLink?: { path: string, name: string }

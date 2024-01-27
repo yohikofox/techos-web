@@ -1,9 +1,10 @@
-import qs from 'querystring';
+import { FetchOptions } from "@infra/adapter/fetchOptions";
+import { ContentManagerSystemResult, GraphQLQueries, IContentManagerSystemRepository, RestRequest } from "@interfaces/contentManagementSystem";
 import queries from "@queries/index";
+import qs from 'querystring';
+
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
-import { ContentManagerSystemResult, GraphQLQueries, IContentManagerSystemRepository, RestRequest } from "@interfaces/contentManagementSystem";
-import { FetchOptions } from "@infra/adapter/fetchOptions";
 
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {

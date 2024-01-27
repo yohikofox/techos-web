@@ -1,13 +1,15 @@
 import classNames from "classnames"
-import styles from "./render-markdown.module.scss"
-import md from "markdown-it";
-import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
-import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import TextToSpeechButton from "../TextToSpeechButton";
-import { IOC } from "R/src/infrastructure/container";
 import { convert } from "html-to-text"
+import md from "markdown-it";
+import { IOC } from "R/src/infrastructure/container";
 import ReplaceComponentHelper, { ComponentDefinition } from "R/src/infrastructure/helper/replaceComponents";
+
+import { IConfigManager } from '@/infrastructure/adapter/configManager';
+import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
+
 import WrappedMicroPostCard from "../../flux/MicroPostList/_parts/WrappedMicroPostCard";
+import TextToSpeechButton from "../TextToSpeechButton";
+import styles from "./render-markdown.module.scss"
 
 export interface RenderMarkdownProps {
   content: string
@@ -28,7 +30,7 @@ export default async function RenderMarkdown({ content, className, classNameColl
   })
 
   m.renderer.rules.image = function (tokens, idx, options, env, slf) {
-    var token = tokens[idx]
+    const token = tokens[idx]
     if (token && token.type === 'image' && token.attrs && token.children) {
       token.attrs[token.attrIndex('alt')][1] = slf.renderInlineAsText(token.children, options, env)
       if (token.attrs[token.attrIndex('src')][1].startsWith('http')) return slf.renderToken(tokens, idx, options)
@@ -40,7 +42,7 @@ export default async function RenderMarkdown({ content, className, classNameColl
     }
     return ''
   }
-  let ctnt = m.render(content)
+  const ctnt = m.render(content)
 
   const componentDefinitions = ReplaceComponentHelper.extractAndSplit(ctnt)
 

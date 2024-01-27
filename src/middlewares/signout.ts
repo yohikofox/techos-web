@@ -1,15 +1,16 @@
+import { NextMiddlewareResult } from "next/dist/server/web/types";
 import {
   NextFetchEvent,
   NextMiddleware,
   NextRequest,
   NextResponse,
 } from "next/server";
-import { Middleware } from ".";
 import { getToken } from "next-auth/jwt";
-import { MiddlewareResult } from "./factory";
-import { NextMiddlewareResult } from "next/dist/server/web/types";
-import { RedirectData } from "./session";
+
 import CookieManager from "../infrastructure/cookie";
+import { Middleware } from ".";
+import { MiddlewareResult } from "./factory";
+import { RedirectData } from "./session";
 
 const PATTERNS = ["/api/auth/logout", "/logout"];
 

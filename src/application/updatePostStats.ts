@@ -1,9 +1,10 @@
+import { PostStatsResult } from "@app/getPostStats";
 import PostStats from "@domain/postStats";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
-import { IPostStatRepository } from "@interfaces/IPostStatRepository";
-import { PostStatsResult } from "@app/getPostStats";
 import { IPostRepository } from "@interfaces/IPostRepository";
+import { IPostStatRepository } from "@interfaces/IPostStatRepository";
+
+import { Result } from "@/lib/result";
 
 
 export type PostStatsRequest = {

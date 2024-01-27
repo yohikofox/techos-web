@@ -1,8 +1,8 @@
+import { FacetConfig } from "@domain/facetConfig"
 import Search, { FacetedSearch, SearchItem } from "@domain/search"
 import { SearchData } from "@dto/search.dto"
 import { IMicroPostService } from "@infra/services/micro-post.service"
 import { IPostService } from "@infra/services/post.service"
-import { FacetConfig } from "@domain/facetConfig"
 
 export interface ISearchService {
   mapSearchItem(search: SearchData, facets: FacetConfig[], indexName: string): Promise<Search>

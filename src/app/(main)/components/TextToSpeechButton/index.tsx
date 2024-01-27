@@ -1,11 +1,12 @@
 'use client';
 
-import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import classNames from 'classnames';
-import styles from "./styles.module.scss";
-import { ImPlay3, ImStop2, ImPause2 } from "react-icons/im";
 import useBlogStore from "R/src/infrastructure/store/blog";
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { ImPause2,ImPlay3, ImStop2 } from "react-icons/im";
 import { useShallow } from "zustand/react/shallow";
+
+import styles from "./styles.module.scss";
 
 const LIMIT = 100
 const STEP = 1
@@ -49,7 +50,7 @@ export default function Component({ identifier, text, className }: TextToSpeechB
 
     const current = splitResult.slice(0, STEP).join('\n')
 
-    var utterThis = new SpeechSynthesisUtterance(current.trim());
+    const utterThis = new SpeechSynthesisUtterance(current.trim());
 
     utterThis.addEventListener("end", (event) => {
       if (splitResult.length > 0) {

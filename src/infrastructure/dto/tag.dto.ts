@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { heroDataSchema } from "./hero.dto";
 
 export const tagDataSchema = z.object({

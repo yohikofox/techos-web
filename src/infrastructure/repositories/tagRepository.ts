@@ -1,15 +1,15 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
-import { ITagService } from "@infra/services/tag.service";
-import { Result } from "@lib/result";
 import { TagInfosResult } from "@app/getTagInfos";
+import { TagPostListResult } from "@app/getTagPostList";
+import PostList from "@domain/postList";
 import Tag from "@domain/tag";
+import { PostData, postListResponseSchema } from "@dto/post.dto";
+import { IPostService } from "@infra/services/post.service";
+import { ITagService } from "@infra/services/tag.service";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
 import { ITagRepository } from "@interfaces/ITagRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
-import { TagPostListResult } from "@app/getTagPostList";
-import PostList from "@domain/postList";
-import { IPostService } from "@infra/services/post.service";
-import { PostData, postListResponseSchema } from "@dto/post.dto";
+import { Result } from "@lib/result";
 
 export default class TagRepository implements ITagRepository {
 

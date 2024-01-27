@@ -1,8 +1,8 @@
-import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import Product from "@domain/product";
 import Filterable from "@infra/adapter/filterable";
+import { IUseCase } from "@infra/useCaseFactory";
 import { IProductRepository } from "@interfaces/IProductRepository";
+import { Result } from "@lib/result";
 
 export enum ProductResult {
   SUCCESS = 'success',

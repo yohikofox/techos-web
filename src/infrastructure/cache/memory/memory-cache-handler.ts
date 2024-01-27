@@ -40,4 +40,4 @@ export default class MemoryCacheHandler extends BaseCacheHandler {
 
     this.setInitialized(true);
   }
-};
+}

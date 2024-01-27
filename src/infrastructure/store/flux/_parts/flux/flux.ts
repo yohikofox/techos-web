@@ -1,4 +1,3 @@
-import MicroPost from "@domain/microPost"
 import MicroPostList from "@domain/microPostList"
 
 export default class FluxStoreImplementation implements FluxStore {

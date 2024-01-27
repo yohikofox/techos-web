@@ -1,14 +1,13 @@
-import Header from '@domain/header';
 import { HeaderResult } from '@app/getHeaderData';
-import { HeaderData, HeaderResponseData, headerDataSchema } from '@dto/header-data.dto';
+import Header from '@domain/header';
+import { HeaderData, headerDataSchema,HeaderResponseData } from '@dto/header-data.dto';
 import { TrainingData } from '@dto/training.dto';
-
-import { IHeaderRepository } from '@interfaces/IHeaderRepository';
-import { GraphQLQueries, IContentManagerSystemRepository } from '@interfaces/contentManagementSystem';
-import CacheConstants from '@lib/constants/cache';
-import { Result } from '@lib/result';
-import RevalidateTagConstants from '@lib/constants/revalidateTag';
 import { IHeaderDataService } from '@infra/services/header-data.service';
+import { GraphQLQueries, IContentManagerSystemRepository } from '@interfaces/contentManagementSystem';
+import { IHeaderRepository } from '@interfaces/IHeaderRepository';
+import CacheConstants from '@lib/constants/cache';
+import RevalidateTagConstants from '@lib/constants/revalidateTag';
+import { Result } from '@lib/result';
 
 
 export default class HeaderRepository implements IHeaderRepository {

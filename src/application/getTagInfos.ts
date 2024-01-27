@@ -1,7 +1,7 @@
 import Tag from "@domain/tag";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import { ITagRepository } from "@interfaces/ITagRepository";
+import { Result } from "@lib/result";
 
 
 export enum TagInfosResult {

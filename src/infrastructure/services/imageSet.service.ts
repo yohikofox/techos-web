@@ -1,6 +1,7 @@
-import { IAssetBuilder } from "@/infrastructure/helper/assetBuilder"
 import ImageSet from "@domain/image"
 import { PictureData } from "@dto/picture.dto"
+
+import { IAssetBuilder } from "@/infrastructure/helper/assetBuilder"
 
 export interface IImageSetService {
   mapImageSet(image: PictureData, options?: ImageSetOptions): Promise<ImageSet>
@@ -24,7 +25,7 @@ export default class ImageSetService implements IImageSetService {
   constructor(private assetBuilder: IAssetBuilder) { }
   async mapImageSet(image: PictureData, options?: ImageSetOptions): Promise<ImageSet> {
     let src = image.data.attributes
-    const preset = options?.preset || ImageSetPreset.SMALL
+    const preset = ((options?.preset) != null) || ImageSetPreset.SMALL
 
     if (src.formats) {
       if (preset && preset !== ImageSetPreset.NONE && src.formats.hasOwnProperty(preset)) {

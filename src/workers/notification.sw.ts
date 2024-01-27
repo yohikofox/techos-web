@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+
 import { registerPushWorker } from "./parts/notification";
 
 const worker = self as unknown as ServiceWorkerGlobalScope;

@@ -1,17 +1,17 @@
-import Link from 'next/link'
-import styles from './footer.module.scss'
-import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory';
-
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import ServerImage from "@/components/Image"
-import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import { IOC } from "R/src/infrastructure/container";
-
-import LogoIcon from 'R/public/logo.png';
-import Brand from 'R/src/components/Brand';
 import { HeaderResult } from '@app/getHeaderData';
 import Header from '@domain/header';
+import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import Link from 'next/link'
+import LogoIcon from 'R/public/logo.png';
+import Brand from 'R/src/components/Brand';
+import { IOC } from "R/src/infrastructure/container";
+
+import ServerImage from "@/components/Image"
+import { IConfigManager } from '@/infrastructure/adapter/configManager';
+
+import styles from './footer.module.scss'
 
 const begin_date = dayjs('2019-01-01');
 

@@ -1,6 +1,6 @@
 'use client'
 import Search from "@domain/search";
-import { Dispatch, SetStateAction, createContext, useState } from "react"
+import { createContext, Dispatch, SetStateAction, useState } from "react"
 
 export const SearchDataContext = createContext<[Search, Dispatch<SetStateAction<Search>>] | null>(null);
 

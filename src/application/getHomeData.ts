@@ -1,7 +1,7 @@
-import { Result } from "@lib/result";
+import Home from "@domain/home";
 import { IUseCase } from "@infra/useCaseFactory";
 import { IHomeRepository } from "@interfaces/IHomeRepository";
-import Home from "@domain/home";
+import { Result } from "@lib/result";
 
 export enum HomeDataResult {
   SUCCESS = 'success',

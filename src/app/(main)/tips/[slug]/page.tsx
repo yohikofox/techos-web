@@ -1,11 +1,13 @@
-import { redirect } from "next/navigation";
-import MicroPostDetails from "./_parts/MicroPostDetails";
-import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import MicroPost from "@domain/microPost";
 import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
-import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
-import Hero from "@/app/(main)/components/Hero";
 import ImageSet from "@domain/image";
+import MicroPost from "@domain/microPost";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { redirect } from "next/navigation";
+
+import Hero from "@/app/(main)/components/Hero";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+
+import MicroPostDetails from "./_parts/MicroPostDetails";
 
 export interface MicroPostPageProps { params: { slug: string } }
 

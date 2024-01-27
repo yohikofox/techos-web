@@ -1,7 +1,9 @@
 import ImageSet from "@domain/image"
-import styles from "./hero.module.scss"
 import md from "markdown-it"
+
 import ServerImage from "@/components/Image"
+
+import styles from "./hero.module.scss"
 
 export interface HeroProps {
   title?: string

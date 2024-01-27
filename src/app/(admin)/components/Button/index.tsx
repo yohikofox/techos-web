@@ -1,10 +1,11 @@
 'use client';
 
-import { MouseEventHandler, PropsWithChildren, useRef, useState } from "react";
-import styles from "./styles.module.scss";
-import Spinner from "../Icon/ReactIcon/Spinner";
 import classNames from "classnames";
+import { MouseEventHandler, PropsWithChildren, useState } from "react";
+
 import toast from "../../hooks/useToaster";
+import Spinner from "../Icon/ReactIcon/Spinner";
+import styles from "./styles.module.scss";
 
 export interface ButtonProps extends PropsWithChildren<{}> {
   onClick: () => Promise<any>

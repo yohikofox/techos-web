@@ -1,17 +1,18 @@
 import './globals.scss'
-import type { Metadata } from 'next'
-import classNames from 'classnames'
-import styles from "./layout.module.scss"
-
-import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
 
-import fontBundle from '@/app/font'
-import ServiceWorkerRegister from '@/app/(main)/components/ServiceWorkerRegister'
-import Header from '@/app/(main)/components/Header'
+import classNames from 'classnames'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import type { Metadata } from 'next'
+
 import Footer from '@/app/(main)/components/Footer'
+import Header from '@/app/(main)/components/Header'
 import Hero from '@/app/(main)/components/Hero'
+import ServiceWorkerRegister from '@/app/(main)/components/ServiceWorkerRegister'
+import fontBundle from '@/app/font'
+
+import styles from "./layout.module.scss"
 // import CoreWebVitals from 'R/src/components/CoreWebVitals'
 
 dayjs.locale('fr')

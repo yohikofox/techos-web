@@ -1,6 +1,7 @@
 import WebPushNotification from "@domain/webPushNotification"
 import { PictureData } from "@dto/picture.dto"
-import { NotificationData, WebPushNotificationData, WebPushNotificationDataResponse } from "@dto/web-push-notification.dto"
+import { NotificationData, WebPushNotificationData } from "@dto/web-push-notification.dto"
+
 import { IImageSetService, ImageSetOptions, ImageSetPreset } from "./imageSet.service"
 
 export interface IWebPushNotificationService {

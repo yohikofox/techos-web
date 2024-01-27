@@ -1,7 +1,8 @@
-import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
-import { IPostRepository } from "@interfaces/IPostRepository";
 import Post from "@domain/post";
+import { IUseCase } from "@infra/useCaseFactory";
+import { IPostRepository } from "@interfaces/IPostRepository";
+
+import { Result } from "@/lib/result";
 
 
 export enum PostDetailsResult {

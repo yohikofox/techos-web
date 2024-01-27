@@ -1,7 +1,8 @@
-import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
 import MicroPost from "@domain/microPost";
+import { IUseCase } from "@infra/useCaseFactory";
 import { IMicroPostRepository } from "@interfaces/IMicroPostRepository";
+
+import { Result } from "@/lib/result";
 
 export enum MicroPostDetailsResult {
   SUCCESS = 'success',

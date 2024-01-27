@@ -1,4 +1,3 @@
-import { renderToString } from "react-dom/server"
 
 export type ComponentDefinition = {
   raw: string
@@ -45,8 +44,8 @@ export default class ReplaceComponentHelper implements IReplaceComponentHelper {
     for (let keyIndex = 0; keyIndex < splitKeys.length; keyIndex++) {
 
       const k = splitKeys[keyIndex]
-      let newParts = []
-      let cuts: ComponentDefinition[] = []
+      const newParts = []
+      const cuts: ComponentDefinition[] = []
       for (const p of parts) {
 
         if (typeof p !== "string") {

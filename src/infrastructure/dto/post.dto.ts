@@ -1,9 +1,10 @@
 import { z } from "zod"
+
 import { authorDataSchema } from "./author.dto"
-import { pictureDataSchema } from "./picture.dto"
-import { tagDataSchema } from "./tag.dto"
-import { postStatDataSchema } from "./post-stat.dto"
 import { metaDataSchema } from "./meta.dto"
+import { pictureDataSchema } from "./picture.dto"
+import { postStatDataSchema } from "./post-stat.dto"
+import { tagDataSchema } from "./tag.dto"
 
 export const postDataSchema = z.object({
   id: z.string(),

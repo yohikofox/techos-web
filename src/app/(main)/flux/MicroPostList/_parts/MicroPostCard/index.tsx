@@ -1,10 +1,11 @@
 'use client'
 
-import { Image } from "R/src/components/Image"
 import MicroPost from "@domain/microPost"
-import styles from "./styles.module.scss"
-import Link from "next/link"
 import classNames from "classnames"
+import Link from "next/link"
+import { Image } from "R/src/components/Image"
+
+import styles from "./styles.module.scss"
 
 
 export type PostClassNames = {

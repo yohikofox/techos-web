@@ -1,8 +1,9 @@
 import { FacetedSearch } from "R/src/domain/search"
-import styles from "./styles.module.scss"
-import SimpleFacet from "../SimpleFacet"
 import { FacetType } from "R/src/infrastructure/repositories/searchEngineRepository"
+
 import { ServerComponent as ServerRangedFacet } from "../RangedFacet"
+import SimpleFacet from "../SimpleFacet"
+import styles from "./styles.module.scss"
 
 export default function Component({ facet }: { facet: FacetedSearch }) {
 

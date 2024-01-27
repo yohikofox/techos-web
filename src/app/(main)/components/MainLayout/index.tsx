@@ -1,6 +1,7 @@
 import { Children, isValidElement } from "react";
-import styles from './mainLayout.module.scss'
+
 import Aside from "../Aside";
+import styles from './mainLayout.module.scss'
 
 export enum SlotNames {
   HERO = 'hero',

@@ -1,7 +1,7 @@
 import PostList from "@domain/postList";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import { ITagRepository } from "@interfaces/ITagRepository";
+import { Result } from "@lib/result";
 
 export enum TagPostListResult {
   SUCCESS = 'success',

@@ -1,9 +1,9 @@
-import TagCache from "./components/TagCache"
-import CacheItemList from "./components/CacheItemList"
-import styles from "./style.module.scss"
-import TagList from "./components/TagList"
-import RefreshByPath from "./components/RefreshByPath"
 import Jumbotron from "@Admin/components/Jumbotron"
+
+import RefreshByPath from "./components/RefreshByPath"
+import TagCache from "./components/TagCache"
+import TagList from "./components/TagList"
+import styles from "./style.module.scss"
 
 export default function Page() {
   const apiKey = process.env.CACHE_API_KEY

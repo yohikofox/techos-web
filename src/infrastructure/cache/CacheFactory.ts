@@ -1,6 +1,4 @@
 import RedisCacheHandler from './redis/redis-cache-handler';
-import MemoryCacheHandler from './memory/memory-cache-handler';
-import MemcachedCacheHandler from './memcached/memcached-cache-handler';
 
 export enum CacheProvider {
   MEMORY = 'memory',

@@ -1,14 +1,16 @@
-import Link from 'next/link'
-import styles from './header.module.scss'
-import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory'
-import { redirect } from 'next/navigation'
-import SearchModal from '../SearchModal'
-import HamburgerMenu from './parts/HamburgerMenu'
-import { IConfigManager } from '@/infrastructure/adapter/configManager'
-import Brand from 'R/src/components/Brand'
-import { IOC } from "R/src/infrastructure/container";
 import { HeaderResult } from '@app/getHeaderData'
 import Header from '@domain/header'
+import UseCaseFactory, { UseCaseOption } from '@infra/useCaseFactory'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import Brand from 'R/src/components/Brand'
+import { IOC } from "R/src/infrastructure/container";
+
+import { IConfigManager } from '@/infrastructure/adapter/configManager'
+
+import SearchModal from '../SearchModal'
+import styles from './header.module.scss'
+import HamburgerMenu from './parts/HamburgerMenu'
 
 export interface HeaderProps {
   title: string

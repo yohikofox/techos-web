@@ -1,10 +1,11 @@
 'use client'
 
-import { useContext, useRef } from "react"
-import styles from "./search.module.scss"
-import { SearchDataContext } from "../context"
 import Search from "@domain/search"
+import { useContext, useRef } from "react"
+
+import { SearchDataContext } from "../context"
 import fetchResultsAction from "./fetchResults"
+import styles from "./search.module.scss"
 
 export interface SearchBarProps {
   placeholder: string
@@ -16,7 +17,7 @@ const SEARCH_TRIGGER_DELAY = 400
 
 export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
-  let currentTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const currentTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   const [_, setSearchResults] = useContext(SearchDataContext) || []
 

@@ -1,7 +1,8 @@
+import { NextMiddlewareResult } from "next/dist/server/web/types";
 import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
+
 import { Middleware } from ".";
 import { MiddlewareResult } from "./factory";
-import { NextMiddlewareResult } from "next/dist/server/web/types";
 
 export default class AdminRouteMiddleware extends Middleware {
   checkRoute(request: NextRequest): boolean {

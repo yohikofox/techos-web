@@ -1,7 +1,8 @@
 import PostStats from "@domain/postStats";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
 import { IPostStatRepository } from "@interfaces/IPostStatRepository";
+
+import { Result } from "@/lib/result";
 
 export enum PostStatsResult {
   SUCCESS = 'success',

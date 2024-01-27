@@ -1,11 +1,11 @@
 import Post, { PostType } from "@domain/post"
-import { IImageSetService, ImageSetPreset } from "@services/imageSet.service"
-import { PostData } from "@dto/post.dto"
-import { ITagService } from "@services/tag.service"
 import { PictureData } from "@dto/picture.dto"
-import { TagData } from "@dto/tag.dto"
-import { IPostStatService } from "@services/post-stats.service"
+import { PostData } from "@dto/post.dto"
 import { PostStatData } from "@dto/post-stat.dto"
+import { TagData } from "@dto/tag.dto"
+import { IImageSetService, ImageSetPreset } from "@services/imageSet.service"
+import { IPostStatService } from "@services/post-stats.service"
+import { ITagService } from "@services/tag.service"
 
 export interface IPostService {
   mapPost(post: any): Promise<Post>

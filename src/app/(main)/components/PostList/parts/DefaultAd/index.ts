@@ -1,8 +1,8 @@
+import dayjs from "dayjs"
 import { PostType } from "R/src/domain/post"
 import { SearchItem } from "R/src/domain/search"
 import { IOC } from "R/src/infrastructure/container"
 import { IAssetBuilder } from "R/src/infrastructure/helper/assetBuilder"
-import dayjs from "dayjs"
 
 
 export const getDefaultAd = async () => {

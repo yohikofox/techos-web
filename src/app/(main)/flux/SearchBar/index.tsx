@@ -1,10 +1,10 @@
 'use client'
 
-import { useRef } from 'react';
-import styles from "./styles.module.scss"
 import useFluxStore from "R/src/infrastructure/store/flux"
-import { initialState } from "R/src/infrastructure/store/flux/_parts/flux/flux"
+import { useRef } from 'react';
+
 import fetchResultsAction from "./fetchResultsAction"
+import styles from "./styles.module.scss"
 
 export interface SearchBarProps {
   placeholder: string
@@ -16,7 +16,7 @@ const SEARCH_TRIGGER_DELAY = 300
 
 export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
-  let currentTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const currentTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   const setModel = useFluxStore(state => state.setModel)
 

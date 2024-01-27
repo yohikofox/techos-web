@@ -1,4 +1,5 @@
 import { FacetedSearch, FacetedValue } from "R/src/domain/search"
+
 import FacetItem from "../FacetItem"
 import styles from "./styles.module.scss"
 

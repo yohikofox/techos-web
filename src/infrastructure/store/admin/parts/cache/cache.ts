@@ -1,4 +1,3 @@
-import RedisCacheHandler from "R/src/infrastructure/cache/redis/redis-cache-handler";
 
 export type CacheStore = {
   itemIdList: string[],

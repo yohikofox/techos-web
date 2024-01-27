@@ -1,5 +1,6 @@
-import RenderMarkdown from "R/src/app/(main)/components/RenderMarkdown";
 import MicroPost from "@domain/microPost";
+import RenderMarkdown from "R/src/app/(main)/components/RenderMarkdown";
+
 import styles from "./styles.module.scss"
 
 export interface MicroPostDetailsProps { data: MicroPost }

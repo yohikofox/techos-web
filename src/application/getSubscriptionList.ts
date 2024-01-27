@@ -1,7 +1,7 @@
 import WebPushSubscription from "@domain/webPushSubscription";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
+import { Result } from "@lib/result";
 
 
 export enum GetWebPushSubscriptionListResult {

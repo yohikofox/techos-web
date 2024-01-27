@@ -1,13 +1,13 @@
+import { PostListRequest, PostListResult } from "@app/getPostList";
 import Post from "@domain/post";
 import PostList from "@domain/postList";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { PostListRequest, PostListResult } from "@app/getPostList";
-import { redirect } from "next/navigation";
-import { Feed, FeedOptions } from "feed";
 import dayjs from "dayjs";
-import { NextRequest, NextResponse } from "next/server";
-import xml from 'highlight.js/lib/languages/xml';
+import { Feed, FeedOptions } from "feed";
 import md from 'markdown-it'
+import { redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
+
 import highlightMarkdown from '@/infrastructure/helper/highlightMarkdown';
 
 const generateRssFeed = (posts: Post[]) => {
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest, params: any) {
 
 
   let posts: Post[] = []
-  let page = 0
+  const page = 0
   const limit = 2
 
   let isError = false

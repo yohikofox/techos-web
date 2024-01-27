@@ -1,11 +1,13 @@
 'use client'
 
+import Search from "@domain/search"
 import { ReactNode, useContext, useEffect } from "react"
+
 import Close from "@/app/(main)/components/Icon/Close"
+
+import { SearchDataContext } from "../context"
 import SearchBar from "../SearchBar"
 import styles from "./modal.module.scss"
-import { SearchDataContext } from "../context"
-import Search from "@domain/search"
 
 export interface ModalProps {
   title?: string

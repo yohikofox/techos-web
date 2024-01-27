@@ -1,8 +1,9 @@
-import { StoreResult } from "@infra/store";
 import Product from "@domain/product";
+import { StoreResult } from "@infra/store";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import styles from './styles.module.scss';
+
 import ProductComponent from "./components/Product";
+import styles from './styles.module.scss';
 
 
 export default async function Page() {

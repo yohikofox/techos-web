@@ -1,20 +1,14 @@
 'use client'
 
-import { FacetedValue } from "R/src/domain/search"
-import styles from "./styles.module.scss"
-import qs from "querystring"
-import { useRouter, useSearchParams } from "next/navigation"
-
 /* =========================================================================================================== */
-
-import { MouseEventHandler, useCallback, useEffect } from "react"
-
-/* =========================================================================================================== */
-
-import useBlogStore, { QueryOperator } from "R/src/infrastructure/store/blog"
-import { useShallow } from "zustand/react/shallow"
-import Link from "next/link"
 import classNames from "classnames"
+import { useRouter, useSearchParams } from "next/navigation"
+import qs from "querystring"
+import { FacetedValue } from "R/src/domain/search"
+/* =========================================================================================================== */
+import { useCallback } from "react"
+
+import styles from "./styles.module.scss"
 
 /* =========================================================================================================== */
 

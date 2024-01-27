@@ -1,12 +1,13 @@
 'use client'
-import dayjs from 'dayjs'
-import qs from 'querystring'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 import { FacetedSearch } from '@domain/search'
-import styles from './styles.module.scss'
-import DoubleRange from './_parts/DoubleRange'
 import { QueryOperator } from '@infra/store/blog/index';
+import dayjs from 'dayjs'
+import { useRouter, useSearchParams } from 'next/navigation'
+import qs from 'querystring'
+import { useState } from 'react'
+
+import DoubleRange from './_parts/DoubleRange'
+import styles from './styles.module.scss'
 
 export interface RangedFacetProps {
   facet: FacetedSearch,

@@ -1,8 +1,9 @@
 'use client'
 
+import { MouseEventHandler, useState } from "react"
+
 import CaretDown from "../Icon/CaretDown"
 import styles from "./dropDownList.module.scss"
-import { MouseEventHandler, useState } from "react"
 
 export interface DropDownListItem {
   value: string

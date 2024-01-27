@@ -1,8 +1,9 @@
-import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import SessionConstants from '@/lib/constants/session';
 import { NextAuthOptions, Session } from 'next-auth';
 import Auth0Provider from "next-auth/providers/auth0";
 import { IOC } from "R/src/infrastructure/container";
+
+import { IConfigManager } from '@/infrastructure/adapter/configManager';
+import SessionConstants from '@/lib/constants/session';
 
 // import CustomSession from '@/types/session';
 // import CmsUser from '@/types/user';

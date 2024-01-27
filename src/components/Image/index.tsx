@@ -1,5 +1,6 @@
-import NextImage, { ImageLoader } from "next/image"
 import { OnLoadingComplete, PlaceholderValue, StaticImport } from "next/dist/shared/lib/get-img-props";
+import NextImage, { ImageLoader } from "next/image"
+
 import toDataURL from "@/lib/image/toDataUrl";
 
 type defaultOptionsType = Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"> & {

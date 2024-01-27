@@ -1,5 +1,5 @@
-import { RedisClientOptions, RedisClientType, SetOptions, createClient } from 'redis';
-import { CustomCacheHandler } from '../CustomCacheHandler';
+import { createClient,RedisClientOptions, RedisClientType, SetOptions } from 'redis';
+
 import BaseCacheHandler from '../BaseCacheHandler';
 import { CacheProvider } from '../CacheFactory';
 

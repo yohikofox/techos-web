@@ -1,11 +1,10 @@
 import { PostStatsResult } from "@app/getPostStats"
 import PostStats from "@domain/postStats"
-import { Result } from "@lib/result"
 import { PostStatData, PostStatDataResponse, postStatDataResponseSchema } from "@dto/post-stat.dto"
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
 import { IPostStatService } from "@infra/services/post-stats.service"
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
 import { IPostStatRepository } from "@interfaces/IPostStatRepository"
-import CacheConstants from "@lib/constants/cache"
+import { Result } from "@lib/result"
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag"
 
 export default class PostStatRepository implements IPostStatRepository {

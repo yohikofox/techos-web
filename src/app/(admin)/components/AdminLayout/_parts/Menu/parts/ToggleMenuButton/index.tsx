@@ -1,8 +1,9 @@
 'use client'
 import CaretLeft from "@Admin/components/Icon/CaretLeft"
-import styles from "./styles.module.scss"
 import classNames from "classnames"
 import { useState } from "react"
+
+import styles from "./styles.module.scss"
 
 export interface ToggleMenuButtonProps {
   onToggle: () => void

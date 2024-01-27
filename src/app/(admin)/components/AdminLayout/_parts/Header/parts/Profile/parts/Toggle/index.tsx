@@ -1,6 +1,7 @@
 'use client'
 
 import useAdminStore from "R/src/infrastructure/store/admin"
+
 import styles from "./styles.module.scss"
 
 export default function Component() {

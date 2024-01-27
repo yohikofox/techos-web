@@ -1,9 +1,10 @@
 import { FacetedSearch, SearchItem } from "R/src/domain/search"
+
+import PostCard from "../../../PostCard"
 import TextToSpeechInfos from "../../../TextToSpeechInfos"
 import FacetCollection from "../FacetCollection"
-import styles from "./styles.module.scss"
-import PostCard from "../../../PostCard"
 import Pagination from "../Pagination"
+import styles from "./styles.module.scss"
 
 export interface ServerSidePostCollectionProps {
   posts: SearchItem[]

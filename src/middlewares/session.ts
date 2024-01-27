@@ -1,8 +1,9 @@
-import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
-import { Middleware } from ".";
-import { getToken } from "next-auth/jwt";
-import { MiddlewareResult } from "./factory";
 import { NextMiddlewareResult } from "next/dist/server/web/types";
+import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+
+import { Middleware } from ".";
+import { MiddlewareResult } from "./factory";
 
 
 /**

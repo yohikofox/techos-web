@@ -1,6 +1,7 @@
-import { ITokenGenerator } from "@/infrastructure/security/token"
 import { NextRequest, NextResponse } from "next/server"
 import { IOC } from "R/src/infrastructure/container";
+
+import { ITokenGenerator } from "@/infrastructure/security/token"
 
 export const dynamic = "force-dynamic"
 

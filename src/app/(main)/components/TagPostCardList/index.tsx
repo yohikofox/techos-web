@@ -1,14 +1,16 @@
 
-import styles from "./tag-post-list.module.scss"
-import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import PostList from "@domain/postList";
-import { redirect } from "next/navigation";
-import { PostType } from "@domain/post";
-import Pagination from "../PostList/parts/Pagination";
 import { TagPostListRequest, TagPostListResult } from "@app/getTagPostList";
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import PostCard from "../PostCard";
+import { PostType } from "@domain/post";
+import PostList from "@domain/postList";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { redirect } from "next/navigation";
 import { IOC } from "R/src/infrastructure/container";
+
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+
+import PostCard from "../PostCard";
+import Pagination from "../PostList/parts/Pagination";
+import styles from "./tag-post-list.module.scss"
 
 
 const ADS_POSITION_LIST: number[] = [];

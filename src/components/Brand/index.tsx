@@ -1,6 +1,7 @@
+import classNames from 'classnames';
+
 import { Artichoke } from "../Logo";
 import styles from "./styles.module.scss";
-import classNames from 'classnames';
 
 export default function Brand({ className }: { className?: string }) {
   return (

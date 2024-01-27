@@ -1,10 +1,11 @@
+import { PostDetailsResult } from "@app/getPostDetails";
+import ImageSet from "@domain/image";
 import Post from "@domain/post";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { PostDetailsResult } from "@app/getPostDetails";
 import { redirect } from "next/navigation";
-import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+
 import Hero from "@/app/(main)/components/Hero";
-import ImageSet from "@domain/image";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import PostDetails from "@/app/(main)/components/PostDetails";
 
 export interface PostPageProps { params: { slug: string } }

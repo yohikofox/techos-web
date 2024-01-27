@@ -1,4 +1,4 @@
-import { revalidateTag, revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export const dynamic = "force-dynamic"

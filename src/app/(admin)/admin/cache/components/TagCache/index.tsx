@@ -1,10 +1,10 @@
 'use client'
 
 import Text, { TextClassName } from "@Admin/components/Text"
-
 import { useState } from "react"
-import styles from "./styles.module.scss"
+
 import { refreshTag } from "./cache.service"
+import styles from "./styles.module.scss"
 
 export interface TagCacheProps {
   initialValue?: string

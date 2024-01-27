@@ -1,11 +1,11 @@
-import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
 import { DeleteSubscriptionUseCaseResult } from "@app/deleteSubscription";
 import { GetWebPushSubscriptionListResult } from "@app/getSubscriptionList";
-import { Result } from "@lib/result";
-import CacheConstants from "@lib/constants/cache";
-import WebPushSubscription from "@domain/webPushSubscription";
 import { SaveWebPushSubscriptionResult } from "@app/saveSubscription";
+import WebPushSubscription from "@domain/webPushSubscription";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
+import { ISubscriptionRepository } from "@interfaces/ISubscriptionRepository";
+import CacheConstants from "@lib/constants/cache";
+import { Result } from "@lib/result";
 
 export default class SubscriptionRepository implements ISubscriptionRepository {
   constructor(private contentManagerRepository: IContentManagerSystemRepository) { }

@@ -1,7 +1,8 @@
+import { GetOfflinePageDataUseCaseResult } from "@app/getOfflinePageData";
 import OffLinePageData from "@domain/offLinePageData";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { GetOfflinePageDataUseCaseResult } from "@app/getOfflinePageData";
 import md from 'markdown-it';
+
 import styles from './offline.module.scss'
 
 export default async function Page() {

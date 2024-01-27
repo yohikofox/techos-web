@@ -5,8 +5,9 @@ import useFluxStore from "R/src/infrastructure/store/flux"
 import { FluxStore } from "R/src/infrastructure/store/flux/_parts/flux/flux"
 import { useEffect } from "react"
 import { useShallow } from "zustand/react/shallow"
-import styles from "./style.module.scss"
+
 import MicroPostCard from "./_parts/MicroPostCard"
+import styles from "./style.module.scss"
 
 export interface MicroPostListProps {
   data: MicroPostList

@@ -1,8 +1,9 @@
-import { Result } from "@/lib/result";
+import { ProductResult } from "@app/getProductById";
 import Product from "@domain/product";
 import Filterable from "@infra/adapter/filterable";
-import { ProductResult } from "@app/getProductById";
 import { IProductRepository } from "@interfaces/IProductRepository";
+
+import { Result } from "@/lib/result";
 
 export type RandomProductRequest = {} & Filterable
 

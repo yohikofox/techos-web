@@ -1,6 +1,7 @@
-import jwt from "jsonwebtoken";
-import { IConfigManager } from "../adapter/configManager";
 import crypto from "crypto"
+import jwt from "jsonwebtoken";
+
+import { IConfigManager } from "../adapter/configManager";
 
 export interface ITokenGenerator {
   generateToken<T>(data: T): Promise<string>;

@@ -19,7 +19,7 @@ export default class PostHelper {
     let result: any[] = []
 
     if (parent.childNodes?.length > 0) {
-      for (let child of parent.childNodes) {
+      for (const child of parent.childNodes) {
         result = result.concat(this.extractFromFragment(child))
       }
     } else {
@@ -42,9 +42,9 @@ export default class PostHelper {
     let res = '';
     let shorted = false;
 
-    for (let item of resultFragments) {
+    for (const item of resultFragments) {
       const parts = item.split(' ')
-      for (let part of parts) {
+      for (const part of parts) {
         if ((res.length + part.length) >= this.__ABSTRACT_SIZE) {
           shorted = true
           break

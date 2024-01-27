@@ -1,5 +1,3 @@
-import CacheFactory from 'R/src/infrastructure/cache/CacheFactory';
-import RedisCacheHandler from 'R/src/infrastructure/cache/redis/redis-cache-handler';
 import { NextResponse } from 'next/server';
 
 export const dynamic = "force-dynamic"

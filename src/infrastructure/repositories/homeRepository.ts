@@ -1,12 +1,12 @@
-import { IHomeRepository } from "@interfaces/IHomeRepository";
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
+import { HomeDataResult } from "@app/getHomeData";
+import Home from "@domain/home";
 import { HomePageData, homePageDataSchema } from "@dto/home-data.dto";
+import { IHomeDataService } from "@infra/services/home-data.service";
+import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
+import { IHomeRepository } from "@interfaces/IHomeRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
-import { HomeDataResult } from "@app/getHomeData";
-import { IHomeDataService } from "@infra/services/home-data.service";
 import { Result } from "@lib/result";
-import Home from "@domain/home";
 
 export default class HomeRepository implements IHomeRepository {
   constructor(

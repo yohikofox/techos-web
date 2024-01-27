@@ -1,11 +1,11 @@
 import { ProductRequest, ProductResult } from "@app/getProductById"
 import Product from "@domain/product"
-import { Result } from "@lib/result"
-import { IStoreRepository } from "@infra/store"
-import { IProductService } from "@infra/services/product.service"
-import Filterable from "@infra/adapter/filterable"
 import ProductData, { productDataSchema } from "@dto/product.dto"
+import Filterable from "@infra/adapter/filterable"
+import { IProductService } from "@infra/services/product.service"
+import { IStoreRepository } from "@infra/store"
 import { IProductRepository } from "@interfaces/IProductRepository"
+import { Result } from "@lib/result"
 
 export default class ProductRepository implements IProductRepository {
   constructor(

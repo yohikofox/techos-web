@@ -1,9 +1,10 @@
-import { IImageSetService, ImageSetPreset } from "./imageSet.service"
-import { ITagService } from "./tag.service"
 import MicroPost from "@domain/microPost"
-import { MicroPostData, MicroPostListData } from "@dto/micro-post.dto"
 import MicroPostList from "@domain/microPostList"
+import { MicroPostData, MicroPostListData } from "@dto/micro-post.dto"
+
+import { IImageSetService, ImageSetPreset } from "./imageSet.service"
 import { IMetaService } from "./meta.service"
+import { ITagService } from "./tag.service"
 
 export interface IMicroPostService {
   mapMicroPost(post: MicroPostData): Promise<MicroPost>
@@ -36,7 +37,7 @@ export default class MicroPostService implements IMicroPostService {
       slug: post.attributes.slug,
       content: post.attributes.content,
       picture: post.attributes.picture?.data?.attributes && await this.imageSetService.mapImageSet(post.attributes.picture, {
-        preset: options?.image_preset || ImageSetPreset.LARGE
+        preset: ((options?.image_preset) != null) || ImageSetPreset.LARGE
       }) || undefined,
       // tags: post.attributes.tags && post.attributes.tags.data.map(tag => this.tagService.mapTag(tag)) || undefined,
     }

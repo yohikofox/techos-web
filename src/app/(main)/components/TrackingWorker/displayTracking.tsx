@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+
 import styles from './tracking.module.scss'
 
 export interface DisplayTrackingProps {

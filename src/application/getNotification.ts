@@ -1,7 +1,8 @@
 import WebPushNotification from "@domain/webPushNotification";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
 import { IWebPushNotificationRepository } from "@interfaces/IWebPushNotificationRepository";
+
+import { Result } from "@/lib/result";
 
 export enum WebPushNotificationResult {
   SUCCESS = 'success',

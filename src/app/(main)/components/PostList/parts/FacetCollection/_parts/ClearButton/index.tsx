@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from "next/navigation"
 import { MouseEventHandler, useCallback } from "react"
+
 import styles from "./styles.module.scss"
 
 export default function Component() {

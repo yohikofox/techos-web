@@ -1,11 +1,12 @@
 'use client'
+import classNames from "classnames";
 import { MouseEventHandler, useState } from "react";
-import styles from "./search-modal.module.scss"
+
 import Search from "../Icon/Search";
+import { SearchDataProvider } from "./parts/context";
 import Modal from "./parts/Modal";
 import SearchResults from "./parts/SearchResults";
-import { SearchDataProvider } from "./parts/context";
-import classNames from "classnames";
+import styles from "./search-modal.module.scss"
 
 export interface SearchModalProps {
   placeholder?: string

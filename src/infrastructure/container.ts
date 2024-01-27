@@ -1,5 +1,5 @@
-import { ResourceTypes } from "./resourceTypes"
 import { Definition, DefinitionCollection, ResourceMapping } from "./dependencies"
+import { ResourceTypes } from "./resourceTypes"
 
 export const IOC: () => IContainer = () => {
   const c = Container.Instance

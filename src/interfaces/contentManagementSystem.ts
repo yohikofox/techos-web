@@ -1,5 +1,6 @@
-import { Result } from "@/lib/result"
 import { FetchOptions } from "@infra/adapter/fetchOptions"
+
+import { Result } from "@/lib/result"
 
 
 export enum ContentManagerSystemResult {

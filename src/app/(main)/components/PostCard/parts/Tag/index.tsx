@@ -1,8 +1,8 @@
-import { CSSProperties } from "react"
-import styles from "./tag.module.scss"
 import Tag from "@domain/tag"
-import Link from "next/link"
 import classNames from "classnames"
+import Link from "next/link"
+
+import styles from "./tag.module.scss"
 
 export interface TagProps {
   tag: Tag

@@ -1,17 +1,16 @@
-import { PropsWithChildren, Suspense } from "react";
-import Header from "./_parts/Header";
-
-import Content from "./_parts/Content";
-
-import styles from "./style.module.scss";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth";
+import { PropsWithChildren, Suspense } from "react";
+
+import Content from "./_parts/Content";
 import ContextLoader from "./_parts/ContextLoader";
+import Header from "./_parts/Header";
 import ToasterProvider from "./_parts/ToasterProvider";
+import styles from "./style.module.scss";
 
 const Menu = dynamic(() => import("./_parts/Menu"), { suspense: true });
 
-interface MainLayoutProps extends PropsWithChildren { };
+interface MainLayoutProps extends PropsWithChildren { }
 
 export default async function Layout({ children }: MainLayoutProps) {
   const session = await getServerSession();

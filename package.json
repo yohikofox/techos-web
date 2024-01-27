@@ -8,6 +8,7 @@
     "clean:build": "rimraf .next && pnpm build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "clean": "rimraf .next",
     "bundle": "esbuild ./bundle/cache-handler.ts --bundle --platform=node --target=node10.4 --outfile=./bundle/out.js",
     "cache:build": "node ./build.esbuild.js",
@@ -76,6 +77,7 @@
     "esbuild": "^0.19.8",
     "eslint": "8.46.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "^3.2.4",
     "vitest": "^0.34.6"
   }

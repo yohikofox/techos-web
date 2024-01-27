@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
-import classNames from 'classnames';
 
 export interface RangeProps {
   min: number,

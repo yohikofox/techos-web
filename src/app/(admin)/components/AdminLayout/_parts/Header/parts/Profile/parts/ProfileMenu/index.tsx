@@ -1,9 +1,10 @@
 'use client'
 
-import styles from "./styles.module.scss"
-import useAdminStore from "R/src/infrastructure/store/admin"
 import classNames from "classnames"
+import useAdminStore from "R/src/infrastructure/store/admin"
 import { MouseEventHandler, useEffect, useRef } from "react"
+
+import styles from "./styles.module.scss"
 
 export default function Component() {
   const isOpen = useAdminStore(state => state.profileMenu.isOpen)

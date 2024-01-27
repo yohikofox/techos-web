@@ -1,14 +1,14 @@
-import { IMicroPostRepository } from "@interfaces/IMicroPostRepository";
+import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
+import { MicroPostListResult } from "@app/getMicroPostList";
+import MicroPost from "@domain/microPost";
+import MicroPostList from "@domain/microPostList";
+import { MicroPostData, microPostDetailResponseSchema, MicroPostListData, microPostListDataSchema } from "@dto/micro-post.dto";
+import { IMicroPostService } from "@infra/services/micro-post.service";
 import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
-import { Result } from "@lib/result";
-import { MicroPostData, MicroPostListData, microPostDetailResponseSchema, microPostListDataSchema } from "@dto/micro-post.dto";
+import { IMicroPostRepository } from "@interfaces/IMicroPostRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
-import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
-import MicroPost from "@domain/microPost";
-import { IMicroPostService } from "@infra/services/micro-post.service";
-import { MicroPostListResult } from "@app/getMicroPostList";
-import MicroPostList from "@domain/microPostList";
+import { Result } from "@lib/result";
 
 export default class MicroPostRepository implements IMicroPostRepository {
   constructor(

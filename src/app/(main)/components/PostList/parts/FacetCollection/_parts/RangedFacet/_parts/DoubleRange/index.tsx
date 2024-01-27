@@ -1,9 +1,10 @@
 'use client'
 
 import classNames from 'classnames'
+import { useEffect, useState } from 'react'
+
 import Range, { RangeProps } from '../Range'
 import styles from './styles.module.scss'
-import { useEffect, useState } from 'react'
 
 export interface DoubleRangeProps extends RangeProps {
   renderResults?: (value: string[]) => string

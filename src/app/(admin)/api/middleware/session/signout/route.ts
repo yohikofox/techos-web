@@ -1,5 +1,5 @@
-import NextAuthManager from "R/src/infrastructure/auth/nextAuthManager";
 import { NextRequest, NextResponse } from "next/server";
+import NextAuthManager from "R/src/infrastructure/auth/nextAuthManager";
 import RequestHelper from "R/src/infrastructure/request";
 
 export const dynamic = "force-dynamic"

@@ -1,8 +1,10 @@
 import Post from '@domain/post'
-import styles from './post-details.module.scss'
-import Metadata from './parts/Metadata'
+
 import getReadingTime from '@/infrastructure/helper/getReadingTime'
+
 import RenderMarkdown from '../RenderMarkdown'
+import Metadata from './parts/Metadata'
+import styles from './post-details.module.scss'
 
 export interface PostDetailsProps {
   post: Post

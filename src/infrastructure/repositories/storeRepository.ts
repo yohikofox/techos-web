@@ -1,10 +1,11 @@
+import ProductData from "@dto/product.dto";
+import { FetchOptions } from "@infra/adapter/fetchOptions";
+import Filterable from "@infra/adapter/filterable";
+import { IStoreRepository, StoreResult } from "@infra/store";
+import qs from 'querystring';
+
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
-import { FetchOptions } from "@infra/adapter/fetchOptions";
-import { IStoreRepository, StoreResult } from "@infra/store";
-import Filterable from "@infra/adapter/filterable";
-import ProductData from "@dto/product.dto";
-import qs from 'querystring';
 
 export default class StoreRepository implements IStoreRepository {
   constructor(private configManager: IConfigManager) { }

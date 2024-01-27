@@ -1,7 +1,7 @@
 import PostList from "@domain/postList";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import { IPostRepository } from "@interfaces/IPostRepository";
+import { Result } from "@lib/result";
 
 export enum PostListResult {
   SUCCESS = 'success',

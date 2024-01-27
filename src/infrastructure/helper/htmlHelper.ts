@@ -1,7 +1,7 @@
 import { parse } from "parse5"
-import xpath from "xpath"
-import xmlSerializer from "xmlserializer"
 import dom from "xmldom"
+import xmlSerializer from "xmlserializer"
+import xpath from "xpath"
 
 export type GetElementsOptions = {
   /**

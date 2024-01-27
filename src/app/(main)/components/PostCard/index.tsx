@@ -1,6 +1,7 @@
 import Post, { PostType } from "@domain/post";
-import Article from "./parts/Article";
+
 import PostCardAd from "./parts/Ad";
+import Article from "./parts/Article";
 
 export interface PostCardProps {
   post: Partial<Post>

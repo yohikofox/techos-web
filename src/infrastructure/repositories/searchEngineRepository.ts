@@ -1,6 +1,7 @@
+import { FetchOptions } from "@infra/adapter/fetchOptions";
+
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
-import { FetchOptions } from "@infra/adapter/fetchOptions";
 
 export enum SearchEngineResult {
   SUCCESS = 'success',

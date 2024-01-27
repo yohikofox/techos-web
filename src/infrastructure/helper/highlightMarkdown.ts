@@ -1,11 +1,12 @@
+import 'highlight.js/styles/vs2015.css';
+
 import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
-import shell from 'highlight.js/lib/languages/shell';
 import bash from 'highlight.js/lib/languages/bash';
 import csharp from 'highlight.js/lib/languages/csharp';
+import javascript from 'highlight.js/lib/languages/javascript';
+import shell from 'highlight.js/lib/languages/shell';
+import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
-import 'highlight.js/styles/vs2015.css';
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('js', javascript);

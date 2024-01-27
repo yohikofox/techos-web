@@ -1,10 +1,12 @@
 'use client'
 
-import useAdminStore, { AdminStore } from "R/src/infrastructure/store/admin";
 import classNames from "classnames";
+import useAdminStore, { AdminStore } from "R/src/infrastructure/store/admin";
+
 import { ComponentProps } from "@/app/(admin)/components/AdminLayout/_parts/ComponentProps";
-import styles from "./styles.module.scss"
+
 import Footer from "../Footer";
+import styles from "./styles.module.scss"
 
 export default function Component({ children, className }: ComponentProps) {
   const isOpen = useAdminStore((state: AdminStore) => state.menu.isOpen)

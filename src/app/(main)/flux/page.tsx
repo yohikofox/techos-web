@@ -1,8 +1,9 @@
-import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import MicroPostListComponent from "./MicroPostList";
-import MicroPostList from "@domain/microPostList";
 import { MicroPostListResult } from "@app/getMicroPostList";
+import MicroPostList from "@domain/microPostList";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import { redirect } from "next/navigation";
+
+import MicroPostListComponent from "./MicroPostList";
 import SearchBar from "./SearchBar";
 
 export default async function Page() {

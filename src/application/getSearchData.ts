@@ -1,7 +1,7 @@
-import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@lib/result";
 import Search from "@domain/search";
+import { IUseCase } from "@infra/useCaseFactory";
 import { ISearchRepository } from "@interfaces/ISearchRepository";
+import { Result } from "@lib/result";
 
 export type SearchRequest = {
   indexName: string,

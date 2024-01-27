@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
 import { getServerSession } from "next-auth";
+import React from "react";
 
 export default async function withSession(Component: any) {
   const session = await getServerSession();
@@ -9,8 +9,8 @@ export default async function withSession(Component: any) {
       <>
         <Component {...props} session={session} />
       </>
-    )
-  }
+    );
+  };
 
-  return render
+  return render;
 }

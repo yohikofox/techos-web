@@ -1,14 +1,15 @@
 import { SearchDataResult } from "@app/getSearchData"
-import { ISearchEngineRepository } from "@infra/repositories/searchEngineRepository"
 import Search from "@domain/search"
-import { Result } from "@lib/result"
+import { ISearchEngineRepository } from "@infra/repositories/searchEngineRepository"
+import { ISearchService } from "@infra/services/search.service"
+import { IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
+import { ISearchRepository } from "@interfaces/ISearchRepository"
 import CacheConstants from "@lib/constants/cache"
 import RevalidateTagConstants from "@lib/constants/revalidateTag"
-import { ISearchService } from "@infra/services/search.service"
-import { ISearchRepository } from "@interfaces/ISearchRepository"
-import { IContentManagerSystemRepository } from "@interfaces/contentManagementSystem"
-import { FacetConfigListResponse, facetConfigListResponseSchema } from "../dto/facet.dto"
+import { Result } from "@lib/result"
 import { FacetConfig } from "R/src/domain/facetConfig"
+
+import { FacetConfigListResponse, facetConfigListResponseSchema } from "../dto/facet.dto"
 //  filter?: Record<string, string | string[]>,
 export default class SearchRepository implements ISearchRepository {
   constructor(

@@ -1,6 +1,7 @@
+import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
 import MicroPost from "@domain/microPost";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
+
 import MicroPostCard, { PostClassNames } from "../MicroPostCard";
 
 export interface WrappedMicroPostCardProps { slug: string, className?: PostClassNames }

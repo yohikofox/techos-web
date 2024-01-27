@@ -1,4 +1,3 @@
-import SessionHandler from "@/app/(admin)/components/SessionHandler"
 
 export default function Layout({
   children, // will be a page or nested layout

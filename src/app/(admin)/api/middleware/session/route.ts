@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-
 import { getToken } from "next-auth/jwt";
-import { getRedirectData } from "./getRedirectData";
 import NextAuthManager from "R/src/infrastructure/auth/nextAuthManager";
-import { RedirectData } from "R/src/middlewares/session";
 import RequestHelper from "R/src/infrastructure/request";
+import { RedirectData } from "R/src/middlewares/session";
 
 export const dynamic = "force-dynamic"
 

@@ -1,7 +1,8 @@
 import { z } from "zod"
+
+import { metaDataSchema } from "./meta.dto"
 import { pictureDataSchema } from "./picture.dto"
 import { tagDataSchema } from "./tag.dto"
-import { metaDataSchema } from "./meta.dto"
 
 const microPostSchema = z.object({
   title: z.string(),

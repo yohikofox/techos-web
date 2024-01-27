@@ -1,6 +1,6 @@
-import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import { SearchDataResult, SearchRequest } from "@app/getSearchData";
 import Search from "@domain/search";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import { NextRequest, NextResponse } from "next/server"
 
 const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })

@@ -1,8 +1,9 @@
-import winston, { transports, format, level } from 'winston';
-import { red, italic } from "colorette"
-
 import util from 'node:util';
+
+import { italic,red } from "colorette"
+import winston, { format,transports } from 'winston';
 import { SyslogConfigSetColors, SyslogConfigSetLevels } from 'winston/lib/winston/config';
+
 import p from '../../../package.json';
 
 type LoggerMethod = (message?: any, ...optionalParams: any[]) => void
@@ -168,7 +169,7 @@ class LoggerFactory {
   }
 
   private _log: LoggerMethod = (level: Levels, message?: any, ...optionalParams: any[]) => {
-    let args = optionalParams ? [...optionalParams] : []
+    const args = optionalParams ? [...optionalParams] : []
 
     const str = util.format(message, ...args)
 
@@ -179,7 +180,7 @@ class LoggerFactory {
   }
 
   private _cli: LoggerMethod = (level: Levels, message?: any, ...optionalParams: any[]) => {
-    let args = optionalParams ? [...optionalParams] : []
+    const args = optionalParams ? [...optionalParams] : []
 
     const str = util.format(message, ...args)
 

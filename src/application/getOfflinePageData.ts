@@ -1,7 +1,8 @@
-import { IUseCase } from "@infra/useCaseFactory";
 import OffLinePageData from "@domain/offLinePageData";
-import { Result } from "@/lib/result";
+import { IUseCase } from "@infra/useCaseFactory";
 import { IOfflineRepository } from "@interfaces/IOfflineRepository";
+
+import { Result } from "@/lib/result";
 
 export interface GetOfflinePageDataRequest { }
 
