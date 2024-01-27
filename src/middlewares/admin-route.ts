@@ -15,7 +15,7 @@ export default class AdminRouteMiddleware extends Middleware {
 
     const headers = new Headers(request.headers);
 
-    if (!result) {
+    if (result === undefined) {
       console.warn("CACHE_API_KEY not found in .env")
       return NextResponse.json({ error: 'Forbidden' }, {
         status: 403,
@@ -23,7 +23,7 @@ export default class AdminRouteMiddleware extends Middleware {
       })
     }
 
-    if (!key || key !== result) {
+    if (key === null || key !== result) {
       console.warn("CACHE_API_KEY not match with key: ", key)
       return NextResponse.json({ error: 'Forbidden' }, {
         status: 403,

@@ -76,7 +76,7 @@ export default async function PostListRender({ title, page, tag }: TagPostListPr
           <PostCard key={`post-list-item-${index}`} post={post} index={index} />
         )
       })}
-      <Pagination {...postListResponse.Value.meta.pagination} />
+      <Pagination {...postListResponse.Value.meta.pagination} pathPrefix="posts" />
     </section>
   )
 }

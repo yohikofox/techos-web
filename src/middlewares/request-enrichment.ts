@@ -5,7 +5,7 @@ import { NextMiddlewareResult } from "next/dist/server/web/types";
 
 class RequestEnrichmentMiddleware extends Middleware {
 
-  checkRoute(request: NextRequest): boolean {
+  checkRoute(): boolean {
     return true
   }
 

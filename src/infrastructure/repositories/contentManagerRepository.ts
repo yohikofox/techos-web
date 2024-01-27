@@ -1,8 +1,10 @@
+import qs from 'querystring';
 import queries from "@queries/index";
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
-import { ContentManagerSystemResult, GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
+import { ContentManagerSystemResult, GraphQLQueries, IContentManagerSystemRepository, RestRequest } from "@interfaces/contentManagementSystem";
 import { FetchOptions } from "@infra/adapter/fetchOptions";
+
 
 export default class ContentManagerSystemRepository implements IContentManagerSystemRepository {
   constructor(private configManager: IConfigManager) { }
@@ -52,6 +54,56 @@ export default class ContentManagerSystemRepository implements IContentManagerSy
 
       if (!parseResult.success) {
         console.warn('GraphQL query parse error', parseResult.error.message, json.data, query);
+        return Result.error(ContentManagerSystemResult.PARSE_ERROR)
+      }
+
+      return Result.ok(parseResult.data as T)
+    } catch (error) {
+      console.error('ContentManagerSystemRepository error', error)
+      return Result.error(ContentManagerSystemResult.UNHANDLED_ERROR)
+    }
+  }
+
+
+  async find<T>(request: RestRequest, options?: FetchOptions): Promise<Result<T, ContentManagerSystemResult>> {
+    try {
+      let url = `${await this.configManager.get("CMS_ENDPOINT")}/api/${request.entityName}`;
+
+      if (request.query) {
+        const queryString = qs.stringify(request.query)
+        url += `?${queryString}`
+      }
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${await this.configManager.get("CMS_API_KEY")}`
+        },
+        next: {
+          revalidate: options?.revalidate || 0,
+          tags: options?.tags || []
+        }
+      });
+
+      if (!response.ok) {
+        console.log('CMS Response was not ok.', response.status, response.statusText);
+        return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR)
+      }
+
+      const json = await response.json();
+
+      if (json.errors) {
+        console.warn('GraphQL query error', JSON.stringify(json.errors));
+        return Result.error(ContentManagerSystemResult.RESULT_ENDPOINT_ERROR)
+      }
+
+
+      if (!options?.schema) return Result.ok(json as T)
+
+      const parseResult = options?.schema.safeParse(json)
+
+      if (!parseResult.success) {
+        console.warn('GraphQL query parse error', parseResult.error.message, json);
         return Result.error(ContentManagerSystemResult.PARSE_ERROR)
       }
 

@@ -6,16 +6,16 @@ import { Pagination as PaginationProps } from "@domain/pagination";
 
 const PAGINATION_ITEM_COUNT = 5;
 
-const PaginationItem = ({ page }: { page: number }) => {
+const PaginationItem = ({ page, pathPrefix }: { page: number, pathPrefix: string }) => {
   return (
     <div className={styles.item}>
       <span>{page}</span>
-      <Link href={`/liste-de-posts/${page}`} aria-label={`page-${page}`} className={styles.inset__link} />
+      <Link href={`/${pathPrefix}/${page}`} aria-label={`page-${page}`} className={styles.inset__link} />
     </div>
   )
 }
 
-export default function Pagination({ page, pageCount, pageSize, total }: PaginationProps) {
+export default function Pagination({ page, pageCount, pathPrefix, pageSize, total }: PaginationProps) {
   if (pageCount <= 1) {
     return null
   }
@@ -52,26 +52,26 @@ export default function Pagination({ page, pageCount, pageSize, total }: Paginat
           <>
             <div className={styles.item}>
               <CaretLeft className={styles.caret} /><CaretLeft className={styles.caret} />
-              <Link aria-label="first page" href={`/liste-de-posts/1`} className={styles.inset__link} />
+              <Link aria-label="first page" href={`/${pathPrefix}/1`} className={styles.inset__link} />
             </div>
             <div className={styles.item}>
               <CaretLeft className={styles.caret} />
-              <Link aria-label="previous page" href={`/liste-de-posts/${page - 1}`} className={styles.inset__link} />
+              <Link aria-label="previous page" href={`/${pathPrefix}/${page - 1}`} className={styles.inset__link} />
             </div>
           </>
         )}
         {items.map((item, index) => {
-          return <PaginationItem key={`pagination-item-${index}`} page={item} />
+          return <PaginationItem key={`pagination-item-${index}`} page={item} pathPrefix={pathPrefix} />
         })}
         {page < pageCount && (
           <>
             <div className={styles.item}>
               <CaretRight className={styles.caret} />
-              <Link aria-label="next page" href={`/liste-de-posts/${page + 1}`} className={styles.inset__link} />
+              <Link aria-label="next page" href={`/${pathPrefix}/${page + 1}`} className={styles.inset__link} />
             </div>
             <div className={styles.item}>
               <CaretRight className={styles.caret} /><CaretRight className={styles.caret} />
-              <Link aria-label="last page" href={`/liste-de-posts/${pageCount}`} className={styles.inset__link} />
+              <Link aria-label="last page" href={`/${pathPrefix}/${pageCount}`} className={styles.inset__link} />
             </div>
           </>
         )}

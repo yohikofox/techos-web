@@ -16,8 +16,10 @@ export interface PageProps {
   }
 }
 
-async function Page({ params }: PageProps) {
+async function Page({ params, searchParams }: PageProps) {
   const { page } = params;
+
+  const { ...query } = searchParams
 
   let pageInt = 0;
   if (page) {
@@ -28,25 +30,27 @@ async function Page({ params }: PageProps) {
   const response = await useCase?.execute();
 
   if (response.IsError) {
-    console.error('response.Error:', response)
+    console.error('Error:', response)
     redirect('/error/400')
   }
 
   return (
     <>
       <Layout>
-        <Layout.Slot name={SlotNames.HERO}>
-          {response.Value.hero && (
-            <Hero
-              title={response.Value.hero.title}
-              background={response.Value.hero.background}
-              content={response.Value.hero.content}
-              picture={response.Value.hero.picture}
-            />
-          )}
-        </Layout.Slot>
+        {!query && (
+          <Layout.Slot name={SlotNames.HERO}>
+            {response.Value.hero && (
+              <Hero
+                title={response.Value.hero.title}
+                background={response.Value.hero.background}
+                content={response.Value.hero.content}
+                picture={response.Value.hero.picture}
+              />
+            )}
+          </Layout.Slot>
+        )}
         <main>
-          <PostCardList title="Derniers articles" page={pageInt} />
+          <PostCardList title="Derniers articles" page={pageInt} query={query} />
         </main>
       </Layout>
     </>

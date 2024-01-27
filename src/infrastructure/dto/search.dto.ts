@@ -1,5 +1,23 @@
+export type FacetDistribution = Record<string, Record<string, number>>
+
 export type SearchData = {
-  hits: any[]
+  hits: any[],
+  query: string,
+  processingTimeMs: number,
+  limit: number,
+  offset: number,
+  estimatedTotalHits: number,
+  facetDistribution: FacetDistribution,
+  facetStats: Record<string, { min: number, max: number }>
+}
+
+export type FacetData = {
+  name: string,
+  count: number
+}
+
+export type FacetListResponse = {
+  facets: FacetData[]
 }
 
 // {

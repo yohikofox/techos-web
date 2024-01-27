@@ -1,4 +1,4 @@
-import PostList from "./liste-de-posts/[page]/page"
+import PostList from "./posts/[page]/page"
 
 export default async function Home(context: any) {
   return (

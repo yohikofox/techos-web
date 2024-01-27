@@ -14,6 +14,7 @@ export enum ContentManagerSystemResult {
 
 export interface IContentManagerSystemRepository {
   get<T>(query: GraphQLQueries, variables?: any, options?: FetchOptions): Promise<Result<T, ContentManagerSystemResult>>
+  find<T>(request: RestRequest, options?: FetchOptions): Promise<Result<T, ContentManagerSystemResult>>
 }
 
 export enum GraphQLQueries {
@@ -35,3 +36,7 @@ export enum GraphQLQueries {
   GET_MICRO_POST_DETAILS = 'getMicroPostDetails',
 }
 
+export type RestRequest = {
+  entityName: string,    // filterable-attributes,
+  query?: Record<string, string | string[]>,
+}

@@ -67,6 +67,10 @@ $opacity: (
 );
 
 $metrics: (
+  base:$base-metric,
+  button:(padding: $base-metric * 2 $base-metric * 3,
+    border-radius: $base-metric * 2,
+  ),
   radius: (small: $base-metric,
     medium: $base-metric * 2,
     large: $base-metric * 3,

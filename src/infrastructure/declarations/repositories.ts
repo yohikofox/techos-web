@@ -45,7 +45,7 @@ const repositories = {
   },
   'SearchRepository': {
     resolve: async () => import(`@infra/repositories/searchRepository`),
-    dependencies: ['SearchEngine', 'SearchService']
+    dependencies: ['SearchEngine', 'ContentManagerSystem', 'SearchService']
   },
   'TagRepository': {
     resolve: async () => import(`@infra/repositories/tagRepository`),

@@ -14,27 +14,31 @@ const INSTALL_CACHED_RESOURCES = [
 
 let VERSION = ''
 
-export const installPointCut = async (event: any, version: string) => {
+const defaultResponse = () => new Response('Contenu par défaut', { status: 200, statusText: 'OK' });
+
+export const installPointCut = async (version: string) => {
   VERSION = version
-  for (var i = 0; i < INSTALL_CACHED_RESOURCES.length; i++) {
+  for (let i = 0; i < INSTALL_CACHED_RESOURCES.length; i++) {
     const key = INSTALL_CACHED_RESOURCES[i]
     const request = new Request(`${key}`)
 
-    //TODO: revalidate: 0
-    const response = await fetch(request)
+    const response = await fetch(request, {
+      next: {
+        revalidate: 0
+      }
+    })
 
     await putInCache(request.url, response)
 
     const links = await HTMLHelper.getElements(response, {
       selector: '//x:link',
-      filter: (it: any) => it.getAttribute("rel") === "stylesheet"
+      filter: (it: Element) => it.getAttribute("rel") === "stylesheet"
     })
 
     await Promise.all(links.map(async (link: string) => {
       const request = new Request(link)
 
-      //TODO: revalidate: 0
-      const response = await fetch(request)
+      const response = await fetch(request, { next: { revalidate: 0 } })
       await putInCache(request.url, response.clone())
     }))
   }
@@ -42,8 +46,8 @@ export const installPointCut = async (event: any, version: string) => {
 
 
 
-const main = (worker: any) => {
-  worker.addEventListener('fetch', (event: any) => {
+const main = (worker: ServiceWorkerGlobalScope) => {
+  worker.addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(
       (async () => {
         const response = await handleEvent(event)
@@ -52,8 +56,8 @@ const main = (worker: any) => {
     )
   })
 }
-const handleEvent = async (event: FetchEvent): Promise<Response | undefined> => {
-  if (!VERSION) console.debug("VERSION is not set")
+const handleEvent = async (event: FetchEvent): Promise<Response> => {
+  if (VERSION === '') console.log("VERSION is not set")
   try {
     switch (event.request.mode) {
       case 'no-cors':
@@ -64,7 +68,7 @@ const handleEvent = async (event: FetchEvent): Promise<Response | undefined> => 
         if (ALLOWED_NAVIGATE_URL_CACHE_PATTERN_LIST.some((pattern) => pattern.test(new URL(event.request.url).pathname))) {
           return handle(event)
         }
-        return
+        return defaultResponse()
       }
     }
   } catch (error) {
@@ -73,36 +77,40 @@ const handleEvent = async (event: FetchEvent): Promise<Response | undefined> => 
 
     if (INSTALL_CACHED_RESOURCES.includes(url.pathname)) {
       const cachedResource = await getFromCache(url.pathname)
-      if (cachedResource) {
+      if (cachedResource !== undefined) {
         return cachedResource
       }
     }
 
-    const a = await getFromCache('/hors-ligne')
-    if (a) {
-      return a
+    const cacheResponse = await getFromCache('/hors-ligne')
+    if (cacheResponse !== undefined) {
+      return cacheResponse
     }
   }
+
+  return defaultResponse()
 }
 
-const getFromCache = async (url: string) => {
-  console.log('VERSION:', VERSION, url)
-  if (!VERSION) console.debug("VERSION is not set")
+const getFromCache = async (url: string): Promise<Response> => {
+  if (VERSION === '') console.log("VERSION is not set")
   const cache = await caches.open(VERSION)
-  return (await cache.match(url))?.clone()
+  const response = await cache.match(url)
+  if (!response) {
+    return defaultResponse()
+  }
+  return response.clone()
 }
 
 const putInCache = async (url: string, response: Response) => {
-  if (!VERSION) console.debug("VERSION is not set")
+  if (VERSION === '') console.log("VERSION is not set")
   const cache = await caches.open(VERSION)
   await cache.put(url, response.clone())
 }
 
-const handle = async (event: FetchEvent) => {
+const handle = async (event: FetchEvent): Promise<Response> => {
 
   if (DISALLOWED_URL_CACHE_PATTERN_LIST.some((pattern) => pattern.test(new URL(event.request.url).pathname))) {
-    //TODO: revalidate: 0
-    return await fetch(event.request)
+    return await fetch(event.request, { next: { revalidate: 0 } })
   }
 
   const cachedResource = await getFromCache(event.request.url)
@@ -110,12 +118,11 @@ const handle = async (event: FetchEvent) => {
   /**
    * If the resource is cached, return it, otherwise return the network response
    */
-  if (cachedResource) {
+  if (cachedResource !== undefined) {
     return cachedResource
   }
 
-  //TODO: revalidate: 0
-  const networkResponse = await fetch(event.request)
+  const networkResponse = await fetch(event.request, { next: { revalidate: 0 } })
 
   /**
    * Get newest resource version to serve next request

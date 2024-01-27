@@ -53,13 +53,13 @@ export default class SessionMiddleware extends Middleware {
 
     const { redirectUrl, cookies, isError } = await response.json() as RedirectData
 
-    if (isError) {
+    if (isError === true) {
       return NextResponse.next({ headers: new Headers(request.headers) })
     }
 
     const responseHeaders = new Headers(response.headers)
 
-    if (cookies) {
+    if (cookies !== undefined) {
       responseHeaders.set('set-cookie', cookies)
     }
 
