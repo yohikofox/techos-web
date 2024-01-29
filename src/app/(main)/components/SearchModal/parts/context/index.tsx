@@ -1,13 +1,21 @@
-'use client'
+"use client";
 import Search from "@domain/search";
-import { createContext, Dispatch, SetStateAction, useState } from "react"
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useState,
+} from "react";
 
-export const SearchDataContext = createContext<[Search, Dispatch<SetStateAction<Search>>] | null>(null);
+export const SearchDataContext = createContext<
+  [Search, Dispatch<SetStateAction<Search>>] | null
+>(null);
 
-export const SearchDataProvider = ({ children }: any) => {
+export const SearchDataProvider = ({ children }: PropsWithChildren) => {
   return (
-    <SearchDataContext.Provider value={useState({} as Search)} >
+    <SearchDataContext.Provider value={useState({} as Search)}>
       {children}
     </SearchDataContext.Provider>
-  )
-}
+  );
+};

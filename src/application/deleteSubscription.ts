@@ -5,22 +5,27 @@ import { Result } from "@/lib/result";
 
 export interface DeleteSubscriptionRequest {
   data: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export enum DeleteSubscriptionUseCaseResult {
-  SUCCESS = 'success',
-  ERROR = 'error',
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
-export default class DeleteSubscriptionUseCase implements IUseCase<DeleteSubscriptionRequest, Result<void, DeleteSubscriptionUseCaseResult>> {
+export default class DeleteSubscriptionUseCase
+  implements
+    IUseCase<
+      DeleteSubscriptionRequest,
+      Result<void, DeleteSubscriptionUseCaseResult>
+    >
+{
+  constructor(private subscriptionRepository: ISubscriptionRepository) {}
 
-  constructor(
-    private subscriptionRepository: ISubscriptionRepository,
-  ) { }
-
-  async execute(request?: DeleteSubscriptionRequest | undefined): Promise<Result<void, DeleteSubscriptionUseCaseResult>> {
-    return this.subscriptionRepository.deleteSubscription(request)
+  async execute(
+    request?: DeleteSubscriptionRequest | undefined
+  ): Promise<Result<void, DeleteSubscriptionUseCaseResult>> {
+    return this.subscriptionRepository.deleteSubscription(request!);
   }
 }

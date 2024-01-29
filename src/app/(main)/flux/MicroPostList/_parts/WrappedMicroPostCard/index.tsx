@@ -1,27 +1,33 @@
-import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
+import {
+  GetMicroPostDetailsRequest,
+  MicroPostDetailsResult,
+} from "@app/getMicroPostDetails";
 import MicroPost from "@domain/microPost";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 
 import MicroPostCard, { PostClassNames } from "../MicroPostCard";
 
-export interface WrappedMicroPostCardProps { slug: string, className?: PostClassNames }
+export interface WrappedMicroPostCardProps {
+  slug: string;
+  className?: PostClassNames;
+}
 
+export default async function Wrapper({
+  slug,
+  className,
+}: WrappedMicroPostCardProps) {
+  const useCase = await UseCaseFactory.Instance.getUseCase<
+    GetMicroPostDetailsRequest,
+    MicroPost,
+    MicroPostDetailsResult
+  >(UseCaseOption.GET_MICRO_POST_DETAILS);
 
-export default async function Wrapper({ slug, className }: WrappedMicroPostCardProps) {
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, MicroPost, MicroPostDetailsResult>(UseCaseOption.GET_MICRO_POST_DETAILS);
-
-  const response = await useCase?.execute({ slug: { "eq": slug } });
+  const response = await useCase?.execute({ slug: { eq: slug } });
 
   if (response.IsError) {
-    console.log('response:', response)
-    return
+    console.log("response:", response);
+    return;
   }
 
-  return (
-    <>
-      {response.Value && (
-        <MicroPostCard post={response.Value} className={className} />
-      )}
-    </>
-  )
+  return <MicroPostCard post={response.Value} className={className} />;
 }

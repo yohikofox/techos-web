@@ -1,25 +1,31 @@
-import classNames from 'classnames';
-import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import classNames from "classnames";
+import { useState } from "react";
 
 export interface RangeProps {
-  min: number,
-  max: number,
-  value?: number,
-  onChange: (value: string) => void,
-  step?: number,
-  className?: string
+  min: number;
+  max: number;
+  value?: number;
+  onChange: (value: string) => void;
+  step?: number;
+  className?: string;
 }
 
-export default function Range({ min, max, onChange, step, value, className }: RangeProps) {
-
+export default function Range({
+  min,
+  max,
+  onChange,
+  step,
+  value,
+  className,
+}: RangeProps) {
   // const diff = (min + (max - min) / 2)
   // console.log('diff:', diff)
 
-
-  const [localValue, setLocalValue] = useState<number | undefined>(value || (min + (max - min) / 2))
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const [localValue, setLocalValue] = useState<number | undefined>(
+    value !== undefined ? value : min + (max - min) / 2
+  );
+  // const router = useRouter()
+  // const searchParams = useSearchParams()
 
   // const selectValue = useCallback(async (d: FacetItemData) => {
   //   const newQuery: Record<string, string | string[]> = {}
@@ -58,21 +64,22 @@ export default function Range({ min, max, onChange, step, value, className }: Ra
   // }, [router, searchParams])
 
   const localOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setLocalValue(Number(e.target.value))
-    onChange(e.target.value)
-  }
+    e.preventDefault();
+    setLocalValue(Number(e.target.value));
+    onChange(e.target.value);
+  };
 
   return (
     <>
-      <input type="range"
+      <input
+        type="range"
         min={min}
         max={max}
         className={classNames(className)}
         value={localValue}
-        step={step || (max - min) / 10}
+        step={step !== undefined ? step : (max - min) / 10}
         onChange={localOnChange}
       />
     </>
-  )
+  );
 }

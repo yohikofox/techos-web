@@ -1,4 +1,7 @@
-import { MicroPostDetailsResult } from "@app/getMicroPostDetails";
+import {
+  GetMicroPostDetailsRequest,
+  MicroPostDetailsResult,
+} from "@app/getMicroPostDetails";
 import ImageSet from "@domain/image";
 import MicroPost from "@domain/microPost";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
@@ -9,16 +12,22 @@ import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 
 import MicroPostDetails from "./_parts/MicroPostDetails";
 
-export interface MicroPostPageProps { params: { slug: string } }
+export interface MicroPostPageProps {
+  params: { slug: string };
+}
 
 export default async function Page({ params: { slug } }: MicroPostPageProps) {
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, MicroPost, MicroPostDetailsResult>(UseCaseOption.GET_MICRO_POST_DETAILS);
+  const useCase = await UseCaseFactory.Instance.getUseCase<
+    GetMicroPostDetailsRequest,
+    MicroPost,
+    MicroPostDetailsResult
+  >(UseCaseOption.GET_MICRO_POST_DETAILS);
 
-  const response = await useCase?.execute({ slug: { "eq": slug } });
+  const response = await useCase?.execute({ slug: { eq: slug } });
 
   if (response.IsError) {
-    console.log('response:', response)
-    redirect('/error/400')
+    console.log("response:", response);
+    redirect("/error/400");
   }
 
   return (
@@ -35,5 +44,5 @@ export default async function Page({ params: { slug } }: MicroPostPageProps) {
         </main>
       </Layout>
     </>
-  )
+  );
 }

@@ -1,22 +1,14 @@
 import MicroPostList from "@domain/microPostList"
 
+import { StateSetter } from "../.."
+
 export default class FluxStoreImplementation implements FluxStore {
   public loaded: boolean
   public model: MicroPostList
 
-  constructor(private set: any, initialState: Partial<FluxStore> = {}) {
+  constructor(private set: StateSetter, initialState: Partial<FluxStore> = {}) {
     this.loaded = false
-    this.model = initialState.model || {
-      posts: [],
-      meta: {
-        pagination: {
-          total: 0,
-          page: 0,
-          pageSize: 0,
-          pageCount: 0
-        }
-      }
-    }
+    this.model = initialState.model!
   }
 
 
@@ -33,6 +25,7 @@ export const initialState: Partial<FluxStore> = {
     posts: [],
     meta: {
       pagination: {
+        pathPrefix: '',
         total: 0,
         page: 0,
         pageSize: 0,

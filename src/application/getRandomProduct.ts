@@ -5,13 +5,14 @@ import { IProductRepository } from "@interfaces/IProductRepository";
 
 import { Result } from "@/lib/result";
 
-export type RandomProductRequest = {} & Filterable
+export type RandomProductRequest = Filterable;
 
 export default class GetRandomProductUseCase {
+  constructor(private productRepository: IProductRepository) {}
 
-  constructor(private productRepository: IProductRepository,) { }
-
-  async execute(request?: RandomProductRequest): Promise<Result<Product, ProductResult>> {
-    return this.productRepository.findRandomProduct(request)
+  async execute(
+    request?: RandomProductRequest
+  ): Promise<Result<Product, ProductResult>> {
+    return this.productRepository.findRandomProduct(request);
   }
 }

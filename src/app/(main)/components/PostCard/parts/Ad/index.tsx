@@ -1,26 +1,26 @@
-import ServerImage from "@/components/Image"
+import ServerImage from "@/components/Image";
 
 import { PostCardProps } from "../..";
-import styles from "./ad.module.scss"
+import styles from "./ad.module.scss";
 
 export default async function PostCardAd({ post, index }: PostCardProps) {
-  const { src, preset } = post?.picture || { src: '', width: 0, height: 0 };
+  const { src, preset } = post?.picture || { src: "", width: 0, height: 0 };
 
   return (
     <div className={styles.container}>
       <figure className={styles.figure}>
         <ServerImage
-          alt={post.title || ''}
+          alt={post.title !== undefined ? post.title : ""}
           priority={index < 3}
           preset={preset}
-          src={src || ''}
+          src={src !== undefined ? src : ""}
           fill
           sizes={post.picture?.sizes}
           style={{
-            objectFit: 'cover',
+            objectFit: "cover",
           }}
         />
       </figure>
     </div>
-  )
+  );
 }

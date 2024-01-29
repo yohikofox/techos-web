@@ -1,19 +1,14 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 import { IOC } from "R/src/infrastructure/container";
 
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
-const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
+export async function GET() {
+  const configManager = await IOC().resolve<IConfigManager>("ConfigManager");
 
-export async function GET(request: NextRequest) {
+  await configManager.reloadAll();
 
-  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
-
-  const result = await configManager.reloadAll()
-
-  return NextResponse.json({ status: 'success' })
+  return NextResponse.json({ status: "success" });
 }
-
-

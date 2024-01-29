@@ -6,9 +6,9 @@ export const authorDataSchema = z.object({
   data: z.object({
     attributes: z.object({
       username: z.string(),
-      avatar: pictureDataSchema.nullable().optional()
-    })
-  })
-})
+      avatar: pictureDataSchema.optional(),
+    }),
+  }),
+});
 
-export type AuthorData = z.infer<typeof authorDataSchema>
+export type AuthorData = z.infer<typeof authorDataSchema>;

@@ -17,6 +17,6 @@ export default class GetOfflinePageDataUseCase implements IUseCase<GetOfflinePag
     private offlineRepository: IOfflineRepository,
   ) { }
   async execute(request?: GetOfflinePageDataRequest | undefined): Promise<Result<OffLinePageData, GetOfflinePageDataUseCaseResult>> {
-    return this.offlineRepository.getOfflineData(request);
+    return this.offlineRepository.getOfflineData(request!);
   }
 }

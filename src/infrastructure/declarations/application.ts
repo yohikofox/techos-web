@@ -1,74 +1,118 @@
+import { DefinitionCollection } from "../dependencies";
+import { ResolverDefinition } from "../dependency/resolver";
+import { ResourceTypes } from "../resourceTypes";
 
-const definitions = {
-  'GetHomeData': {
-    resolve: async () => import(`@app/getHomeData`),
-    dependencies: ['HomeRepository']
+const definitions: DefinitionCollection = {
+  GetHomeData: {
+    resolve: async <T>() =>
+      import("@app/getHomeData") as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["HomeRepository"],
+    type: ResourceTypes.Transient,
   },
-  'GetHeaderData': {
-    resolve: async () => import(`@app/getHeaderData`),
-    dependencies: ['HeaderRepository']
+  GetHeaderData: {
+    resolve: async <T>() =>
+      import(`@app/getHeaderData`) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["HeaderRepository"],
   },
-  'GetPostList': {
-    resolve: async () => import(`@app/getPostList`),
-    dependencies: ['PostRepository']
+  GetPostList: {
+    resolve: async <T>() =>
+      import(`@app/getPostList`) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["PostRepository"],
   },
-  'GetSearchData': {
-    resolve: async () => import(`@app/getSearchData`),
-    dependencies: ['SearchRepository']
+  GetSearchData: {
+    resolve: async <T>() =>
+      import(`@app/getSearchData`) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["SearchRepository"],
   },
-  'GetPostDetails': {
-    resolve: async () => import(`@app/getPostDetails`),
-    dependencies: ['PostRepository']
+  GetPostDetails: {
+    resolve: async <T>() =>
+      import(`@app/getPostDetails`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["PostRepository"],
   },
-  'GetTagPostList': {
-    resolve: async () => import(`@app/getTagPostList`),
-    dependencies: ['TagRepository']
+  GetTagPostList: {
+    resolve: async <T>() =>
+      import(`@app/getTagPostList`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["TagRepository"],
   },
-  'GetTagInfos': {
-    resolve: async () => import(`@app/getTagInfos`),
-    dependencies: ['TagRepository']
+  GetTagInfos: {
+    resolve: async <T>() =>
+      import(`@app/getTagInfos`) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["TagRepository"],
   },
-  'UpdatePostStats': {
-    resolve: async () => import(`@app/updatePostStats`),
-    dependencies: ['PostStatRepository']
+  UpdatePostStats: {
+    resolve: async <T>() =>
+      import(`@app/updatePostStats`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["PostStatRepository"],
   },
-  'SaveSubscription': {
-    resolve: async () => import(`@app/saveSubscription`),
-    dependencies: ['SubscriptionRepository']
+  SaveSubscription: {
+    resolve: async <T>() =>
+      import(`@app/saveSubscription`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["SubscriptionRepository"],
   },
-  'GetSubscriptionList': {
-    resolve: async () => import(`@app/getSubscriptionList`),
-    dependencies: ['SubscriptionRepository']
+  GetSubscriptionList: {
+    resolve: async <T>() =>
+      import(`@app/getSubscriptionList`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["SubscriptionRepository"],
   },
-  'DeleteSubscription': {
-    resolve: async () => import(`@app/deleteSubscription`),
-    dependencies: ['SubscriptionRepository']
+  DeleteSubscription: {
+    resolve: async <T>() =>
+      import(`@app/deleteSubscription`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["SubscriptionRepository"],
   },
-  'GetNotification': {
-    resolve: async () => import(`@app/getNotification`),
-    dependencies: ['WebPushNotificationRepository']
+  GetNotification: {
+    resolve: async <T>() =>
+      import(`@app/getNotification`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["WebPushNotificationRepository"],
   },
-  'GetOfflinePageData': {
-    resolve: async () => import(`@app/getOfflinePageData`),
-    dependencies: ['OfflineRepository']
+  GetOfflinePageData: {
+    resolve: async <T>() =>
+      import(`@app/getOfflinePageData`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["OfflineRepository"],
   },
-  'GetProductById': {
-    resolve: async () => import(`@app/getProductById`),
-    dependencies: ['ProductRepository']
+  GetProductById: {
+    resolve: async <T>() =>
+      import(`@app/getProductById`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ProductRepository"],
   },
-  'GetRandomProduct': {
-    resolve: async () => import(`@app/getRandomProduct`),
-    dependencies: ['ProductRepository']
+  GetRandomProduct: {
+    resolve: async <T>() =>
+      import(`@app/getRandomProduct`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ProductRepository"],
   },
-  'GetMicroPostList': {
-    resolve: async () => import(`@app/getMicroPostList`),
-    dependencies: ['MicroPostRepository']
+  GetMicroPostList: {
+    resolve: async <T>() =>
+      import(`@app/getMicroPostList`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["MicroPostRepository"],
   },
-  'GetMicroPostDetails': {
-    resolve: async () => import(`@app/getMicroPostDetails`),
-    dependencies: ['MicroPostRepository']
+  GetMicroPostDetails: {
+    resolve: async <T>() =>
+      import(`@app/getMicroPostDetails`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["MicroPostRepository"],
   },
-}
+};
 
-
-export default definitions
+export default definitions;

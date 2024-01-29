@@ -1,14 +1,15 @@
+import { AdminStore, StateSetter } from "../..";
 import BaseMenuStoreImplementation, { MenuStore } from "./base.menu";
 
 
 export default class MenuStoreImplementation extends BaseMenuStoreImplementation implements MenuStore {
 
-  constructor(set: any, initialState: Partial<MenuStore> = {}) {
+  constructor(set: StateSetter, initialState: Partial<MenuStore> = {}) {
     super(set, initialState)
   }
 
   public toggle: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.menu.isOpen = !ns.menu.isOpen
       return ns
@@ -17,7 +18,7 @@ export default class MenuStoreImplementation extends BaseMenuStoreImplementation
 
 
   public close: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.menu.isOpen = false
       return ns
@@ -25,7 +26,7 @@ export default class MenuStoreImplementation extends BaseMenuStoreImplementation
   }
 
   public open: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.menu.isOpen = true
       return ns

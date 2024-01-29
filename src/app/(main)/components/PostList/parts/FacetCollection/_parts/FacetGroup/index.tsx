@@ -1,36 +1,37 @@
-import { FacetedSearch } from "R/src/domain/search"
-import { FacetType } from "R/src/infrastructure/repositories/searchEngineRepository"
+import { FacetedSearch } from "R/src/domain/search";
+import { FacetType } from "R/src/infrastructure/repositories/searchEngineRepository";
 
-import { ServerComponent as ServerRangedFacet } from "../RangedFacet"
-import SimpleFacet from "../SimpleFacet"
-import styles from "./styles.module.scss"
+import { ServerComponent as ServerRangedFacet } from "../RangedFacet";
+import SimpleFacet from "../SimpleFacet";
+import styles from "./styles.module.scss";
 
 export default function Component({ facet }: { facet: FacetedSearch }) {
-
   // { facet.multiple && "mult" }
   // { facet.autocomplete && "auto" }
 
-  let type = FacetType.SIMPLE
+  let type = FacetType.SIMPLE;
 
-  if (facet.min && facet.max) {
-    type = FacetType.RANGED
+  if (facet.min !== undefined && facet.max !== undefined) {
+    type = FacetType.RANGED;
   }
 
   let Comp;
 
-
   switch (type) {
     case FacetType.RANGED:
-      Comp = () => <ServerRangedFacet facet={facet} />
+      Comp = function ServerRangedFacetComponent() {
+        return <ServerRangedFacet facet={facet} />;
+      };
       break;
     default:
-      Comp = () => <SimpleFacet facet={facet} />
+      Comp = function SimpleFacetComponent() {
+        return <SimpleFacet facet={facet} />;
+      };
   }
 
   return (
     <div className={styles.facet__group}>
       <Comp />
     </div>
-  )
+  );
 }
-

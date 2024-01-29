@@ -22,6 +22,6 @@ export default class GetPostListUseCase implements IUseCase<MicroPostListRequest
     private microPostRepository: IMicroPostRepository
   ) { }
   async execute(request?: MicroPostListRequest): Promise<Result<MicroPostList, MicroPostListResult>> {
-    return await this.microPostRepository.findMicroPostList(request)
+    return await this.microPostRepository.findMicroPostList(request!)
   }
 }

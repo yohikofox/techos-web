@@ -1,13 +1,13 @@
 import Author from "@domain/author";
 import classNames from "classnames";
 
-import ServerImage from "@/components/Image"
+import ServerImage from "@/components/Image";
 
-import styles from "./author.module.scss"
+import styles from "./author.module.scss";
 
 export interface AuthorProps {
-  data: Author
-  className?: string
+  data: Author;
+  className?: string;
 }
 
 export default async function Author({ data, className }: AuthorProps) {
@@ -17,13 +17,13 @@ export default async function Author({ data, className }: AuthorProps) {
         <section className={styles.avatar__container}>
           <div className={styles.avatar}>
             <ServerImage
-              src={data.avatar?.src || ''}
-              alt='avatar'
+              src={data.avatar?.src !== undefined ? data.avatar?.src : ""}
+              alt="avatar"
               preset={data.avatar?.preset}
               fill
               sizes={data.avatar?.sizes}
               style={{
-                objectFit: 'cover',
+                objectFit: "cover",
               }}
             />
           </div>
@@ -34,5 +34,5 @@ export default async function Author({ data, className }: AuthorProps) {
         </section>
       </section>
     </>
-  )
+  );
 }

@@ -1,16 +1,20 @@
-import util from 'node:util';
+import util from "node:util";
 
-import { italic,red } from "colorette"
-import winston, { format,transports } from 'winston';
-import { SyslogConfigSetColors, SyslogConfigSetLevels } from 'winston/lib/winston/config';
+import { italic, red } from "colorette";
+import winston, { format, transports } from "winston";
+import {
+  SyslogConfigSetColors,
+  SyslogConfigSetLevels,
+} from "winston/lib/winston/config";
 
-import p from '../../../package.json';
+import p from "../../../package.json";
 
-type LoggerMethod = (message?: any, ...optionalParams: any[]) => void
-const { prettyPrint, label, combine, timestamp, errors } = format
-const DIVIDER = "====================================================================="
-const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss  "
-let STYLISH = false
+type LoggerMethod = (message: never, ...optionalParams: never[]) => void;
+const { combine } = format;
+const DIVIDER =
+  "=====================================================================";
+const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss  ";
+let STYLISH = false;
 
 const levelStyles: { [key: string]: (str: string) => string } = {
   emerg: (str: string) => str,
@@ -21,9 +25,12 @@ const levelStyles: { [key: string]: (str: string) => string } = {
   notice: (str: string) => str,
   info: (str: string) => str,
   debug: (str: string) => str,
-}
+};
 
-const customLevels: { levels: SyslogConfigSetLevels, colors: SyslogConfigSetColors } = {
+const customLevels: {
+  levels: SyslogConfigSetLevels;
+  colors: SyslogConfigSetColors;
+} = {
   levels: {
     emerg: 0,
     alert: 1,
@@ -35,14 +42,14 @@ const customLevels: { levels: SyslogConfigSetLevels, colors: SyslogConfigSetColo
     debug: 7,
   },
   colors: {
-    emerg: 'red',
-    alert: 'bold yellow',
-    crit: 'bold red',
-    error: 'italic red',
-    warning: 'yellow',
-    notice: 'dim cyan',
-    info: 'green',
-    debug: 'dim blue',
+    emerg: "red",
+    alert: "bold yellow",
+    crit: "bold red",
+    error: "italic red",
+    warning: "yellow",
+    notice: "dim cyan",
+    info: "green",
+    debug: "dim blue",
   },
 };
 
@@ -57,77 +64,86 @@ enum Levels {
   DEBUG = "debug",
 }
 
+interface ILogger {
+  log: LoggerMethod;
+  debug: LoggerMethod;
+  info: LoggerMethod;
+  warn: LoggerMethod;
+  error: LoggerMethod;
+}
+
 class LoggerFactory {
-  private logger: any;
+  private logger: ILogger;
   private _winston: winston.Logger;
   private _debug_winston?: winston.Logger;
 
-  constructor(logger: any) {
+  constructor(logger: ILogger) {
     this.logger = logger;
 
-    const logLevel = process.env.DEFAULT_LOG_LEVEL || Levels.INFO
+    const logLevel =
+      process.env.DEFAULT_LOG_LEVEL !== undefined
+        ? process.env.DEFAULT_LOG_LEVEL
+        : Levels.INFO;
 
     this._winston = winston.createLogger({
       level: logLevel,
       levels: customLevels.levels,
-    })
+    });
 
-    winston.addColors(customLevels.colors)
+    winston.addColors(customLevels.colors);
 
     const printFormat = winston.format.printf(({ level, message, stack }) => {
-      return `\n${DIVIDER}\n${level}: ${stack || message}\n${DIVIDER}\n`
-    })
+      return `\n${DIVIDER}\n${level}: ${stack !== undefined ? stack : message}\n${DIVIDER}\n`;
+    });
 
-    this._winston.clear()
+    this._winston.clear();
 
-    const formatFunctions = [
+    const formatFunctions = [];
 
-    ]
+    formatFunctions.push(winston.format.timestamp({ format: DATE_FORMAT }));
+    formatFunctions.push(winston.format.errors({ stack: true }));
 
-    formatFunctions.push(winston.format.timestamp({ format: DATE_FORMAT }))
-    formatFunctions.push(winston.format.errors({ stack: true }))
-
-    if (process.env.DEBUG_MODE === 'true') {
+    if (process.env.DEBUG_MODE === "true") {
       STYLISH = true;
-      formatFunctions.push(winston.format.simple())
-      formatFunctions.push(winston.format.colorize())
+      formatFunctions.push(winston.format.simple());
+      formatFunctions.push(winston.format.colorize());
 
-      formatFunctions.push(winston.format.splat())
-      formatFunctions.push(winston.format.label({ label: p.name }))
+      formatFunctions.push(winston.format.splat());
+      formatFunctions.push(winston.format.label({ label: p.name }));
 
-      formatFunctions.push(winston.format.align())
-      formatFunctions.push(winston.format.printf(({ level, message, label, timestamp }) => {
-        return `${timestamp} [${label}] ${level}: ${message}`
-      }))
+      formatFunctions.push(winston.format.align());
+      formatFunctions.push(
+        winston.format.printf(({ level, message, label, timestamp }) => {
+          return `${timestamp} [${label}] ${level}: ${message}`;
+        })
+      );
     } else {
-      formatFunctions.push(winston.format.uncolorize())
-      formatFunctions.push(winston.format.json())
+      formatFunctions.push(winston.format.uncolorize());
+      formatFunctions.push(winston.format.json());
     }
 
-
-
     const consoleLogger = new transports.Console({
-      format: combine(
-        ...formatFunctions
-      )
-    })
+      format: combine(...formatFunctions),
+    });
 
-    this._winston.add(consoleLogger)
+    this._winston.add(consoleLogger);
 
-    if (process.env.DEBUG_MODE === 'true') {
+    if (process.env.DEBUG_MODE === "true") {
       this._debug_winston = winston.createLogger({
         level: Levels.DEBUG,
         levels: winston.config.syslog.levels,
       });
-      this._debug_winston.clear()
-      this._debug_winston.add(new transports.Console({
-        level: Levels.DEBUG,
-        format: combine(
-          winston.format.colorize(),
-          winston.format.cli(),
-          printFormat
-        )
-      }))
+      this._debug_winston.clear();
+      this._debug_winston.add(
+        new transports.Console({
+          level: Levels.DEBUG,
+          format: combine(
+            winston.format.colorize(),
+            winston.format.cli(),
+            printFormat
+          ),
+        })
+      );
     }
 
     // this._test("LoggerFactory initialized")
@@ -141,64 +157,72 @@ class LoggerFactory {
     this.logger.error = this.error;
   }
 
-  private info: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    this._log(Levels.INFO, message, ...optionalParams)
-  }
+  private info: LoggerMethod = (message: never, ...optionalParams: never[]) => {
+    this._log(Levels.INFO, message, ...optionalParams);
+  };
 
-  private error: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    this._log(Levels.ERROR, message, ...optionalParams)
-  }
+  private error: LoggerMethod = (
+    message?: never,
+    ...optionalParams: never[]
+  ) => {
+    this._log(Levels.ERROR, message, ...optionalParams);
+  };
 
-  private warn: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    this._log(Levels.WARNING, message, ...optionalParams)
-  }
+  private warn: LoggerMethod = (message: never, ...optionalParams: never[]) => {
+    this._log(Levels.WARNING, message, ...optionalParams);
+  };
 
-  private log: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    this._log(Levels.INFO, message, ...optionalParams)
-  }
+  private log: LoggerMethod = (message: never, ...optionalParams: never[]) => {
+    this._log(Levels.INFO, message, ...optionalParams);
+  };
 
-  private debug: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    this._log(Levels.DEBUG, message, ...optionalParams)
-    this._cli(Levels.DEBUG, message, ...optionalParams)
-  }
+  private debug: LoggerMethod = (
+    message: never,
+    ...optionalParams: never[]
+  ) => {
+    this._log(Levels.DEBUG, message, ...optionalParams);
+    this._cli(Levels.DEBUG, message, ...optionalParams);
+  };
 
-  private _test: LoggerMethod = (message?: any, ...optionalParams: any[]) => {
-    Object.values(Levels).forEach((level) => {
-      this._log(level, message, ...optionalParams)
-    })
-  }
+  private _log = (
+    level: Levels,
+    message?: never,
+    ...optionalParams: never[]
+  ) => {
+    const args = optionalParams !== undefined ? [...optionalParams] : [];
 
-  private _log: LoggerMethod = (level: Levels, message?: any, ...optionalParams: any[]) => {
-    const args = optionalParams ? [...optionalParams] : []
+    const str = util.format(message, ...args);
 
-    const str = util.format(message, ...args)
+    const colored =
+      STYLISH && levelStyles[level] !== undefined
+        ? levelStyles[level](str)
+        : str;
 
+    this._winston.log({ level, message: colored });
+  };
 
-    const colored = (STYLISH && levelStyles[level]) ? levelStyles[level](str) : str
+  private _cli = (
+    level: Levels,
+    message: never,
+    ...optionalParams: never[]
+  ) => {
+    const args = optionalParams !== undefined ? [...optionalParams] : [];
 
-    this._winston.log({ level, message: colored })
-  }
-
-  private _cli: LoggerMethod = (level: Levels, message?: any, ...optionalParams: any[]) => {
-    const args = optionalParams ? [...optionalParams] : []
-
-    const str = util.format(message, ...args)
+    const str = util.format(message, ...args);
 
     this._debug_winston?.log({
       level,
-      message: str
-    })
-  }
-
+      message: str,
+    });
+  };
 
   get instance() {
-    return this.logger
+    return this.logger;
   }
 
   get winston() {
-    return this._winston
+    return this._winston;
   }
 }
-
 
 export default LoggerFactory;

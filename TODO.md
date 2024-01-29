@@ -22,6 +22,7 @@ remove tailwind                                                                 
 faire une fonction recursive pour les imports de style (bundles.scss)                                                |        |
 ajouter un bundler pour le next.config.js                                                                            |        |
 Create a CLI to scaffold useCases                                                                                    |        |
+migrer les domaines en class/entities, les types ne permettent pas les tests `instanceof`
 
 # A creuser 
 

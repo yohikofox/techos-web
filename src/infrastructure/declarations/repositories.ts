@@ -1,69 +1,113 @@
+import { DefinitionCollection } from "../dependencies";
+import { ResolverDefinition } from "../dependency/resolver";
 
-const baseRepositories = {
-  'ContentManagerSystem': {
-    resolve: async () => import(`@infra/repositories/contentManagerRepository`),
-    dependencies: ['ConfigManager']
+const baseRepositories: DefinitionCollection = {
+  ContentManagerSystem: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/contentManagerRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager"],
   },
-  'SearchEngine': {
-    resolve: async () => import(`@infra/repositories/searchEngineRepository`),
-    dependencies: ['ConfigManager']
+  SearchEngine: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/searchEngineRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager"],
   },
-  'StoreRepository': {
-    resolve: async () => import(`@infra/repositories/storeRepository`),
-    dependencies: ['ConfigManager']
+  StoreRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/storeRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ConfigManager"],
   },
-}
+};
 
-const repositories = {
-  'HeaderRepository': {
-    resolve: async () => import(`@infra/repositories/headerRepository`),
-    dependencies: ['ContentManagerSystem', 'HeaderDataService']
+const repositories: DefinitionCollection = {
+  HeaderRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/headerRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "HeaderDataService"],
   },
-  'HomeRepository': {
-    resolve: async () => import(`@infra/repositories/homeRepository`),
-    dependencies: ['ContentManagerSystem', 'HomeDataService']
+  HomeRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/homeRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "HomeDataService"],
   },
-  'MicroPostRepository': {
-    resolve: async () => import(`@infra/repositories/microPostRepository`),
-    dependencies: ['ContentManagerSystem', 'MicroPostService']
+  MicroPostRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/microPostRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "MicroPostService"],
   },
-  'OfflineRepository': {
-    resolve: async () => import(`@infra/repositories/offlineRepository`),
-    dependencies: ['ContentManagerSystem', 'OffLineService']
+  OfflineRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/offlineRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "OffLineService"],
   },
-  'PostRepository': {
-    resolve: async () => import(`@infra/repositories/postRepository`),
-    dependencies: ['ContentManagerSystem', 'PostService', 'MetaService']
+  PostRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/postRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "PostService", "MetaService"],
   },
-  'ProductRepository': {
-    resolve: async () => import(`@infra/repositories/productRepository`),
-    dependencies: ['StoreRepository', 'ProductService']
+  ProductRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/productRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["StoreRepository", "ProductService"],
   },
-  'PostStatRepository': {
-    resolve: async () => import(`@infra/repositories/postStatRepository`),
-    dependencies: ['ContentManagerSystem', 'PostStatService']
+  PostStatRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/postStatRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "PostStatService"],
   },
-  'SearchRepository': {
-    resolve: async () => import(`@infra/repositories/searchRepository`),
-    dependencies: ['SearchEngine', 'ContentManagerSystem', 'SearchService']
+  SearchRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/searchRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["SearchEngine", "ContentManagerSystem", "SearchService"],
   },
-  'TagRepository': {
-    resolve: async () => import(`@infra/repositories/tagRepository`),
-    dependencies: ['ContentManagerSystem', 'TagService', 'PostService']
+  TagRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/tagRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "TagService", "PostService"],
   },
-  'SubscriptionRepository': {
-    resolve: async () => import(`@infra/repositories/subscriptionRepository`),
-    dependencies: ['ContentManagerSystem', 'WebPushNotificationService']
+  SubscriptionRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/subscriptionRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ContentManagerSystem", "WebPushNotificationService"],
   },
-  'WebPushNotificationRepository': {
-    resolve: async () => import(`@infra/repositories/webPushNotificationRepository`),
-    dependencies: ['ContentManagerSystem', 'WebPushNotificationService']
+  WebPushNotificationRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/webPushNotificationRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ContentManagerSystem", "WebPushNotificationService"],
   },
-}
+};
 
-const definitions = {
+const definitions: DefinitionCollection = {
   ...baseRepositories,
   ...repositories,
-}
+};
 
-export default definitions
+export default definitions;

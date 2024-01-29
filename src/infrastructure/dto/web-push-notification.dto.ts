@@ -18,7 +18,7 @@ export const webPushNotificationSchema = z.object({
   image: pictureDataSchema,
   icon: pictureDataSchema,
   tag: z.string(),
-  data: z.any(),
+  data: z.unknown(),
   actions: z.array(notificationSchema),
 })
 
