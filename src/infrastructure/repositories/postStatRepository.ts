@@ -103,7 +103,7 @@ export default class PostStatRepository implements IPostStatRepository {
     }
 
     const result: PostStats = await this.postStatService.mapPostStats(
-      request?.slug,
+      request?.slug.eq ?? "",
       retrieveResponse.Value.postStatLists.data[0]
     );
 

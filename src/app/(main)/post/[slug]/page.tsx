@@ -12,7 +12,7 @@ export interface PostPageProps {
   params: { slug: string };
 }
 
-export default async function Post({ params: { slug } }: PostPageProps) {
+export default async function Page({ params: { slug } }: PostPageProps) {
   const useCase = await UseCaseFactory.Instance.getUseCase<
     PostDetailsRequest,
     Post,

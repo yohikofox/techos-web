@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "clean": "rimraf .next",
+    "clean": "rimraf .next && rimraf playwright-report && rimraf test-results",
     "bundle": "esbuild ./bundle/cache-handler.ts --bundle --platform=node --target=node10.4 --outfile=./bundle/out.js",
     "cache:build": "node ./build.esbuild.js",
     "pw": "npx playwright test",

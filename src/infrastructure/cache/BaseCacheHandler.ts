@@ -26,17 +26,17 @@ export default abstract class BaseCacheHandler implements CustomCacheHandler {
   }
 
   public cache<TCache>(): TCache | undefined {
-    return globalThis.cache.client;
+    return globalThis.cache!.client as TCache | undefined;
   }
   public setCache<TCache>(value: TCache | undefined) {
-    globalThis.cache.client = value;
+    globalThis.cache!.client = value;
   }
 
   protected initialized(): boolean {
-    return globalThis.cache._initialized;
+    return globalThis.cache!._initialized ?? false;
   }
   protected setInitialized(value: boolean) {
-    globalThis.cache._initialized = value;
+    globalThis.cache!._initialized = value;
   }
 
   protected async waitForInitialization<T>(

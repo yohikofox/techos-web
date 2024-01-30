@@ -2,7 +2,7 @@ import ProductData from "@dto/product.dto";
 import { FetchOptions } from "@infra/adapter/fetchOptions";
 import Filterable from "@infra/adapter/filterable";
 import { IStoreRepository, StoreResult } from "@infra/store";
-import qs from "querystring";
+import qs, { ParsedUrlQueryInput } from "querystring";
 
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
@@ -17,10 +17,10 @@ export default class StoreRepository implements IStoreRepository {
     try {
       const id = request.id;
       delete request.id;
-      const schema = request.schema;
+      const schema = options?.schema;
       delete request.schema;
 
-      const q = qs.stringify(request);
+      const q = qs.stringify(request as ParsedUrlQueryInput);
 
       const url = `${await this.configManager.get("STORE_ENDPOINT")}/products/${id}${q !== undefined ? `?${q}` : ""}`;
 

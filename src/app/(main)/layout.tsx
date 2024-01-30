@@ -42,12 +42,7 @@ const layout = function RootLayout({
       <body className={classNames(styles.container)}>
         {/* <CoreWebVitals /> */}
         <ServiceWorkerRegister />
-        <Header
-          title={(metadata.title !== null && metadata.title !== undefined
-            ? metadata.title
-            : defaultData.title
-          ).toString()}
-        />
+        <Header />
         <section className={styles.content}>{children}</section>
         <Footer />
       </body>
@@ -58,3 +53,8 @@ const layout = function RootLayout({
 layout.Hero = Hero;
 
 export default layout;
+
+// title={(metadata.title !== null && metadata.title !== undefined
+//           ? metadata.title
+//           : defaultData.title
+//         ).toString()}

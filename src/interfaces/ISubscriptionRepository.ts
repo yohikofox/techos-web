@@ -15,6 +15,6 @@ export interface ISubscriptionRepository {
     request?: void
   ): Promise<Result<WebPushSubscription[], GetWebPushSubscriptionListResult>>;
   saveSubscription(
-    request?: void
+    request?: WebPushSubscription
   ): Promise<Result<void, SaveWebPushSubscriptionResult>>;
 }
