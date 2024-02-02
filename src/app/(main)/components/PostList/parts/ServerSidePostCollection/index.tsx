@@ -3,7 +3,6 @@ import { FacetedSearch, SearchItem } from "@domain/search";
 
 import PostCard from "../../../PostCard";
 import TextToSpeechInfos from "../../../TextToSpeechInfos";
-import FacetCollection from "../FacetCollection";
 import Pagination from "../Pagination";
 import styles from "./styles.module.scss";
 
@@ -22,9 +21,9 @@ export default function Component({
     <>
       <section className={styles.container}>
         <TextToSpeechInfos />
-        {facets && (
+        {/* {facets && (
           <FacetCollection className={styles.facet__list} data={facets} />
-        )}
+        )} */}
         <section className={styles.post__list}>
           {posts.map((post, index) => {
             return (

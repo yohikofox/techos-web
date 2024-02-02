@@ -1,12 +1,10 @@
 // import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import { SearchDataResult, SearchRequest } from "@app/getSearchData";
-import Search, { SearchItem } from "@domain/search";
-import { IndexNames } from "@infra/repositories/searchEngineRepository";
+import { PostListRequest, PostListResult } from "@app/getPostList";
+import PostList from "@domain/postList";
+import { SearchItem } from "@domain/search";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { redirect } from "next/navigation";
 
 import { getDefaultAd } from "./parts/DefaultAd";
-import ServerSidePostCollection from "./parts/ServerSidePostCollection";
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
 const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
@@ -24,29 +22,34 @@ export default async function PostListRender({ page, query }: PostListProps) {
   const index = validatedPage * DEFAULT_PAGE_SIZE;
   const limit = DEFAULT_PAGE_SIZE;
 
-  // const postListUseCase = await UseCaseFactory.Instance.getUseCase<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
-  // const postListResponse = await postListUseCase?.execute({ index, limit });
-
   const postListUseCase = await UseCaseFactory.Instance.getUseCase<
-    SearchRequest,
-    Search,
-    SearchDataResult
-  >(UseCaseOption.GET_SEARCH_DATA);
+    PostListRequest,
+    PostList,
+    PostListResult
+  >(UseCaseOption.GET_POST_LIST);
+  const postListResponse = await postListUseCase?.execute({ index, limit });
 
-  const postListResponse = await postListUseCase.execute({
-    indexName: IndexNames.POST,
-    filter: query,
-    limit,
-    offset: index,
-  }); //|| searchResponse.IsError
+  // const postListUseCase = await UseCaseFactory.Instance.getUseCase<
+  //   SearchRequest,
+  //   Search,
+  //   SearchDataResult
+  // >(UseCaseOption.GET_SEARCH_DATA);
 
-  if (postListResponse.IsError) {
-    redirect("/error/400");
-  }
+  // const postListResponse = await postListUseCase.execute({
+  //   indexName: IndexNames.POST,
+  //   filter: query,
+  //   limit,
+  //   offset: index,
+  // }); //|| searchResponse.IsError
+
+  // if (postListResponse.IsError) {
+  //   redirect("/error/400");
+  // }
 
   const def = await getDefaultAd();
 
-  const postCollection = postListResponse.Value.hits; //postListResponse.Value.posts
+  // const postCollection = postListResponse.Value.hits; //
+  // const postCollection = postListResponse.Value.posts;
 
   // const meta: any = {
   //   pagination: {
@@ -58,25 +61,25 @@ export default async function PostListRender({ page, query }: PostListProps) {
   // };
 
   const posts: SearchItem[] = [];
-  const slimit = postCollection.length + ADS_POSITION_LIST.length;
+  // const slimit = postCollection.length + ADS_POSITION_LIST.length;
 
-  for (let i = 0; i < slimit; i++) {
-    if (ADS_POSITION_LIST.includes(i)) {
-      posts.push(def);
-    }
+  // for (let i = 0; i < slimit; i++) {
+  //   if (ADS_POSITION_LIST.includes(i)) {
+  //     posts.push(def);
+  //   }
 
-    if (postCollection[i] === undefined) continue;
+  //   if (postCollection[i] === undefined) continue;
 
-    const p = postCollection[i];
-    posts.push(p);
-  }
+  //   const p = postCollection[i];
+  //   posts.push(p);
+  // }
 
   return (
     <>
-      <ServerSidePostCollection
+      {/* <ServerSidePostCollection
         posts={posts}
-        facets={postListResponse.Value.facets}
-      />
+        // facets={postListResponse.Value.facets}
+      /> */}
     </>
   );
 }

@@ -1,8 +1,11 @@
 import { FetchOptions } from "@infra/adapter/fetchOptions";
+import { SearchEngineVariables } from "R/src/interfaces/ISearchRepository";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
+
+import { ISearchService } from "../services/search.service";
 
 export enum SearchEngineResult {
   SUCCESS = "success",
@@ -22,40 +25,36 @@ export type SearchFetchOptions = {
   limit: number;
 } & FetchOptions;
 
-export type SearchEngineVariables = {
-  payload: string;
-  indexName: IndexNames;
-  filters?: string;
-};
-
-export interface ISearchEngineRepository {
-  search<T>(
+export interface ISearchEngineRepository<TResult> {
+  search(
     request: SearchEngineVariables,
     options?: SearchFetchOptions
-  ): Promise<Result<T, SearchEngineResult>>;
+  ): Promise<Result<TResult, SearchEngineResult>>;
 }
 
-export enum IndexNames {
-  POST = "post",
-  MICRO_POST = "micro-post",
-}
-
-export default class SearchEngineRepository implements ISearchEngineRepository {
-  constructor(private configManager: IConfigManager) {}
-  async search<T>(
+export default abstract class SearchEngineRepository<TResult>
+  implements ISearchEngineRepository<TResult>
+{
+  constructor(
+    private configManager: IConfigManager,
+    protected searchService: ISearchService
+  ) {}
+  async search(
     request: SearchEngineVariables,
     options?: SearchFetchOptions
-  ): Promise<Result<T, SearchEngineResult>> {
+  ): Promise<Result<TResult, SearchEngineResult>> {
     const { payload, indexName } = request;
 
     const endpoint = await this.configManager.get("INDEX_ENDPOINT");
     const bearer = await this.configManager.get("INDEX_TOKEN");
     const url = `${endpoint}/indexes/${indexName}/search`;
 
-    const body: Record<string, unknown> = {
-      offset: options?.offset !== undefined ? options.offset : 0,
-      limit: options?.limit !== undefined ? options.limit : 10,
-    };
+    const body: Record<string, unknown> = {};
+
+    if (options?.offset !== undefined && options?.limit !== undefined) {
+      body.offset = options.offset;
+      body.limit = options.limit;
+    }
 
     if (options?.filterableAttributes) {
       body.facets = options.filterableAttributes;
@@ -113,8 +112,22 @@ export default class SearchEngineRepository implements ISearchEngineRepository {
       }
 
       const json = await response.json();
-      // console.debug("🚀 ~ SearchEngineRepository ~ json:", json)
-      return Result.ok(json);
+
+      if (options?.schema) {
+        const parsedData = options.schema.safeParse(json);
+
+        if (parsedData.success === false) {
+          console.error(
+            "🚀 ~ SearchEngineRepository ~ search ~ parsedData:",
+            parsedData.error
+          );
+          return Result.error(SearchEngineResult.ERROR);
+        }
+
+        return Result.ok(parsedData.data as TResult);
+      }
+
+      return Result.ok(json as TResult);
     } catch (err) {
       console.error("SearchEngineRepository:", err);
       return Result.error(SearchEngineResult.ERROR);

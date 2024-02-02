@@ -1,6 +1,7 @@
 "use client";
 import { FacetedSearch } from "@domain/search";
 import { QueryOperator } from "@infra/store/blog/index";
+import { hasProperty } from "@lib/prototypes/object";
 import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";

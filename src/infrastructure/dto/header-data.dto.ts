@@ -1,6 +1,5 @@
+import { trainingSchema } from "@dto/training.dto";
 import { z } from "zod";
-
-import { trainingDataSchema } from "./training.dto";
 
 export const headerSchema = z.object({
   placeholder: z.string(),
@@ -8,14 +7,10 @@ export const headerSchema = z.object({
 });
 
 export const headerDataSchema = z.object({
-  header: z.object({
-    data: z.object({
-      attributes: headerSchema,
-    }),
-  }),
+  header: headerSchema,
   trainings: z
     .object({
-      data: z.array(trainingDataSchema),
+      items: z.array(trainingSchema),
     })
     .optional(),
 });

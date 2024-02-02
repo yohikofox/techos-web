@@ -6,21 +6,20 @@ import {
   facetConfigListResponseSchema,
 } from "@dto/facet.dto";
 import { SearchData } from "@dto/search.dto";
-import {
-  ISearchEngineRepository,
-  SearchEngineVariables,
-  SearchFetchOptions,
-} from "@infra/repositories/searchEngineRepository";
+import { SearchFetchOptions } from "@infra/repositories/baseSearchEngineRepository";
 import { ISearchService } from "@infra/services/search.service";
 import { IContentManagerSystemRepository } from "@interfaces/IContentManagerSystemRepository";
-import { ISearchRepository } from "@interfaces/ISearchRepository";
+import {
+  ISearchRepository,
+  SearchEngineVariables,
+} from "@interfaces/ISearchRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 import { Result } from "@lib/result";
 
 export default class SearchRepository implements ISearchRepository {
   constructor(
-    private searchEngineRepository: ISearchEngineRepository,
+    // private searchEngineRepository: ISearchEngineRepository,
     private contentManagerSystemRepository: IContentManagerSystemRepository,
     private searchService: ISearchService
   ) {}

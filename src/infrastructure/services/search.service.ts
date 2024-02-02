@@ -1,11 +1,12 @@
 import { FacetConfig } from "@domain/facetConfig";
 import Search, { FacetedSearch, SearchItem } from "@domain/search";
-import { SearchData } from "@dto/search.dto";
+import { PostData, postDataSchema } from "@dto/post.dto";
+import { Hit, SearchData } from "@dto/search.dto";
 import { IMicroPostService } from "@infra/services/micro-post.service";
 import { IPostService } from "@infra/services/post.service";
 import dayjs from "dayjs";
 
-import { PostData } from "../dto/post.dto";
+import { AuthorData } from "../dto/author.dto";
 import { TagData } from "../dto/tag.dto";
 
 export interface ISearchService {
@@ -14,6 +15,9 @@ export interface ISearchService {
     facets: FacetConfig[],
     indexName: string
   ): Promise<Search>;
+  createFiltersString(
+    filter?: Record<string, string | string[]>
+  ): Promise<string | undefined>;
 }
 
 export default class SearchService implements ISearchService {
@@ -53,63 +57,75 @@ export default class SearchService implements ISearchService {
           limit: search.limit,
           offset: search.offset,
           estimatedTotalHits: search.estimatedTotalHits,
-          hits: (await Promise.all(
-            search.hits.map((h) => {
-              let tags: {
-                data: TagData[];
-              } = {
-                data: [],
-              };
-              if (h.tags !== undefined) {
-                tags = {
-                  data: h.tags,
+          hits: (
+            await Promise.all(
+              search.hits.map((h) => {
+                let tags: {
+                  data: TagData[];
+                } = {
+                  data: [],
                 };
-              }
+                if (h.tags !== undefined) {
+                  tags = {
+                    data: h.tags,
+                  };
+                }
 
-              let postStat = {};
+                let postStat = {};
 
-              if (h.post_stat_list !== undefined) {
-                postStat = {
-                  data: h.post_stat_list[0],
+                if (h.post_stat_list !== undefined) {
+                  postStat = {
+                    data: h.post_stat_list[0],
+                  };
+                }
+
+                const item: PostData = this.mapHitToPostData(h);
+                const itemToMap = {
+                  attributes: {
+                    author: h.author,
+                    content: h.content,
+                    extract: h.extract,
+                    picture: h.picture,
+                    slug: h.slug,
+                    start_at: dayjs().toISOString(),
+                    title: h.title,
+                    tags,
+                    post_stat_list: postStat,
+                  },
                 };
-              }
 
-              const itemToMap: PostData = {
-                id: "",
-                attributes: {
-                  author: h.author,
-                  content: h.content,
-                  extract: h.extract,
-                  picture: h.picture,
-                  slug: h.slug,
-                  start_at: dayjs().toISOString(),
-                  title: h.title,
-                  tags,
-                  post_stat_list: postStat,
-                },
-              };
+                if (h.picture !== undefined && h.picture !== null) {
+                  itemToMap.attributes.picture = h.picture;
+                }
 
-              if (h.picture !== undefined && h.picture !== null) {
-                itemToMap.attributes.picture = h.picture;
-              }
+                if (h.author !== undefined && h.author !== null) {
+                  itemToMap.attributes.author = h.author;
+                }
 
-              if (h.author !== undefined && h.author !== null) {
-                itemToMap.attributes.author = h.author;
-              }
+                if (
+                  h.post_stat_list !== undefined &&
+                  h.post_stat_list !== null &&
+                  h.post_stat_list.length > 0
+                ) {
+                  itemToMap.attributes.post_stat_list = {
+                    data: h.post_stat_list[0],
+                  };
+                }
 
-              if (
-                h.post_stat_list !== undefined &&
-                h.post_stat_list !== null &&
-                h.post_stat_list.length > 0
-              ) {
-                itemToMap.attributes.post_stat_list = {
-                  data: h.post_stat_list[0],
-                };
-              }
+                const parsedData = postDataSchema.safeParse(item);
 
-              return this.postService.mapPost(itemToMap);
-            })
-          )) as SearchItem[],
+                if (parsedData.success === false) {
+                  console.error(
+                    "🚀 ~ SearchService ~ search.hits.map ~ parsedData:",
+                    parsedData.error
+                  );
+                  return;
+                }
+
+                return this.postService.mapPost(parsedData.data as PostData);
+              })
+            )
+          ).filter((it) => it !== undefined) as SearchItem[],
         } satisfies Search;
       }
       case "micro-post": {
@@ -144,5 +160,46 @@ export default class SearchService implements ISearchService {
           estimatedTotalHits: 0,
         } satisfies Search;
     }
+  }
+
+  async createFiltersString(
+    filter?: Record<string, string | string[]>
+  ): Promise<string | undefined> {
+    if (!filter) {
+      return undefined;
+    }
+
+    const filters = Object.keys(filter).map((key) => {
+      const value = filter[key];
+      if (Array.isArray(value)) {
+        return value.map((v) => `${key} = ${v}`).join(" AND ");
+      }
+      return `${key} = ${value}`;
+    });
+
+    return filters.join(" AND ");
+  }
+
+  private mapHitToPostData(h: Hit): PostData {
+    const author: AuthorData = {
+      data: {
+        attributes: {
+          ...h.author,
+        },
+      },
+    };
+
+    return {
+      id: "0",
+      attributes: {
+        slug: h.slug,
+        title: h.title,
+        author,
+        content: h.content,
+        post_stat_list: {},
+        start_at: h.start_at,
+        tags,
+      },
+    };
   }
 }

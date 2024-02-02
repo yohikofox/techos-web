@@ -15,7 +15,8 @@
     "pw": "npx playwright test",
     "ui:e2e": "concurrently \"pnpm run dev\" \"pnpm run pw --ui\"",
     "e2e": "pnpm run build && concurrently \"pnpm run start\" \"pnpm run pw\"",
-    "e2e:dev": "concurrently \"pnpm run dev\" \"pnpm run pw\""
+    "e2e:dev": "concurrently \"pnpm run dev\" \"pnpm run pw\"",
+    "vitest": "vitest"
   },
   "dependencies": {
     "@loadable/component": "^5.15.3",
@@ -61,6 +62,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "dotenv": "16.4.1",
     "@playwright/test": "^1.41.0",
     "@types/html-to-text": "^9.0.4",
     "@types/jsonwebtoken": "^9.0.5",

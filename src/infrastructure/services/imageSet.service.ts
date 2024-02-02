@@ -1,5 +1,6 @@
 import ImageSet from "@domain/image";
 import { PictureData } from "@dto/picture.dto";
+import { hasProperty } from "@lib/prototypes/object";
 
 import { IAssetBuilder } from "@/infrastructure/helper/assetBuilder";
 
@@ -27,7 +28,7 @@ export default class ImageSetService implements IImageSetService {
     image: PictureData,
     options?: ImageSetOptions
   ): Promise<ImageSet> {
-    let src = image.data.attributes;
+    let src = image;
     const preset =
       options?.preset !== undefined ? options?.preset : ImageSetPreset.SMALL;
 

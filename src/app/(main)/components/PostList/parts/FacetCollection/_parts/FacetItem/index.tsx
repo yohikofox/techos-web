@@ -1,16 +1,13 @@
 "use client";
 
-/* =========================================================================================================== */
+import { hasProperty } from "@lib/prototypes/object";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "querystring";
 import { FacetedValue } from "R/src/domain/search";
-/* =========================================================================================================== */
 import { useCallback } from "react";
 
 import styles from "./styles.module.scss";
-
-/* =========================================================================================================== */
 
 type FacetItemData = {
   key: string;

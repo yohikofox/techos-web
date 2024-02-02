@@ -42,9 +42,9 @@ export default class HeaderRepository implements IHeaderRepository {
       return response.transferError(HeaderResult.NO_DATA_FOUND);
 
     const result: Header = await this.headerDataService.mapToHeader(
-      response.Value.header.data.attributes satisfies HeaderData,
-      response.Value.trainings?.data
-        .map((m) => m.attributes satisfies TrainingData)
+      response.Value.header satisfies HeaderData,
+      response.Value.trainings?.items
+        .map((m) => m satisfies TrainingData)
         .filter((f) => f) as TrainingData[]
     );
 

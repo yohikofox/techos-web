@@ -2,6 +2,7 @@ import Search from "@domain/search";
 import { IUseCase } from "@infra/useCaseFactory";
 import { ISearchRepository } from "@interfaces/ISearchRepository";
 import { Result } from "@lib/result";
+import { ZodTypeAny } from "zod";
 
 import { IndexNames } from "../infrastructure/repositories/searchEngineRepository";
 
@@ -11,6 +12,7 @@ export type SearchRequest = {
   payload?: string;
   offset?: number;
   limit?: number;
+  schema?: ZodTypeAny;
 };
 
 export enum SearchDataResult {

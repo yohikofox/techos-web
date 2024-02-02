@@ -15,6 +15,7 @@ export type Hit = {
   author: AuthorData;
   post_stat_list: PostStatData[];
   tags: TagData[];
+  start_at: string;
 };
 
 export type SearchData = {

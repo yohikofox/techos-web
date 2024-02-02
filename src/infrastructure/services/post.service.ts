@@ -22,6 +22,11 @@ export default class PostService implements IPostService {
     let picture = {};
 
     if (post.attributes.picture !== undefined) {
+      console.trace("here");
+      console.debug(
+        "🚀 ~ PostService ~ mapPost ~ post.attributes.picture:",
+        post.attributes.picture
+      );
       picture = await this.imageSetService.mapImageSet(
         post.attributes.picture,
         {

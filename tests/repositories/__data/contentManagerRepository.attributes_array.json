@@ -1,0 +1,14 @@
+{
+  "data": {
+    "attributes": [
+      {
+        "name": "name",
+        "value": "John"
+      },
+      {
+        "name": "age",
+        "value": 30
+      }
+    ]
+  }
+}

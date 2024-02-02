@@ -9,10 +9,10 @@ const baseRepositories: DefinitionCollection = {
       ) as unknown as Promise<ResolverDefinition<T>>,
     dependencies: ["ConfigManager"],
   },
-  SearchEngine: {
+  BaseSearchEngine: {
     resolve: async <T>() =>
       import(
-        `@infra/repositories/searchEngineRepository`
+        `@infra/repositories/baseSearchEngineRepository`
       ) as unknown as Promise<ResolverDefinition<T>>,
     dependencies: ["ConfigManager"],
   },
@@ -61,6 +61,13 @@ const repositories: DefinitionCollection = {
       >,
     dependencies: ["ContentManagerSystem", "PostService", "MetaService"],
   },
+  PostSearchRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/postSearchEngineRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager", "SearchService"],
+  },
   ProductRepository: {
     resolve: async <T>() =>
       import(`@infra/repositories/productRepository`) as unknown as Promise<
@@ -80,7 +87,7 @@ const repositories: DefinitionCollection = {
       import(`@infra/repositories/searchRepository`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["SearchEngine", "ContentManagerSystem", "SearchService"],
+    dependencies: ["ContentManagerSystem", "SearchService"],
   },
   TagRepository: {
     resolve: async <T>() =>

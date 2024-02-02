@@ -93,9 +93,9 @@ export default class PostRepository implements IPostRepository {
 
     const result: PostList = {
       posts: await Promise.all(
-        response.Value.posts.data.map((post: PostData) =>
-          this.postService.mapPost(post)
-        )
+        response.Value.posts.data.map((post: PostData) => {
+          return this.postService.mapPost(post);
+        })
       ),
       meta: await this.metaService.mapMeta(response.Value.posts.meta),
     };

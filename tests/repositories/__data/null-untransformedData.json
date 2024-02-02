@@ -1,0 +1,148 @@
+{
+  "data": {
+    "posts": {
+      "data": [
+        {
+          "id": "22",
+          "attributes": {
+            "author": {
+              "data": {
+                "attributes": {
+                  "username": "yolo"
+                }
+              }
+            },
+            "tags": {
+              "data": [
+                {
+                  "attributes": {
+                    "label": "No-code",
+                    "background_color": "#00CB6D",
+                    "color": "#000",
+                    "slug": "no-code",
+                    "hero": {
+                      "title": "No Code",
+                      "background": {
+                        "data": {
+                          "attributes": {
+                            "name": "yohikofox_the_no_code_concept_as_landscape_in_coding_world_4130d57d_8e08_4b71_9976_8dfcb2da324e_b5381044c9.png"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "title": "Ma roadmap dans la découverte d'outils No Code",
+            "slug": "ma-roadmap-dans-la-decouverte-d-outils-no-code",
+            "content": "> Cet article aura un cycle de vie compliqué, pour le moment, je ne compte pas faire plusieurs articles concernant ma roadmap no code mais bon, qui sait ce que l'avenir nous réserve.\n\nLes outils no code ... enfin, une nouvelle ère s'ouvre à nous. Cette période est exceptionnelle et déclenche chez les personnes intéressées par le numérique, une somme de sentiments très nouveaux.\n<!--truncate-->\nQue ce soit l'excitation de créer des concepts rapidement, la joie de ne pas devoir dépenser le PIB d'un pays en voix de développement pour le faire ou la surprise de découvrir que la tech n'est pas toujours quelque chose de difficile et inatteignable.\n\nCela passe, et je l'entend souvent dans mon entourage, par une peur du changement, d'être remplacé, \"on nous vole notre pain !\" toussa toussa. Personnellement, je pense que ces outils vont nous permettre de nous centrer sur ce qui motive les personnes qui investissent à le faire, c'est à dire créer de la valeur (business ou d'usage). \n\nEn ce sens, et en tous cas pour le moment, ce que les développeurs ont perdus est le stress de faire des versions (V0, MVP, POC ...) pour les métiers. \n\nRassurez vous, lorsqu'une scale up a besoin de rassurer les investisseurs par de la croissance, une bonne partie d'entre eux se tournerons vers vous pour ce que les plateformes no code ne peuvent pas offrir. C'est à dire vous adapter à leur besoin et créer l'innovation. \n\nDans ce context, voici MA roadmap à la découverte du no code !\n\n## Mes POI\n\nquoi?           | description                                                               | pondération\n----------------|---------------------------------------------------------------------------|:----------:\nutilisation     | la capacité pour quelqu'un de se servir de l'outils sans compétences tech |    25 %\nintégrations    | taille et pertinence du catalogue d'intégrations                          |     5 %\nextensibilité   | capacité des techs de pouvoir étendre le système                          |    20 %\nhosting         | capacité d'être hébergé en dehors des infrastructure du fournisseur       |    10 %\nprix            | entre ce qui est dans l'offre et ce qui n'y est pas ...                   |    15 %\nCode exportable | Capacité à exporter, voir le code et potentiellement le modifier          |     5 %\nPerformance     | Rapidité, efficacité                                                      |    20 %\n\n\n## Résumé\n\n&nbsp;       | utilisation | intégration | extensibilité | hosting | prix | Code exportable | Performance | Score | Avec Pondération\n-------------|-------------|-------------|---------------|---------|------|-----------------|-------------|-------|-----------------\n**Frontend** | -           | -           | -             | -       | -    | -               | -           | -     |\nWebflow      | 1           | 1           | 0             | 1       | 0.5  | 0               | 1           | 4.5   | **5,175**\nFlutterFlow  | 1           | 1           | 1             | 1       | 0.5  | 1               | 1           | 6.5   | **7,425**\nFramer       | 1           | 0           | 0             | 0       | 0.5  | 0               | 1           | 2.5   | **3,025**\nDorik        | 1           | 0           | 0             | 0       | 1    | 0               | 0.5         | 2.5   | **3**\nUniverse     | 1           | 0.5         | 0             | 0       | 0.5  | 0               | 0.5         | 2.5   | **2,95**\nTypedream    | 1           | 1           | 1             | 1       | 1    | 1               | 1           | 7     | **8**\nBubble       | 1           | 1           | 1             | 0       | 0    | 0               | 1           | 4     | **4,7**\nweweb        | 1           | 0           | 1             | 0       | 0.5  | 1               | 1           | 4.5   | **5,275**\nWized        | 0.5         | 0.5         | 1             | 0       | 0.5  | 0               | 0.5         | 3     | **3,525**\nNoodl        | 1           | 0.5         | 0.5           | 1       | 0.5  | 0               | 0.5         | 4     | **4,65**\nGlide        | 1           | 0.5         | 0.5           | 1       | 0.5  | 0               | 0.5         | 4     | **4,65**\nAdalo        | 0.5         | 0.5         | 0.5           | 0       | 0    | 0               | 0           | 1.5   | **1,75**\nSizze        | 0.5         | 0           | 0             | 0       | 0.5  | 0               | 0           | 1     | **1,2**\nBravo Studio | 1           | 0.5         | 0             | 0       | 1    | 0               | 1           | 3.5   | **4,125**\n**Backend**  | -           | -           | -             | -       | -    | -               | -           | -     |\nXano         | 1           | 1           | 1             | 0       | 1    | 0               | 1           | 5     | **5,85**\nBackendless  | 0.5         | 1           | 1             | 0       | 1    | 0               | 1           | 4.5   | **5,225**\nSupabase     | 1           | 1           | 1             | 1       | 1    | 1               | 1           | 7     | **8**\nFirebase     | 1           | 1           | 1             | 0       | 0.5  | 0               | 1           | 4.5   | **5,275**\n**Automate** | -           | -           | -             | -       | -    | -               | -           | -     |\nmake         | 1           | 0.5         | 1             | 0       | 0.5  | 0               | 1           | 4     | **4,75**\nZapier       | 1           | 1           | 1             | 0       | 0    | 0               | 0.5         | 3.5   | **4,1**\nn8n          | 1           | 0.5         | 1             | 1       | 1    | 1               | 1           | 6.5   | **7,475**\n**Database** | -           | -           | -             | -       | -    | -               | -           | -     |\nNotion       | 1           | 1           | 0             | 0       | 0.5  | 0               | 1           | 3.5   | **4,075**\nAirtable     | 1           | 1           | 1             | 0       | 0.5  | 0               | 1           | 5.5   | **5,275**\n\n\n## Les frontends\n\n### Webflow\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    0\nhosting         |    1\nprix            |   0.5\ncode exportable |    0\nPerformance     |    1\n**Note**        | **4.5**\n\n\n### FlutterFlow\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    1\nhosting         |    1\nprix            |   0.5\ncode exportable |    1\nPerformance     |    1\n**Note**        | **6.5**\n\n### Framer\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    0\nextensibilité   |    0\nhosting         |    0\nprix            |   0.5\ncode exportable |    0\nPerformance     |    1\n**Note**        | **2.5**\n\n### Dorik\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    0\nextensibilité   |    0\nhosting         |    0\nprix            |    1\ncode exportable |    0\nPerformance     |   0.5\n**Note**        | **2.5**\n\n### Universe \n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |   0.5\nextensibilité   |    0\nhosting         |    0\nprix            |   0.5\ncode exportable |    0\nPerformance     |   0.5\n**Note**        | **2.5**\n\n\n### Typedream\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |   1\nextensibilité   |   1\nhosting         |   1\nprix            |   1\ncode exportable |   1\nPerformance     |   1\n**Note**        | **7**\n\n### Bubble\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |   1\nextensibilité   |   1\nhosting         |   0\nprix            |   0\ncode exportable |   0\nPerformance     |   1\n**Note**        | **4**\n\n### weweb\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    0\nextensibilité   |    1\nhosting         |    0\nprix            |   0.5\ncode exportable |    1\nPerformance     |    1\n**Note**        | **4.5**\n\n### Wized\n\nCritère         | note\n----------------|:----:\nutilisation     |  0.5\nintégration     |  0.5\nextensibilité   |   1\nhosting         |   0\nprix            |  0.5\ncode exportable |   0\nPerformance     |  0.5\n**Note**        | **3**\n\n### Noodl\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |  0.5\nextensibilité   |  0.5\nhosting         |   1\nprix            |  0.5\ncode exportable |   0\nPerformance     |  0.5\n**Note**        | **4**\n\n### Glide\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |  0.5\nextensibilité   |  0.5\nhosting         |   1\nprix            |  0.5\ncode exportable |   0\nPerformance     |  0.5\n**Note**        | **4**\n\n\n### Adalo\n\nCritère         |  note\n----------------|:------:\nutilisation     |   0.5\nintégration     |   0.5\nextensibilité   |   0.5\nhosting         |    0\nprix            |    0\ncode exportable |    0\nPerformance     |    0\n**Note**        | **1.5**\n\n\n### Sizze\n\nCritère         | note\n----------------|:----:\nutilisation     |  0.5\nintégration     |   0\nextensibilité   |   0\nhosting         |   0\nprix            |  0.5\ncode exportable |   0\nPerformance     |   0\n**Note**        | **1**\n\n### Bravo Studio\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |   0.5\nextensibilité   |    0\nhosting         |    0\nprix            |    1\ncode exportable |    0\nPerformance     |    1\n**Note**        | **3.5**\n\n## Les backends\n\n### Xano\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |   1\nextensibilité   |   1\nhosting         |   0\nprix            |   1\ncode exportable |   0\nPerformance     |   1\n**Note**        | **5**\n\n\n### Backendless\n\nCritère         |  note\n----------------|:------:\nutilisation     |   0.5\nintégration     |    1\nextensibilité   |    1\nhosting         |    0\nprix            |    1\ncode exportable |    0\nPerformance     |    1\n**Note**        | **4.5**\n\n### Supabase\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |   1\nextensibilité   |   1\nhosting         |   1\nprix            |   1\ncode exportable |   1\nPerformance     |   1\n**Note**        | **7**\n\n### Firebase\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    1\nhosting         |    0\nprix            |   0.5\ncode exportable |    0\nPerformance     |    1\n**Note**        | **4.5**\n\n## Les automatiseurs\n\n### make\n\nCritère         | note\n----------------|:----:\nutilisation     |   1\nintégration     |  0.5\nextensibilité   |   1\nhosting         |   0\nprix            |  0.5\ncode exportable |   0\nPerformance     |   1\n**Note**        | **4**\n\n### Zapier\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    1\nhosting         |    0\nprix            |    0\ncode exportable |    0\nPerformance     |   0.5\n**Note**        | **3.5**\n\n### n8n\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |   0.5\nextensibilité   |    1\nhosting         |    1\nprix            |    1\ncode exportable |    1\nPerformance     |    1\n**Note**        | **6.5**\n\n\n## Databases\n\n### Notion\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    0\nhosting         |    0\nprix            |   0.5\ncode exportable |    0\nPerformance     |    1\n**Note**        | **3.5**\n\n### Airtable\n\nCritère         |  note\n----------------|:------:\nutilisation     |    1\nintégration     |    1\nextensibilité   |    1\nhosting         |    0\nprix            |   0.5\ncode exportable |    0\nPerformance     |    1\n**Note**        | **5.5**",
+            "extract": null,
+            "start_at": "2023-11-08T23:00:00.000Z",
+            "picture": {
+              "data": {
+                "attributes": {
+                  "name": "yohikofox_the_no_code_concept_as_a_hero_in_coding_world_9a609543_977c_423e_9741_93f63c4d214a_6bf6b98bb9.png",
+                  "url": "https://asset-techos-prod.s3.fr-par.scw.cloud/yohikofox_the_no_code_concept_as_a_hero_in_coding_world_9a609543_977c_423e_9741_93f63c4d214a_6bf6b98bb9_d1baa71b9c.png",
+                  "width": 1344,
+                  "height": 896
+                }
+              }
+            },
+            "post_stat_list": {
+              "data": {
+                "id": "20",
+                "attributes": {
+                  "view_count": 175
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "14",
+          "attributes": {
+            "author": {
+              "data": {
+                "attributes": {
+                  "username": "yolo"
+                }
+              }
+            },
+            "tags": {
+              "data": [
+                {
+                  "attributes": {
+                    "label": "Javascript",
+                    "background_color": "#F7E025",
+                    "color": "#000000",
+                    "slug": "javascript",
+                    "hero": {
+                      "title": "Javascript",
+                      "background": {
+                        "data": {
+                          "attributes": {
+                            "name": "yohikofox_displayed_on_a_large_panel_in_a_scene_showing_an_Amer_2028d934-0ba4-4fbf-8a0a-0cacad2a3062.png"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Development",
+                    "background_color": "#2478DE",
+                    "color": "#082555",
+                    "slug": "development",
+                    "hero": {
+                      "title": "Développement",
+                      "background": {
+                        "data": {
+                          "attributes": {
+                            "name": "yohikofox_a_landscape_of_coding_world_development_is_written_on_1df458a6-5b4e-49d9-8158-c3436b1dc0d1.png"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "title": "Astuces pour écrire un code Javascript plus propre",
+            "slug": "astuces-pour-ecrire-un-code-javascript-plus-propre",
+            "content": "## Les fonctions pures\n\nUne fonction pure est une fonction qui retourne toujours le même résultat pour des paramètres donnés.\nCela ne doit pas dépendre de variables externes au scope de la fonction.\nSon scope ne doit pas être touché par des fonctions externes.\n\nUn exemple de fonctions **non pures** :\n\n```js\nlet name = \"Peter Parker\";\nconst splitName = () => {\n  name = name.split(\" \");\n};\n\nsplitName();\n\nconsole.log(name); // outputs [ 'Peter', 'Parker' ]\n```\n\nVous pourrez remarquer que la variable `name` passe ici d'une `string` à un `array` alors que la variable est externe.\n\nSi nous appelons ensuite la même fonction, nous tomberons sur le cas suivant :\n\n```js\nlet name = \"Peter Parker\";\nconst splitName = () => {\n  name = name.split(\" \");\n};\n\nsplitName();\n\nconsole.log(name); // outputs [ 'Peter', 'Parker' ]\n\nsplitName(); // outputs TypeError: name.split is not a function\n\nconsole.log(name); // Code not reached\n```\n\nSi nous abordons le problème par le prisme de la fonction pure, nous aurons :\n\n```js\nlet name = \"Peter Parker\";\n\nconst splitName = (str) => {\n  return str.split(\" \");\n};\n\nlet newName = splitName(name);\nconsole.log(newName); // outputs [ 'Peter', 'Parker' ]\n\nnewName = splitName(name);\nconsole.log(newName); // outputs [ 'Peter', 'Parker' ]\n```\n\n## Limiter le nombre de paramètres dans les appels de méthode.\n\n```js\nconst createButton = (\n  title,\n  color,\n  disabled,\n  padding,\n  margin,\n  border,\n  shadow\n) => {\n  console.log(title, color, disabled, padding, margin, border, shadow);\n};\n\ncreateButton(\n  \"John Wick\",\n  undefined /* optional color */,\n  true,\n  \"2px....\",\n  undefined /* optional margin*/\n);\n```\n\nLe souci ici est la lisibilité et la flexibilité du code, vous allez devoir parcourir le code en permanence pour trouver les valeurs, ou alors, comme dans l'exemple ci-dessus, vous devrez mettre du fonctionnel dans l'appel.\n\n```js\nconst createButton = ({title, color, disabled, padding, margin, border, shadow})  => {\n  console.log(title, color, disabled, padding, margin, border, shadow)\n}\n\nconst obj = {}\n\n[...]\n\nobj.title = 'John Wick';\n\n[...]\n\nobj.disabled = true;\n\n[...]\n\nobj.shadow = '2px....';\n\n[...]\n\ncreateButton(obj);\n```\n\n## Destructuring\n\nPas bien ...\n\n```js\nconst user = {\n  name: \"Jean François\",\n  email: \"jean-françois@techos.fr\",\n  designation: \"Software Architect\",\n  loves: \"music\",\n};\n\nconst name = user.name;\nconst email = user.email;\nconst loves = user.loves;\n\nconst getDetails = () => {\n  return [\n    \"Jean François\",\n    \"jean-françois@techos.fr\",\n    \"Some Street\",\n    \"Some City\",\n    \"Some Zip\",\n    \"Some Country\",\n  ];\n};\n\nconst details = getDetails();\nconst uName = details[0];\nconst uEmail = details[1];\nconst uAddress = `${details[2]}, ${details[3]}, ${details[4]}, ${details[5]}`;\nconst uFirstName = uName.split(\" \")[0];\nconst uLastName = uName.split(\" \")[1];\n\nconsole.log({\n  uFirstName,\n  uLastName,\n  uEmail,\n  uAddress,\n});\n```\n\nBien ...\n\n```js\nconst user = {\n  name: \"Jean François\",\n  email: \"jean-françois@techos.fr\",\n  designation: \"Software Architect\",\n  loves: \"music\",\n};\n\nconst { name, email, loves } = user;\n\nconst getDetails = () => {\n  return [\n    \"Jean François\",\n    \"jean-françois@techos.fr\",\n    \"Some Street\",\n    \"Some City\",\n    \"Some Zip\",\n    \"Some Country\",\n  ];\n};\n\nconst [uName, uEmail, ...uAddressArr] = getDetails();\nconst uAddress = uAddressArr.join(\", \");\nconst [uFirstName, uLastName] = uName.split(\"\");\nconsole.log({\n  uFirstName,\n  uLastName,\n  uEmail,\n  uAddress,\n});\n```\n\n## Eviter les `magic number` et autres valeurs `hard coded`\n\nPas bien ...\n\n```js\nsetInterval(() => {\n  // do something\n}, 86400000);\n\nconst createUser = (name, designation, type) => {\n  console.log({ name, designation, type });\n};\n\ncreateUser(\"Jean François\", \"Software Architect\", \"1\");\n```\n\nBien ...\n\n```js\nconst DAY_IN_MILLISECONDS = 3600 * 24 * 1000; // 86400000\nconst USER_TYPES = {\n  REGULAR_EMPLOYEE: \"1\",\n};\n\nsetInterval(() => {\n  // do something\n}, DAY_IN_MILLISECONDS);\n\nconst createUser = (name, designation, type) => {\n  console.log({ name, designation, type });\n};\n\ncreateUser(\"Jean François\", \"Software Architect\", USER_TYPES.REGULAR_EMPLOYEE);\n```\n\n## Ne pas utiliser d'abbréviations\n\nPas bien ...\n\n```js\nconst t = 25;\n\nlet users = ['Jean François', 'Yo Lo'];\n\nusers = users.map((user) => {\n\n  [...Long code...]\n\n  return {\n    ...user,\n    tax: user.salary * t / 100 // WHAT IS `t` again? 🤔\n  }\n})\n```\n\nBien ...\n\n```js\nconst taxFactor = 25;\n\nlet users = ['Jean François', 'Yo Lo'];\n\nusers = users.map((user) => {\n\n  [...Long code...]\n\n  return {\n    ...user,\n    tax: user.salary * taxFactor / 100\n  }\n})\n```\n\n",
+            "extract": "# Part 1\nCet article explore les bonnes pratiques en programmation, mettant l'accent sur des concepts tels que l'utilisation de fonctions pures, la limitation des paramètres dans les appels de méthodes, et l'évitement d'éléments problématiques tels que les \"magic numbers\" et les abréviations. Il illustre chaque concept avec des exemples de code en JavaScript, fournissant à la fois des méthodes non recommandées et des alternatives plus claires et plus maintenables. L'article sert de guide pour écrire un code plus propre, plus lisible et plus efficace.\n\nCet article explore les bonnes pratiques en programmation, mettant l'accent sur des concepts tels que l'utilisation de fonctions pures, la limitation des paramètres dans les appels de méthodes, et l'évitement d'éléments problématiques tels que les \"magic numbers\" et les abréviations. Il illustre chaque concept avec des exemples de code en JavaScript, fournissant à la fois des méthodes non recommandées et des alternatives plus claires et plus maintenables. L'article sert de guide pour écrire un code plus propre, plus lisible et plus efficace.",
+            "start_at": "2021-01-02T23:00:00.000Z",
+            "picture": {
+              "data": {
+                "attributes": {
+                  "name": "yohikofox_as_a_hero_in_coding_world_28d24cf2-d2a5-4dde-8e6a-301666927067.png",
+                  "url": "/uploads/yohikofox_as_a_hero_in_coding_world_28d24cf2_d2a5_4dde_8e6a_301666927067_e9216a8253.png",
+                  "width": 1344,
+                  "height": 896
+                }
+              }
+            },
+            "post_stat_list": {
+              "data": {
+                "id": "1",
+                "attributes": {
+                  "view_count": 59
+                }
+              }
+            }
+          }
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "total": 2,
+          "page": 1,
+          "pageSize": 15,
+          "pageCount": 1
+        }
+      }
+    }
+  }
+}

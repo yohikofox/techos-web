@@ -2,7 +2,17 @@ import { DefinitionCollection } from "../dependencies";
 import { ResolverDefinition } from "../dependency/resolver";
 import { ResourceTypes } from "../resourceTypes";
 
-const definitions: DefinitionCollection = {
+const adapters: DefinitionCollection = {
+  PostAdapter: {
+    resolve: async <T>() =>
+      import(`@infra/adapter/postAdapter`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["PostSearchRepository", "SearchRepository", "SearchService"],
+  },
+};
+
+const useCases: DefinitionCollection = {
   GetHomeData: {
     resolve: async <T>() =>
       import("@app/getHomeData") as unknown as Promise<ResolverDefinition<T>>,
@@ -19,11 +29,11 @@ const definitions: DefinitionCollection = {
       import(`@app/getPostList`) as unknown as Promise<ResolverDefinition<T>>,
     dependencies: ["PostRepository"],
   },
-  GetSearchData: {
-    resolve: async <T>() =>
-      import(`@app/getSearchData`) as unknown as Promise<ResolverDefinition<T>>,
-    dependencies: ["SearchRepository"],
-  },
+  // GetSearchData: {
+  //   resolve: async <T>() =>
+  //     import(`@app/getSearchData`) as unknown as Promise<ResolverDefinition<T>>,
+  //   dependencies: ["SearchRepository"],
+  // },
   GetPostDetails: {
     resolve: async <T>() =>
       import(`@app/getPostDetails`) as unknown as Promise<
@@ -115,4 +125,4 @@ const definitions: DefinitionCollection = {
   },
 };
 
-export default definitions;
+export default { ...useCases, ...adapters };
