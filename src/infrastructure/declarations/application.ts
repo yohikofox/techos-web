@@ -3,12 +3,17 @@ import { ResolverDefinition } from "../dependency/resolver";
 import { ResourceTypes } from "../resourceTypes";
 
 const adapters: DefinitionCollection = {
-  PostAdapter: {
+  PostRepository: {
     resolve: async <T>() =>
       import(`@infra/adapter/postAdapter`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["PostSearchRepository", "SearchRepository", "SearchService"],
+    dependencies: [
+      "PostSearchRepository",
+      "SearchRepository",
+      "SearchService",
+      "PostService",
+    ],
   },
 };
 

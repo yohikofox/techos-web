@@ -4,13 +4,15 @@ import { heroDataSchema } from "./hero.dto";
 
 export const tagDataSchema = z
   .object({
-    attributes: z.object({
-      label: z.string(),
-      slug: z.string(),
-      background_color: z.string(),
-      color: z.string(),
-      hero: heroDataSchema.optional(),
-    }),
+    id: z.number(),
+    label: z.string(),
+    slug: z.string(),
+    background_color: z.string(),
+    color: z.string(),
+    hero: heroDataSchema.optional(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    publishedAt: z.string(),
   })
   .strict();
 

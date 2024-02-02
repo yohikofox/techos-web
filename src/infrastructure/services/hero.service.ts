@@ -13,23 +13,22 @@ export default class HeroService implements IHeroService {
   async mapToHero(hero: HeroData): Promise<Hero> {
     return {
       title: hero.title,
-      content: hero.content,
-      picture: hero.picture?.data
-        ? await this.imageSetService.mapImageSet(
-            hero.picture satisfies PictureData,
-            {
+      content: hero.content ?? "",
+      picture:
+        hero.picture !== undefined && hero.picture !== null
+          ? await this.imageSetService.mapImageSet(hero.picture, {
               preset: ImageSetPreset.SMALL,
-            }
-          )
-        : undefined,
-      background: hero.background?.data
-        ? await this.imageSetService.mapImageSet(
-            hero.background satisfies PictureData,
-            {
-              preset: ImageSetPreset.NONE,
-            }
-          )
-        : undefined,
+            })
+          : undefined,
+      background:
+        hero.background !== undefined && hero.background !== null
+          ? await this.imageSetService.mapImageSet(
+              hero.background satisfies PictureData,
+              {
+                preset: ImageSetPreset.NONE,
+              }
+            )
+          : undefined,
     };
   }
 }

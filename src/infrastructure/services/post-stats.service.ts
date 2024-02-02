@@ -7,13 +7,10 @@ export interface IPostStatService {
 
 export default class PostStatService implements IPostStatService {
   async mapPostStats(slug: string, data: PostStatData): Promise<PostStats> {
-    const result = {
+    const result: PostStats = {
       id: data!.id,
       slug: slug,
-      viewCount:
-        data?.attributes.view_count !== undefined
-          ? data?.attributes.view_count
-          : 0,
+      viewCount: data?.view_count !== undefined ? data?.view_count : 0,
     };
 
     return result;

@@ -1,7 +1,7 @@
 type PostStats = {
-  id: string
-  slug: string
-  viewCount: number
-}
+  id: number;
+  slug: string;
+  viewCount: number;
+};
 
-export default PostStats
+export default PostStats;

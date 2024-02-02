@@ -54,13 +54,6 @@ const repositories: DefinitionCollection = {
       >,
     dependencies: ["ContentManagerSystem", "OffLineService"],
   },
-  PostRepository: {
-    resolve: async <T>() =>
-      import(`@infra/repositories/postRepository`) as unknown as Promise<
-        ResolverDefinition<T>
-      >,
-    dependencies: ["ContentManagerSystem", "PostService", "MetaService"],
-  },
   PostSearchRepository: {
     resolve: async <T>() =>
       import(

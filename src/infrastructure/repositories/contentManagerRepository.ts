@@ -48,9 +48,11 @@ export default class ContentManagerSystemRepository
 
       if (!response.ok) {
         console.log(
-          "CMS Response was not ok.",
+          "CMS Response was not ok:",
           response.status,
-          response.statusText
+          response.statusText,
+          query,
+          q
         );
         return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR);
       }
@@ -204,64 +206,7 @@ export default class ContentManagerSystemRepository
           await this.unTransformedData(currentValue);
       }
     }
-
-    return { ...(data as { [key: string]: unknown }) };
+    // return { ...(data as { [key: string]: unknown }) };
+    return data as { [key: string]: unknown };
   }
 }
-
-/**if (typeof data !== "object") return data;
-    if (data === null) return data;
-
-    if (Array.isArray(data)) {
-      return await Promise.all(
-        data.map(async (item) => await this.untransformedData(item))
-      );
-    }
-
-    const keys = Object.keys(data);
-
-    if (keys.length === 0) return data;
-
-    if (keys.includes("data")) {
-      const dataProp = data["data"];
-
-      if (typeof dataProp === "object") {
-        const dataPropKeys = Object.keys(dataProp);
-
-        if (dataPropKeys.length === 0) return data;
-
-        for (const key of dataPropKeys) {
-          data[key] = await this.untransformedData(dataProp[key]);
-        }
-      }
-
-      delete data["data"];
-    }
-
-    if (keys.includes("attributes")) {
-      const attributes = data["attributes"];
-
-      if (typeof attributes === "object") {
-        const attributesKeys = Object.keys(attributes);
-
-        if (attributesKeys.length === 0) return data;
-
-        for (const key of attributesKeys) {
-          data[key] = await this.untransformedData(attributes[key]);
-        }
-      }
-
-      delete data["attributes"];
-    }
-
-    const dataKeys = Object.keys(data);
-
-    if (dataKeys.length === 0) return data;
-
-    await Promise.all(
-      dataKeys.map(async (key) => {
-        data[key] = await this.untransformedData(data[key]);
-      })
-    );
-
-    return data; */

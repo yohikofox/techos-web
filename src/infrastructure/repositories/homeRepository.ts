@@ -31,7 +31,7 @@ export default class HomeRepository implements IHomeRepository {
       return response.transferError(HomeDataResult.ERROR);
     }
 
-    if (response.Value.homePage?.data === undefined) {
+    if (response.Value.homePage === undefined) {
       return response.transferError(HomeDataResult.NO_DATA_FOUND);
     }
 

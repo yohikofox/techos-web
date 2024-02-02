@@ -8,33 +8,29 @@ import { tagDataSchema } from "./tag.dto";
 
 export const postDataSchema = z.object({
   id: z.string(),
-  attributes: z.object({
-    title: z.string(),
-    slug: z.string(),
-    content: z.string(),
-    extract: z.string().optional(),
-    start_at: z.string(),
-    author: authorDataSchema,
-    picture: pictureDataSchema.optional(),
-    tags: z.object({
-      data: z.array(tagDataSchema),
-    }),
-    post_stat_list: z.object({
-      data: postStatDataSchema.optional(),
-    }),
+  title: z.string(),
+  slug: z.string(),
+  content: z.string(),
+  extract: z.string().optional(),
+  start_at: z.string(),
+  author: authorDataSchema,
+  picture: pictureDataSchema.optional(),
+  tags: z.object({
+    items: z.array(tagDataSchema).optional(),
   }),
+  post_stat_list: postStatDataSchema.optional(),
 });
 export type PostData = z.infer<typeof postDataSchema>;
 
 export const postDetailsResponseSchema = z.object({
   posts: z.object({
-    data: z.array(postDataSchema).length(1),
+    items: z.array(postDataSchema).length(1),
   }),
 });
 
 export const postListResponseSchema = z.object({
   posts: z.object({
-    data: z.array(postDataSchema),
+    items: z.array(postDataSchema),
     meta: metaDataSchema,
   }),
 });

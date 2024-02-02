@@ -28,28 +28,27 @@ export default class ImageSetService implements IImageSetService {
     image: PictureData,
     options?: ImageSetOptions
   ): Promise<ImageSet> {
-    let src = image;
+    let src;
     const preset =
       options?.preset !== undefined ? options?.preset : ImageSetPreset.SMALL;
 
-    if (src.formats) {
-      if (
-        preset !== ImageSetPreset.NONE &&
-        hasProperty(src.formats, preset) === true
-      ) {
-        src = src.formats[preset];
-      }
-    }
     const sizesArray: string[] = [];
 
-    if (src.formats !== undefined) {
+    if (image.formats !== undefined) {
+      if (
+        preset !== ImageSetPreset.NONE &&
+        hasProperty(image.formats, preset) === true
+      ) {
+        src = image.formats[preset];
+      }
+
       const sizes = [];
       const maxScreenWidth = 1920;
 
-      for (const format in src.formats) {
-        if (hasProperty(src.formats, format) === true) {
-          const fmt = src.formats[format];
-          sizes.push({ width: src.formats[format].width, format: fmt });
+      for (const format in image.formats) {
+        if (hasProperty(image.formats, format) === true) {
+          const fmt = image.formats[format];
+          sizes.push({ width: image.formats[format].width, format: fmt });
         }
       }
 
@@ -65,14 +64,16 @@ export default class ImageSetService implements IImageSetService {
       }
     }
 
+    const asset = src !== undefined ? src : image;
+
     return {
-      src: await this.assetBuilder.buildAssetUri(src.url),
+      src: await this.assetBuilder.buildAssetUri(asset.url),
       sizes:
         "100vw" + (sizesArray.length > 0 ? ", " : "") + sizesArray.join(", "),
       placeholderUrl: "",
-      width: src.width,
-      height: src.height,
-      name: src.name,
+      width: asset.width,
+      height: asset.height,
+      name: asset.name,
       preset: preset,
     };
   }

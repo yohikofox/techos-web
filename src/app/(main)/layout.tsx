@@ -10,6 +10,7 @@ import Hero from "@/app/(main)/components/Hero";
 import ServiceWorkerRegister from "@/app/(main)/components/ServiceWorkerRegister";
 import fontBundle from "@/app/font";
 
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import styles from "./layout.module.scss";
 // import CoreWebVitals from 'R/src/components/CoreWebVitals'
@@ -43,7 +44,7 @@ const layout = function RootLayout({
         <ServiceWorkerRegister />
         <Header />
         <section className={styles.content}>{children}</section>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );

@@ -17,6 +17,7 @@ export default function Component({
   facets,
   meta,
 }: ServerSidePostCollectionProps) {
+  console.log("meta:", meta);
   return (
     <>
       <section className={styles.container}>

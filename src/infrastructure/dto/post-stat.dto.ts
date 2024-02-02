@@ -1,10 +1,8 @@
 import { z } from "zod";
 
 export const postStatDataSchema = z.object({
-  id: z.string(),
-  attributes: z.object({
-    view_count: z.number(),
-  }),
+  id: z.coerce.number(),
+  view_count: z.number(),
 });
 
 export const postStatDataResponseSchema = z.object({

@@ -1,4 +1,10 @@
-import Layout from "@/app/(main)/components/MainLayout";
+import { HomeDataResult } from "@app/getHomeData";
+import Home from "@domain/home";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import Layout, { SlotNames } from "@main/components/MainLayout";
+
+import Hero from "../../components/Hero";
+import PostList from "../../components/PostList";
 
 export interface PageProps {
   params: {
@@ -20,24 +26,26 @@ async function Page({ params, searchParams }: PageProps) {
     pageInt = parsedIntPage !== undefined ? parsedIntPage : 0;
   }
 
-  // const useCase = await UseCaseFactory.Instance.getUseCase<
-  //   void,
-  //   Home,
-  //   HomeDataResult
-  // >(UseCaseOption.GET_HOME_DATA);
-  // const response = await useCase?.execute();
+  const useCase = await UseCaseFactory.Instance.getUseCase<
+    void,
+    Home,
+    HomeDataResult
+  >(UseCaseOption.GET_HOME_DATA);
 
-  // if (response.IsError) {
-  //   console.error("Error:", response);
-  //   redirect("/error/400");
-  // }
+  const response = await useCase?.execute();
+
+  if (response.IsError) {
+    console.error("Error:", response);
+    throw new Error("Error");
+    // redirect("/error/400", RedirectType.push);
+  }
 
   const doDisplayHero = query === undefined || Object.keys(query).length === 0;
 
   return (
     <>
       <Layout>
-        {/* {doDisplayHero && (
+        {doDisplayHero && (
           <Layout.Slot name={SlotNames.HERO}>
             {response.Value.hero && (
               <Hero
@@ -48,9 +56,9 @@ async function Page({ params, searchParams }: PageProps) {
               />
             )}
           </Layout.Slot>
-        )} */}
+        )}
         <main>
-          {/* <PostList title="Derniers articles" page={pageInt} query={query} /> */}
+          <PostList title="Derniers articles" page={pageInt} query={query} />
         </main>
       </Layout>
     </>

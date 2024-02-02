@@ -4,12 +4,10 @@ import { PostListRequest } from "@app/requests/postList.request";
 import { FacetConfig } from "@domain/facetConfig";
 import Post from "@domain/post";
 import PostList from "@domain/postList";
-import { PostData } from "@dto/post.dto";
 import {
   SearchPostResponse,
   searchPostResponseSchema,
 } from "@dto/searchPost.dto";
-import { TagData } from "@dto/tag.dto";
 import {
   ISearchEngineRepository,
   SearchFetchOptions,
@@ -104,62 +102,38 @@ export default class PostAdapter implements IPostRepository {
       opts
     );
 
-    const posts: Post[] = await Promise.all(
+    const posts = await Promise.all(
       searchEngineResponse.Value.hits.map(async (h) => {
-        const item: PostData = {
+        return await this.postService.mapPost({
           id: h.id.toString(),
-          attributes: {
-            author: {
-              data: {
-                attributes: {
-                  username: h.author.username,
-                  avatar: {
-                    data: {
-                      attributes: h.author.avatar,
-                    },
-                  },
-                },
-              },
-            },
-            content: h.content,
-            title: h.title,
-            post_stat_list: {
-              data: {
-                id: h.post_stat_list.id.toString(),
-                attributes: {
-                  view_count: h.post_stat_list.view_count,
-                },
-              },
-            },
-            slug: h.slug,
-            start_at: h.start_at,
-            tags: {
-              data: h.tags.map((t) => {
-                const tag: TagData = {
-                  attributes: {
-                    background_color: t.background_color,
-                    color: t.color,
-                    label: t.label,
-                    slug: t.slug,
-                  },
-                };
-                return tag;
-              }),
-            },
+          author: h.author,
+          content: h.content,
+          title: h.title,
+          post_stat_list: h.post_stat_list,
+          slug: h.slug,
+          start_at: h.start_at,
+          tags: {
+            items: h.tags,
           },
-        };
-        return this.postService.mapPost(item);
+          extract: h.extract ?? "",
+          picture: h.picture,
+        });
       })
     );
+
+    const { limit, offset, estimatedTotalHits } = searchEngineResponse.Value;
+
+    const currentPage = Math.floor(offset / limit) + 1;
+    const pageCount = Math.ceil(estimatedTotalHits / limit);
 
     const result: PostList = {
       posts,
       meta: {
         pagination: {
-          total: 0,
-          page: 0,
-          pageCount: 0,
-          pageSize: 0,
+          total: estimatedTotalHits,
+          page: currentPage,
+          pageCount,
+          pageSize: limit,
           pathPrefix: "",
         },
       },

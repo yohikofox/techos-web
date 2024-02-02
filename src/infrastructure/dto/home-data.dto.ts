@@ -1,19 +1,14 @@
-import { z } from 'zod';
-
-import { heroDataSchema } from './hero.dto';
+import { heroDataSchema } from "@dto/hero.dto";
+import { z } from "zod";
 
 export const homeDataSchema = z.object({
-  hero: heroDataSchema
-})
+  hero: heroDataSchema,
+});
 
 export const homePageDataSchema = z.object({
-  homePage: z.object({
-    data: z.object({
-      attributes: homeDataSchema
-    })
-  })
-})
+  homePage: homeDataSchema,
+});
 
-export type HomePageData = z.infer<typeof homePageDataSchema>
+export type HomePageData = z.infer<typeof homePageDataSchema>;
 
-export type HomeData = z.infer<typeof homeDataSchema>
+export type HomeData = z.infer<typeof homeDataSchema>;

@@ -21,18 +21,10 @@ export default class PostService implements IPostService {
   async mapPost(post: PostData): Promise<Post> {
     let picture = {};
 
-    if (post.attributes.picture !== undefined) {
-      console.trace("here");
-      console.debug(
-        "🚀 ~ PostService ~ mapPost ~ post.attributes.picture:",
-        post.attributes.picture
-      );
-      picture = await this.imageSetService.mapImageSet(
-        post.attributes.picture,
-        {
-          preset: ImageSetPreset.NONE,
-        }
-      );
+    if (post.picture !== undefined) {
+      picture = await this.imageSetService.mapImageSet(post.picture, {
+        preset: ImageSetPreset.NONE,
+      });
     }
 
     // post.attributes.picture !== undefined &&
@@ -43,32 +35,33 @@ export default class PostService implements IPostService {
 
     return {
       id: post.id,
-      title: post.attributes.title,
-      slug: post.attributes.slug,
-      content: post.attributes.content,
-      extract: post.attributes.extract ?? undefined,
-      start_at: post.attributes.start_at,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
+      extract: post.extract ?? undefined,
+      start_at: post.start_at,
       type: PostType.Article,
       author: {
-        username: post.attributes.author.data.attributes.username,
+        username: post.author.username,
         avatar:
-          post.attributes.author.data.attributes.avatar?.data &&
-          (await this.imageSetService.mapImageSet(
-            post.attributes.author.data.attributes.avatar satisfies PictureData
-          )),
+          post.author.avatar !== undefined
+            ? await this.imageSetService.mapImageSet(
+                post.author.avatar satisfies PictureData
+              )
+            : undefined,
       },
       picture,
       tags:
-        post.attributes.tags?.data !== undefined
+        post.tags.items !== undefined
           ? await Promise.all(
-              post.attributes.tags.data.map(async (tag: TagData) => {
+              post.tags.items.map(async (tag: TagData) => {
                 return this.tagService.mapTag(tag);
               })
             )
           : undefined,
       stats: await this.postStatService.mapPostStats(
-        post.attributes.slug,
-        post.attributes.post_stat_list.data satisfies PostStatData
+        post.slug,
+        post.post_stat_list satisfies PostStatData
       ),
     };
   }
