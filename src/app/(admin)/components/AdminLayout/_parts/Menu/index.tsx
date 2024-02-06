@@ -2,8 +2,8 @@
 
 import ReactIcon from "@Admin/components/Icon/ReactIcon";
 import classNames from "classnames";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import InsetLink from "R/src/app/(main)/components/InsetLink";
 import useAdminStore from "R/src/infrastructure/store/admin";
 import { useShallow } from "zustand/react/shallow";
 
@@ -50,11 +50,11 @@ function Component({ className }: MenuProps) {
                   <ReactIcon className={styles.icon} name={icon} size={20} />
                 )}
                 <span className={styles.name}>{name}</span>
-                <Link
+                <InsetLink
                   href={path}
-                  aria-label={name}
+                  label={name}
                   className={classNames(styles.link)}
-                ></Link>
+                />
               </li>
             );
           })}

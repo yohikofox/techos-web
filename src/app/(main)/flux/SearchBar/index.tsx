@@ -1,7 +1,6 @@
 "use client";
 
-import MicroPostList from "@domain/microPostList";
-import useFluxStore from "@infra/store/flux";
+import { useFluxStore } from "@infra/store/flux";
 import { useRef } from "react";
 
 import fetchResultsAction from "./fetchResultsAction";
@@ -18,7 +17,7 @@ const SEARCH_TRIGGER_DELAY = 300;
 export default function SearchBar({ placeholder, delay }: SearchBarProps) {
   const currentTimeout = useRef<ReturnType<typeof setTimeout>>();
 
-  const setModel = useFluxStore()((state) => state.setModel);
+  const setModel = useFluxStore((state) => state.setModel);
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fetchResults = async (query: string) => {
@@ -29,9 +28,8 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
       }
 
       const results = await fetchResultsAction(query);
-      console.log("🚀 ~ fetchResults ~ results:", results);
 
-      setModel({ posts: results.posts } as MicroPostList);
+      setModel(results);
     };
 
     if (

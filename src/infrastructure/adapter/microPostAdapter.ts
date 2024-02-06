@@ -39,11 +39,41 @@ export default class MicroPostAdapter
     console.debug("🚀 ~ request:", request);
     throw new Error("Method not implemented.");
   }
-  findOneMicroPost(
+  async findOneMicroPost(
     request: GetMicroPostDetailsRequest
   ): Promise<Result<MicroPost, MicroPostDetailsResult>> {
-    console.debug("🚀 ~ request:", request);
-    throw new Error("Method not implemented.");
+    const { req, opts } = await this.buildSearchRequest({
+      filter: {
+        slug: request?.slug.eq ?? "",
+      },
+      limit: 1,
+    });
+
+    if (opts.limit === 0) {
+      console.warn("limit is 0, returning empty search");
+      return Result.ok();
+    }
+
+    const searchEngineResponse = await this.microPostSearchRepository.search(
+      req,
+      opts
+    );
+
+    if (searchEngineResponse.IsError) {
+      console.error(
+        "🚀 ~ MicroPostAdapter ~ findOneMicroPost ~ searchEngineResponse:",
+        searchEngineResponse.Result
+      );
+      return searchEngineResponse.transferError(
+        MicroPostDetailsResult.NO_DATA_FOUND
+      );
+    }
+
+    const result = await this.mapHitToMicroPost(
+      searchEngineResponse.Value.hits[0]
+    );
+
+    return Result.ok(result);
   }
   async findMicroPostList(
     request: MicroPostListRequest

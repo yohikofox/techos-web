@@ -1,4 +1,5 @@
 import { FetchOptions } from "@infra/adapter/fetchOptions";
+import fetch from "@lib/fetch";
 import { SearchEngineVariables } from "R/src/interfaces/ISearchRepository";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 import { defaultInstance } from "R/src/lib/zod";
@@ -95,6 +96,7 @@ export default abstract class SearchEngineRepository<TResult>
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
+        queryMode: true,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${bearer}`,

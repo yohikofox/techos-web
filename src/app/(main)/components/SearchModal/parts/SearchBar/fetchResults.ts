@@ -1,9 +1,9 @@
-import Search from "@domain/search";
+import PostList from "R/src/domain/postList";
 import CacheConstants from "R/src/lib/constants/cache";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
 
-const fetchResults = async (query: string): Promise<Search> => {
-  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}&index=post`;
+const fetchResults = async (query: string): Promise<PostList> => {
+  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search/post?payload=${query}&index=post`;
 
   try {
     const response = await fetch(q, {
@@ -21,7 +21,7 @@ const fetchResults = async (query: string): Promise<Search> => {
       );
     }
 
-    const results: Search = await response.json();
+    const results: PostList = await response.json();
 
     return results;
   } catch (e) {
@@ -29,13 +29,17 @@ const fetchResults = async (query: string): Promise<Search> => {
   }
 
   return {
-    hits: [],
-    estimatedTotalHits: 0,
-    query: "",
-    processingTimeMs: 0,
-    limit: 0,
-    offset: 0,
-  } as Search;
+    posts: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageCount: 1,
+        pageSize: 0,
+        pathPrefix: "",
+        total: 0,
+      },
+    },
+  } as PostList;
 };
 
 export default fetchResults;

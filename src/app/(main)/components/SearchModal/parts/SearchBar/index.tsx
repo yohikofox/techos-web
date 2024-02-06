@@ -1,6 +1,6 @@
 "use client";
 
-import Search from "@domain/search";
+import PostList from "R/src/domain/postList";
 import { useContext, useRef } from "react";
 
 import { SearchDataContext } from "../context";
@@ -22,7 +22,7 @@ export default function SearchBar({ placeholder, delay }: SearchBarProps) {
 
   const fetchResults = async (query: string) => {
     if (query.length <= 0) {
-      setSearchResults && setSearchResults({} as Search);
+      setSearchResults && setSearchResults({} as PostList);
       return;
     }
 

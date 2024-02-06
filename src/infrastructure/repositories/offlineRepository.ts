@@ -39,7 +39,7 @@ export default class OfflineRepository implements IOfflineRepository {
       return response.transferError(GetOfflinePageDataUseCaseResult.ERROR);
     }
 
-    if (response.Value.offlinePage.data === undefined) {
+    if (response.Value.offlinePage === undefined) {
       return response.transferError(
         GetOfflinePageDataUseCaseResult.NO_DATA_FOUND
       );

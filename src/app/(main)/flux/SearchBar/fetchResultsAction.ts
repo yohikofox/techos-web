@@ -1,12 +1,9 @@
 import MicroPostList from "@domain/microPostList";
-import Search from "@domain/search";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 
 const fetchResults = async (query: string): Promise<MicroPostList> => {
   const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search/micro-post?payload=${query}&index=micro-post`;
-
-  console.log("🚀 ~ fetchResults ~ q:", q);
 
   try {
     const response = await fetch(q, {
@@ -24,7 +21,7 @@ const fetchResults = async (query: string): Promise<MicroPostList> => {
       );
     }
 
-    const results = (await response.json()) satisfies Search;
+    const results = (await response.json()) satisfies MicroPostList;
 
     return results;
   } catch (e) {

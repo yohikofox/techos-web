@@ -6,11 +6,10 @@ import {
 } from "@dto/facet.dto";
 import { ISearchService } from "@infra/services/search.service";
 import { IContentManagerSystemRepository } from "@interfaces/IContentManagerSystemRepository";
-import {
-  ISearchRepository,
-} from "@interfaces/ISearchRepository";
+import { ISearchRepository } from "@interfaces/ISearchRepository";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 import { Result } from "@lib/result";
+import CacheConstants from "R/src/lib/constants/cache";
 
 export default class SearchRepository implements ISearchRepository {
   constructor(
@@ -92,7 +91,7 @@ export default class SearchRepository implements ISearchRepository {
           },
         },
         {
-          revalidate: 0,
+          revalidate: CacheConstants.ONE_DAY,
           tags: [RevalidateTagConstants.SEARCH],
           schema: facetConfigListResponseSchema,
         }

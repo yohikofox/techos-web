@@ -44,19 +44,14 @@ const useCases: DefinitionCollection = {
   GetPostList: {
     resolve: async <T>() =>
       import(`@app/getPostList`) as unknown as Promise<ResolverDefinition<T>>,
-    dependencies: ["PostRepository"],
+    dependencies: ["PostAdapter"],
   },
-  // GetSearchData: {
-  //   resolve: async <T>() =>
-  //     import(`@app/getSearchData`) as unknown as Promise<ResolverDefinition<T>>,
-  //   dependencies: ["SearchRepository"],
-  // },
   GetPostDetails: {
     resolve: async <T>() =>
       import(`@app/getPostDetails`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["PostRepository"],
+    dependencies: ["PostAdapter"],
   },
   GetTagPostList: {
     resolve: async <T>() =>
@@ -138,7 +133,7 @@ const useCases: DefinitionCollection = {
       import(`@app/getMicroPostDetails`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["MicroPostRepository"],
+    dependencies: ["MicroPostAdapter"],
   },
 };
 

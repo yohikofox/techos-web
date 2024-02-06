@@ -1,4 +1,4 @@
-import { create,StoreApi, UseBoundStore } from "zustand";
+import { create, StoreApi, UseBoundStore } from "zustand";
 
 import FluxStoreImplementation, {
   FluxStore,
@@ -13,9 +13,9 @@ export type StateSetter = (
   replace?: boolean | undefined
 ) => void;
 
-// const useFluxStore = create<FluxStore>(
-//   (set: StateSetter) => new FluxStoreImplementation(set, initialState)
-// );
+const useFluxStore = create<FluxStore>(
+  (set: StateSetter) => new FluxStoreImplementation(set, initialState)
+);
 
 class ZustandFactory {
   private static _instance: UseBoundStore<StoreApi<FluxStore>> | undefined =
@@ -40,3 +40,4 @@ class ZustandFactory {
 }
 
 export default ZustandFactory.getInstance;
+export { useFluxStore };

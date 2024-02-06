@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import dayjs from "dayjs";
 import md from "markdown-it";
-import Link from "next/link";
 
 import Clock from "@/app/(main)/components/Icon/Clock";
 import { DisplayTracking } from "@/app/(main)/components/TrackingWorker";
@@ -9,6 +8,7 @@ import ServerImage from "@/components/Image";
 import getReadingTime from "@/infrastructure/helper/getReadingTime";
 import PostHelper from "@/infrastructure/helper/postHelper";
 
+import InsetLink from "../../../InsetLink";
 import TextToSpeechButton from "../../../TextToSpeechButton";
 import { PostCardProps } from "../..";
 import Tag from "../Tag";
@@ -100,11 +100,7 @@ export default async function Article({ post }: PostCardProps) {
           )}
         </section>
       </section>
-      <Link
-        href={`/post/${post.slug}`}
-        aria-label={post.title}
-        className={styles.inset__link}
-      />
+      <InsetLink href={`/post/${post.slug}`} label={post.title ?? ""} />
     </article>
   );
 }

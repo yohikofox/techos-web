@@ -1,6 +1,6 @@
 "use client";
 
-import Search from "@domain/search";
+import PostList from "@domain/postList";
 import { ReactNode, useContext, useEffect } from "react";
 
 import Close from "@/app/(main)/components/Icon/Close";
@@ -32,7 +32,7 @@ export default function Modal({
   }, []);
 
   const handleCloseClick = () => {
-    setSearchResults && setSearchResults({} as Search);
+    setSearchResults && setSearchResults({} as PostList);
     closeHandler && closeHandler(false);
   };
 

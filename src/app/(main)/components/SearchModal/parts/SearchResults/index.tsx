@@ -47,8 +47,8 @@ export default function SearchResults({
   return (
     <>
       <section className={styles.item__list}>
-        {searchResults?.hits ? (
-          searchResults.hits?.map((it: SearchItem, index: number) => {
+        {searchResults?.posts ? (
+          searchResults.posts?.map((it: SearchItem, index: number) => {
             const readingTime = getReadingTime(it.content);
             return (
               <section

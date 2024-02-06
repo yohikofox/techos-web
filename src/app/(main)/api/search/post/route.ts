@@ -2,8 +2,8 @@ import { SearchRequest } from "@app/getSearchData";
 import { MicroPostListRequest } from "@app/requests/microPostList.request";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import { NextRequest, NextResponse } from "next/server";
-import { MicroPostListResult } from "R/src/application/getMicroPostList";
-import MicroPostList from "R/src/domain/microPostList";
+import { PostListResult } from "R/src/application/getPostList";
+import PostList from "R/src/domain/postList";
 
 const badRequest = (message?: string) =>
   new Response(message !== undefined ? message : "Bad Request", {
@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
 
   const useCase = await UseCaseFactory.Instance.getUseCase<
     MicroPostListRequest,
-    MicroPostList,
-    MicroPostListResult
-  >(UseCaseOption.GET_MICRO_POST_LIST);
+    PostList,
+    PostListResult
+  >(UseCaseOption.GET_POST_LIST);
 
   const response = await useCase.execute({
     payload: payload !== undefined ? payload : "",

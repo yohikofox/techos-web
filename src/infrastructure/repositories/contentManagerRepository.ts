@@ -43,6 +43,7 @@ export default class ContentManagerSystemRepository
           "Content-Type": "application/json",
           Authorization: `Bearer ${await this.configManager.get("CMS_API_KEY")}`,
         },
+        queryMode: true,
         next: {
           revalidate:
             options?.revalidate !== undefined ? options.revalidate : 0,

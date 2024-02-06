@@ -1,5 +1,5 @@
 "use client";
-import Search from "@domain/search";
+import PostList from "R/src/domain/postList";
 import {
   createContext,
   Dispatch,
@@ -9,12 +9,12 @@ import {
 } from "react";
 
 export const SearchDataContext = createContext<
-  [Search, Dispatch<SetStateAction<Search>>] | null
+  [PostList, Dispatch<SetStateAction<PostList>>] | null
 >(null);
 
 export const SearchDataProvider = ({ children }: PropsWithChildren) => {
   return (
-    <SearchDataContext.Provider value={useState({} as Search)}>
+    <SearchDataContext.Provider value={useState({} as PostList)}>
       {children}
     </SearchDataContext.Provider>
   );
