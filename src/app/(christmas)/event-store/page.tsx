@@ -1,25 +1,21 @@
-import { StoreResult } from "@infra/store";
 import Product from "@domain/product";
+import { StoreResult } from "@infra/store";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import styles from './styles.module.scss';
-import ProductComponent from "./components/Product";
 
+import ProductComponent from "./components/Product";
+import styles from "./styles.module.scss";
 
 export default async function Page() {
-
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, Product, StoreResult>(UseCaseOption.GET_RANDOM_PRODUCT);
+  const useCase = await UseCaseFactory.Instance.getUseCase<
+    void,
+    Product,
+    StoreResult
+  >(UseCaseOption.GET_RANDOM_PRODUCT);
   const response = await useCase?.execute();
 
   if (response?.IsError) {
-    return (
-      <>
-        {JSON.stringify(response?.Result)}
-      </>
-    )
+    return <>{JSON.stringify(response?.Result)}</>;
   }
-
-
-
 
   return (
     <>
@@ -28,5 +24,5 @@ export default async function Page() {
         <ProductComponent initialModel={response?.Value} />
       </section>
     </>
-  )
+  );
 }

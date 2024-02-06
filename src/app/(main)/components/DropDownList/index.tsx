@@ -1,44 +1,49 @@
-'use client'
+"use client";
 
-import CaretDown from "../Icon/CaretDown"
-import styles from "./dropDownList.module.scss"
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler, useState } from "react";
+
+import CaretDown from "../Icon/CaretDown";
+import styles from "./dropDownList.module.scss";
 
 export interface DropDownListItem {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 export interface DropDownListProps {
-  name: string,
-  placeholder: string,
-  items: DropDownListItem[]
+  name: string;
+  placeholder: string;
+  items: DropDownListItem[];
 }
-export default function DropDownList({ name, items, placeholder }: DropDownListProps) {
-
-  const [showMenu, setShowMenu] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<string[]>([])
+export default function DropDownList({
+  items,
+  placeholder,
+}: DropDownListProps) {
+  const [showMenu, setShowMenu] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleInputClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    e.stopPropagation()
-    setShowMenu(!showMenu)
-  }
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+  };
 
   const handleItemClick = (item: DropDownListItem) => {
-    setShowMenu(false)
+    setShowMenu(false);
     if (selectedValues.includes(item.value)) {
-      setSelectedValues(selectedValues.filter((elt: string) => elt !== item.value))
+      setSelectedValues(
+        selectedValues.filter((elt: string) => elt !== item.value)
+      );
     } else {
-      setSelectedValues([...selectedValues, item.value])
+      setSelectedValues([...selectedValues, item.value]);
     }
-  }
+  };
 
   const getDisplay = () => {
     if (selectedValues.length > 0) {
-      return selectedValues.join(", ")
+      return selectedValues.join(", ");
     }
-    return placeholder
-  }
+    return placeholder;
+  };
 
   return (
     <div className={styles.container}>
@@ -49,12 +54,22 @@ export default function DropDownList({ name, items, placeholder }: DropDownListP
             <CaretDown />
           </div>
         </div>
-        {showMenu && <div className={styles.menu}>
-          {items.map((item: DropDownListItem, index: number) => {
-            return <div key={item.value} className={styles.item} onClick={() => handleItemClick(item)}>{item.label}</div>
-          })}
-        </div>}
+        {showMenu && (
+          <div className={styles.menu}>
+            {items.map((item: DropDownListItem, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className={styles.item}
+                  onClick={() => handleItemClick(item)}
+                >
+                  {item.label}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

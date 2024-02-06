@@ -1,12 +1,10 @@
-import RegisterNotificationWorker from "./notification";
-import FetchServiceWorkerRegister from "./fetch";
+// import RegisterNotificationWorker from "./notification";
 
 export default async function NotificationWorkerWrapper() {
-
   return (
     <>
       {/* <FetchServiceWorkerRegister /> */}
-      <RegisterNotificationWorker />
+      {/* <RegisterNotificationWorker /> */}
     </>
-  )
-} 
+  );
+}

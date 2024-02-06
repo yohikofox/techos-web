@@ -1,7 +1,8 @@
-import { IUseCase } from "@infra/useCaseFactory";
 import OffLinePageData from "@domain/offLinePageData";
-import { Result } from "@/lib/result";
+import { IUseCase } from "@infra/useCaseFactory";
 import { IOfflineRepository } from "@interfaces/IOfflineRepository";
+
+import { Result } from "@/lib/result";
 
 export interface GetOfflinePageDataRequest { }
 
@@ -16,6 +17,6 @@ export default class GetOfflinePageDataUseCase implements IUseCase<GetOfflinePag
     private offlineRepository: IOfflineRepository,
   ) { }
   async execute(request?: GetOfflinePageDataRequest | undefined): Promise<Result<OffLinePageData, GetOfflinePageDataUseCaseResult>> {
-    return this.offlineRepository.getOfflineData(request);
+    return this.offlineRepository.getOfflineData(request!);
   }
 }

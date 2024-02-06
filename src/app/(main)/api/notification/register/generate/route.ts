@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 // import dayjs from "dayjs";
-import webpush from "web-push"
+import webpush from "web-push";
 
 // const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
-export const dynamic = "force-dynamic"
-export async function GET(request: NextRequest, params: any) {
-
+export const dynamic = "force-dynamic";
+export async function GET() {
   // const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
   // const secret = await configManager.get('JWT_KEY');
 
@@ -36,14 +35,10 @@ export async function GET(request: NextRequest, params: any) {
 
   // remove equals sign
 
-
-
   // cookies().set('nid', sig)
 
   // console.log('signature:', sig)
-  const res = NextResponse.json({ api_key: vapidKeys.publicKey })
+  const res = NextResponse.json({ api_key: vapidKeys.publicKey });
 
-  return res
+  return res;
 }
-
-

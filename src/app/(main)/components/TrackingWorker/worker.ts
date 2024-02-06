@@ -1,23 +1,17 @@
-const onmessageHandler = async (event: MessageEvent<{
-  slug: string;
-}>) => {
-  const data = event.data;
-  const strData = JSON.stringify(data);
+import action from "./action";
 
-  //TODO: export to server action
-  const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/track`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: strData
-  })
+const onmessageHandler = async (
+  event: MessageEvent<{
+    slug: string;
+  }>
+) => {
+  const response = await action(event.data);
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  if (response.IsError) {
+    throw new Error(`Error from action: ${response.Result.join(",")}`);
   }
 
-  postMessage(await response.json());
-}
+  postMessage(response.Value);
+};
 
-addEventListener('message', onmessageHandler);
+addEventListener("message", onmessageHandler);

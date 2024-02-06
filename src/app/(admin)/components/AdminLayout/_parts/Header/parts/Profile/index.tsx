@@ -1,8 +1,8 @@
-import styles from "./styles.module.scss"
 import Avatar from "./parts/Avatar"
 import ProfileMenu from "./parts/ProfileMenu"
-import Wrapper from "./parts/Wrapper"
 import Toggle from "./parts/Toggle"
+import Wrapper from "./parts/Wrapper"
+import styles from "./styles.module.scss"
 
 function Component() {
   return (

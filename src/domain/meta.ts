@@ -1,10 +1,7 @@
+import { Pagination } from "./pagination"
+
 type Meta = {
-  pagination: {
-    page: number
-    pageSize: number
-    pageCount: number
-    total: number
-  }
+  pagination: Pagination
 }
 
 export default Meta

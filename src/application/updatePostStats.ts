@@ -1,56 +1,77 @@
+import { PostStatsResult } from "@app/getPostStats";
 import PostStats from "@domain/postStats";
 import { IUseCase } from "@infra/useCaseFactory";
-import { Result } from "@/lib/result";
-import { IPostStatRepository } from "@interfaces/IPostStatRepository";
-import { PostStatsResult } from "@app/getPostStats";
+import { ContentManagerFilter } from "@interfaces/IContentManagerSystemRepository";
 import { IPostRepository } from "@interfaces/IPostRepository";
+import { IPostStatRepository } from "@interfaces/IPostStatRepository";
 
+import { Result } from "@/lib/result";
+
+export type CreatePostStatsRequest = {
+  count: number;
+  post: number;
+  slug: string;
+};
+
+export type UpdatePostStatsRequest = {
+  id: number;
+  count: number;
+  slug?: string;
+};
 
 export type PostStatsRequest = {
-  slug: any
-}
+  slug: ContentManagerFilter;
+};
 
-export default class UpdatePostStatsUseCase implements IUseCase<PostStatsRequest, Result<PostStats, PostStatsResult>> {
+export default class UpdatePostStatsUseCase
+  implements IUseCase<PostStatsRequest, Result<PostStats, PostStatsResult>>
+{
   constructor(
     private postStatRepository: IPostStatRepository,
-    private postRepository: IPostRepository,
-  ) { }
-  async execute(request?: PostStatsRequest): Promise<Result<PostStats, PostStatsResult>> {
+    private postRepository: IPostRepository
+  ) {}
+  async execute(
+    request?: PostStatsRequest
+  ): Promise<Result<PostStats, PostStatsResult>> {
+    const retrieveResponse =
+      await this.postStatRepository.findPostStat(request);
 
-    const retrieveResponse = await this.postStatRepository.findPostStat(request)
-
-    const slug = request?.slug
+    if (request?.slug === undefined) {
+      return Result.error(PostStatsResult.BAD_REQUEST);
+    }
 
     if (retrieveResponse.IsError) {
-
       if (retrieveResponse.lastErrorMatchWith(PostStatsResult.NO_DATA_FOUND)) {
-
-        const retrievePostResponse = await this.postRepository.findOnePost(request)
+        const retrievePostResponse = await this.postRepository.findOnePost({
+          slug: request.slug,
+        });
 
         if (retrievePostResponse.IsError) {
-          return retrievePostResponse.transferError(PostStatsResult.NO_POST_MATCHING)
+          return retrievePostResponse.transferError(
+            PostStatsResult.NO_POST_MATCHING
+          );
         }
 
-        const createRequest = {
+        const createRequest: CreatePostStatsRequest = {
           count: 1,
           post: Number(retrievePostResponse.Value.id),
-          slug
-        }
+          slug: request.slug.eq,
+        };
 
-        return this.postStatRepository.createPostStat(createRequest)
+        return this.postStatRepository.createPostStat(createRequest);
       }
 
-      return retrieveResponse.transferError(PostStatsResult.ERROR)
+      return retrieveResponse.transferError(PostStatsResult.ERROR);
     }
 
+    const postStatsId = retrieveResponse.Value.id;
 
-    const postStatsId = retrieveResponse.Value.id
-
-    const updateRequest = {
+    const updateRequest: UpdatePostStatsRequest = {
       id: postStatsId,
-      count: retrieveResponse.Value.viewCount + 1
-    }
+      count: retrieveResponse.Value.viewCount + 1,
+      slug: request.slug.eq,
+    };
 
-    return this.postStatRepository.updatePostStat(updateRequest)
+    return this.postStatRepository.updatePostStat(updateRequest);
   }
 }

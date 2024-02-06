@@ -23,15 +23,15 @@ export abstract class Middleware {
     return this.next(request, _next)
   }
 
-  protected json(data: any, headers: Headers, init?: ResponseInit) {
-    this._response = {
-      response: NextResponse.json(data, init),
-      isNext: false,
-      responseHeaders: headers
-    };
+  // protected json(data: any, headers: Headers, init?: ResponseInit) {
+  //   this._response = {
+  //     response: NextResponse.json(data, init),
+  //     isNext: false,
+  //     responseHeaders: headers
+  //   };
 
-    return this._response;
-  }
+  //   return this._response;
+  // }
 
   protected redirect(url: string, headers: Headers, init?: ResponseInit) {
     this._response = {

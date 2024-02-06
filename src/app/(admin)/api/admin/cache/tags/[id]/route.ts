@@ -1,10 +1,8 @@
-import CacheFactory from 'R/src/infrastructure/cache/CacheFactory';
-import RedisCacheHandler from 'R/src/infrastructure/cache/redis/redis-cache-handler';
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic"
-
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export const dynamic = "force-dynamic";
+//request: Request, { params }: { params: { id: string } }
+export async function GET() {
   // const Provider = CacheFactory.resolve()
   // const cache = await new Provider({}).get(params.id);
 
@@ -15,8 +13,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json({ success: true });
 }
 
-
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE() {
   // const Provider = CacheFactory.resolve()
   // await new Provider({}).remove(params.id);
   // return NextResponse.json({ success: true });

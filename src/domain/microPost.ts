@@ -1,5 +1,5 @@
-import ImageSet from "./image"
-import Tag from "./tag"
+import ImageSet from "./image";
+import Tag from "./tag";
 
 // export enum PostType {
 //   Article = "article",
@@ -7,11 +7,11 @@ import Tag from "./tag"
 // }
 
 type MicroPost = {
-  title: string
-  slug: string
-  content: string
-  picture?: Partial<ImageSet>
-  tags?: Tag[]
-}
+  title: string;
+  slug: string;
+  content: string;
+  picture?: Partial<ImageSet>;
+  tags?: Tag[];
+};
 
-export default MicroPost
+export default MicroPost;

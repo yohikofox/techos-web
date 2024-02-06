@@ -1,28 +1,28 @@
-export const getHeaderData = `
-    query{
-      header {
-        data{attributes{
+import { gql } from "graphql-request";
+
+import { picture } from "./_parts/picture";
+
+export const getHeaderData = gql`
+  query {
+    header {
+      data {
+        attributes {
           placeholder
           search_title
           trainings
-        }}
+        }
       }
-      trainings {data{attributes{
-        title
-        link
-        background {
-          data{
-            attributes{
-              name
-              url
-              width
-              height
-              alternativeText
-              caption
-              size
-              mime
-              formats
-            }}}
-      }}}
     }
-  `
+    trainings {
+      data {
+        attributes {
+          title
+          link
+          background {
+            ${picture}
+          }
+        }
+      }
+    }
+  }
+`;

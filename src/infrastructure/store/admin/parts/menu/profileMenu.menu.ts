@@ -1,3 +1,4 @@
+import { AdminStore, StateSetter } from "../..";
 import BaseMenuStoreImplementation, { MenuStore } from "./base.menu";
 
 export type ProfileMenuStore = {
@@ -35,7 +36,7 @@ export default class ProfileMenuStoreImplementation extends BaseMenuStoreImpleme
     avatarFallback: (fallback: string) => void;
   };
 
-  constructor(set: any, initialState: Partial<MenuStore> = {}) {
+  constructor(set: StateSetter, initialState: Partial<MenuStore> = {}) {
     super(set, initialState)
     this.avatar = {
       fallback: undefined,
@@ -44,7 +45,7 @@ export default class ProfileMenuStoreImplementation extends BaseMenuStoreImpleme
   }
 
   public toggle: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.profileMenu.isOpen = !ns.profileMenu.isOpen
       return ns
@@ -52,7 +53,7 @@ export default class ProfileMenuStoreImplementation extends BaseMenuStoreImpleme
   }
 
   public close: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.profileMenu.isOpen = false
       return ns
@@ -60,7 +61,7 @@ export default class ProfileMenuStoreImplementation extends BaseMenuStoreImpleme
   }
 
   public open: () => void = () => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.profileMenu.isOpen = true
       return ns
@@ -68,7 +69,7 @@ export default class ProfileMenuStoreImplementation extends BaseMenuStoreImpleme
   }
 
   public avatarFallback: (fallback: string) => void = (fallback: string) => {
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.profileMenu.avatar.fallback = fallback
       return ns

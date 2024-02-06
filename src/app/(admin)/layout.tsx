@@ -1,18 +1,16 @@
-import "./global.scss"
+import "./global.scss";
 
-import { PropsWithChildren } from "react"
+import { PropsWithChildren } from "react";
 
 export const metadata = {
-  title: 'ADMIN | Techos.dev',
-  description: 'ADMIN | Techos.dev',
-}
+  title: "ADMIN | Techos.dev",
+  description: "ADMIN | Techos.dev",
+};
 
-export default function RootLayout({ children, ...props }: PropsWithChildren) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
-  )
+  );
 }

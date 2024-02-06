@@ -1,6 +1,6 @@
-import Filterable from "R/src/infrastructure/adapter/filterable";
 import ProductData from "@dto/product.dto";
 import { FetchOptions } from "R/src/infrastructure/adapter/fetchOptions";
+import Filterable from "R/src/infrastructure/adapter/filterable";
 import { Result } from "R/src/lib/result";
 
 export enum StoreResult {

@@ -1,69 +1,127 @@
+import { DefinitionCollection } from "../dependencies";
+import { ResolverDefinition } from "../dependency/resolver";
 
-const baseRepositories = {
-  'ContentManagerSystem': {
-    resolve: async () => import(`@infra/repositories/contentManagerRepository`),
-    dependencies: ['ConfigManager']
+const baseRepositories: DefinitionCollection = {
+  ContentManagerSystem: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/contentManagerRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager"],
   },
-  'SearchEngine': {
-    resolve: async () => import(`@infra/repositories/searchEngineRepository`),
-    dependencies: ['ConfigManager']
+  BaseSearchEngine: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/baseSearchEngineRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager"],
   },
-  'StoreRepository': {
-    resolve: async () => import(`@infra/repositories/storeRepository`),
-    dependencies: ['ConfigManager']
+  StoreRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/storeRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ConfigManager"],
   },
-}
+};
 
-const repositories = {
-  'HeaderRepository': {
-    resolve: async () => import(`@infra/repositories/headerRepository`),
-    dependencies: ['ContentManagerSystem', 'HeaderDataService']
+const repositories: DefinitionCollection = {
+  HeaderRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/headerRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "HeaderDataService"],
   },
-  'HomeRepository': {
-    resolve: async () => import(`@infra/repositories/homeRepository`),
-    dependencies: ['ContentManagerSystem', 'HomeDataService']
+  PostRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/postRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "PostService", "MetaService"],
   },
-  'MicroPostRepository': {
-    resolve: async () => import(`@infra/repositories/microPostRepository`),
-    dependencies: ['ContentManagerSystem', 'MicroPostService']
+  MicroPostRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/microPostRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "MicroPostService"],
   },
-  'OfflineRepository': {
-    resolve: async () => import(`@infra/repositories/offlineRepository`),
-    dependencies: ['ContentManagerSystem', 'OffLineService']
+  HomeRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/homeRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "HomeDataService"],
   },
-  'PostRepository': {
-    resolve: async () => import(`@infra/repositories/postRepository`),
-    dependencies: ['ContentManagerSystem', 'PostService', 'MetaService']
+  MicroPostSearchRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/microPostSearchRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager", "SearchService"],
   },
-  'ProductRepository': {
-    resolve: async () => import(`@infra/repositories/productRepository`),
-    dependencies: ['StoreRepository', 'ProductService']
+  OfflineRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/offlineRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "OffLineService"],
   },
-  'PostStatRepository': {
-    resolve: async () => import(`@infra/repositories/postStatRepository`),
-    dependencies: ['ContentManagerSystem', 'PostStatService']
+  PostSearchRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/postSearchEngineRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager", "SearchService"],
   },
-  'SearchRepository': {
-    resolve: async () => import(`@infra/repositories/searchRepository`),
-    dependencies: ['SearchEngine', 'SearchService']
+  ProductRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/productRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["StoreRepository", "ProductService"],
   },
-  'TagRepository': {
-    resolve: async () => import(`@infra/repositories/tagRepository`),
-    dependencies: ['ContentManagerSystem', 'TagService', 'PostService']
+  PostStatRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/postStatRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "PostStatService"],
   },
-  'SubscriptionRepository': {
-    resolve: async () => import(`@infra/repositories/subscriptionRepository`),
-    dependencies: ['ContentManagerSystem', 'WebPushNotificationService']
+  SearchRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/searchRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "SearchService"],
   },
-  'WebPushNotificationRepository': {
-    resolve: async () => import(`@infra/repositories/webPushNotificationRepository`),
-    dependencies: ['ContentManagerSystem', 'WebPushNotificationService']
+  TagRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/tagRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "TagService", "PostService"],
   },
-}
+  SubscriptionRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/subscriptionRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ContentManagerSystem", "WebPushNotificationService"],
+  },
+  WebPushNotificationRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/webPushNotificationRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ContentManagerSystem", "WebPushNotificationService"],
+  },
+};
 
-const definitions = {
+const definitions: DefinitionCollection = {
   ...baseRepositories,
   ...repositories,
-}
+};
 
-export default definitions
+export default definitions;

@@ -9,7 +9,7 @@ type WebPushNotification = {
   image: ImageSet,
   tag: string,
   url: string,
-  data: any,
+  data: unknown,
   lang: string,
   actions: {
     action: string,

@@ -1,5 +1,6 @@
 import Training from "@domain/training";
 import { TrainingData } from "@dto/training.dto";
+
 import { IImageSetService } from "./imageSet.service";
 
 export interface ITrainingService {

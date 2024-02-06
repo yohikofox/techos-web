@@ -1,6 +1,7 @@
-import React from 'react';
-import { IconType, IconBaseProps } from 'react-icons';
 import loadable from '@loadable/component';
+import React from 'react';
+import { IconBaseProps,IconType } from 'react-icons';
+
 import Spinner from './Spinner';
 export interface ReactIconProps extends IconBaseProps {
   name: string;

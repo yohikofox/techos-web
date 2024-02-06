@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  margin: 0 calc(var(--metric-base) * 4);
+  display: flex;
+  flex-direction: column;
+
+
+  .price__input__container {
+    width: 100%;
+    position: relative;
+
+
+    .slider__container {
+      width: 100%;
+      height: 6px;
+      position: relative;
+      background: color-mix(in srgb, var(--color-tertiary), #000 60%);
+      border-radius: 8px;
+
+      .price__slider {
+        height: 100%;
+        left: 0%;
+        right: 0%;
+        position: absolute;
+        border-radius: var(--metric-base);
+        background: color-mix(in srgb, var(--color-secondary), #000 50%);
+      }
+    }
+  }
+
+  .range__container {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+
+    .range {
+      position: absolute;
+      width: 100%;
+      height: var(--metric-base);
+      background: none;
+      top: calc(var(--metric-base) * -1);
+      pointer-events: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+
+      &::-webkit-slider-thumb {
+        height: calc(var(--metric-base) * 4);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--color-secondary);
+        pointer-events: auto;
+        -webkit-appearance: none;
+      }
+    }
+
+    .min__range {
+      left: -1px;
+    }
+
+    .max__range {
+      left: 1px;
+    }
+  }
+}

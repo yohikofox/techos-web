@@ -1,20 +1,15 @@
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import { NextRequest, NextResponse } from "next/server"
-import { IOC } from "R/src/infrastructure/container";
+import { IConfigManager } from "@infra/adapter/configManager";
+import { IOC } from "@infra/container";
+import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
-const badRequest = (message?: string) => new Response(message || 'Bad Request', { status: 400 })
+export async function GET() {
+  const configManager = await IOC().resolve<IConfigManager>("ConfigManager");
 
-export async function GET(request: NextRequest, params: any) {
+  const publicKey = await configManager.get("WEB_PUSH_PUBLIC_KEY");
 
-  const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
+  const res = NextResponse.json({ api_key: publicKey });
 
-  const publicKey = await configManager.get('WEB_PUSH_PUBLIC_KEY');
-
-  const res = NextResponse.json({ api_key: publicKey })
-
-  return res
+  return res;
 }
-
-

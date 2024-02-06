@@ -1,4 +1,4 @@
-import RedisCacheHandler from "R/src/infrastructure/cache/redis/redis-cache-handler";
+import { AdminStore, StateSetter } from "../..";
 
 export type CacheStore = {
   itemIdList: string[],
@@ -8,22 +8,22 @@ export type CacheStore = {
   loadCacheItems: ({ apiKey }: { apiKey: string }) => Promise<void>,
 }
 
-export type CacheItem = {}
+export type CacheItem = NonNullable<unknown>
 
 export default class CacheStoreImplementation implements CacheStore {
   public items: Record<string, CacheItem>;
   public itemIdList: string[];
 
-  private set: any;
+  private set: StateSetter;
 
-  constructor(set: any, initialState: Partial<CacheStore> = {}) {
+  constructor(set: StateSetter, initialState: Partial<CacheStore> = {}) {
     this.set = set
     this.items = initialState.items === undefined ? {} : initialState.items;
     this.itemIdList = initialState.itemIdList === undefined ? [] : initialState.itemIdList;
   }
 
   public removeCacheItem: ({ apiKey, id }: { apiKey: string, id: string }) => Promise<void> = async ({ apiKey, id }: { apiKey: string, id: string }) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/admin/cache/tags/${encodeURIComponent(id)}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/admin/cache/tags/${encodeURIComponent(id)}`, {
       method: 'DELETE',
       headers: {
         'api-key': apiKey
@@ -33,7 +33,7 @@ export default class CacheStoreImplementation implements CacheStore {
       }
     })
 
-    const data = await response.json()
+    // const data = await response.json()
 
     this.loadCacheItems({ apiKey })
   }
@@ -50,7 +50,7 @@ export default class CacheStoreImplementation implements CacheStore {
 
     const data = await response.json()
 
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
       ns.cache.items[id] = data
       return ns
@@ -67,11 +67,11 @@ export default class CacheStoreImplementation implements CacheStore {
       }
     })
 
-    const data = await response.json()
+    const data:{ items: [] } = await response.json()
 
-    this.set((state: any) => {
+    this.set((state: AdminStore) => {
       const ns = { ...state }
-      ns.cache.itemIdList = data?.items || []
+      ns.cache.itemIdList = data.items
       return ns
     })
   }

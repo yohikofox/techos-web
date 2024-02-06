@@ -1,14 +1,17 @@
-import { RedisClientOptions, RedisClientType, SetOptions, createClient } from 'redis';
-import { CustomCacheHandler } from '../CustomCacheHandler';
-import BaseCacheHandler from '../BaseCacheHandler';
-import { CacheProvider } from '../CacheFactory';
+import {
+  createClient,
+  RedisClientOptions,
+  RedisClientType,
+  SetOptions,
+} from "redis";
+
+import BaseCacheHandler from "../BaseCacheHandler";
+import { CacheProvider } from "../CacheFactory";
 
 export default class RedisCacheHandler extends BaseCacheHandler {
-
-  constructor(options: any) {
-    super(options, CacheProvider.REDIS)
-    this.options = options
-    this.loadHandler()
+  constructor() {
+    super(CacheProvider.REDIS);
+    this.loadHandler();
   }
 
   public async loadHandler(): Promise<void> {
@@ -16,15 +19,15 @@ export default class RedisCacheHandler extends BaseCacheHandler {
 
     const options: RedisClientOptions = {
       url: process.env.REDIS_URL,
-    }
+    };
 
     const client = createClient(options) as RedisClientType;
-    client.on('error', (err: any) => {
-      console.error('Caching Error :', err);
+    client.on("error", (err: unknown) => {
+      console.error("Caching Error :", err);
     });
-    client.on('connect', () => {
+    client.on("connect", () => {
       this.setInitialized(true);
-      console.log('Redis client connected');
+      console.log("Redis client connected");
     });
 
     this.setCache(client);
@@ -34,7 +37,14 @@ export default class RedisCacheHandler extends BaseCacheHandler {
 
   public async list<T>(): Promise<T[]> {
     try {
-      const result = await this.waitForInitialization<T[]>(`list`, async () => await this.cache<RedisClientType>()?.keys('*') as T[])
+      const result = await this.waitForInitialization<T[]>(`list`, async <
+        T,
+      >() => {
+        const client = await this.cache<RedisClientType>();
+        if (client === undefined) return undefined as T;
+        const keys = (await client.keys("*")).map((it) => it);
+        return keys as T;
+      });
       return result || [];
     } catch (err) {
       console.error(err);
@@ -42,20 +52,29 @@ export default class RedisCacheHandler extends BaseCacheHandler {
     }
   }
 
-  async get(key: string) {
+  async get<T>(key: string): Promise<T> {
     try {
-      const strValue = await this.waitForInitialization<string>(`get ${key}`, async () => this.cache<RedisClientType>()?.get(key));
-      if (!strValue) return null;
+      const strValue = await this.waitForInitialization<string>(
+        `get ${key}`,
+        async (): Promise<string> => {
+          const client = this.cache<RedisClientType>();
+          if (client === undefined) return "";
+          return (await client.get(key)) as string;
+        }
+      );
+      if (strValue === undefined) return undefined as T;
       return JSON.parse(strValue);
     } catch (err) {
       console.error(err);
-      return null;
+      return undefined as T;
     }
   }
 
   async remove(key: string): Promise<void> {
     try {
-      await this.waitForInitialization<string>(`get ${key}`, async () => this.cache<RedisClientType>()?.del(key));
+      await this.waitForInitialization<void>(`get ${key}`, async () => {
+        this.cache<RedisClientType>()?.del(key);
+      });
     } catch (err) {
       console.error(err);
     }
@@ -68,12 +87,18 @@ export default class RedisCacheHandler extends BaseCacheHandler {
     fetchIdx: 4,
     tags: [ 'post' ]
   } */
-  async set(key: string, data: any, ctx: any) {
+  async set(key: string, data: unknown, ctx: { revalidate: number }) {
     const options: SetOptions = {
       EX: ctx.revalidate,
-    }
+    };
     try {
-      await this.waitForInitialization<string>(`set ${key}`, async () => await this.cache<RedisClientType>()?.set(key, JSON.stringify(data), options));
+      await this.waitForInitialization<void>(`set ${key}`, async () => {
+        await this.cache<RedisClientType>()?.set(
+          key,
+          JSON.stringify(data),
+          options
+        );
+      });
     } catch (err) {
       console.error(err);
     }

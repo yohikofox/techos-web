@@ -65,6 +65,12 @@ const remotePatterns = [
     pathname: '/**',
     port: '',
   },
+  {
+    protocol: 'https',
+    hostname: 'via.assets.so',
+    pathname: '/**',
+    port: '',
+  },
 ]
 
 const storeEndpointConfig = process.env.STORE_ENDPOINT;
