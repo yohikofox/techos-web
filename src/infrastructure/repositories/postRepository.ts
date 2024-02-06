@@ -1,5 +1,5 @@
 import { PostDetailsRequest, PostDetailsResult } from "@app/getPostDetails";
-import { PostListRequest, PostListResult } from "@app/getPostList";
+import { PostListResult } from "@app/getPostList";
 import Post from "@domain/post";
 import PostList from "@domain/postList";
 import {
@@ -20,6 +20,7 @@ import { IPostRepository } from "@interfaces/IPostRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 import { Result } from "@lib/result";
+import { PostListRequest } from "R/src/application/requests/postList.request";
 
 export default class PostRepository implements IPostRepository {
   constructor(
@@ -54,18 +55,18 @@ export default class PostRepository implements IPostRepository {
     }
 
     if (
-      response.Value.posts?.data === undefined ||
-      response.Value.posts.data.length <= 0
+      response.Value.posts === undefined ||
+      response.Value.posts.items.length <= 0
     ) {
       return response.transferError(PostDetailsResult.NO_DATA_FOUND);
     }
 
-    if (response.Value.posts.data.length !== 1) {
+    if (response.Value.posts.items.length !== 1) {
       return response.transferError(PostDetailsResult.NOT_UNIQUE_CONTENT);
     }
 
     const result: Post = await this.postService.mapPost(
-      response.Value.posts.data[0]
+      response.Value.posts.items[0]
     );
 
     return Result.ok(result);
@@ -93,7 +94,7 @@ export default class PostRepository implements IPostRepository {
 
     const result: PostList = {
       posts: await Promise.all(
-        response.Value.posts.data.map((post: PostData) => {
+        response.Value.posts.items.map((post: PostData) => {
           return this.postService.mapPost(post);
         })
       ),

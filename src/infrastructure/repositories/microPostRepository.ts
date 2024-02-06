@@ -2,10 +2,7 @@ import {
   GetMicroPostDetailsRequest,
   MicroPostDetailsResult,
 } from "@app/getMicroPostDetails";
-import {
-  MicroPostListRequest,
-  MicroPostListResult,
-} from "@app/getMicroPostList";
+import { MicroPostListResult } from "@app/getMicroPostList";
 import MicroPost from "@domain/microPost";
 import MicroPostList from "@domain/microPostList";
 import {
@@ -23,12 +20,19 @@ import { IMicroPostRepository } from "@interfaces/IMicroPostRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 import { Result } from "@lib/result";
+import { MicroPostListRequest } from "R/src/application/requests/microPostList.request";
 
 export default class MicroPostRepository implements IMicroPostRepository {
   constructor(
     private contentManagerRepository: IContentManagerSystemRepository,
     private microPostService: IMicroPostService
   ) {}
+  searchMicroPostList(
+    request: MicroPostListRequest
+  ): Promise<Result<MicroPostList, MicroPostListResult>> {
+    console.debug("🚀 ~ MicroPostRepository ~ request:", request);
+    throw new Error("Method not implemented.");
+  }
 
   async findOneMicroPost(
     request: GetMicroPostDetailsRequest
@@ -51,7 +55,7 @@ export default class MicroPostRepository implements IMicroPostRepository {
     }
 
     const result: MicroPost = await this.microPostService.mapMicroPost(
-      response.Value.microPosts.data[0] satisfies MicroPostData
+      response.Value.microPosts.items[0] satisfies MicroPostData
     );
 
     return Result.ok(result);

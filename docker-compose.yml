@@ -14,6 +14,7 @@ services:
         NEXT_PUBLIC_FRONT_URL: http://localhost:30001
         NEXT_PUBLIC_BUCKET_HOST: asset-techos-prod.s3.fr-par.scw.cloud
         JWT_KEY: secret
+        BUILD_MODE: true
     env_file:
       - .env
     ports:

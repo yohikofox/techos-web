@@ -2,6 +2,7 @@ import { authorDataSchema } from "@dto/author.dto";
 import { z } from "zod";
 
 import { pictureDataSchema } from "./picture.dto";
+import { facetDistributionSchema, facetStats } from "./search-facet.dto";
 import { tagDataSchema } from "./tag.dto";
 
 export const searchPostHitSchema = z.object({
@@ -29,11 +30,6 @@ export const searchPostHitSchema = z.object({
   tags: z.array(tagDataSchema).optional(),
 });
 
-export const facetDistributionSchema = z.record(z.record(z.number().min(1)));
-export const facetStats = z.record(
-  z.object({ min: z.number(), max: z.number() })
-);
-
 export const searchPostResponseSchema = z.object({
   hits: z.array(searchPostHitSchema),
   query: z.string(),
@@ -45,5 +41,5 @@ export const searchPostResponseSchema = z.object({
   facetStats: facetStats,
 });
 // .strict();
-
+export type HitData = z.infer<typeof searchPostHitSchema>;
 export type SearchPostResponse = z.infer<typeof searchPostResponseSchema>;

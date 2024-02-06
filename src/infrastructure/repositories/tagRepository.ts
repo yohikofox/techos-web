@@ -75,7 +75,7 @@ export default class TagRepository implements ITagRepository {
 
     const result: PostList = {
       posts: await Promise.all(
-        response.Value.posts.data.map(
+        response.Value.posts.items.map(
           async (post: PostData) =>
             await this.postService.mapPost(post satisfies PostData)
         )

@@ -60,8 +60,8 @@ export default class PostService implements IPostService {
             )
           : undefined,
       stats: await this.postStatService.mapPostStats(
-        post.slug,
-        post.post_stat_list satisfies PostStatData
+        post.post_stat_list satisfies PostStatData,
+        post.slug
       ),
     };
   }

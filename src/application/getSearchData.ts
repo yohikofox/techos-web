@@ -1,10 +1,8 @@
 import Search from "@domain/search";
 import { IUseCase } from "@infra/useCaseFactory";
-import { ISearchRepository } from "@interfaces/ISearchRepository";
+import { IndexNames, ISearchRepository } from "@interfaces/ISearchRepository";
 import { Result } from "@lib/result";
 import { ZodTypeAny } from "zod";
-
-import { IndexNames } from "../infrastructure/repositories/searchEngineRepository";
 
 export type SearchRequest = {
   indexName: IndexNames;
@@ -29,6 +27,8 @@ export default class GetSearchDataUseCase
   async execute(
     request?: SearchRequest
   ): Promise<Result<Search, SearchDataResult>> {
-    return this.searchRepository.findSearchData(request);
+    console.debug("🚀 ~ request:", request);
+    return Result.ok();
+    // return this.searchRepository.findSearchData(request);
   }
 }

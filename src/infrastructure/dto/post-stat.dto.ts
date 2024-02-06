@@ -7,20 +7,16 @@ export const postStatDataSchema = z.object({
 
 export const postStatDataResponseSchema = z.object({
   postStatLists: z.object({
-    data: z.array(postStatDataSchema),
+    items: z.array(postStatDataSchema),
   }),
 });
 
 export const updatePostStatsResponseSchema = z.object({
-  updatePostStatList: z.object({
-    data: postStatDataSchema,
-  }),
+  updatePostStatList: postStatDataSchema,
 });
 
 export const createPostStatResponseSchema = z.object({
-  createPostStatList: z.object({
-    data: postStatDataSchema,
-  }),
+  createPostStatList: postStatDataSchema,
 });
 
 const optionalPostStatDataSchema = postStatDataSchema.strict().optional();

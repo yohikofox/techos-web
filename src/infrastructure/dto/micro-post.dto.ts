@@ -6,33 +6,33 @@ import { tagDataSchema } from "./tag.dto";
 
 const microPostSchema = z
   .object({
+    id: z.coerce.number(),
     title: z.string(),
     slug: z.string(),
     content: z.string(),
     picture: pictureDataSchema.optional(),
     tags: z
       .object({
-        data: z.array(tagDataSchema),
+        items: z.array(tagDataSchema),
       })
       .optional(),
   })
   .strict();
 
-export const microPostDataSchema = z.object({
-  attributes: microPostSchema,
-});
+export const microPostDataSchema = microPostSchema;
+
 export type MicroPostData = z.infer<typeof microPostDataSchema>;
 
 export const microPostListDataSchema = z.object({
   microPosts: z.object({
-    data: z.array(microPostDataSchema),
+    items: z.array(microPostDataSchema),
     meta: metaDataSchema,
   }),
 });
 
 export const microPostDetailResponseSchema = z.object({
   microPosts: z.object({
-    data: z.array(microPostDataSchema),
+    items: z.array(microPostDataSchema),
   }),
 });
 

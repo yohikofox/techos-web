@@ -2,6 +2,7 @@ import { HomeDataResult } from "@app/getHomeData";
 import Home from "@domain/home";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import Layout, { SlotNames } from "@main/components/MainLayout";
+import { redirect } from "next/navigation";
 
 import Hero from "../../components/Hero";
 import PostList from "../../components/PostList";
@@ -36,8 +37,7 @@ async function Page({ params, searchParams }: PageProps) {
 
   if (response.IsError) {
     console.error("Error:", response);
-    throw new Error("Error");
-    // redirect("/error/400", RedirectType.push);
+    redirect("/error/400");
   }
 
   const doDisplayHero = query === undefined || Object.keys(query).length === 0;

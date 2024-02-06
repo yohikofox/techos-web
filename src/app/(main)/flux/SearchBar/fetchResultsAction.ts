@@ -1,9 +1,12 @@
+import MicroPostList from "@domain/microPostList";
 import Search from "@domain/search";
-import CacheConstants from "R/src/lib/constants/cache";
-import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+import CacheConstants from "@lib/constants/cache";
+import RevalidateTagConstants from "@lib/constants/revalidateTag";
 
-const fetchResults = async (query: string): Promise<Search> => {
-  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search?payload=${query}&index=micro-post`;
+const fetchResults = async (query: string): Promise<MicroPostList> => {
+  const q = `${process.env.NEXT_PUBLIC_FRONT_URL}/api/search/micro-post?payload=${query}&index=micro-post`;
+
+  console.log("🚀 ~ fetchResults ~ q:", q);
 
   try {
     const response = await fetch(q, {
@@ -27,14 +30,20 @@ const fetchResults = async (query: string): Promise<Search> => {
   } catch (e) {
     console.error("SearchBar: ", e);
   }
+
+  //TODO: return a default search object
   return {
-    hits: [],
-    estimatedTotalHits: 0,
-    query: "",
-    processingTimeMs: 0,
-    limit: 0,
-    offset: 0,
-  } as Search;
+    meta: {
+      pagination: {
+        page: 0,
+        pageCount: 0,
+        pathPrefix: "",
+        pageSize: 0,
+        total: 0,
+      },
+    },
+    posts: [],
+  };
 };
 
 export default fetchResults;

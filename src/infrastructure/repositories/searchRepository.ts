@@ -1,19 +1,14 @@
-import { SearchDataResult, SearchRequest } from "@app/getSearchData";
+import { SearchDataResult } from "@app/getSearchData";
 import { FacetConfig } from "@domain/facetConfig";
-import Search from "@domain/search";
 import {
   FacetConfigListResponse,
   facetConfigListResponseSchema,
 } from "@dto/facet.dto";
-import { SearchData } from "@dto/search.dto";
-import { SearchFetchOptions } from "@infra/repositories/baseSearchEngineRepository";
 import { ISearchService } from "@infra/services/search.service";
 import { IContentManagerSystemRepository } from "@interfaces/IContentManagerSystemRepository";
 import {
   ISearchRepository,
-  SearchEngineVariables,
 } from "@interfaces/ISearchRepository";
-import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
 import { Result } from "@lib/result";
 
@@ -24,66 +19,66 @@ export default class SearchRepository implements ISearchRepository {
     private searchService: ISearchService
   ) {}
 
-  async findSearchData(
-    request?: SearchRequest
-  ): Promise<Result<Search, SearchDataResult>> {
-    if (request === undefined || request.indexName === undefined) {
-      return Result.error(SearchDataResult.BAD_REQUEST);
-    }
+  // async findSearchData(
+  //   request?: SearchRequest
+  // ): Promise<Result<Search, SearchDataResult>> {
+  //   if (request === undefined || request.indexName === undefined) {
+  //     return Result.error(SearchDataResult.BAD_REQUEST);
+  //   }
 
-    const facetListResponse = await this.getFilterableAttributes(
-      request.indexName
-    );
+  //   const facetListResponse = await this.getFilterableAttributes(
+  //     request.indexName
+  //   );
 
-    if (facetListResponse.IsError) {
-      return facetListResponse.transferError(
-        SearchDataResult.NO_FILTERABLE_ATTRIBUTES
-      );
-    }
+  //   if (facetListResponse.IsError) {
+  //     return facetListResponse.transferError(
+  //       SearchDataResult.NO_FILTERABLE_ATTRIBUTES
+  //     );
+  //   }
 
-    const filters = this.createFiltersString(request.filter);
+  //   const filters = this.createFiltersString(request.filter);
 
-    const req: SearchEngineVariables = {
-      indexName: request.indexName,
-      payload: "",
-    };
+  //   const req: SearchEngineVariables = {
+  //     indexName: request.indexName,
+  //     payload: "",
+  //   };
 
-    if (request.payload !== undefined) {
-      req.payload = request.payload;
-    }
+  //   if (request.payload !== undefined) {
+  //     req.payload = request.payload;
+  //   }
 
-    if (filters !== undefined) {
-      req.filters = filters;
-    }
+  //   if (filters !== undefined) {
+  //     req.filters = filters;
+  //   }
 
-    const opts: SearchFetchOptions = {
-      revalidate: CacheConstants.ONE_MINUTE,
-      tags: [RevalidateTagConstants.SEARCH],
-      facets: facetListResponse.Value.map((f: FacetConfig) => f.label),
-      limit: request.limit!,
-      offset: request.offset!,
-    };
+  //   const opts: SearchFetchOptions = {
+  //     revalidate: CacheConstants.ONE_MINUTE,
+  //     tags: [RevalidateTagConstants.SEARCH],
+  //     facets: facetListResponse.Value.map((f: FacetConfig) => f.label),
+  //     limit: request.limit!,
+  //     offset: request.offset!,
+  //   };
 
-    if (opts.limit === 0) {
-      console.warn("limit is 0, returning empty search");
-      return Result.ok();
-    }
+  //   if (opts.limit === 0) {
+  //     console.warn("limit is 0, returning empty search");
+  //     return Result.ok();
+  //   }
 
-    const searchEngineResponse =
-      await this.searchEngineRepository.search<SearchData>(req, opts);
+  //   const searchEngineResponse =
+  //     await this.searchEngineRepository.search<SearchData>(req, opts);
 
-    if (searchEngineResponse.IsError) {
-      return searchEngineResponse.transferError(SearchDataResult.ERROR);
-    }
+  //   if (searchEngineResponse.IsError) {
+  //     return searchEngineResponse.transferError(SearchDataResult.ERROR);
+  //   }
 
-    const model: Search = await this.searchService.mapSearchItem(
-      searchEngineResponse.Value,
-      facetListResponse.Value,
-      request.indexName
-    );
+  //   const model: Search = await this.searchService.mapSearchItem(
+  //     searchEngineResponse.Value,
+  //     facetListResponse.Value,
+  //     request.indexName
+  //   );
 
-    return Result.ok(model);
-  }
+  //   return Result.ok(model);
+  // }
 
   async getFilterableAttributes(
     indexName: string

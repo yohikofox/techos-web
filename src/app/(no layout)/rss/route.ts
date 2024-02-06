@@ -1,4 +1,4 @@
-import { PostListRequest, PostListResult } from "@app/getPostList";
+import { PostListResult } from "@app/getPostList";
 import Post from "@domain/post";
 import PostList from "@domain/postList";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
@@ -7,6 +7,10 @@ import { Feed, FeedOptions } from "feed";
 import md from "markdown-it";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
+import { PostListRequest } from "R/src/application/requests/postList.request";
+import { IndexNames } from "R/src/interfaces/ISearchRepository";
+
+export const dynamic = "force-dynamic";
 
 import highlightMarkdown from "@/infrastructure/helper/highlightMarkdown";
 
@@ -74,7 +78,11 @@ export async function GET() {
     PostList,
     PostListResult
   >(UseCaseOption.GET_POST_LIST);
-  let response = await useCase?.execute({ index: page * limit, limit });
+  let response = await useCase?.execute({
+    index: page * limit,
+    limit,
+    indexName: IndexNames.POST,
+  });
 
   if (response.IsError) {
     console.error("response.Error:", response);
@@ -91,6 +99,7 @@ export async function GET() {
     response = await useCase?.execute({
       index: response.Value.meta.pagination.page * limit,
       limit,
+      indexName: IndexNames.POST,
     });
     if (response.IsError) {
       isError = true;

@@ -2,6 +2,7 @@ import { HeaderResult } from "@app/getHeaderData";
 import Header from "@domain/header";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import Brand from "R/src/components/Brand";
 import { IOC } from "R/src/infrastructure/container";
 
@@ -27,8 +28,7 @@ export default async function Header() {
 
   if (response.IsError) {
     console.error("response.Error:", response);
-    throw new Error("Error");
-    // redirect("/error/400");
+    redirect("/error/400");
   }
 
   const domainName = await configManager.get("DOMAIN_NAME");

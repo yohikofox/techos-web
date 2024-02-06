@@ -27,7 +27,6 @@ export default function Component({
   );
 
   const onChange = (value: string) => {
-    console.debug("🚀 ~ onChange ~ value:", value);
     setCurrentValue(Number(value));
 
     const seed: Record<string, string[]> = {};

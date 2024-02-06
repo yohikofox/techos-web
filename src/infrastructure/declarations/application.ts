@@ -3,7 +3,7 @@ import { ResolverDefinition } from "../dependency/resolver";
 import { ResourceTypes } from "../resourceTypes";
 
 const adapters: DefinitionCollection = {
-  PostRepository: {
+  PostAdapter: {
     resolve: async <T>() =>
       import(`@infra/adapter/postAdapter`) as unknown as Promise<
         ResolverDefinition<T>
@@ -13,6 +13,18 @@ const adapters: DefinitionCollection = {
       "SearchRepository",
       "SearchService",
       "PostService",
+    ],
+  },
+  MicroPostAdapter: {
+    resolve: async <T>() =>
+      import(`@infra/adapter/microPostAdapter`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: [
+      "MicroPostSearchRepository",
+      "SearchRepository",
+      "SearchService",
+      "MicroPostService",
     ],
   },
 };
@@ -119,7 +131,7 @@ const useCases: DefinitionCollection = {
       import(`@app/getMicroPostList`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["MicroPostRepository"],
+    dependencies: ["MicroPostAdapter"], //MicroPostRepository
   },
   GetMicroPostDetails: {
     resolve: async <T>() =>
@@ -130,4 +142,6 @@ const useCases: DefinitionCollection = {
   },
 };
 
-export default { ...useCases, ...adapters };
+const declarations: DefinitionCollection = { ...useCases, ...adapters };
+
+export default declarations;

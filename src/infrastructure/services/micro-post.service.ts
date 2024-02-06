@@ -25,7 +25,7 @@ export default class MicroPostService implements IMicroPostService {
   async mapMicroPostList(data: MicroPostListData): Promise<MicroPostList> {
     return {
       posts: await Promise.all(
-        data.microPosts.data.map(
+        data.microPosts.items.map(
           async (post: MicroPostData) =>
             (await this.mapMicroPost(post, {
               image_preset: ImageSetPreset.SMALL,
@@ -42,22 +42,19 @@ export default class MicroPostService implements IMicroPostService {
   ): Promise<MicroPost> {
     let picture = {};
 
-    if (post.attributes.picture !== undefined) {
-      picture = await this.imageSetService.mapImageSet(
-        post.attributes.picture,
-        {
-          preset:
-            options?.image_preset !== undefined
-              ? options.image_preset
-              : ImageSetPreset.NONE,
-        }
-      );
+    if (post.picture !== undefined) {
+      picture = await this.imageSetService.mapImageSet(post.picture, {
+        preset:
+          options?.image_preset !== undefined
+            ? options.image_preset
+            : ImageSetPreset.NONE,
+      });
     }
 
     return {
-      title: post.attributes.title,
-      slug: post.attributes.slug,
-      content: post.attributes.content,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
       picture,
       // tags: post.attributes.tags && post.attributes.tags.data.map(tag => this.tagService.mapTag(tag)) || undefined,
     };

@@ -4,7 +4,7 @@ import { heroDataSchema } from "./hero.dto";
 
 export const tagDataSchema = z
   .object({
-    id: z.number(),
+    id: z.coerce.number(),
     label: z.string(),
     slug: z.string(),
     background_color: z.string(),

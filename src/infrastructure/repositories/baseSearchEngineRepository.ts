@@ -1,6 +1,8 @@
 import { FetchOptions } from "@infra/adapter/fetchOptions";
 import { SearchEngineVariables } from "R/src/interfaces/ISearchRepository";
 import RevalidateTagConstants from "R/src/lib/constants/revalidateTag";
+import { defaultInstance } from "R/src/lib/zod";
+import { z } from "zod";
 
 import { IConfigManager } from "@/infrastructure/adapter/configManager";
 import { Result } from "@/lib/result";
@@ -43,6 +45,11 @@ export default abstract class SearchEngineRepository<TResult>
     request: SearchEngineVariables,
     options?: SearchFetchOptions
   ): Promise<Result<TResult, SearchEngineResult>> {
+    if (process.env.BUILD_MODE === "true" && options?.schema !== undefined)
+      return Result.ok(
+        defaultInstance(options?.schema as z.AnyZodObject) as TResult
+      );
+
     const { payload, indexName } = request;
 
     const endpoint = await this.configManager.get("INDEX_ENDPOINT");

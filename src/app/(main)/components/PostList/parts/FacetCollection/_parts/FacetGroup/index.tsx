@@ -1,5 +1,5 @@
+import { FacetType } from "@infra/repositories/baseSearchEngineRepository";
 import { FacetedSearch } from "R/src/domain/search";
-import { FacetType } from "R/src/infrastructure/repositories/searchEngineRepository";
 
 import { ServerComponent as ServerRangedFacet } from "../RangedFacet";
 import SimpleFacet from "../SimpleFacet";

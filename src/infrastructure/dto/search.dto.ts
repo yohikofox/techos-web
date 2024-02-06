@@ -13,7 +13,7 @@ export type Hit = {
   extract: string;
   picture: PictureData;
   author: AuthorData;
-  post_stat_list: PostStatData[];
+  post_stat_list: PostStatData;
   tags: TagData[];
   start_at: string;
 };

@@ -11,7 +11,9 @@ export const pictureDataObjectSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   name: z.string(),
-  url: z.string(),
+  url: z.string()
+    .default(`https://via.assets.so/movie.jpg?w=1920&h=1080&tc=blue&bg=#cecece
+`),
   width: z.number(),
   height: z.number(),
   size: z.number(),

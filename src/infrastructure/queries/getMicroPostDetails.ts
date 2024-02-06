@@ -1,3 +1,6 @@
+import { picture } from "./_parts/picture";
+import { tag } from "./_parts/tag";
+
 export const getMicroPostDetails = `
 query microPostDetails($slug: StringFilterInput!) {
   microPosts(filters: { slug: $slug }) {
@@ -8,32 +11,13 @@ query microPostDetails($slug: StringFilterInput!) {
         slug
         content
         tags {
-          data {
-            attributes {
-              label
-              background_color
-              color
-              slug
-            }
-          }
+          ${tag}
         }
         picture {
-          data {
-            attributes {
-              name
-              url
-              width
-              height
-              alternativeText
-              caption
-              size
-              mime
-              formats
-            }
-          }
+          ${picture}
         }
       }
     }
   }
 }
-`
+`;

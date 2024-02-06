@@ -32,7 +32,10 @@ export default class PostStatRepository implements IPostStatRepository {
     const updateResponse = await this.cmsRepository.get<
       UpdatePostStatsResponse,
       UpdatePostStatsRequest
-    >(GraphQLQueries.UPDATE_POST_STATS, request);
+    >(GraphQLQueries.UPDATE_POST_STATS, request, {
+      revalidate: 0,
+      tags: [RevalidateTagConstants.POST],
+    });
 
     if (updateResponse.IsError) {
       return updateResponse.transferError(PostStatsResult.ERROR);
@@ -46,8 +49,8 @@ export default class PostStatRepository implements IPostStatRepository {
 
     if (request?.slug !== undefined) {
       const result = await this.postStatService.mapPostStats(
-        request.slug,
-        updateResponse.Value.updatePostStatList.data satisfies PostStatData
+        updateResponse.Value.updatePostStatList satisfies PostStatData,
+        request.slug
       );
 
       return Result.ok(result);
@@ -69,8 +72,8 @@ export default class PostStatRepository implements IPostStatRepository {
 
     if (request?.slug !== undefined) {
       const result = await this.postStatService.mapPostStats(
-        request.slug,
-        createResponse.Value.createPostStatList.data
+        createResponse.Value.createPostStatList,
+        request.slug
       );
 
       return Result.ok(result);
@@ -97,14 +100,14 @@ export default class PostStatRepository implements IPostStatRepository {
 
     if (
       retrieveResponse.Value.postStatLists === undefined ||
-      retrieveResponse.Value.postStatLists.data.length <= 0
+      retrieveResponse.Value.postStatLists.items.length <= 0
     ) {
       return retrieveResponse.transferError(PostStatsResult.NO_DATA_FOUND);
     }
 
     const result: PostStats = await this.postStatService.mapPostStats(
-      request?.slug.eq ?? "",
-      retrieveResponse.Value.postStatLists.data[0]
+      retrieveResponse.Value.postStatLists.items[0],
+      request?.slug.eq
     );
 
     return Result.ok(result);

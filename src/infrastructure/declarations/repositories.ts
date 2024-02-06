@@ -33,12 +33,12 @@ const repositories: DefinitionCollection = {
       >,
     dependencies: ["ContentManagerSystem", "HeaderDataService"],
   },
-  HomeRepository: {
+  PostRepository: {
     resolve: async <T>() =>
-      import(`@infra/repositories/homeRepository`) as unknown as Promise<
+      import(`@infra/repositories/postRepository`) as unknown as Promise<
         ResolverDefinition<T>
       >,
-    dependencies: ["ContentManagerSystem", "HomeDataService"],
+    dependencies: ["ContentManagerSystem", "PostService", "MetaService"],
   },
   MicroPostRepository: {
     resolve: async <T>() =>
@@ -46,6 +46,20 @@ const repositories: DefinitionCollection = {
         ResolverDefinition<T>
       >,
     dependencies: ["ContentManagerSystem", "MicroPostService"],
+  },
+  HomeRepository: {
+    resolve: async <T>() =>
+      import(`@infra/repositories/homeRepository`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ContentManagerSystem", "HomeDataService"],
+  },
+  MicroPostSearchRepository: {
+    resolve: async <T>() =>
+      import(
+        `@infra/repositories/microPostSearchRepository`
+      ) as unknown as Promise<ResolverDefinition<T>>,
+    dependencies: ["ConfigManager", "SearchService"],
   },
   OfflineRepository: {
     resolve: async <T>() =>

@@ -7,9 +7,12 @@ import {
   RestRequest,
 } from "@interfaces/IContentManagerSystemRepository";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
+import fetch from "@lib/fetch";
 import { Result } from "@lib/result";
+import { defaultInstance } from "@lib/zod";
 import queries from "@queries/index";
 import qs from "querystring";
+import { z } from "zod";
 
 export default class ContentManagerSystemRepository
   implements IContentManagerSystemRepository
@@ -21,6 +24,10 @@ export default class ContentManagerSystemRepository
     variables?: TRequest,
     options?: FetchOptions
   ): Promise<Result<TResult, ContentManagerSystemResult>> {
+    if (process.env.BUILD_MODE === "true" && options?.schema !== undefined)
+      return Result.ok(
+        defaultInstance(options?.schema as z.AnyZodObject) as TResult
+      );
     try {
       const q = queries[query];
 
@@ -52,7 +59,7 @@ export default class ContentManagerSystemRepository
           response.status,
           response.statusText,
           query,
-          q
+          variables
         );
         return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR);
       }
@@ -71,18 +78,19 @@ export default class ContentManagerSystemRepository
 
       const untranformedData = await this.unTransformedData(json.data);
 
-      if (options?.schema === undefined)
+      if (process.env.BUILD_MODE === "true" || options?.schema === undefined)
         return Result.ok(untranformedData as TResult);
 
       const parseResult = options.schema.safeParse(untranformedData);
 
       if (parseResult.success !== true) {
-        console.trace(
+        console.error(
           "GraphQL query parse error",
           parseResult.error.message,
-          json.data,
+          JSON.stringify(untranformedData, null, 4),
           query
         );
+
         return Result.error(ContentManagerSystemResult.PARSE_ERROR);
       }
 
@@ -97,6 +105,8 @@ export default class ContentManagerSystemRepository
     request: RestRequest,
     options?: FetchOptions
   ): Promise<Result<T, ContentManagerSystemResult>> {
+    if (process.env.BUILD_MODE === "true" && options?.schema !== undefined)
+      return Result.ok(defaultInstance(options?.schema as z.AnyZodObject) as T);
     try {
       let url = `${await this.configManager.get("CMS_ENDPOINT")}/api/${request.entityName}`;
 
@@ -104,6 +114,7 @@ export default class ContentManagerSystemRepository
         const queryString = qs.stringify(request.query);
         url += `?${queryString}`;
       }
+
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -174,7 +185,9 @@ export default class ContentManagerSystemRepository
      */
     if (Array.isArray(data) === true) {
       const arrayData = (await Promise.all(
-        data.map(async (item) => await this.unTransformedData(item))
+        (data as Array<unknown>).map(
+          async (item) => await this.unTransformedData(item)
+        )
       )) as T;
       return arrayData;
     }

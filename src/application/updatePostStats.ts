@@ -14,7 +14,7 @@ export type CreatePostStatsRequest = {
 };
 
 export type UpdatePostStatsRequest = {
-  id: string;
+  id: number;
   count: number;
   slug?: string;
 };
@@ -69,6 +69,7 @@ export default class UpdatePostStatsUseCase
     const updateRequest: UpdatePostStatsRequest = {
       id: postStatsId,
       count: retrieveResponse.Value.viewCount + 1,
+      slug: request.slug.eq,
     };
 
     return this.postStatRepository.updatePostStat(updateRequest);

@@ -1,124 +1,94 @@
 import { PostDetailsRequest, PostDetailsResult } from "@app/getPostDetails";
 import { PostListResult } from "@app/getPostList";
 import { PostListRequest } from "@app/requests/postList.request";
-import { FacetConfig } from "@domain/facetConfig";
 import Post from "@domain/post";
 import PostList from "@domain/postList";
 import {
+  HitData,
   SearchPostResponse,
   searchPostResponseSchema,
 } from "@dto/searchPost.dto";
-import {
-  ISearchEngineRepository,
-  SearchFetchOptions,
-} from "@infra/repositories/baseSearchEngineRepository";
+import { ISearchEngineRepository } from "@infra/repositories/baseSearchEngineRepository";
 import { IPostService } from "@infra/services/post.service";
 import { ISearchService } from "@infra/services/search.service";
 import { IPostRepository } from "@interfaces/IPostRepository";
-import {
-  IndexNames,
-  ISearchRepository,
-  SearchEngineVariables,
-} from "@interfaces/ISearchRepository";
-import CacheConstants from "@lib/constants/cache";
-import RevalidateTagConstants from "@lib/constants/revalidateTag";
+import { IndexNames, ISearchRepository } from "@interfaces/ISearchRepository";
 import { Result } from "@lib/result";
 
-export default class PostAdapter implements IPostRepository {
-  private indexName: IndexNames;
+import SearchAdapter from "./searchAdapter";
+
+export default class PostAdapter
+  extends SearchAdapter
+  implements IPostRepository
+{
   constructor(
     private postSearchRepository: ISearchEngineRepository<SearchPostResponse>,
-    private searchRepository: ISearchRepository,
-    private searchService: ISearchService,
+    searchRepository: ISearchRepository,
+    searchService: ISearchService,
     private postService: IPostService
   ) {
-    this.indexName = IndexNames.POST;
+    super(IndexNames.POST, searchRepository, searchService);
   }
 
-  findOnePost(
+  async findOnePost(
     request?: PostDetailsRequest | undefined
   ): Promise<Result<Post, PostDetailsResult>> {
-    // const opts: SearchFetchOptions = {
-    //   revalidate: CacheConstants.ONE_MINUTE,
-    //   tags: [RevalidateTagConstants.SEARCH],
-    //   facets: facetListResponse.Value.map((f: FacetConfig) => f.label),
-    //   limit: request.limit!,
-    //   offset: request.offset!,
-    // };
-
-    // if (opts.limit === 0) {
-    //   console.warn("limit is 0, returning empty search");
-    //   return Result.ok();
-    // }
-    // const response = await this.postRepository.search({})
-    throw new Error("Method not implemented.");
-  }
-  async findPostList(
-    request: PostListRequest
-  ): Promise<Result<PostList, PostListResult>> {
-    const facetListResponse =
-      await this.searchRepository.getFilterableAttributes(this.indexName);
-
-    if (facetListResponse.IsError) {
-      console.error(
-        "🚀 ~ PostAdapter ~ facetListResponse:",
-        facetListResponse.Result
-      );
-      return facetListResponse.transferError(PostListResult.NO_DATA_FOUND);
-    }
-
-    const req: SearchEngineVariables = {
-      indexName: this.indexName,
-      payload: "",
-    };
-
-    if (request?.payload !== undefined) {
-      req.payload = request.payload;
-    }
-    const filters = await this.searchService.createFiltersString(
-      request.filter
-    );
-
-    if (filters !== undefined) {
-      req.filters = filters;
-    }
-
-    const opts: SearchFetchOptions = {
-      revalidate: CacheConstants.ONE_MINUTE,
-      tags: [RevalidateTagConstants.SEARCH],
-      facets: facetListResponse.Value.map((f: FacetConfig) => f.label),
-      limit: request.limit === undefined ? 0 : request.limit,
-      offset: request.index === undefined ? 0 : request.index,
-      schema: searchPostResponseSchema,
-    };
-
-    if (opts.limit === 0) {
-      console.warn("limit is 0, returning empty search");
-      return Result.ok();
-    }
+    const { req, opts } = await this.buildSearchRequest({
+      filter: {
+        slug: request?.slug.eq ?? "",
+      },
+      limit: 1,
+    });
 
     const searchEngineResponse = await this.postSearchRepository.search(
       req,
       opts
     );
 
+    if (searchEngineResponse.IsError) {
+      console.error(
+        "🚀 ~ PostAdapter ~ findOnePost ~ searchEngineResponse:",
+        searchEngineResponse.Result
+      );
+      return searchEngineResponse.transferError(
+        PostDetailsResult.NO_DATA_FOUND
+      );
+    }
+
+    if (searchEngineResponse.Value.hits.length === 0) {
+      return Result.error(PostDetailsResult.NO_DATA_FOUND);
+    }
+
+    const h: HitData = searchEngineResponse.Value.hits[0];
+
+    const post = await this.mapHitToPost(h);
+
+    return Result.ok(post);
+  }
+  async findPostList(
+    request: PostListRequest
+  ): Promise<Result<PostList, PostListResult>> {
+    const { req, opts } = await this.buildSearchRequest({
+      payload: request.payload,
+      filter: request.filter,
+      limit: request.limit,
+      index: request.index,
+      schema: searchPostResponseSchema,
+    });
+
+    if (opts.limit === 0) {
+      console.warn("limit is 0, returning empty search");
+      return Result.ok();
+    }
+    const searchEngineResponse = await this.postSearchRepository.search(
+      req,
+      opts
+    );
+
     const posts = await Promise.all(
-      searchEngineResponse.Value.hits.map(async (h) => {
-        return await this.postService.mapPost({
-          id: h.id.toString(),
-          author: h.author,
-          content: h.content,
-          title: h.title,
-          post_stat_list: h.post_stat_list,
-          slug: h.slug,
-          start_at: h.start_at,
-          tags: {
-            items: h.tags,
-          },
-          extract: h.extract ?? "",
-          picture: h.picture,
-        });
-      })
+      searchEngineResponse.Value.hits.map(async (h: HitData) =>
+        this.mapHitToPost(h)
+      )
     );
 
     const { limit, offset, estimatedTotalHits } = searchEngineResponse.Value;
@@ -140,5 +110,22 @@ export default class PostAdapter implements IPostRepository {
     };
 
     return Result.ok(result);
+  }
+
+  async mapHitToPost(h: HitData): Promise<Post> {
+    return await this.postService.mapPost({
+      id: h.id.toString(),
+      author: h.author,
+      content: h.content,
+      title: h.title,
+      post_stat_list: h.post_stat_list,
+      slug: h.slug,
+      start_at: h.start_at,
+      tags: {
+        items: h.tags,
+      },
+      extract: h.extract ?? "",
+      picture: h.picture,
+    });
   }
 }
