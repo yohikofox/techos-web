@@ -1,5 +1,5 @@
 import { Searchable } from "./searchable";
 
-type Filterable = Record<string, any> & Searchable;
+type Filterable = Record<string, unknown> & Searchable;
 
 export default Filterable;

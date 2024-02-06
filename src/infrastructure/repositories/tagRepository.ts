@@ -1,72 +1,88 @@
-import { GraphQLQueries, IContentManagerSystemRepository } from "@interfaces/contentManagementSystem";
-import { ITagService } from "@infra/services/tag.service";
-import { Result } from "@lib/result";
-import { TagInfosResult } from "@app/getTagInfos";
+import { TagInfosRequest, TagInfosResult } from "@app/getTagInfos";
+import { TagPostListRequest, TagPostListResult } from "@app/getTagPostList";
+import PostList from "@domain/postList";
 import Tag from "@domain/tag";
+import {
+  PostData,
+  PostListResponse,
+  postListResponseSchema,
+} from "@dto/post.dto";
+import { TagInfosResponse } from "@dto/tag.dto";
+import { IPostService } from "@infra/services/post.service";
+import { ITagService } from "@infra/services/tag.service";
+import {
+  GraphQLQueries,
+  IContentManagerSystemRepository,
+} from "@interfaces/IContentManagerSystemRepository";
 import { ITagRepository } from "@interfaces/ITagRepository";
 import CacheConstants from "@lib/constants/cache";
 import RevalidateTagConstants from "@lib/constants/revalidateTag";
-import { TagPostListResult } from "@app/getTagPostList";
-import PostList from "@domain/postList";
-import { IPostService } from "@infra/services/post.service";
-import { PostData, postListResponseSchema } from "@dto/post.dto";
+import { Result } from "@lib/result";
+import { IMetaService } from "@services/meta.service";
 
 export default class TagRepository implements ITagRepository {
-
   constructor(
     private cmsRepository: IContentManagerSystemRepository,
     private tagService: ITagService,
     private postService: IPostService,
-  ) { }
+    private metaService: IMetaService
+  ) {}
 
-  async findTag(request?: any): Promise<Result<Tag, TagInfosResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_INFOS, request,
-      {
-        revalidate: CacheConstants.ONE_HOUR
-      })
+  async findTag(
+    request?: TagInfosRequest
+  ): Promise<Result<Tag, TagInfosResult>> {
+    const response = await this.cmsRepository.get<
+      TagInfosResponse,
+      TagInfosRequest
+    >(GraphQLQueries.GET_TAG_INFOS, request, {
+      revalidate: CacheConstants.ONE_HOUR,
+    });
 
     if (response.IsError) {
-      return response.transferError(TagInfosResult.ERROR)
+      return response.transferError(TagInfosResult.ERROR);
     }
 
-    if (!response.Value.tags) {
-      return response.transferError(TagInfosResult.NO_DATA_FOUND)
+    if (response.Value.tags === undefined) {
+      return response.transferError(TagInfosResult.NO_DATA_FOUND);
     }
 
-    const tag = response.Value.tags.data[0]
+    const tag = response.Value.tags.data[0];
 
-    const result = await this.tagService.mapTag(tag)
+    const result = await this.tagService.mapTag(tag);
 
-    return Result.ok(result)
+    return Result.ok(result);
   }
 
-  async findTagPostList(request?: any): Promise<Result<PostList, TagPostListResult>> {
-    const response = await this.cmsRepository.get<any>(GraphQLQueries.GET_TAG_POST_LIST, request, {
+  async findTagPostList(
+    request?: TagPostListRequest
+  ): Promise<Result<PostList, TagPostListResult>> {
+    const response = await this.cmsRepository.get<
+      PostListResponse,
+      TagPostListRequest
+    >(GraphQLQueries.GET_TAG_POST_LIST, request, {
       revalidate: CacheConstants.ONE_HOUR,
       tags: [RevalidateTagConstants.TAG, RevalidateTagConstants.POST],
-      schema: postListResponseSchema
-    })
+      schema: postListResponseSchema,
+    });
 
     if (response.IsError) {
-      return response.transferError(TagPostListResult.ERROR)
+      return response.transferError(TagPostListResult.ERROR);
     }
 
-    if (!response.Value.posts) {
-      return response.transferError(TagPostListResult.NO_DATA_FOUND)
+    if (response.Value.posts === undefined) {
+      return response.transferError(TagPostListResult.NO_DATA_FOUND);
     }
 
     const result: PostList = {
-      posts: await Promise.all(response.Value.posts.data.map(async (post: PostData) => await this.postService.mapPost(post satisfies PostData))),
-      meta: {
-        pagination: {
-          page: response.Value.posts.meta.pagination.page,
-          pageSize: response.Value.posts.meta.pagination.pageSize,
-          pageCount: response.Value.posts.meta.pagination.pageCount,
-          total: response.Value.posts.meta.pagination.total,
-        }
-      }
-    }
+      posts: await Promise.all(
+        response.Value.posts.items.map(
+          async (post: PostData) =>
+            await this.postService.mapPost(post satisfies PostData)
+        )
+      ),
+      meta: await this.metaService.mapMeta(response.Value.posts.meta),
+    };
 
-    return Result.ok(result)
+    return Result.ok(result);
   }
 }

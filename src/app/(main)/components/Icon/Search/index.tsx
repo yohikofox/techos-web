@@ -1,4 +1,5 @@
 import classNames from "classnames"
+
 import styles from "./icon.module.scss"
 
 export interface IconProps {

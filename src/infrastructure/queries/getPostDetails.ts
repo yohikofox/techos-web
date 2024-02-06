@@ -1,3 +1,6 @@
+import { picture } from "./_parts/picture";
+import { tag } from "./_parts/tag";
+
 export const getPostDetails = `
 query postDetails($slug: StringFilterInput!) {
   posts(filters: { slug: $slug }) {
@@ -6,22 +9,11 @@ query postDetails($slug: StringFilterInput!) {
       attributes {
         author {
           data {
+            id
             attributes {
               username
               avatar {
-                data {
-                  attributes {
-                    name
-                    url
-                    width
-                    height
-                    alternativeText
-                    caption
-                    size
-                    mime
-                    formats
-                  }
-                }
+                ${picture}
               }
             }
           }
@@ -31,29 +23,10 @@ query postDetails($slug: StringFilterInput!) {
         content
         start_at
         picture {
-          data {
-            attributes {
-              name
-              url
-              width
-              height
-              alternativeText
-              caption
-              size
-              mime
-              formats
-            }
-          }
+          ${picture}
         }
         tags {
-          data {
-            attributes {
-              label
-              slug
-              color
-              background_color
-            }
-          }
+          ${tag}
         }
         post_stat_list {
           data {
@@ -67,4 +40,4 @@ query postDetails($slug: StringFilterInput!) {
     }
   }
 }
-`
+`;

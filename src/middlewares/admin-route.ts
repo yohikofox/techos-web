@@ -1,7 +1,8 @@
+import { NextMiddlewareResult } from "next/dist/server/web/types";
 import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
+
 import { Middleware } from ".";
 import { MiddlewareResult } from "./factory";
-import { NextMiddlewareResult } from "next/dist/server/web/types";
 
 export default class AdminRouteMiddleware extends Middleware {
   checkRoute(request: NextRequest): boolean {
@@ -15,7 +16,7 @@ export default class AdminRouteMiddleware extends Middleware {
 
     const headers = new Headers(request.headers);
 
-    if (!result) {
+    if (result === undefined) {
       console.warn("CACHE_API_KEY not found in .env")
       return NextResponse.json({ error: 'Forbidden' }, {
         status: 403,
@@ -23,7 +24,7 @@ export default class AdminRouteMiddleware extends Middleware {
       })
     }
 
-    if (!key || key !== result) {
+    if (key === null || key !== result) {
       console.warn("CACHE_API_KEY not match with key: ", key)
       return NextResponse.json({ error: 'Forbidden' }, {
         status: 403,

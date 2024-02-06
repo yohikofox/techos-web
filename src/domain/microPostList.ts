@@ -1,11 +1,9 @@
+import Meta from "./meta"
 import MicroPost from "./microPost"
-import { Pagination } from "./pagination"
 
 type MicroPostList = {
   posts: Partial<MicroPost>[]
-  meta: {
-    pagination: Pagination
-  }
+  meta: Meta
 }
 
 export default MicroPostList

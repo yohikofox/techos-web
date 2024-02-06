@@ -1,11 +1,12 @@
+import { NextMiddlewareResult } from "next/dist/server/web/types";
 import { NextFetchEvent, NextMiddleware, NextRequest } from "next/server";
+
 import { Middleware } from ".";
 import { MiddlewareResult } from "./factory";
-import { NextMiddlewareResult } from "next/dist/server/web/types";
 
 class RequestEnrichmentMiddleware extends Middleware {
 
-  checkRoute(request: NextRequest): boolean {
+  checkRoute(): boolean {
     return true
   }
 

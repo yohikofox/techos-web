@@ -1,6 +1,7 @@
 @import '~@/theme/classic/theme.scss';
 
 .container {
+  user-select: none;
   position: relative;
   min-height: calc(100vh * 0.6);
 

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import { pictureDataSchema } from './picture.dto'
 
 export const notificationSchema = z.object({
@@ -17,7 +18,7 @@ export const webPushNotificationSchema = z.object({
   image: pictureDataSchema,
   icon: pictureDataSchema,
   tag: z.string(),
-  data: z.any(),
+  data: z.unknown(),
   actions: z.array(notificationSchema),
 })
 

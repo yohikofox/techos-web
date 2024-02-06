@@ -1,27 +1,27 @@
 import { handlePushNotification } from "./handlePushNotification";
 
-export const registerPushWorker = async (worker: any) => {
-  worker.addEventListener('push', (event: any) => {
+export const registerPushWorker = async (worker: ServiceWorkerGlobalScope) => {
+
+  worker.addEventListener("push", (event: PushEvent) => {
+    console.log("🚀 ~ worker.addEventListener ~ event:", event)
     const data = event.data?.json();
 
     const title = data.title;
-    const notificationOptions = data
+    const notificationOptions = data;
 
-    if (event.waitUntil) {
-      event.waitUntil(
-        worker.registration.showNotification(title, {
-          ...notificationOptions,
-          data: data
-        })
-      )
-    }
+    event.waitUntil(
+      worker.registration.showNotification(title, {
+        ...notificationOptions,
+        data: data,
+      })
+    );
   });
 
-  worker.addEventListener('notificationclick', (event: any) => {
-    event.notification.close()
+  worker.addEventListener("notificationclick", (event: NotificationEvent) => {
+    event.notification.close();
 
     event.waitUntil(
       handlePushNotification(worker, event.notification.data.url, event.action)
-    )
-  })
-}
+    );
+  });
+};

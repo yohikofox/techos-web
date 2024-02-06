@@ -1,7 +1,5 @@
-import fs from 'fs'
 
 const toDataURL = async (url: string): Promise<string> => {
-  //TODO: export to server action
   const response = await fetch(url)
   const blob = await response.arrayBuffer()
   const contentType = response.headers.get('content-type');

@@ -1,6 +1,9 @@
+import { picture } from "./_parts/picture";
+import { tag } from "./_parts/tag";
+
 export const getPostList = `
-query postList($index: Int!, $limit: Int!) {
-  posts(sort: "start_at:desc", pagination: { start: $index, limit: $limit }) {
+query postList($offset: Int!, $limit: Int!) {
+  posts(sort: "start_at:desc", pagination: { start: $offset, limit: $limit }) {
     data {
       id
       attributes {
@@ -13,17 +16,7 @@ query postList($index: Int!, $limit: Int!) {
           }
         }
         tags {
-          data {
-            attributes {
-              label
-              background_color
-              color
-              slug
-              hero {
-                title
-              }
-            }
-          }
+          ${tag}
         }
         title
         slug
@@ -31,19 +24,7 @@ query postList($index: Int!, $limit: Int!) {
         extract
         start_at
         picture {
-          data {
-            attributes {
-              name
-              url
-              width
-              height
-              alternativeText
-              caption
-              size
-              mime
-              formats
-            }
-          }
+          ${picture}
         }
         post_stat_list {
           data {
@@ -65,4 +46,4 @@ query postList($index: Int!, $limit: Int!) {
     }
   }
 }
-  `
+  `;

@@ -1,10 +1,16 @@
-import { PostDetailsResult } from "@app/getPostDetails";
+import { PostDetailsRequest, PostDetailsResult } from "@app/getPostDetails";
 import Post from "@domain/post";
+import PostList from "@domain/postList";
 import { Result } from "@lib/result";
+
 import { PostListResult } from "../application/getPostList";
-import PostList from "../domain/postList";
+import { PostListRequest } from "../application/requests/postList.request";
 
 export interface IPostRepository {
-  findOnePost(request?: any): Promise<Result<Post, PostDetailsResult>>
-  findPostList(request?: any): Promise<Result<PostList, PostListResult>>
+  findOnePost(
+    request?: PostDetailsRequest
+  ): Promise<Result<Post, PostDetailsResult>>;
+  findPostList(
+    request?: PostListRequest
+  ): Promise<Result<PostList, PostListResult>>;
 }

@@ -1,4 +1,4 @@
-import { Inter, Roboto_Mono, Red_Hat_Display, Open_Sans, Roboto, Poppins, Gothic_A1, Ubuntu, JetBrains_Mono } from 'next/font/google'
+import { Gothic_A1, Inter, JetBrains_Mono,Open_Sans, Poppins, Red_Hat_Display, Roboto, Roboto_Mono, Ubuntu } from 'next/font/google'
 
 
 export const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--inter' })

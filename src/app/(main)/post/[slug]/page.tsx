@@ -1,23 +1,29 @@
+import { PostDetailsRequest, PostDetailsResult } from "@app/getPostDetails";
+import ImageSet from "@domain/image";
 import Post from "@domain/post";
 import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { PostDetailsResult } from "@app/getPostDetails";
 import { redirect } from "next/navigation";
-import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
+
 import Hero from "@/app/(main)/components/Hero";
-import ImageSet from "@domain/image";
+import Layout, { SlotNames } from "@/app/(main)/components/MainLayout";
 import PostDetails from "@/app/(main)/components/PostDetails";
 
-export interface PostPageProps { params: { slug: string } }
+export interface PostPageProps {
+  params: { slug: string };
+}
 
-export default async function Post({ params: { slug } }: PostPageProps) {
+export default async function Page({ params: { slug } }: PostPageProps) {
+  const useCase = await UseCaseFactory.Instance.getUseCase<
+    PostDetailsRequest,
+    Post,
+    PostDetailsResult
+  >(UseCaseOption.GET_POST_DETAILS);
 
-  const useCase = await UseCaseFactory.Instance.getUseCase<any, Post, PostDetailsResult>(UseCaseOption.GET_POST_DETAILS);
-
-  const response = await useCase?.execute({ slug: { "eq": slug } });
+  const response = await useCase?.execute({ slug: { eq: slug } });
 
   if (response.IsError) {
-    console.error("🚀 ~ Post ~ response:", response.Result)
-    redirect('/error/400')
+    console.error("🚀 ~ Post ~ response:", response.Result);
+    redirect("/error/400");
   }
 
   return (
@@ -32,5 +38,5 @@ export default async function Post({ params: { slug } }: PostPageProps) {
         <PostDetails post={response.Value} />
       </main>
     </Layout>
-  )
+  );
 }

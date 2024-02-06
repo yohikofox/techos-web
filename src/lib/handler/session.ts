@@ -1,5 +1,5 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 
 const sessionHandler = async (request: NextRequest, callback: (request: NextRequest) => Promise<NextResponse>): Promise<NextResponse> => {
   const session = await getServerSession();

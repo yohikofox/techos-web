@@ -1,6 +1,10 @@
-import type { RedisClientType } from 'redis';
+type Cache = {
+  client?: unknown;
+  _initialized?: boolean;
+};
 
 declare global {
-  var cache: any | undefined;
+  // eslint-disable-next-line no-var
+  var cache: Cache | undefined;
 }
 export default global;

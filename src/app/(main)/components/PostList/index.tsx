@@ -1,85 +1,71 @@
-import PostCard from "../PostCard"
-import styles from "./post-list.module.scss"
-import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
-import { PostListRequest, PostListResult } from "@app/getPostList";
-import PostList from "@domain/postList";
-import { redirect } from "next/navigation";
-import Pagination from "./parts/Pagination";
-import { PostType } from "@domain/post";
 // import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import TextToSpeechInfos from "../TextToSpeechInfos";
-import { IOC } from "R/src/infrastructure/container";
-import { IAssetBuilder } from "R/src/infrastructure/helper/assetBuilder";
+import { PostListResult } from "@app/getPostList";
+import { PostListRequest } from "@app/requests/postList.request";
+import PostList from "@domain/postList";
+import { SearchItem } from "@domain/search";
+import UseCaseFactory, { UseCaseOption } from "@infra/useCaseFactory";
+import { redirect } from "next/navigation";
+
+import { getDefaultAd } from "./parts/DefaultAd";
+import ServerSidePostCollection from "./parts/ServerSidePostCollection";
 
 const ADS_POSITION_LIST: number[] = []; //3, 13
 const DEFAULT_PAGE_SIZE = 3 * 4 - ADS_POSITION_LIST.length;
 const DEFAULT_PAGE_INDEX = 0;
 
-const AD_DEFAULT = {
-  id: "-1",
-  title: 'Ads',
-  description: 'Ads',
-  content: 'Ads',
-  type: PostType.Ad,
-  picture: {
-    name: 'Ads',
-    src: '/uploads/ads_9ee4df27b1.png',
-  },
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}
-
 export interface PostListProps {
-  title?: string
-  page?: number
+  title?: string;
+  page?: number;
+  query?: Record<string, string | string[]>;
 }
 
-export default async function PostListRender({ title, page }: PostListProps) {
-  const validatedPage = page && page > 0 ? page - 1 : DEFAULT_PAGE_INDEX
-  const index = validatedPage * DEFAULT_PAGE_SIZE
-  const limit = DEFAULT_PAGE_SIZE
-  const postListUseCase = await UseCaseFactory.Instance.getUseCase<PostListRequest, PostList, PostListResult>(UseCaseOption.GET_POST_LIST);
-  const postListResponse = await postListUseCase?.execute({ index, limit });
+export default async function PostListRender({ page, query }: PostListProps) {
+  const validatedPage =
+    page !== undefined && page > 0 ? page - 1 : DEFAULT_PAGE_INDEX;
+  const index = validatedPage * DEFAULT_PAGE_SIZE;
+  const limit = DEFAULT_PAGE_SIZE;
 
+  const postListUseCase = await UseCaseFactory.Instance.getUseCase<
+    PostListRequest,
+    PostList,
+    PostListResult
+  >(UseCaseOption.GET_POST_LIST);
+  const postListResponse = await postListUseCase?.execute({
+    filter: query,
+    limit,
+    offset: index,
+  } as PostListRequest);
 
   if (postListResponse.IsError) {
-    redirect('/error/400')
+    console.error("Error:", postListResponse.Result);
+    redirect("/error/400");
   }
-  // const configManager = await IOC().resolve<IConfigManager>('ConfigManager')
 
-  // const src = AD_DEFAULT.picture.src;
-  // AD_DEFAULT.picture.src = `${await configManager.get('CMS_ENDPOINT')}${src}}`
+  const def = await getDefaultAd();
 
-  const assetBuilder = await IOC().resolve<IAssetBuilder>('AssetBuilder')
+  const postCollection = postListResponse.Value.posts;
 
-  AD_DEFAULT.picture.src = await assetBuilder.buildAssetUri(AD_DEFAULT.picture.src)
+  const posts: SearchItem[] = [];
+  const slimit = postCollection.length + ADS_POSITION_LIST.length;
 
-  const posts = [];
-  let insertedAdCount = 0;
-  const slimit = postListResponse.Value.posts.length + ADS_POSITION_LIST.length
   for (let i = 0; i < slimit; i++) {
     if (ADS_POSITION_LIST.includes(i)) {
-      posts.push(AD_DEFAULT);
-      insertedAdCount++;
+      posts.push(def);
     }
 
-    if (!postListResponse.Value.posts[i]) continue
+    if (postCollection[i] === undefined) continue;
 
-    const p = postListResponse.Value.posts[i];
+    const p = postCollection[i];
     posts.push(p);
   }
 
   return (
     <>
-      <TextToSpeechInfos />
-      <section className={styles.container}>
-        {posts.map((post, index) => {
-          return (
-            <PostCard key={`post-list-item-${index}`} post={post} index={index} />
-          )
-        })}
-        <Pagination {...postListResponse.Value.meta.pagination} />
-      </section>
+      <ServerSidePostCollection
+        posts={posts}
+        meta={postListResponse.Value.meta}
+        // facets={postListResponse.Value.facets}
+      />
     </>
-  )
+  );
 }

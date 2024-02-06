@@ -1,8 +1,19 @@
-import NextImage, { ImageLoader } from "next/image"
-import { OnLoadingComplete, PlaceholderValue, StaticImport } from "next/dist/shared/lib/get-img-props";
+import {
+  OnLoadingComplete,
+  PlaceholderValue,
+  StaticImport,
+} from "next/dist/shared/lib/get-img-props";
+import NextImage, { ImageLoader } from "next/image";
+
 import toDataURL from "@/lib/image/toDataUrl";
 
-type defaultOptionsType = Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"> & {
+type defaultOptionsType = Omit<
+  React.DetailedHTMLProps<
+    React.ImgHTMLAttributes<HTMLImageElement>,
+    HTMLImageElement
+  >,
+  "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"
+> & {
   src: string | StaticImport;
   alt: string;
   width?: number | `${number}` | undefined;
@@ -21,47 +32,38 @@ type defaultOptionsType = Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<H
   objectPosition?: string | undefined;
   lazyBoundary?: string | undefined;
   lazyRoot?: string | undefined;
-} & React.RefAttributes<HTMLImageElement | null>
+} & React.RefAttributes<HTMLImageElement | null>;
 
 export type ImageOptions = {
   priority?: boolean;
   preset?: string;
-} & defaultOptionsType
+} & defaultOptionsType;
 
 const handleBlur = async (options: ImageOptions) => {
-  if (options.placeholder === 'blur' && options.blurDataURL) {
-    return await toDataURL(options.blurDataURL)
+  if (options.placeholder === "blur" && options.blurDataURL !== undefined) {
+    return await toDataURL(options.blurDataURL);
   }
-  return options.blurDataURL
-}
+  return options.blurDataURL;
+};
 
 export default async function ServerImage(options: ImageOptions) {
-
   const localOptions: ImageOptions = {
     ...options,
-    blurDataURL: await handleBlur(options)
-  }
+    blurDataURL: await handleBlur(options),
+    draggable: options.draggable !== undefined ? options.draggable : false,
+  };
 
-  return (
-    <NextImage
-      {...localOptions}
-    />
-  )
+  return <NextImage {...localOptions} />;
 }
-
 
 export function Image(options: ImageOptions) {
   const localOptions: ImageOptions = {
     ...options,
+  };
+
+  if (options.fill !== undefined && options.sizes === undefined) {
+    localOptions.sizes = "100%";
   }
 
-  if (options.fill && !options.sizes) {
-    localOptions.sizes = "100%"
-  }
-
-  return (
-    <NextImage
-      {...localOptions}
-    />
-  )
+  return <NextImage {...localOptions} />;
 }

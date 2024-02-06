@@ -1,11 +1,9 @@
-import { Pagination } from "./pagination"
-import Post from "./post"
+import Meta from "./meta";
+import Post from "./post";
 
 type PostList = {
-  posts: Partial<Post>[]
-  meta: {
-    pagination: Pagination
-  }
-}
+  posts: Post[];
+  meta: Meta;
+};
 
-export default PostList
+export default PostList;

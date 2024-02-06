@@ -1,6 +1,7 @@
-import { IConfigManager } from "@/infrastructure/adapter/configManager";
-import { IOC } from "R/src/infrastructure/container";
 import { NextRequest, NextResponse } from "next/server"
+import { IOC } from "R/src/infrastructure/container";
+
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
 
 export const dynamic = "force-dynamic"
 

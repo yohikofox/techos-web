@@ -7,6 +7,10 @@
       "esnext",
       "WebWorker"
     ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -58,6 +62,12 @@
       ],
       "@queries/*": [
         "./src/infrastructure/queries/*"
+      ],
+      "@main/*": [
+        "./src/app/(main)/*"
+      ],
+      "@requests/*": [
+        "./src/application/requests/*"
       ],
     }
   },

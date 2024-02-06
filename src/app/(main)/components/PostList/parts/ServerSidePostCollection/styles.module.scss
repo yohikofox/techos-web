@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+
+  .facet__list {
+    max-width: 300px;
+  }
+}
+
+.post__list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    margin: 0;
+    flex-direction: row;
+    padding: 10px;
+  }
+}

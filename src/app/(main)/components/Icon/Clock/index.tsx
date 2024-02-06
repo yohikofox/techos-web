@@ -1,4 +1,5 @@
 import classNames from "classnames"
+
 import styles from "./clock.module.scss"
 
 export interface IconProps {

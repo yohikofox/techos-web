@@ -1,16 +1,18 @@
-import { Result } from "@/lib/result";
+import { ProductResult } from "@app/getProductById";
 import Product from "@domain/product";
 import Filterable from "@infra/adapter/filterable";
-import { ProductResult } from "@app/getProductById";
 import { IProductRepository } from "@interfaces/IProductRepository";
 
-export type RandomProductRequest = {} & Filterable
+import { Result } from "@/lib/result";
+
+export type RandomProductRequest = Filterable;
 
 export default class GetRandomProductUseCase {
+  constructor(private productRepository: IProductRepository) {}
 
-  constructor(private productRepository: IProductRepository,) { }
-
-  async execute(request?: RandomProductRequest): Promise<Result<Product, ProductResult>> {
-    return this.productRepository.findRandomProduct(request)
+  async execute(
+    request?: RandomProductRequest
+  ): Promise<Result<Product, ProductResult>> {
+    return this.productRepository.findRandomProduct(request);
   }
 }

@@ -1,7 +1,7 @@
-import { WebPushNotificationResult } from "@app/getNotification";
+import { GetWebPushNotificationRequest, WebPushNotificationResult } from "@app/getNotification";
 import WebPushNotification from "@domain/webPushNotification";
 import { Result } from "@lib/result";
 
 export interface IWebPushNotificationRepository {
-  findOneWebPushNotification(request: any): Promise<Result<WebPushNotification, WebPushNotificationResult>>
+  findOneWebPushNotification(request: GetWebPushNotificationRequest): Promise<Result<WebPushNotification, WebPushNotificationResult>>
 }

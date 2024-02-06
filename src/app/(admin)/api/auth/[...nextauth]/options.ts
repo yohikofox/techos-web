@@ -1,8 +1,10 @@
-import { IConfigManager } from '@/infrastructure/adapter/configManager';
-import SessionConstants from '@/lib/constants/session';
-import { NextAuthOptions, Session } from 'next-auth';
+import { NextAuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import Auth0Provider from "next-auth/providers/auth0";
 import { IOC } from "R/src/infrastructure/container";
+
+import { IConfigManager } from "@/infrastructure/adapter/configManager";
+import SessionConstants from "@/lib/constants/session";
 
 // import CustomSession from '@/types/session';
 // import CmsUser from '@/types/user';
@@ -22,19 +24,20 @@ import { IOC } from "R/src/infrastructure/container";
 
 export const getAuthOptions: () => Promise<NextAuthOptions> =
   async (): Promise<NextAuthOptions> => {
-
-    const configManager = await IOC().resolve<IConfigManager>('Helper/TokenGenerator');
+    const configManager = await IOC().resolve<IConfigManager>(
+      "Helper/TokenGenerator"
+    );
 
     const config = {
-      clientId: (await configManager.get("AUTH0_CLIENT_ID", "MISSING"))!,//process.env.AUTH0_CLIENT_ID
-      clientSecret: (await configManager.get("AUTH0_CLIENT_SECRET", "MISSING"))!,//process.env.AUTH0_CLIENT_SECRET,
-      issuer: (await configManager.get("AUTH0_ISSUER", "MISSING"))!,//process.env.AUTH0_ISSUER
-    }
+      clientId: (await configManager.get("AUTH0_CLIENT_ID", "MISSING"))!, //process.env.AUTH0_CLIENT_ID
+      clientSecret: (await configManager.get(
+        "AUTH0_CLIENT_SECRET",
+        "MISSING"
+      ))!, //process.env.AUTH0_CLIENT_SECRET,
+      issuer: (await configManager.get("AUTH0_ISSUER", "MISSING"))!, //process.env.AUTH0_ISSUER
+    };
 
-
-    const providers = [
-      Auth0Provider(config)
-    ]
+    const providers = [Auth0Provider(config)];
 
     return {
       pages: {
@@ -45,11 +48,11 @@ export const getAuthOptions: () => Promise<NextAuthOptions> =
       },
       providers,
       callbacks: {
-        async session({ session, token }: { session: Session; token: any }) {
+        async session({ session }: { session: Session; token: JWT }) {
           return session;
         },
         async jwt({ token, account, profile, trigger }) {
-          console.log('account:', token, account, profile, trigger)
+          console.log("account:", token, account, profile, trigger);
           // if (account || trigger === 'update') {
           //   const newToken = { ...token, ...account };
           //   const cmsUserResponse = await fetch(`${process.env.WEB_USER_API_BASE_URL}/users`, {
@@ -96,4 +99,3 @@ export const getAuthOptions: () => Promise<NextAuthOptions> =
       },
     };
   };
-

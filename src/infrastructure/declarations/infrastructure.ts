@@ -1,64 +1,108 @@
+import { ResolverDefinition } from "../dependency/resolver";
+
 const services = {
-  'ImageSetService': {
-    resolve: async () => import(`@services/imageSet.service`),
-    dependencies: ['AssetBuilder']
+  ImageSetService: {
+    resolve: async <T>() =>
+      import(`@services/imageSet.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["AssetBuilder"],
   },
-  'PostService': {
-    resolve: async () => import(`@services/post.service`),
-    dependencies: ['ImageSetService', 'TagService', 'PostStatService']
+  PostService: {
+    resolve: async <T>() =>
+      import(`@services/post.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ImageSetService", "TagService", "PostStatService"],
   },
-  'MicroPostService': {
-    resolve: async () => import(`@services/micro-post.service`),
-    dependencies: ['ImageSetService', 'TagService', 'MetaService']
+  MicroPostService: {
+    resolve: async <T>() =>
+      import(`@services/micro-post.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ImageSetService", "TagService", "MetaService"],
   },
-  'MetaService': {
-    resolve: async () => import(`@services/meta.service`),
-    dependencies: []
+  MetaService: {
+    resolve: async <T>() =>
+      import(`@services/meta.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: [],
   },
-  'ProductService': {
-    resolve: async () => import(`@services/product.service`),
-    dependencies: []
+  ProductService: {
+    resolve: async <T>() =>
+      import(`@services/product.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: [],
   },
-  'TagService': {
-    resolve: async () => import(`@services/tag.service`),
-    dependencies: ['HeroService']
+  TagService: {
+    resolve: async <T>() =>
+      import(`@services/tag.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["HeroService"],
   },
-  'SearchService': {
-    resolve: async () => import(`@services/search.service`),
-    dependencies: ['PostService', 'MicroPostService']
+  SearchService: {
+    resolve: async <T>() =>
+      import(`@services/search.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["PostService", "MicroPostService"],
   },
-  'TrainingService': {
-    resolve: async () => import(`@services/trainings.service`),
-    dependencies: ["ImageSetService"]
+  TrainingService: {
+    resolve: async <T>() =>
+      import(`@services/trainings.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ImageSetService"],
   },
-  'HeaderDataService': {
-    resolve: async () => import(`@services/header-data.service`),
-    dependencies: ['TrainingService']
+  HeaderDataService: {
+    resolve: async <T>() =>
+      import(`@services/header-data.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["TrainingService"],
   },
-  'HeroService': {
-    resolve: async () => import(`@services/hero.service`),
-    dependencies: ['ImageSetService']
+  HeroService: {
+    resolve: async <T>() =>
+      import(`@services/hero.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ImageSetService"],
   },
-  'WebPushNotificationService': {
-    resolve: async () => import(`@services/web-push-notification.service`),
-    dependencies: ['ImageSetService']
+  WebPushNotificationService: {
+    resolve: async <T>() =>
+      import(`@services/web-push-notification.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["ImageSetService"],
   },
-  'OffLineService': {
-    resolve: async () => import(`@services/offline.service`),
-    dependencies: []
+  OffLineService: {
+    resolve: async <T>() =>
+      import(`@services/offline.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: [],
   },
-  'HomeDataService': {
-    resolve: async () => import(`@services/home-data.service`),
-    dependencies: ['HeroService']
+  HomeDataService: {
+    resolve: async <T>() =>
+      import(`@services/home-data.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: ["HeroService"],
   },
-  'PostStatService': {
-    resolve: async () => import(`@services/post-stats.service`),
-    dependencies: []
+  PostStatService: {
+    resolve: async <T>() =>
+      import(`@services/post-stats.service`) as unknown as Promise<
+        ResolverDefinition<T>
+      >,
+    dependencies: [],
   },
-}
+};
 
 const definitions = {
-  ...services
-}
+  ...services,
+};
 
-export default definitions
+export default definitions;

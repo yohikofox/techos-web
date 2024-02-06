@@ -1,8 +1,10 @@
+import { StateSetter } from "../..";
+
 export default abstract class BaseMenuStoreImplementation implements MenuStore {
   public isOpen: boolean
   public links: MenuItem[]
 
-  constructor(protected set: any, initialState: Partial<MenuStore> = {}) {
+  constructor(protected set: StateSetter, initialState: Partial<MenuStore> = {}) {
     this.isOpen = initialState.isOpen === undefined || initialState.isOpen === null ? true : initialState.isOpen;
     this.links = initialState.links || [];
   }

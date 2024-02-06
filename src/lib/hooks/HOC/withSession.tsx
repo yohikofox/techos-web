@@ -1,16 +1,22 @@
-import React, { ReactNode } from "react";
-import { getServerSession } from "next-auth";
+import { getServerSession,Session } from "next-auth";
+import React from "react";
 
-export default async function withSession(Component: any) {
+export type WithSessionProps = {
+  session: Session | undefined | null;
+} & React.JSX.IntrinsicAttributes;
+
+export default async function withSession(
+  Component: React.FC<WithSessionProps>
+) {
   const session = await getServerSession();
 
-  const render = (props: any) => {
+  const render = (props: React.JSX.IntrinsicAttributes) => {
     return (
       <>
         <Component {...props} session={session} />
       </>
-    )
-  }
+    );
+  };
 
-  return render
+  return render;
 }

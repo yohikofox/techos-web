@@ -1,25 +1,40 @@
 import { z } from "zod";
 
-export const pictureDataSchema = z.object({
-  data: z.object({
-    attributes: z.object({
+export const pictureDataObjectSchema = z.object({
+  id: z.coerce.number(),
+  hash: z.string(),
+  ext: z.string(),
+  previewUrl: z.string().nullable(),
+  provider: z.string(),
+  provider_metadata: z.any().nullable(),
+  folderPath: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  name: z.string(),
+  url: z.string()
+    .default(`https://via.assets.so/movie.jpg?w=1920&h=1080&tc=blue&bg=#cecece
+`),
+  width: z.number(),
+  height: z.number(),
+  size: z.number(),
+  alternativeText: z.string().nullable(),
+  caption: z.string().nullable(),
+  mime: z.string(),
+  formats: z.record(
+    z.object({
+      ext: z.string(),
       name: z.string(),
       url: z.string(),
+      path: z.string().nullable(),
       width: z.number(),
       height: z.number(),
       size: z.number(),
       mime: z.string(),
-      formats: z.record(z.object({
-        ext: z.string(),
-        name: z.string(),
-        url: z.string(),
-        width: z.number(),
-        height: z.number(),
-        size: z.number(),
-        mime: z.string(),
-      })).optional(),
+      hash: z.string(),
     })
-  })
-}).strict();
+  ),
+});
+
+export const pictureDataSchema = pictureDataObjectSchema.strict();
 
 export type PictureData = z.infer<typeof pictureDataSchema>;

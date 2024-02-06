@@ -1,6 +1,7 @@
-import dayjs from "dayjs"
-import styles from "./post-date.module.scss"
 import classNames from 'classnames';
+import dayjs from "dayjs"
+
+import styles from "./post-date.module.scss"
 
 export interface PostDateProps {
   date: string

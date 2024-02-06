@@ -1,10 +1,11 @@
 import WebPushNotification from "@domain/webPushNotification"
 import { PictureData } from "@dto/picture.dto"
-import { NotificationData, WebPushNotificationData, WebPushNotificationDataResponse } from "@dto/web-push-notification.dto"
+import { NotificationData, WebPushNotificationData } from "@dto/web-push-notification.dto"
+
 import { IImageSetService, ImageSetOptions, ImageSetPreset } from "./imageSet.service"
 
 export interface IWebPushNotificationService {
-  mapToWebPushNotification(data: any): Promise<WebPushNotification>
+  mapToWebPushNotification(data: WebPushNotificationData): Promise<WebPushNotification>
 }
 
 export default class WebPushNotificationService implements IWebPushNotificationService {
@@ -23,7 +24,7 @@ export default class WebPushNotificationService implements IWebPushNotificationS
         data.icon satisfies PictureData,
         { preset: ImageSetPreset.THUMBNAIL } satisfies ImageSetOptions),
       tag: data.tag,
-      data: data.data as any,
+      data: data.data,
       actions: await Promise.all(data.actions.map(async (action: NotificationData) => {
         return {
           action: action.action,
