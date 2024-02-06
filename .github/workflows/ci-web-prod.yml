@@ -1,6 +1,6 @@
 name: CI Internal Website Prod
 
-on: 
+on:
   workflow_dispatch:
   push:
     branches:
@@ -16,10 +16,10 @@ jobs:
     environment: production
     steps:
       - name: Checkout
-        uses: actions/checkout@v4     
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
       - name: Git Version
         id: version
         uses: codacy/git-version@2.7.1
@@ -52,6 +52,7 @@ jobs:
             CMS_ENDPOINT_HOSTNAME=${{ secrets.BACKEND_HOSTNAME }}
             STORE_ENDPOINT=${{ vars.STORE_ENDPOINT }}
             STORE_API_KEY=${{ secrets.STORE_API_KEY }}
+            BUILD_MODE=${{ vars.BUILD_MODE }}
           file: "Dockerfile"
           context: "{{defaultContext}}:."
           tags: ${{secrets.REGISTRY_SERVER}}/techos:${{ steps.version.outputs.version }}
@@ -64,8 +65,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0    
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0
       - name: Git Version
         id: version
         with:
