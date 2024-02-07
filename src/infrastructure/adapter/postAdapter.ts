@@ -85,6 +85,14 @@ export default class PostAdapter
       opts
     );
 
+    if (searchEngineResponse.IsError) {
+      console.error(
+        "🚀 ~ PostAdapter ~ findPostList ~ searchEngineResponse:",
+        searchEngineResponse.Result
+      );
+      return searchEngineResponse.transferError(PostListResult.NO_DATA_FOUND);
+    }
+
     const posts = await Promise.all(
       searchEngineResponse.Value.hits.map(async (h: HitData) =>
         this.mapHitToPost(h)
