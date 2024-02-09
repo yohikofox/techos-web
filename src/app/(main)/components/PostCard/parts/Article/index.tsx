@@ -9,7 +9,6 @@ import getReadingTime from "@/infrastructure/helper/getReadingTime";
 import PostHelper from "@/infrastructure/helper/postHelper";
 
 import InsetLink from "../../../InsetLink";
-import TextToSpeechButton from "../../../TextToSpeechButton";
 import { PostCardProps } from "../..";
 import Tag from "../Tag";
 import styles from "./article.module.scss";
@@ -40,11 +39,11 @@ export default async function Article({ post }: PostCardProps) {
       </figure>
 
       <section className={styles.details}>
+        <h2 className={styles.title}>{post.title}</h2>
+        <span
+          className={styles.metadata__author}
+        >{`De ${post.author?.username}, le ${dayjs(post.start_at).format("DD/MM/YYYY")}`}</span>
         <section className={styles.details__top}>
-          <h2 className={styles.title}>{post.title}</h2>
-          <span
-            className={styles.metadata__author}
-          >{`De ${post.author?.username}, le ${dayjs(post.start_at).format("DD/MM/YYYY")}`}</span>
           <span className={styles.reading__time}>
             <DisplayTracking
               className={styles.metadata__count}
@@ -60,45 +59,26 @@ export default async function Article({ post }: PostCardProps) {
               >{`${getReadingTime(post.content !== undefined ? post.content : "")}'`}</span>
             </span>
           </span>
-          <div className={styles.metadata__tags}>
-            {post.level !== undefined && (
-              <div
-                className={classNames(
-                  styles.metadata__level,
-                  styles.metadata__tags__item
-                )}
-              >
-                {post.level}
-              </div>
-            )}
-            {post.tags?.map((tag, index) => (
-              <Tag
-                key={index}
-                tag={tag}
-                className={styles.metadata__tags__item}
-              />
-            ))}
-          </div>
         </section>
-        <section className={styles.details__bottom}>
-          {/* {post.extract !== undefined && (
+        <div className={styles.metadata__tags}>
+          {post.level !== undefined && (
             <div
-              className={styles.abstract}
-              dangerouslySetInnerHTML={{
-                __html: htmlExtract !== undefined ? htmlExtract : "",
-              }}
-            />
-          )} */}
-          {post.slug !== undefined && post.extract !== undefined && (
-            <div className={styles.read__container}>
-              <TextToSpeechButton
-                identifier={post.slug}
-                className={styles.read__button}
-                text={post.extract}
-              />
+              className={classNames(
+                styles.metadata__level,
+                styles.metadata__tags__item
+              )}
+            >
+              {post.level}
             </div>
           )}
-        </section>
+          {post.tags?.map((tag, index) => (
+            <Tag
+              key={index}
+              tag={tag}
+              className={styles.metadata__tags__item}
+            />
+          ))}
+        </div>
       </section>
       <InsetLink href={`/post/${post.slug}`} label={post.title ?? ""} />
     </article>

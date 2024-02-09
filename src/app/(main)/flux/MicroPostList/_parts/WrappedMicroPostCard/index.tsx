@@ -25,7 +25,10 @@ export default async function Wrapper({
   const response = await useCase?.execute({ slug: { eq: slug } });
 
   if (response.IsError) {
-    console.log("response:", response);
+    console.error(
+      "WrappedMicroPostList error",
+      JSON.stringify(response.Result)
+    );
     return;
   }
 

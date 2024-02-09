@@ -55,7 +55,7 @@ export default class ContentManagerSystemRepository
       });
 
       if (!response.ok) {
-        console.log(
+        console.info(
           "CMS Response was not ok:",
           response.status,
           response.statusText,
@@ -133,7 +133,7 @@ export default class ContentManagerSystemRepository
       });
 
       if (response.ok !== true) {
-        console.log(
+        console.info(
           "CMS Response was not ok.",
           response.status,
           response.statusText,

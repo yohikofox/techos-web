@@ -5,7 +5,6 @@ import { hasProperty } from "@lib/prototypes/object";
 import dayjs from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "querystring";
-import { useState } from "react";
 
 import DoubleRange from "./_parts/DoubleRange";
 import styles from "./styles.module.scss";
@@ -18,18 +17,13 @@ export interface RangedFacetProps {
 
 export default function Component({
   facet,
+  renderLabel = (value: number) => value.toString(),
   renderResults = (values: string[]) => values.join(","),
 }: RangedFacetProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [currentValue, setCurrentValue] = useState<number | undefined>(
-    undefined
-  );
-
   const onChange = (value: string) => {
-    setCurrentValue(Number(value));
-
     const seed: Record<string, string[]> = {};
     const query = [...searchParams.entries()].reduce((acc, [k, v]) => {
       if (k === facet.name) {
@@ -53,19 +47,18 @@ export default function Component({
     <div className={styles.container}>
       <h4>{facet.label}</h4>
       <div className={styles.item}>
-        {/* <span>{renderLabel(facet.min!)}</span> */}
+        <span>{renderLabel(facet.min!)}</span>
         <DoubleRange
           min={facet.min!}
           max={facet.max!}
           onChange={onChange}
-          value={currentValue}
           renderResults={renderResults}
         />
-        {/* <span>{renderLabel(facet.max!)}</span> */}
+        <span>{renderLabel(facet.max!)}</span>
       </div>
-      {/* <div className={styles.current__value}>
-        {currentValue && renderLabel(currentValue)}
-      </div> */}
+      <div className={styles.current__value}>
+        {/* {currentValue !== undefined && renderLabel(currentValue)} */}
+      </div>
     </div>
   );
 }

@@ -5,30 +5,37 @@ import { pictureDataSchema } from "./picture.dto";
 import { facetDistributionSchema, facetStats } from "./search-facet.dto";
 import { tagDataSchema } from "./tag.dto";
 
-export const searchPostHitSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  slug: z.string(),
-  content: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  publishedAt: z.string(),
-  start_at: z.string(),
-  picture: pictureDataSchema,
-  end_at: z.string().nullable().optional(),
-  extract: z.string().nullable().optional(),
-  author: authorDataSchema,
-  post_stat_list: z.object({
+export const searchPostHitSchema = z
+  .object({
+    _meilisearch_id: z.string(),
+    level: z.string().nullable().optional(),
+    writer: z.string().nullable().optional(),
+    THUMBNAIL_PICTURE: z.string().nullable().optional(),
+    facet_start_at: z.coerce.number().nullable().optional(),
     id: z.number(),
-    view_count: z.number(),
-    // views: z.number(),
-    // likes: z.number(),
-    // dislikes: z.number(),
-    // comments: z.number(),
-    // post_id: z.number(),
-  }),
-  tags: z.array(tagDataSchema).optional(),
-});
+    title: z.string(),
+    slug: z.string(),
+    content: z.string(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    publishedAt: z.string(),
+    start_at: z.string(),
+    picture: pictureDataSchema,
+    end_at: z.string().nullable().optional(),
+    extract: z.string().nullable().optional(),
+    author: authorDataSchema,
+    post_stat_list: z.object({
+      id: z.number(),
+      view_count: z.number(),
+      // views: z.number(),
+      // likes: z.number(),
+      // dislikes: z.number(),
+      // comments: z.number(),
+      // post_id: z.number(),
+    }),
+    tags: z.array(tagDataSchema).optional(),
+  })
+  .strict();
 
 export const searchPostResponseSchema = z.object({
   hits: z.array(searchPostHitSchema),

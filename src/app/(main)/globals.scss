@@ -44,6 +44,7 @@
     }
   }
 
+  font-size: calc(var(--metric-font-size) * 1.2);
 }
 
 @media (prefers-color-scheme: dark) {

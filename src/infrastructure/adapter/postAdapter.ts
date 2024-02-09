@@ -199,6 +199,8 @@ export default class PostAdapter
       post_stat_list: h.post_stat_list,
       slug: h.slug,
       start_at: h.start_at,
+      level: h.level ?? "",
+      end_at: h.end_at ?? "",
       tags: {
         items: h.tags,
       },

@@ -27,7 +27,7 @@ export default class RedisCacheHandler extends BaseCacheHandler {
     });
     client.on("connect", () => {
       this.setInitialized(true);
-      console.log("Redis client connected");
+      console.info("Redis client connected");
     });
 
     this.setCache(client);

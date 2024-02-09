@@ -38,7 +38,7 @@ export default class StoreRepository implements IStoreRepository {
       });
 
       if (!response.ok) {
-        console.log(
+        console.info(
           "Store response was not ok.",
           response.status,
           response.statusText
@@ -53,7 +53,7 @@ export default class StoreRepository implements IStoreRepository {
       const parseResult = schema.safeParse(json);
 
       if (parseResult.success !== true) {
-        console.log("GraphQL query error", parseResult.error.message);
+        console.info("GraphQL query error", parseResult.error.message);
         return Result.error(StoreResult.ERROR);
       }
 

@@ -41,6 +41,8 @@ export default class PostService implements IPostService {
       extract: post.extract ?? undefined,
       start_at: post.start_at,
       type: PostType.Article,
+      level: post.level ?? undefined,
+      end_at: post.end_at ?? undefined,
       author: {
         username: post.author.username,
         avatar:

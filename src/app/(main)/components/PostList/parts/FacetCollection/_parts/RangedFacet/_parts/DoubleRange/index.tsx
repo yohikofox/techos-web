@@ -22,7 +22,6 @@ export default function Component({
   const onLocalChange = useCallback(() => {
     (async function () {
       const result = renderResults([minValue.toString(), maxValue.toString()]);
-      console.log("DoubleRange:", result);
       onChange(result);
     })();
   }, [onChange, minValue, maxValue, renderResults]);

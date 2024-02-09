@@ -112,7 +112,7 @@ export default abstract class SearchEngineRepository<TResult>
       });
 
       if (!response.ok) {
-        console.log(
+        console.info(
           "Network response was not ok.",
           response.status,
           response.statusText,

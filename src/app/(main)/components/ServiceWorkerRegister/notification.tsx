@@ -34,13 +34,13 @@ export default function RegisterNotificationWorker() {
 
         navigator.serviceWorker.addEventListener("message", (event) => {
           if (event.source !== worker) return;
-          console.log("Received a message from service worker: ", event.data);
+          console.info("Received a message from service worker: ", event.data);
         });
 
-        console.log("Registration successful, scope is:", registration.scope);
+        console.info("Registration successful, scope is:", registration.scope);
       }
     } catch (error) {
-      console.log("Service worker registration failed, error:", error);
+      console.info("Service worker registration failed, error:", error);
     }
   };
 
