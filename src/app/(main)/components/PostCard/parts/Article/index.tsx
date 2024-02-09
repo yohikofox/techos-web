@@ -81,14 +81,14 @@ export default async function Article({ post }: PostCardProps) {
           </div>
         </section>
         <section className={styles.details__bottom}>
-          {post.extract !== undefined && (
+          {/* {post.extract !== undefined && (
             <div
               className={styles.abstract}
               dangerouslySetInnerHTML={{
                 __html: htmlExtract !== undefined ? htmlExtract : "",
               }}
             />
-          )}
+          )} */}
           {post.slug !== undefined && post.extract !== undefined && (
             <div className={styles.read__container}>
               <TextToSpeechButton

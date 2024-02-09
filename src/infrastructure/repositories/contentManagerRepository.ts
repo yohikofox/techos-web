@@ -136,7 +136,9 @@ export default class ContentManagerSystemRepository
         console.log(
           "CMS Response was not ok.",
           response.status,
-          response.statusText
+          response.statusText,
+          url,
+          JSON.stringify(request, null, 2)
         );
         return Result.error(ContentManagerSystemResult.HTTP_ENDPOINT_ERROR);
       }

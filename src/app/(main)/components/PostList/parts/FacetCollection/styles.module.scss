@@ -1,9 +1,15 @@
 .container {
   width: 100%;
-  border: 1px solid red;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 20px;
 
   .facet {}
+}
+
+
+@media screen and (min-width: 1024px) {
+  .container {
+    display: flex;
+  }
 }

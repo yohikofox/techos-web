@@ -11,7 +11,11 @@ export default function Component({ facet }: { facet: FacetedSearch }) {
 
   let type = FacetType.SIMPLE;
 
-  if (facet.min !== undefined && facet.max !== undefined) {
+  if (
+    facet.min !== undefined &&
+    facet.max !== undefined &&
+    facet.min !== facet.max
+  ) {
     type = FacetType.RANGED;
   }
 

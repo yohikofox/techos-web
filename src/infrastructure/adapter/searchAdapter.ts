@@ -44,7 +44,11 @@ export default abstract class SearchAdapter {
     index?: number;
     schema?: ZodTypeAny;
   }): Promise<
-    Promise<{ req: SearchEngineVariables; opts: SearchFetchOptions }>
+    Promise<{
+      req: SearchEngineVariables;
+      opts: SearchFetchOptions;
+      facetConfigs: FacetConfig[];
+    }>
   > {
     const facetListResponse =
       await this.searchRepository.getFilterableAttributes(this.indexName);
@@ -66,18 +70,27 @@ export default abstract class SearchAdapter {
     if (request?.payload !== undefined) {
       req.payload = request.payload;
     }
-    const filters = await this.searchService.createFiltersString(
-      request.filter
-    );
+    const fltrs = request.filter;
+
+    const contcat = fltrs?.filters;
+
+    if (contcat !== undefined) {
+      delete fltrs?.filters;
+    }
+
+    const filters = await this.searchService.createFiltersString(fltrs);
 
     if (filters !== undefined) {
-      req.filters = filters;
+      const parts = [filters, contcat as string].filter(
+        (f: string | undefined) => f !== undefined && f.trim() !== ""
+      );
+      req.filters = parts.join(" AND ");
     }
 
     const opts: SearchFetchOptions = {
       revalidate: CacheConstants.ONE_MINUTE,
       tags: [RevalidateTagConstants.SEARCH],
-      facets: facets.map((f: FacetConfig) => f.label),
+      facets: facets.map((f: FacetConfig) => f.name),
       limit: request.limit === undefined ? 0 : request.limit,
       offset: request.index === undefined ? 0 : request.index,
       schema: request.schema,
@@ -86,6 +99,7 @@ export default abstract class SearchAdapter {
     return {
       opts,
       req,
+      facetConfigs: facets,
     };
   }
 }

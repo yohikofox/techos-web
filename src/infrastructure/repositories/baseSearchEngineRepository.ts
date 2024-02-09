@@ -115,7 +115,9 @@ export default abstract class SearchEngineRepository<TResult>
         console.log(
           "Network response was not ok.",
           response.status,
-          response.statusText
+          response.statusText,
+          url,
+          JSON.stringify(body, null, 2)
         );
         return Result.error(SearchEngineResult.ERROR);
       }
