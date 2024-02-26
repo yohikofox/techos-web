@@ -146,3 +146,22 @@ upstream image response failed for /_next/static/media/logo.f769b4b3.png Respons
     at async D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\server\response-cache\index.js:90:36
     at async D:\ws\techos-web\node_modules\.pnpm\next@14.0.3_react-dom@18.2.0_react@18.2.0_sass@1.64.1\node_modules\next\dist\lib\batcher.js:41:32
 ```
+
+
+```sh
+2024-02-26 22:09:51   [blog] error:     Error: fetch failed                                                                                                           
+        at context.fetch (/app/node_modules/.pnpm/next@14.0.4_react-dom@18.2.0_react@18.2.0_sass@1.69.5/node_modules/next/dist/server/web/sandbox/context.js:272:38)      
+        at SessionMiddleware.run (/app/.next/server/src/middleware.js:2651:32)                                                                                            
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {                                                                                   
+    cause: Error: Client network socket disconnected before secure TLS connection was established                                                                       
+        at connResetException (node:internal/errors:720:14)                                                                                                             
+        at TLSSocket.onConnectEnd (node:_tls_wrap:1714:19)                                                                                                              
+        at TLSSocket.emit (node:events:529:35)                                                                                                                          
+        at endReadableNT (node:internal/streams/readable:1400:12)                                                                                                       
+        at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {                                                                                
+    code: 'ECONNRESET',                                                                                                                                               
+    path: undefined,                                                                                                                                                  
+    host: 'www-dev.techos.dev',                                                                                                                                       
+    port: 443,                                                                                                                                                        
+    localAddress: null  
+```
