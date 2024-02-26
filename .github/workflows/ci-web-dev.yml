@@ -43,13 +43,13 @@ jobs:
         with:
           push: true
           build-args: |
-            NEXT_PUBLIC_FRONT_URL=${{ secrets.FRONTEND_ENDPOINT }}
-            NEXT_PUBLIC_BUCKET_HOST=${{ secrets.BUCKET_HOST }}
+            NEXT_PUBLIC_FRONT_URL=${{ vars.FRONTEND_ENDPOINT }}
+            NEXT_PUBLIC_BUCKET_HOST=${{ vars.BUCKET_HOST }}
             JWT_KEY=${{ secrets.JWT_SECRET }}
             NEXT_TELEMETRY_DISABLED=1
-            CMS_ENDPOINT=${{ secrets.BACKEND_BASE_URL }}
+            CMS_ENDPOINT=${{ vars.BACKEND_BASE_URL }}
             CMS_API_KEY=${{ secrets.BACKEND_TOKEN }}
-            CMS_ENDPOINT_HOSTNAME=${{ secrets.BACKEND_HOSTNAME }}
+            CMS_ENDPOINT_HOSTNAME=${{ vars.BACKEND_HOSTNAME }}
             STORE_ENDPOINT=${{ vars.STORE_ENDPOINT }}
             STORE_API_KEY=${{ secrets.STORE_API_KEY }}
             BUILD_MODE=${{ vars.BUILD_MODE }}
