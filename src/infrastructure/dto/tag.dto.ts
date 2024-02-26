@@ -9,7 +9,7 @@ export const tagDataSchema = z
     slug: z.string(),
     background_color: z.string(),
     color: z.string(),
-    hero: heroDataSchema.optional(),
+    hero: heroDataSchema.optional().nullable(),
     createdAt: z.string(),
     updatedAt: z.string(),
     publishedAt: z.string(),
@@ -18,7 +18,7 @@ export const tagDataSchema = z
 
 export const tagInfosResponseSchema = z.object({
   tags: z.object({
-    data: z.array(tagDataSchema),
+    items: z.array(tagDataSchema),
   }),
 });
 

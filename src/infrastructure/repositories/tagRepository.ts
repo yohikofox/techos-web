@@ -42,11 +42,14 @@ export default class TagRepository implements ITagRepository {
       return response.transferError(TagInfosResult.ERROR);
     }
 
-    if (response.Value.tags === undefined) {
+    if (
+      response.Value.tags === undefined ||
+      response.Value.tags.items.length <= 0
+    ) {
       return response.transferError(TagInfosResult.NO_DATA_FOUND);
     }
 
-    const tag = response.Value.tags.data[0];
+    const tag = response.Value.tags.items[0];
 
     const result = await this.tagService.mapTag(tag);
 

@@ -35,11 +35,11 @@ const useTrackingWorker = ({
 
     worker.onerror = (event) => {
       if (event instanceof Event) {
-        console.log("🍎 Error message received from worker: ", event);
+        console.info("🍎 Error message received from worker: ", event);
         return event;
       }
 
-      console.log("🍎 Unexpected error: ", event);
+      console.info("🍎 Unexpected error: ", event);
       throw event;
     };
 
