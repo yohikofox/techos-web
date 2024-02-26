@@ -1,5 +1,6 @@
 import { FacetType } from "@infra/repositories/baseSearchEngineRepository";
 import { FacetedSearch } from "R/src/domain/search";
+import { Suspense } from "react";
 
 import { ServerComponent as ServerRangedFacet } from "../RangedFacet";
 import SimpleFacet from "../SimpleFacet";
@@ -35,7 +36,9 @@ export default function Component({ facet }: { facet: FacetedSearch }) {
 
   return (
     <div className={styles.facet__group}>
-      <Comp />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Comp />
+      </Suspense>
     </div>
   );
 }
