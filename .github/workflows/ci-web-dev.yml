@@ -1,4 +1,4 @@
-name: CI Internal Website Dev
+name: CI Internal Website Development
 
 on:
   workflow_dispatch:
