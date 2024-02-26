@@ -2,4 +2,7 @@
   border: 1px solid var(--color-border);
   padding: var(--metric-button-padding);
   border-radius: var(--metric-button-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

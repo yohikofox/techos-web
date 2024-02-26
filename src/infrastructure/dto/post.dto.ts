@@ -13,6 +13,8 @@ export const postDataSchema = z.object({
   content: z.string(),
   extract: z.string().optional().nullable(),
   start_at: z.string(),
+  end_at: z.string().optional().nullable(),
+  level: z.string().optional().nullable(),
   author: authorDataSchema,
   picture: pictureDataSchema.optional(),
   tags: z.object({

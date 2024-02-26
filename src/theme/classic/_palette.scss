@@ -74,6 +74,8 @@ $metrics: (
   radius: (small: $base-metric,
     medium: $base-metric * 2,
     large: $base-metric * 3,
+  ),
+  font:(size: 16px,
   )
 );
 

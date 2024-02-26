@@ -64,7 +64,7 @@ export default async function PostListRender({ page, query }: PostListProps) {
       <ServerSidePostCollection
         posts={posts}
         meta={postListResponse.Value.meta}
-        // facets={postListResponse.Value.facets}
+        facets={postListResponse.Value.facets}
       />
     </>
   );

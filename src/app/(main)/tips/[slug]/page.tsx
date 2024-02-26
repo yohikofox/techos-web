@@ -26,7 +26,7 @@ export default async function Page({ params: { slug } }: MicroPostPageProps) {
   const response = await useCase?.execute({ slug: { eq: slug } });
 
   if (response.IsError) {
-    console.log("response:", response);
+    console.error("Tips error", JSON.stringify(response.Result));
     redirect("/error/400");
   }
 

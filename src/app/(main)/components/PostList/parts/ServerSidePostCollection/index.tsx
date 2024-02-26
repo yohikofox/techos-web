@@ -2,6 +2,7 @@ import Meta from "@domain/meta";
 import { FacetedSearch, SearchItem } from "@domain/search";
 
 import PostCard from "../../../PostCard";
+import FacetCollection from "../FacetCollection";
 import Pagination from "../Pagination";
 import styles from "./styles.module.scss";
 
@@ -16,14 +17,12 @@ export default function Component({
   facets,
   meta,
 }: ServerSidePostCollectionProps) {
-  console.debug("🚀 ~ facets:", facets);
   return (
     <>
       <section className={styles.container}>
-        {/* <TextToSpeechInfos /> */}
-        {/* {facets && (
+        {facets && (
           <FacetCollection className={styles.facet__list} data={facets} />
-        )} */}
+        )}
         <section className={styles.post__list}>
           {posts.map((post, index) => {
             return (

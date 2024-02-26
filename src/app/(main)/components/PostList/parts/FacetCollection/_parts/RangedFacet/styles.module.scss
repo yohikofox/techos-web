@@ -3,6 +3,12 @@
   flex-direction: column;
   margin-bottom: 1rem;
 
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
   .item {
     display: flex;
   }

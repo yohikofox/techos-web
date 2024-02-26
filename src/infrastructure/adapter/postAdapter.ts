@@ -14,7 +14,11 @@ import { ISearchService } from "@infra/services/search.service";
 import { IPostRepository } from "@interfaces/IPostRepository";
 import { IndexNames, ISearchRepository } from "@interfaces/ISearchRepository";
 import { Result } from "@lib/result";
+import { FacetConfig } from "R/src/domain/facetConfig";
+import { FacetedSearch, FacetedValue } from "R/src/domain/search";
 
+import { FacetDistribution } from "../dto/search-facet.dto";
+import { FacetStats } from "./../dto/search-facet.dto";
 import SearchAdapter from "./searchAdapter";
 
 export default class PostAdapter
@@ -68,7 +72,7 @@ export default class PostAdapter
   async findPostList(
     request: PostListRequest
   ): Promise<Result<PostList, PostListResult>> {
-    const { req, opts } = await this.buildSearchRequest({
+    const { req, opts, facetConfigs } = await this.buildSearchRequest({
       payload: request.payload,
       filter: request.filter,
       limit: request.limit,
@@ -80,10 +84,19 @@ export default class PostAdapter
       console.warn("limit is 0, returning empty search");
       return Result.ok();
     }
+
     const searchEngineResponse = await this.postSearchRepository.search(
       req,
       opts
     );
+
+    if (searchEngineResponse.IsError) {
+      console.error(
+        "🚀 ~ PostAdapter ~ findPostList ~ searchEngineResponse:",
+        searchEngineResponse.Result
+      );
+      return searchEngineResponse.transferError(PostListResult.NO_DATA_FOUND);
+    }
 
     const posts = await Promise.all(
       searchEngineResponse.Value.hits.map(async (h: HitData) =>
@@ -91,13 +104,26 @@ export default class PostAdapter
       )
     );
 
+    const facets: FacetDistribution =
+      searchEngineResponse.Value.facetDistribution ?? {};
+
+    const facetStats = searchEngineResponse.Value.facetStats ?? {};
+
     const { limit, offset, estimatedTotalHits } = searchEngineResponse.Value;
 
     const currentPage = Math.floor(offset / limit) + 1;
     const pageCount = Math.ceil(estimatedTotalHits / limit);
 
+    const mappedFacets = await this.mapFacetConfigToFacetedSearch(
+      facets,
+      facetConfigs,
+      facetStats,
+      request.filter
+    );
+
     const result: PostList = {
       posts,
+      facets: mappedFacets,
       meta: {
         pagination: {
           total: estimatedTotalHits,
@@ -111,6 +137,58 @@ export default class PostAdapter
 
     return Result.ok(result);
   }
+  async mapFacetConfigToFacetedSearch(
+    facets: FacetDistribution,
+    facetConfigs: FacetConfig[],
+    facetStats: FacetStats,
+    filters: Record<string, string | string[]> = {}
+  ): Promise<FacetedSearch[] | undefined> {
+    const result: FacetedSearch[] = [];
+
+    Object.keys(facets).forEach((key) => {
+      const facet = facets[key];
+      const config = facetConfigs.find((f) => f.name === key);
+      if (!config) {
+        return;
+      }
+      const items = Object.keys(facet).map((k) => {
+        const item: FacetedValue = {
+          label: k,
+          count: facet[k],
+        };
+        return item;
+      });
+
+      const stats = facetStats[key];
+
+      if (
+        filters[key] === undefined &&
+        stats !== undefined &&
+        stats.max === stats.min
+      ) {
+        return;
+      }
+
+      if (config.multiple !== true && filters[key] !== undefined) {
+        if (items.length > 0) {
+          return;
+        }
+      }
+
+      result.push({
+        name: config.name,
+        label: config.label,
+        values: items,
+        autocomplete: config.autocomplete,
+        dataType: config.dataType,
+        max: stats !== undefined ? stats.max : undefined,
+        min: stats !== undefined ? stats.min : undefined,
+        multiple: config.multiple,
+      });
+    });
+
+    return result;
+  }
 
   async mapHitToPost(h: HitData): Promise<Post> {
     return await this.postService.mapPost({
@@ -121,6 +199,8 @@ export default class PostAdapter
       post_stat_list: h.post_stat_list,
       slug: h.slug,
       start_at: h.start_at,
+      level: h.level ?? "",
+      end_at: h.end_at ?? "",
       tags: {
         items: h.tags,
       },

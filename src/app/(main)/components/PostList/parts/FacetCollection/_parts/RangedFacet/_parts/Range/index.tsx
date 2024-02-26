@@ -1,3 +1,4 @@
+"use client";
 import classNames from "classnames";
 import { useState } from "react";
 
@@ -63,10 +64,11 @@ export default function Range({
 
   // }, [router, searchParams])
 
-  const localOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setLocalValue(Number(e.target.value));
-    onChange(e.target.value);
+  const onMouseUp: React.MouseEventHandler<HTMLInputElement> = (e) => {
+    onChange(localValue?.toString() ?? "");
+  };
+  const onTouchEnd: React.TouchEventHandler<HTMLInputElement> = (e) => {
+    onChange(localValue?.toString() ?? "");
   };
 
   return (
@@ -78,7 +80,11 @@ export default function Range({
         className={classNames(className)}
         value={localValue}
         step={step !== undefined ? step : (max - min) / 10}
-        onChange={localOnChange}
+        onMouseUp={onMouseUp}
+        onTouchEnd={onTouchEnd}
+        onChange={(e) => {
+          setLocalValue(Number(e.target.value));
+        }}
       />
     </>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import Range, { RangeProps } from "../Range";
 import styles from "./styles.module.scss";
@@ -19,7 +19,7 @@ export default function Component({
   const [minValue, setMinValue] = useState<number>(min);
   const [maxValue, setMaxValue] = useState<number>(max);
 
-  useEffect(() => {
+  const onLocalChange = useCallback(() => {
     (async function () {
       const result = renderResults([minValue.toString(), maxValue.toString()]);
       onChange(result);
@@ -28,12 +28,12 @@ export default function Component({
 
   const onMinChange = (value: string) => {
     setMinValue(Number(value));
-    onChange(value);
+    onLocalChange();
   };
 
   const onMaxChange = (value: string) => {
     setMaxValue(Number(value));
-    onChange(value);
+    onLocalChange();
   };
 
   return (

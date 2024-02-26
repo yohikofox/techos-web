@@ -23,9 +23,6 @@ export interface FacetItemProps {
 export default function Component({ data, className }: FacetItemProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  // const q = {
-  //   [data.key]: data.label,
-  // };
 
   const selectValue = useCallback(
     async (d: FacetItemData) => {
@@ -57,7 +54,7 @@ export default function Component({ data, className }: FacetItemProps) {
         }
       }
 
-      router.push(`/posts/1?${qs.stringify(newQuery)}`);
+      router.push(`/posts/1?${qs.stringify(newQuery)}#facet-container`);
     },
     [router, searchParams]
   );

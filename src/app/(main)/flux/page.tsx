@@ -21,7 +21,7 @@ export default async function Page() {
   });
 
   if (response.IsError) {
-    console.log(response.Result);
+    console.error("Flux error", JSON.stringify(response.Result));
     redirect("/error/400");
   }
 
