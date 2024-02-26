@@ -47,18 +47,18 @@ export default function Component({
     <div className={styles.container}>
       <h4>{facet.label}</h4>
       <div className={styles.item}>
-        <span>{renderLabel(facet.min!)}</span>
+        {/* <span>{renderLabel(facet.min!)}</span> */}
         <DoubleRange
           min={facet.min!}
           max={facet.max!}
           onChange={onChange}
           renderResults={renderResults}
         />
-        <span>{renderLabel(facet.max!)}</span>
+        {/* <span>{renderLabel(facet.max!)}</span> */}
       </div>
-      <div className={styles.current__value}>
-        {/* {currentValue !== undefined && renderLabel(currentValue)} */}
-      </div>
+      {/* <div className={styles.current__value}>
+        {currentValue !== undefined && renderLabel(currentValue)}
+      </div> */}
     </div>
   );
 }

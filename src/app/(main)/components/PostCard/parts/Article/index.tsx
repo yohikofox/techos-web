@@ -61,23 +61,25 @@ export default async function Article({ post }: PostCardProps) {
           </span>
         </section>
         <div className={styles.metadata__tags}>
-          {post.level !== undefined && (
-            <div
-              className={classNames(
-                styles.metadata__level,
-                styles.metadata__tags__item
-              )}
-            >
-              {post.level}
-            </div>
-          )}
-          {post.tags?.map((tag, index) => (
-            <Tag
-              key={index}
-              tag={tag}
-              className={styles.metadata__tags__item}
-            />
-          ))}
+          <div className={styles.metadata__container}>
+            {post.level !== undefined && (
+              <div
+                className={classNames(
+                  styles.metadata__level,
+                  styles.metadata__tags__item
+                )}
+              >
+                {post.level}
+              </div>
+            )}
+            {post.tags?.map((tag, index) => (
+              <Tag
+                key={index}
+                tag={tag}
+                className={styles.metadata__tags__item}
+              />
+            ))}
+          </div>
         </div>
       </section>
       <InsetLink href={`/post/${post.slug}`} label={post.title ?? ""} />

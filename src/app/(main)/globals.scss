@@ -44,8 +44,15 @@
     }
   }
 
-  font-size: calc(var(--metric-font-size) * 1.2);
+  font-size: calc(var(--metric-font-size) * .8);
+  --min-tile-width:320px;
 }
+
+// @media screen and (min-width: 1500px) {
+//   :root {
+//     --tile-width: 350px;
+//   }
+// }
 
 @media (prefers-color-scheme: dark) {
   :root {
